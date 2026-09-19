@@ -121,14 +121,14 @@ export const Settings: React.FC<SettingsProps> = ({
 
         {/* Search Header */}
         <div className="pt-2">
-          {/* Search Bar Capsule styled like Find and Search */}
+          {/* Search Bar Capsule styled with channel card border */}
           <div 
             id="settings-search-container"
             onClick={() => {
               setIsFocused(true);
               inputRef.current?.focus();
             }}
-            className="relative w-full h-[48px] flex items-center px-4 rounded-full bg-white/15 backdrop-blur-md border border-transparent hover:border-white/40 focus-within:border-white/65 text-sm transition-all shadow-lg overflow-hidden cursor-text select-none"
+            className="relative w-full h-[48px] flex items-center px-4 rounded-full bg-white/15 backdrop-blur-md text-sm transition-all shadow-lg overflow-hidden cursor-text select-none"
           >
             <motion.div 
               animate={{
@@ -946,6 +946,10 @@ export const Settings: React.FC<SettingsProps> = ({
       {/* Experimental Features Section */}
       {(matchesSearch('Experimental') ||
         matchesSearch('Experimental Features') ||
+        matchesSearch('Native keyboard') ||
+        matchesSearch('Native') ||
+        matchesSearch('Bàn phím') ||
+        matchesSearch('Keyboard') ||
         matchesSearch('Immersive') ||
         matchesSearch('Immersive search experience') ||
         matchesSearch('Search UI that looks immersive') ||
@@ -972,6 +976,47 @@ export const Settings: React.FC<SettingsProps> = ({
           </div>
 
           <div className="space-y-3 pt-1">
+            {/* Toggle: Native keyboard */}
+            {(matchesSearch('Native keyboard') ||
+              matchesSearch('Native') ||
+              matchesSearch('Bàn phím') ||
+              matchesSearch('Keyboard') ||
+              matchesSearch('bàn phím của ứng dụng') ||
+              matchesSearch('thiết bị cảm ứng') ||
+              matchesSearch('Thử nghiệm') ||
+              matchesSearch('Experimental')) && (
+              <div 
+                id="setting-experimental-native-keyboard"
+                onClick={() => updateDraft('nativeKeyboard', !draftSettings.nativeKeyboard)}
+                className="group p-3.5 sm:p-4 rounded-[20px] flex items-center justify-between gap-4 cursor-pointer hover:bg-white/5 transition-colors"
+              >
+                <div>
+                  <div className="font-semibold text-white text-sm">
+                    Native keyboard
+                  </div>
+                  <div className="text-xs text-[#9CA3AF] mt-1 leading-normal">
+                    Sử dụng bàn phím của ứng dụng thay vì bàn phím của thiết bị (chỉ áp dụng cho thiết bị cảm ứng)
+                  </div>
+                </div>
+
+                <button
+                  id="toggle-native-keyboard"
+                  type="button"
+                  role="switch"
+                  aria-checked={draftSettings.nativeKeyboard}
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    updateDraft('nativeKeyboard', !draftSettings.nativeKeyboard);
+                  }}
+                  className={`toggle-switch-btn relative w-[66px] h-7 rounded-full p-[3px] transition-colors duration-200 ease-in-out cursor-pointer shrink-0 flex items-center ${
+                    draftSettings.nativeKeyboard ? 'bg-[#E6005A]' : 'bg-[#E4E4E7] dark:bg-[#3F3F46]'
+                  }`}
+                >
+                  <span className="toggle-switch-thumb block w-[32px] h-[22px] rounded-full bg-white border border-black/10 dark:border-white/10 shadow-md pointer-events-none" />
+                </button>
+              </div>
+            )}
+
             {/* Toggle: Immersive search experience */}
             <div 
               id="setting-experimental-immersive-search"

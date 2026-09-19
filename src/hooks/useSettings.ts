@@ -20,6 +20,7 @@ export interface SystemSettings {
   animateModals: boolean;
   animatePageTransitions: boolean;
   immersiveSearch: boolean;
+  nativeKeyboard: boolean;
   immersiveSidebar: boolean;
   sidebarPosition: 'left' | 'right';
   navigationMode: 'sidebar' | 'topbar' | 'floaty' | 'immersive_floaty';
@@ -55,6 +56,7 @@ export const DEFAULT_SETTINGS: SystemSettings = {
   animateModals: true,
   animatePageTransitions: true,
   immersiveSearch: true,
+  nativeKeyboard: false,
   immersiveSidebar: false,
   sidebarPosition: 'left',
   navigationMode: getDefaultNavigationMode(),
@@ -116,6 +118,7 @@ export const getStoredSettings = (): SystemSettings => {
           ? (typeof parsed.floatingSearchBar === 'boolean' ? parsed.floatingSearchBar : true)
           : true,
         floatingSearchBarVersion: 1,
+        nativeKeyboard: typeof parsed.nativeKeyboard === 'boolean' ? parsed.nativeKeyboard : DEFAULT_SETTINGS.nativeKeyboard,
         superDarkMode: typeof parsed.superDarkMode === 'boolean' ? parsed.superDarkMode : DEFAULT_SETTINGS.superDarkMode,
         customKeybinds: {
           ...DEFAULT_KEYBINDS,

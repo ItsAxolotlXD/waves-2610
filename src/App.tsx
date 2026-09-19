@@ -13,6 +13,8 @@ import { FindWordsBar } from './components/FindWordsBar';
 import { AddStreamModal } from './components/AddStreamModal';
 import { TextToSpeechPlayer } from './components/TextToSpeechPlayer';
 import { FloatingSearchBar } from './components/FloatingSearchBar';
+import { NativeKeyboard } from './components/NativeKeyboard';
+import { NativeKeyboardProvider } from './context/NativeKeyboardContext';
 import { Home } from './pages/Home';
 import { LiveTV } from './pages/LiveTV';
 import { TestChannels } from './pages/TestChannels';
@@ -484,8 +486,9 @@ export default function App() {
   };
 
   return (
-    <div
-      data-immersive-sidebar={settings.immersiveSidebar}
+    <NativeKeyboardProvider>
+      <div
+        data-immersive-sidebar={settings.immersiveSidebar}
       data-sidebar-position={settings.sidebarPosition}
       className={`min-h-screen ${settings.superDarkMode ? 'bg-black' : 'bg-transparent'} text-[#E0E0E6] flex font-sans selection:bg-[#C83DFF] selection:text-white relative`}
     >
@@ -675,6 +678,10 @@ export default function App() {
         isOpen={isUnderConstructionOpen}
         onClose={() => setIsUnderConstructionOpen(false)}
       />
+
+      {/* App Native Virtual Keyboard for Touch Devices */}
+      <NativeKeyboard />
     </div>
+  </NativeKeyboardProvider>
   );
 }

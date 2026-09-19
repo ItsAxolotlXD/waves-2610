@@ -1,6 +1,7 @@
 import React, { useRef, useState, useEffect, useCallback } from 'react';
 import { X, ChevronUp, ChevronDown } from 'lucide-react';
 import { useVoiceSearch } from '../hooks/useVoiceSearch';
+import { useNativeKeyboard } from '../context/NativeKeyboardContext';
 
 interface FloatingSearchBarProps {
   currentRoute: string;
@@ -22,6 +23,8 @@ export const FloatingSearchBar: React.FC<FloatingSearchBarProps> = ({
   const [isFocused, setIsFocused] = useState(false);
   const [matchCount, setMatchCount] = useState(0);
   const [currentMatchIndex, setCurrentMatchIndex] = useState(0);
+
+  const { isOpen: isKeyboardOpen, keyboardHeight } = useNativeKeyboard();
 
   const isArticlePage = currentRoute.startsWith('/news/') && currentRoute !== '/news';
   const isHome = currentRoute === '/' || currentRoute === '/home';
@@ -240,14 +243,19 @@ export const FloatingSearchBar: React.FC<FloatingSearchBarProps> = ({
         <div className="progressive-blur-gradient" />
       </div>
 
-      {/* 2. Floating Search Bar Container with Search Pill */}
+      {/* 2. Floating Search Bar Container with Search Pill (smoothly pushes above native keyboard like Image 2) */}
       <div
         id="floating-search-bar-container"
-        style={{ fontFamily: "'Inter', 'Integer', system-ui, -apple-system, sans-serif" }}
-        className="fixed bottom-3 sm:bottom-5 left-1/2 -translate-x-1/2 z-40 flex flex-col items-center pointer-events-none select-none w-auto max-w-[100vw] px-2 font-['Inter','Integer',sans-serif]"
+        style={{
+          fontFamily: "'Inter', 'Integer', system-ui, -apple-system, sans-serif",
+          bottom: isKeyboardOpen ? `${keyboardHeight + 12}px` : undefined,
+          transition: 'bottom 0.42s cubic-bezier(0.22, 1, 0.36, 1)',
+        }}
+        className={`fixed ${isKeyboardOpen ? '' : 'bottom-3 sm:bottom-5'} left-1/2 -translate-x-1/2 z-40 flex flex-col items-center pointer-events-none select-none w-auto max-w-[100vw] px-2 font-['Inter','Integer',sans-serif]`}
       >
-        {/* Floating Search Bar Pill with Backdrop Blur and 20% Opacity */}
+        {/* Floating Search Bar Pill with Backdrop Blur, 20% Opacity and Channel Card Border */}
         <div
+          id="floating-search-bar-pill"
           onClick={() => inputRef.current?.focus()}
           style={{
             backgroundColor: 'rgba(255, 255, 255, 0.20)',
@@ -258,10 +266,10 @@ export const FloatingSearchBar: React.FC<FloatingSearchBarProps> = ({
             isArticlePage && searchQuery.trim()
               ? 'w-[92vw] max-w-[340px] sm:max-w-[400px] md:max-w-[440px]'
               : 'w-[84vw] max-w-[280px] sm:max-w-[320px] md:max-w-[340px]'
-          } h-[44px] sm:h-[46px] px-3 sm:px-3.5 rounded-full border transition-all duration-200 cursor-text shadow-[0_8px_32px_rgba(0,0,0,0.35)] pointer-events-auto ${
+          } h-[44px] sm:h-[46px] px-3 sm:px-3.5 rounded-full transition-all duration-200 cursor-text shadow-[0_8px_32px_rgba(0,0,0,0.35)] pointer-events-auto ${
             isFocused || isListening
-              ? 'border-white/40 ring-2 ring-white/20 shadow-[0_10px_36px_rgba(0,0,0,0.45)]'
-              : 'border-white/20 hover:border-white/30 hover:shadow-[0_9px_34px_rgba(0,0,0,0.40)]'
+              ? 'ring-2 ring-white/25 shadow-[0_10px_36px_rgba(0,0,0,0.45)]'
+              : 'hover:shadow-[0_9px_34px_rgba(0,0,0,0.40)]'
           }`}
         >
           {/* SF Symbol Search Icon */}

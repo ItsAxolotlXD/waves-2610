@@ -330,17 +330,18 @@ html.light-mode[data-immersive-sidebar="true"][data-sidebar-position="right"] #w
   background: linear-gradient(270deg, rgba(255, 255, 255, 0.40) 0%, rgba(255, 255, 255, 0.30) 58%, rgba(255, 255, 255, 0.08) 100%) !important;
 }
 
-/* Sidebar Spotlight Search Button: styled with 15% white opacity like the Find and search bar */
+/* Sidebar Spotlight Search Button: styled with channel card border effect */
 #btn-spotlight-search,
 #btn-mobile-spotlight-search,
 #btn-spotlight-search-mini {
   background-color: rgba(255, 255, 255, 0.15) !important;
   background-image: none !important;
-  border: 1px solid transparent !important;
+  border: none !important;
   box-shadow: 0 4px 14px rgba(0, 0, 0, 0.25) !important;
   backdrop-filter: blur(16px) !important;
   -webkit-backdrop-filter: blur(16px) !important;
   transition: all 0.2s ease !important;
+  position: relative !important;
 }
 
 #btn-spotlight-search:hover,
@@ -348,7 +349,7 @@ html.light-mode[data-immersive-sidebar="true"][data-sidebar-position="right"] #w
 #btn-spotlight-search-mini:hover {
   background-color: rgba(255, 255, 255, 0.22) !important;
   background-image: none !important;
-  border: 1px solid rgba(255, 255, 255, 0.45) !important;
+  border: none !important;
   box-shadow: 0 5px 18px rgba(0, 0, 0, 0.35) !important;
 }
 
@@ -403,11 +404,16 @@ html.light-mode[data-immersive-sidebar="true"][data-sidebar-position="right"] #w
   box-shadow: 0 0 18px rgba(230, 0, 90, 0.35), inset 0 1px 1px 0 rgba(255, 255, 255, 0.25) !important;
 }
 
-/* Settings Search Container: styled exactly like Find and Search */
+/* Settings Search Container & Floating Search Bar Pill: styled with channel card border */
+#settings-search-container,
+#floating-search-bar-pill {
+  position: relative !important;
+  border: none !important;
+}
+
 #settings-search-container {
   background-color: rgba(255, 255, 255, 0.15) !important;
   background-image: none !important;
-  border: 1px solid transparent !important;
   box-shadow: 0 4px 14px rgba(0, 0, 0, 0.25) !important;
   backdrop-filter: blur(16px) !important;
   -webkit-backdrop-filter: blur(16px) !important;
@@ -417,32 +423,32 @@ html.light-mode[data-immersive-sidebar="true"][data-sidebar-position="right"] #w
 #settings-search-container:hover {
   background-color: rgba(255, 255, 255, 0.20) !important;
   background-image: none !important;
-  border: 1px solid rgba(255, 255, 255, 0.40) !important;
+  border: none !important;
   box-shadow: 0 5px 18px rgba(0, 0, 0, 0.35) !important;
 }
 
 #settings-search-container:focus-within {
   background-color: rgba(255, 255, 255, 0.22) !important;
   background-image: none !important;
-  border: 1px solid rgba(255, 255, 255, 0.65) !important;
+  border: none !important;
   box-shadow: 0 6px 20px rgba(0, 0, 0, 0.40) !important;
 }
 
 html.light-mode #settings-search-container {
   background-color: rgba(0, 0, 0, 0.06) !important;
   background-image: none !important;
-  border: 1px solid rgba(0, 0, 0, 0.10) !important;
+  border: none !important;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05) !important;
 }
 
 html.light-mode #settings-search-container:hover {
   background-color: rgba(0, 0, 0, 0.09) !important;
-  border: 1px solid rgba(0, 0, 0, 0.22) !important;
+  border: none !important;
 }
 
 html.light-mode #settings-search-container:focus-within {
   background-color: rgba(0, 0, 0, 0.10) !important;
-  border: 1px solid rgba(0, 0, 0, 0.40) !important;
+  border: none !important;
 }
 
 #btn-close-immersive-search:hover {
@@ -1060,7 +1066,12 @@ html.light-mode #floating-search-build-info .build-info-line-2 {
 #btn-changelogs-read::after,
 #btn-test-vplay-switch::after,
 button[role="switch"]::after,
-.toggle-switch-btn::after {
+.toggle-switch-btn::after,
+#settings-search-container::after,
+#btn-spotlight-search::after,
+#btn-mobile-spotlight-search::after,
+#btn-spotlight-search-mini::after,
+#floating-search-bar-pill::after {
   content: "";
   position: absolute;
   inset: 0;
@@ -1108,7 +1119,12 @@ button[role="switch"]::after,
 #btn-changelogs-read:hover::after,
 #btn-test-vplay-switch:hover::after,
 button[role="switch"]:hover::after,
-.toggle-switch-btn:hover::after {
+.toggle-switch-btn:hover::after,
+#settings-search-container:hover::after,
+#btn-spotlight-search:hover::after,
+#btn-mobile-spotlight-search:hover::after,
+#btn-spotlight-search-mini:hover::after,
+#floating-search-bar-pill:hover::after {
   border-color: rgba(255, 255, 255, 0.55);
   border-top: 1px solid rgba(255, 255, 255, 0.95);
   border-bottom: 1px solid rgba(255, 255, 255, 0.55);
@@ -2016,10 +2032,15 @@ html.light-mode #btn-hero-watch-now svg {
   fill: #FFFFFF !important;
 }
 
-/* Recommended Channel Cards & Live TV Channel Cards in Light Mode */
+/* Recommended Channel Cards, Live TV Cards & Search Bars in Light Mode */
 html.light-mode [id^="recommended-channel-"],
 html.light-mode [id^="livetv-channel-card-"]:not(.is-selected),
-html.light-mode [id^="test-channel-card-"]:not(.is-selected) {
+html.light-mode [id^="test-channel-card-"]:not(.is-selected),
+html.light-mode #settings-search-container,
+html.light-mode #btn-spotlight-search,
+html.light-mode #btn-mobile-spotlight-search,
+html.light-mode #btn-spotlight-search-mini,
+html.light-mode #floating-search-bar-pill {
   box-sizing: border-box !important;
   border: 3.5px solid transparent !important;
   background-image: 
@@ -2035,7 +2056,12 @@ html.light-mode [id^="test-channel-card-"]:not(.is-selected) {
 
 html.light-mode [id^="recommended-channel-"]:hover,
 html.light-mode [id^="livetv-channel-card-"]:not(.is-selected):hover,
-html.light-mode [id^="test-channel-card-"]:not(.is-selected):hover {
+html.light-mode [id^="test-channel-card-"]:not(.is-selected):hover,
+html.light-mode #settings-search-container:hover,
+html.light-mode #btn-spotlight-search:hover,
+html.light-mode #btn-mobile-spotlight-search:hover,
+html.light-mode #btn-spotlight-search-mini:hover,
+html.light-mode #floating-search-bar-pill:hover {
   box-sizing: border-box !important;
   border: 3.5px solid rgba(0, 0, 0, 0.2) !important;
   background-image: 
