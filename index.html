@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="vi" class="dark">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script>
+      (function() {
+        try {
+          var saved = localStorage.getItem('waves_system_settings');
+          var fontScaleMap = ['0.78', '0.88', '1', '1.12', '1.24'];
+          var scaleIdx = 2; // Default: Trung bình (1)
+          if (saved) {
+            var parsed = JSON.parse(saved);
+            if (typeof parsed.fontScale === 'number') {
+              scaleIdx = parsed.fontScale;
+              if (parsed.fontScaleVersion !== 2) {
+                if (scaleIdx === 1) scaleIdx = 2;
+                else if (scaleIdx === 0) scaleIdx = 1;
+                else if (scaleIdx === 2) scaleIdx = 3;
+                else if (scaleIdx === 3) scaleIdx = 4;
+                else scaleIdx = 2;
+              }
+            }
+          }
+          var scaleVal = fontScaleMap[scaleIdx] || '1';
+          document.documentElement.style.setProperty('--waves-font-scale', scaleVal);
+
+          // Force dark mode exclusively
+          document.documentElement.classList.remove('light-mode');
+          document.documentElement.classList.add('dark');
+        } catch(e) {
+          document.documentElement.classList.remove('light-mode');
+          document.documentElement.classList.add('dark');
+        }
+      })();
+    </script>
+    <title>Vplay</title>
+    <meta name="description" content="Cộng đồng dành cho người yêu thích, theo dõi và lưu trữ nội dung truyền hình Việt Nam." />
+    <link rel="icon" type="image/png" href="https://static.wikia.nocookie.net/ep-deo/images/4/4b/Vplay_no_wordmark.png/revision/latest/scale-to-width-down/1000?cb=20260829062616" />
+    <link rel="apple-touch-icon" href="https://static.wikia.nocookie.net/ep-deo/images/4/4b/Vplay_no_wordmark.png/revision/latest/scale-to-width-down/1000?cb=20260829062616" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Alata&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Google+Sans:wght@400;500;700&display=swap">
+    <meta property="og:title" content="Vplay" />
+    <meta property="og:description" content="Nền tảng cộng đồng dành cho những người yêu thích, theo dõi và lưu trữ nội dung truyền hình Việt Nam." />
+    <meta property="og:type" content="website" />
+  </head>
+  <body class="bg-[#0f0712] min-h-screen text-[#F3F4F6] antialiased selection:bg-[#E6005A] selection:text-white font-sans">
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>
+
