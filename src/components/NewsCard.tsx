@@ -15,8 +15,9 @@ export const NewsCard: React.FC<NewsCardProps> = ({ article, onClick }) => {
 
   return (
     <div
+      id={`news-card-${article.slug}`}
       onClick={() => onClick(article)}
-      className="group rounded-[24px] bg-white dark:bg-[#1E1E22] border border-[#E5E7EB] dark:border-[#2D2D35] hover:border-[#E50914]/60 hover:bg-[#F9FAFB] dark:hover:bg-[#25252C] transition-all overflow-hidden flex flex-col justify-between cursor-pointer shadow-sm hover:shadow-lg hover:scale-[1.01]"
+      className="news-card group relative rounded-[24px] bg-white dark:bg-[#1E1E22] hover:bg-[#F9FAFB] dark:hover:bg-[#25252C] transition-all overflow-hidden flex flex-col justify-between cursor-pointer shadow-sm hover:shadow-lg hover:scale-[1.01] border-none"
     >
       {/* Cover Image */}
       <div className="relative h-44 sm:h-48 overflow-hidden">
@@ -53,7 +54,7 @@ export const NewsCard: React.FC<NewsCardProps> = ({ article, onClick }) => {
             e.stopPropagation();
             toggleBookmarkNews(article.slug);
           }}
-          className={`absolute top-3 right-3 w-8 h-8 rounded-full flex items-center justify-center backdrop-blur-md border transition-colors ${
+          className={`absolute top-3 right-3 z-30 w-8 h-8 rounded-full flex items-center justify-center backdrop-blur-md border transition-colors ${
             bookmarked 
               ? 'bg-[#E50914] text-white border-[#E50914]' 
               : 'bg-black/60 text-[#A1A1AA] hover:text-white border-white/10'

@@ -25,6 +25,7 @@ export interface SystemSettings {
   navigationMode: 'sidebar' | 'topbar' | 'floaty' | 'immersive_floaty';
   navModeVersion?: number;
   floatingSearchBar: boolean;
+  floatingSearchBarVersion?: number;
   developerMode: boolean;
   customKeybinds: CustomKeybinds;
 }
@@ -58,7 +59,8 @@ export const DEFAULT_SETTINGS: SystemSettings = {
   sidebarPosition: 'left',
   navigationMode: getDefaultNavigationMode(),
   navModeVersion: 2,
-  floatingSearchBar: false,
+  floatingSearchBar: true,
+  floatingSearchBarVersion: 1,
   developerMode: false,
   customKeybinds: DEFAULT_KEYBINDS,
 };
@@ -110,7 +112,10 @@ export const getStoredSettings = (): SystemSettings => {
         immersiveSearchVersion: 2,
         navigationMode: navigationMode || DEFAULT_SETTINGS.navigationMode,
         navModeVersion: 2,
-        floatingSearchBar: typeof parsed.floatingSearchBar === 'boolean' ? parsed.floatingSearchBar : DEFAULT_SETTINGS.floatingSearchBar,
+        floatingSearchBar: parsed.floatingSearchBarVersion === 1
+          ? (typeof parsed.floatingSearchBar === 'boolean' ? parsed.floatingSearchBar : true)
+          : true,
+        floatingSearchBarVersion: 1,
         superDarkMode: typeof parsed.superDarkMode === 'boolean' ? parsed.superDarkMode : DEFAULT_SETTINGS.superDarkMode,
         customKeybinds: {
           ...DEFAULT_KEYBINDS,

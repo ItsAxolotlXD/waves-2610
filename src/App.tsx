@@ -115,8 +115,8 @@ export default function App() {
     }
   }, [currentChannel]);
 
-  // Modals state
-  const [isWelcomeModalOpen, setIsWelcomeModalOpen] = useState(false);
+  // Modals state (Changelogs popup shows on web launch)
+  const [isWelcomeModalOpen, setIsWelcomeModalOpen] = useState(true);
   const [isUnderConstructionOpen, setIsUnderConstructionOpen] = useState(false);
   const [isSpotlightOpen, setIsSpotlightOpen] = useState(false);
   const [isCustomStreamModalOpen, setIsCustomStreamModalOpen] = useState(false);
@@ -542,7 +542,15 @@ export default function App() {
             setTtsArticle(art);
             setIsTtsOpen(true);
           }}
-          onOpenFindWords={() => setIsFindWordsOpen(true)}
+          onOpenFindWords={() => {
+            const floatInput = document.getElementById('floating-search-input') as HTMLInputElement | null;
+            if (floatInput && settings.floatingSearchBar) {
+              floatInput.focus();
+              floatInput.select?.();
+            } else {
+              setIsFindWordsOpen(true);
+            }
+          }}
           onOpenAddStream={() => setIsAddStreamOpen(true)}
           onImportChannels={handleImportPlaylist}
           onOpenNotifications={() => setIsUnderConstructionOpen(true)}

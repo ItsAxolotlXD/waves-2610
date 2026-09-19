@@ -1291,15 +1291,15 @@ export const Settings: React.FC<SettingsProps> = ({
                 {/* Divider between Changelogs setting and update information */}
                 <hr className="border-white/10 mx-3 sm:mx-4" />
 
-                {/* 2 lines under Changelogs: Software Update left & Codename: WinterM1 right; Software Build left & 26.10.0_devb1 right */}
+                {/* 2 lines under Changelogs: Software Update left & 26.10.0 right; Software Build left & 26W1001a right */}
                 <div className="px-4 py-1.5 flex flex-col gap-2 select-text text-sm sm:text-[15px]">
                   <div className="flex items-center justify-between">
                     <span className="font-medium text-white">Software Update</span>
-                    <span className="font-medium text-[#9CA3AF]">Codename: WinterM1</span>
+                    <span className="font-medium text-[#9CA3AF]">26.10.0</span>
                   </div>
                   <div className="flex items-center justify-between">
                     <span className="font-medium text-white">Software Build</span>
-                    <span className="font-medium text-[#9CA3AF]">26.10.0_devb1</span>
+                    <span className="font-medium text-[#9CA3AF]">26W1001a</span>
                   </div>
                 </div>
               </div>

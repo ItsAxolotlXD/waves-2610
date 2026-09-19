@@ -88,7 +88,7 @@ export const WelcomeModal: React.FC<WelcomeModalProps> = ({
               id="welcome-modal-title"
               className="text-xl sm:text-[23px] font-bold text-white tracking-tight mb-2.5 font-sans leading-tight"
             >
-              Welcome to Vplay (Codename: WinterM1) - Build 26.10.0_devb1
+              Welcome to Vplay 26.10.0 - Build 26W1001a
             </h1>
 
             {/* Description & Changelogs */}
@@ -99,46 +99,28 @@ export const WelcomeModal: React.FC<WelcomeModalProps> = ({
               <p className="font-semibold text-white/95 text-xs sm:text-sm tracking-wide">
                 Changelogs:
               </p>
-              <ul className="space-y-2.5 text-[#C4C4CC] text-xs sm:text-[13px] pl-1">
+              <ul className="space-y-3.5 text-[#C4C4CC] text-xs sm:text-[13px] pl-1">
                 <li className="flex items-start gap-2.5">
                   <span className="w-1.5 h-1.5 rounded-full bg-[#E6005A] mt-1.5 shrink-0" />
                   <div>
-                    <span className="font-medium text-white">Đã sửa lại luồng cho 13 nhóm kênh thuộc VTV</span>
-                    <p className="text-[11.5px] text-[#9CA3AF] mt-0.5">+ Cập nhật link trực tiếp chính thức cho VTV1 - VTV10, VTV5 TNB, VTV5 TN và Vietnam Today</p>
+                    <span className="font-medium text-white">Đã thêm thanh tìm kiếm dưới màn hình (có thể bật tắt)</span>
+                    <div className="text-[12px] text-[#9CA3AF] mt-1.5 space-y-1 pl-1">
+                      <p className="flex items-start gap-1.5">
+                        <span className="text-[#E6005A] font-bold">›</span>
+                        <span>Thanh tìm kiếm dựa trên tab bạn đang truy cập</span>
+                      </p>
+                      <p className="flex items-start gap-1.5">
+                        <span className="text-[#E6005A] font-bold">›</span>
+                        <span>Nếu đang truy cập một bài viết, thanh tìm kiếm sẽ có khả năng tìm kiếm từ trong bài viết</span>
+                      </p>
+                    </div>
                   </div>
                 </li>
                 <li className="flex items-start gap-2.5">
                   <span className="w-1.5 h-1.5 rounded-full bg-[#E6005A] mt-1.5 shrink-0" />
                   <div>
-                    <span className="font-medium text-white">Đã thêm "Super Dark Mode" vào cài đặt danh mục "Giao diện"</span>
-                    <p className="text-[11.5px] text-[#9CA3AF] mt-0.5">+ Khi bật tùy chọn này, nền ứng dụng sẽ chuyển hoàn toàn sang màu đen (#000000 True Black OLED)</p>
+                    <span className="font-medium text-white">Đã áp dụng hiệu ứng Liquid Glass lên các thẻ kênh, thẻ banner, thẻ article và một số khu vực khác</span>
                   </div>
-                </li>
-                <li className="flex items-start gap-2.5">
-                  <span className="w-1.5 h-1.5 rounded-full bg-[#E6005A] mt-1.5 shrink-0" />
-                  <div>
-                    <span className="font-medium text-white">Đã thêm thanh "Floaty Search Box" vào cài đặt danh mục "Giao diện"</span>
-                    <p className="text-[11.5px] text-[#9CA3AF] mt-0.5">+ Hỗ trợ bật/tắt thanh tìm kiếm nổi kính mờ 20% với hiệu ứng Progressive Blur và SF Symbols</p>
-                  </div>
-                </li>
-                <li className="flex items-start gap-2.5">
-                  <span className="w-1.5 h-1.5 rounded-full bg-[#E6005A] mt-1.5 shrink-0" />
-                  <div>
-                    <span>Đã thêm Top Bar vào cài đặt điều hướng và là điều hướng mặc định</span>
-                    <p className="text-[11.5px] text-[#9CA3AF] mt-0.5">+ Các tabs và công cụ tương tác sẽ chuyển lên thanh phía trên trang web</p>
-                  </div>
-                </li>
-                <li className="flex items-start gap-2.5">
-                  <span className="w-1.5 h-1.5 rounded-full bg-[#E6005A] mt-1.5 shrink-0" />
-                  <span>Đã cập nhật banner từ dạng hiển thị toàn trang sang dạng các thẻ banner trượt</span>
-                </li>
-                <li className="flex items-start gap-2.5">
-                  <span className="w-1.5 h-1.5 rounded-full bg-[#E6005A] mt-1.5 shrink-0" />
-                  <span>Đã cập nhật icon cài đặt và căn chỉnh thanh chỉ báo tab Top bar sát chữ</span>
-                </li>
-                <li className="flex items-start gap-2.5">
-                  <span className="w-1.5 h-1.5 rounded-full bg-[#E6005A] mt-1.5 shrink-0" />
-                  <span>Sửa lỗi các ô kênh tự thay đổi tùy theo độ phân giải màn hình</span>
                 </li>
               </ul>
             </div>

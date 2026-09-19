@@ -66,7 +66,7 @@ export const NEWS_DATA: NewsArticle[] = [
     slug: 'hanh-trinh-1-nam-vuot-song-cua-waves',
     title: 'Hành trình 1 năm "vượt sóng" của The Waves',
     subtitle: 'Nhìn lại chặng đường từ những bình luận tình cờ trên YouTube đến diện mạo mới đầy kiêu hãnh',
-    coverImage: 'https://images.unsplash.com/photo-1518709268805-4e9042af9f23?w=1200&auto=format&fit=crop&q=80',
+    coverImage: 'https://static.wikia.nocookie.net/ep-deo/images/2/26/Background.png/revision/latest/scale-to-width-down/1000?cb=20260825071832',
     category: 'Cộng đồng & Kỷ niệm',
     publishedAt: '20 Tháng 9, 2026',
     readingTime: '9 phút đọc',
@@ -76,8 +76,19 @@ export const NEWS_DATA: NewsArticle[] = [
       avatar: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=100&auto=format&fit=crop&q=80'
     },
     excerpt: 'Có những hành trình bắt đầu từ những điều rất đỗi bình thường. Không có một kế hoạch lớn, không có một cái tên được định sẵn... The Waves bắt đầu như thế.',
-    isLocked: true,
-    password: 'vimotvietnamkhoemanh',
+    isLocked: false,
+    summary: {
+      lead: 'Nhìn lại chặng đường 1 năm từ những bình luận tình cờ trên YouTube đến diện mạo mới đầy kiêu hãnh của cộng đồng The Waves / Waves.',
+      points: [
+        'Khởi đầu tình cờ: Bắt đầu từ năm 2023–2024 khi những người xa lạ có chung niềm đam mê truyền hình gặp nhau qua phần bình luận YouTube.',
+        'Những cột mốc đầu tiên: Ngày 27/09/2024 thành lập Facebook Group Television Material, ngày 13/04/2025 lập nhóm Messenger.',
+        'Chuyển mình lên Discord: Ngày 09/06/2025 chuyển sang Discord, trải qua nhiều tên gọi trước khi định hình là The Waves.',
+        'Một năm vượt sóng: Server chính thức hoạt động từ 19/09/2025 dưới sự quản trị của Johnny Phạm.',
+        'Đại tu toàn diện: Kỷ niệm 1 năm (20/09/2026), cộng đồng bước sang chương mới với diện mạo và tên gọi mới: Waves.',
+        'Ý nghĩa nhận diện: Tông màu magenta – hồng cánh sen kết hợp sắc sáng, biểu tượng ba ngọn sóng vươn lên, chữ S giao thoa và nút Play biểu trưng cho sự bắt đầu mới.'
+      ],
+      conclusion: 'Waves - Nhịp sóng lưu dấu thời đại: Nơi mỗi nhịp sóng đi qua, một dấu ấn ở lại.'
+    },
     content: [
       'Có những hành trình bắt đầu từ những điều rất đỗi bình thường. Không có một kế hoạch lớn, không có một cái tên được định sẵn, cũng chẳng ai biết rằng những cuộc trò chuyện tưởng chừng vô tình ấy rồi sẽ trở thành một cộng đồng tồn tại qua nhiều năm tháng.',
       'The Waves bắt đầu như thế.',

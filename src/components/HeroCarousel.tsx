@@ -334,10 +334,11 @@ export const HeroCarousel: React.FC<HeroCarouselProps> = ({
           return (
             <div
               key={slide.id}
+              id={`hero-carousel-slide-${slide.id}`}
               style={transformStyle}
-              className={`absolute inset-0 m-auto w-[88%] sm:w-[74%] md:w-[65%] lg:w-[62%] max-w-[840px] aspect-[16/9] rounded-2xl sm:rounded-[24px] overflow-hidden border border-white/10 cursor-default select-none pointer-events-none transition-shadow duration-500 ${
+              className={`hero-carousel-slide absolute inset-0 m-auto w-[88%] sm:w-[74%] md:w-[65%] lg:w-[62%] max-w-[840px] aspect-[16/9] rounded-2xl sm:rounded-[24px] overflow-hidden cursor-default select-none pointer-events-none transition-shadow duration-500 ${
                 isCenter
-                  ? 'shadow-[0_20px_50px_rgba(0,0,0,0.85),0_0_35px_rgba(230,0,90,0.32)] ring-1 ring-white/20'
+                  ? 'is-center shadow-[0_20px_50px_rgba(0,0,0,0.85),0_0_35px_rgba(230,0,90,0.32)]'
                   : 'shadow-[0_16px_40px_rgba(0,0,0,0.7)]'
               }`}
             >

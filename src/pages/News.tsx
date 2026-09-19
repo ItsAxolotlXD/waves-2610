@@ -49,8 +49,9 @@ export const News: React.FC<NewsProps> = ({ navigate, searchQuery, onSearchChang
       {/* Featured Compact Article Header Card */}
       {featured && selectedCategory === 'Tất cả' && (
         <div
+          id="featured-news-card"
           onClick={() => navigate(`/news/${featured.slug}`)}
-          className="relative rounded-[24px] sm:rounded-[28px] overflow-hidden bg-white dark:bg-[#1E1E22] border border-[#E5E7EB] dark:border-[#2D2D35] hover:border-[#E50914]/60 hover:shadow-xl cursor-pointer group shadow-md transition-all"
+          className="news-card-featured relative rounded-[24px] sm:rounded-[28px] overflow-hidden bg-white dark:bg-[#1E1E22] border-none hover:shadow-xl cursor-pointer group shadow-md transition-all"
         >
           <div className="grid grid-cols-1 md:grid-cols-12 min-h-[200px] md:min-h-[220px]">
             {/* Image */}
