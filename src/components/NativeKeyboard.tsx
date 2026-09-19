@@ -246,7 +246,7 @@ export const NativeKeyboard: React.FC = () => {
           setActiveBubbleKey(null);
         }}
         onClick={() => handleCharPress(char)}
-        className={`relative flex-1 min-w-0 h-[42px] sm:h-[46px] md:h-[50px] rounded-[7px] sm:rounded-[9px] bg-white/40 hover:bg-white/50 active:bg-white/60 backdrop-blur-md text-black border border-white/40 shadow-[0_1px_2px_rgba(0,0,0,0.14)] font-semibold text-[19px] sm:text-[21px] md:text-[23px] flex items-center justify-center transition-all cursor-pointer font-sans select-none ${
+        className={`relative flex-1 min-w-0 h-[42px] sm:h-[46px] md:h-[50px] rounded-[7px] sm:rounded-[9px] bg-white/40 hover:bg-white/50 active:bg-white/60 backdrop-blur-md text-black border border-white/25 shadow-[0_1px_2px_rgba(0,0,0,0.14)] font-semibold text-[19px] sm:text-[21px] md:text-[23px] flex items-center justify-center transition-all cursor-pointer font-sans select-none ${
           isBubbleActive ? 'z-40 bg-white/70 scale-[0.97]' : 'z-10'
         }`}
       >
@@ -346,7 +346,7 @@ export const NativeKeyboard: React.FC = () => {
                   onClick={() => {
                     handleCharPress(emoji);
                   }}
-                  className="h-10 text-2xl flex items-center justify-center bg-white/40 backdrop-blur-md rounded-xl hover:bg-white/60 active:scale-90 transition-all shadow-sm border border-white/40"
+                  className="h-10 text-2xl flex items-center justify-center bg-white/40 backdrop-blur-md rounded-xl hover:bg-white/60 active:scale-90 transition-all shadow-sm border border-white/25"
                 >
                   {emoji}
                 </button>
@@ -357,7 +357,7 @@ export const NativeKeyboard: React.FC = () => {
                 type="button"
                 onPointerDown={() => playSound('modifier')}
                 onClick={() => setShowEmojiPicker(false)}
-                className="px-4 py-1.5 rounded-xl bg-white/40 backdrop-blur-md text-xs font-semibold text-black border border-white/40 hover:bg-white/60 transition-all"
+                className="px-4 py-1.5 rounded-xl bg-white/40 backdrop-blur-md text-xs font-semibold text-black border border-white/25 hover:bg-white/60 transition-all"
               >
                 ABC
               </button>
@@ -398,8 +398,8 @@ export const NativeKeyboard: React.FC = () => {
                   onClick={handleShiftTap}
                   className={`w-[13.5%] min-w-[38px] sm:min-w-[48px] h-[42px] sm:h-[46px] md:h-[50px] rounded-[7px] sm:rounded-[9px] flex items-center justify-center shadow-[0_1px_2px_rgba(0,0,0,0.14)] transition-all cursor-pointer active:scale-95 backdrop-blur-md border ${
                     isCapsLock || isShiftActive
-                      ? 'bg-white/75 text-black border-white/60 shadow-sm'
-                      : 'bg-white/40 hover:bg-white/50 text-black border-white/40'
+                      ? 'bg-white/75 text-black border-white/50 shadow-sm'
+                      : 'bg-white/40 hover:bg-white/50 text-black border-white/25'
                   }`}
                   title={isCapsLock ? 'Caps Lock BẬT' : isShiftActive ? 'Shift BẬT' : 'Shift'}
                   aria-label="Shift"
@@ -414,7 +414,7 @@ export const NativeKeyboard: React.FC = () => {
                   onClick={() => {
                     setLayoutMode(layoutMode === 'numeric' ? 'symbols' : 'numeric');
                   }}
-                  className="w-[13.5%] min-w-[38px] sm:min-w-[48px] h-[42px] sm:h-[46px] md:h-[50px] rounded-[7px] sm:rounded-[9px] bg-white/40 hover:bg-white/50 backdrop-blur-md text-black border border-white/40 text-xs sm:text-sm font-semibold flex items-center justify-center shadow-[0_1px_2px_rgba(0,0,0,0.14)] active:scale-95 transition-all cursor-pointer font-sans"
+                  className="w-[13.5%] min-w-[38px] sm:min-w-[48px] h-[42px] sm:h-[46px] md:h-[50px] rounded-[7px] sm:rounded-[9px] bg-white/40 hover:bg-white/50 backdrop-blur-md text-black border border-white/25 text-xs sm:text-sm font-semibold flex items-center justify-center shadow-[0_1px_2px_rgba(0,0,0,0.14)] active:scale-95 transition-all cursor-pointer font-sans"
                 >
                   {layoutMode === 'numeric' ? '#+=' : '123'}
                 </button>
@@ -439,7 +439,7 @@ export const NativeKeyboard: React.FC = () => {
                   e.preventDefault();
                   handleDeleteUp();
                 }}
-                className="w-[13.5%] min-w-[38px] sm:min-w-[48px] h-[42px] sm:h-[46px] md:h-[50px] rounded-[7px] sm:rounded-[9px] bg-white/40 hover:bg-white/50 backdrop-blur-md text-black border border-white/40 flex items-center justify-center shadow-[0_1px_2px_rgba(0,0,0,0.14)] active:scale-95 transition-all cursor-pointer"
+                className="w-[13.5%] min-w-[38px] sm:min-w-[48px] h-[42px] sm:h-[46px] md:h-[50px] rounded-[7px] sm:rounded-[9px] bg-white/40 hover:bg-white/50 backdrop-blur-md text-black border border-white/25 flex items-center justify-center shadow-[0_1px_2px_rgba(0,0,0,0.14)] active:scale-95 transition-all cursor-pointer"
                 title="Xóa"
                 aria-label="Xóa"
               >
@@ -456,7 +456,7 @@ export const NativeKeyboard: React.FC = () => {
                 onClick={() => {
                   setLayoutMode(layoutMode === 'alpha' ? 'numeric' : 'alpha');
                 }}
-                className="w-[18%] sm:w-[16%] min-w-[50px] sm:min-w-[70px] h-[42px] sm:h-[46px] md:h-[50px] rounded-[7px] sm:rounded-[9px] bg-white/40 hover:bg-white/50 backdrop-blur-md text-black border border-white/40 font-semibold text-sm sm:text-base flex items-center justify-center shadow-[0_1px_2px_rgba(0,0,0,0.14)] active:scale-95 transition-all cursor-pointer font-sans"
+                className="w-[18%] sm:w-[16%] min-w-[50px] sm:min-w-[70px] h-[42px] sm:h-[46px] md:h-[50px] rounded-[7px] sm:rounded-[9px] bg-white/40 hover:bg-white/50 backdrop-blur-md text-black border border-white/25 font-semibold text-sm sm:text-base flex items-center justify-center shadow-[0_1px_2px_rgba(0,0,0,0.14)] active:scale-95 transition-all cursor-pointer font-sans"
               >
                 {layoutMode === 'alpha' ? '123' : 'ABC'}
               </button>
@@ -466,7 +466,7 @@ export const NativeKeyboard: React.FC = () => {
                 type="button"
                 onPointerDown={() => playSound('space')}
                 onClick={handleSpacePress}
-                className="flex-1 min-w-0 h-[42px] sm:h-[46px] md:h-[50px] rounded-[7px] sm:rounded-[9px] bg-white/40 hover:bg-white/50 active:bg-white/60 backdrop-blur-md text-black border border-white/40 font-semibold text-sm flex items-center justify-center shadow-[0_1px_2px_rgba(0,0,0,0.14)] active:scale-[0.98] transition-all cursor-pointer"
+                className="flex-1 min-w-0 h-[42px] sm:h-[46px] md:h-[50px] rounded-[7px] sm:rounded-[9px] bg-white/40 hover:bg-white/50 active:bg-white/60 backdrop-blur-md text-black border border-white/25 font-semibold text-sm flex items-center justify-center shadow-[0_1px_2px_rgba(0,0,0,0.14)] active:scale-[0.98] transition-all cursor-pointer"
                 aria-label="Phím cách"
               >
                 <span className="text-[11px] sm:text-xs text-black font-semibold font-sans tracking-wide truncate px-2">

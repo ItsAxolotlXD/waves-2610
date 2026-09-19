@@ -364,11 +364,11 @@ html.light-mode[data-immersive-sidebar="true"][data-sidebar-position="right"] #w
   background-color: #27121d !important;
   background-image: 
     linear-gradient(#27121d, #27121d), 
-    linear-gradient(180deg, rgba(255, 255, 255, 0.65) 0%, rgba(160, 160, 175, 0.20) 25%, rgba(160, 160, 175, 0.05) 50%, rgba(160, 160, 175, 0.20) 75%, rgba(255, 255, 255, 0.45) 100%) !important;
+    linear-gradient(180deg, rgba(255, 255, 255, 0.50) 0%, rgba(160, 160, 175, 0.16) 25%, rgba(160, 160, 175, 0.04) 50%, rgba(160, 160, 175, 0.16) 75%, rgba(255, 255, 255, 0.50) 100%) !important;
   background-origin: padding-box, border-box !important;
   background-clip: padding-box, border-box !important;
   border: 1px solid transparent !important;
-  box-shadow: inset 0 1px 1px 0 rgba(255, 255, 255, 0.18), 0 4px 14px rgba(0, 0, 0, 0.35) !important;
+  box-shadow: inset 0 1px 1px 0 rgba(255, 255, 255, 0.14), inset 0 -1px 1px 0 rgba(255, 255, 255, 0.14), 0 4px 14px rgba(0, 0, 0, 0.35) !important;
   backdrop-filter: blur(16px) !important;
   -webkit-backdrop-filter: blur(16px) !important;
   transition: background-color 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease, transform 0.2s ease !important;
@@ -384,11 +384,11 @@ html.light-mode[data-immersive-sidebar="true"][data-sidebar-position="right"] #w
   background-color: #331726 !important;
   background-image: 
     linear-gradient(#331726, #331726), 
-    linear-gradient(180deg, rgba(255, 255, 255, 0.85) 0%, rgba(160, 160, 175, 0.28) 25%, rgba(160, 160, 175, 0.08) 50%, rgba(160, 160, 175, 0.28) 75%, rgba(255, 255, 255, 0.65) 100%) !important;
+    linear-gradient(180deg, rgba(255, 255, 255, 0.68) 0%, rgba(160, 160, 175, 0.22) 25%, rgba(160, 160, 175, 0.06) 50%, rgba(160, 160, 175, 0.22) 75%, rgba(255, 255, 255, 0.68) 100%) !important;
   background-origin: padding-box, border-box !important;
   background-clip: padding-box, border-box !important;
   border: 1px solid transparent !important;
-  box-shadow: inset 0 1px 1px 0 rgba(255, 255, 255, 0.25), 0 5px 18px rgba(0, 0, 0, 0.40) !important;
+  box-shadow: inset 0 1px 1px 0 rgba(255, 255, 255, 0.20), inset 0 -1px 1px 0 rgba(255, 255, 255, 0.20), 0 5px 18px rgba(0, 0, 0, 0.40) !important;
   transform: none !important;
 }
 
@@ -397,11 +397,11 @@ html.light-mode[data-immersive-sidebar="true"][data-sidebar-position="right"] #w
   background-color: #27121d !important;
   background-image: 
     linear-gradient(#27121d, #27121d), 
-    linear-gradient(180deg, rgba(255, 255, 255, 0.90) 0%, rgba(230, 0, 90, 0.65) 30%, rgba(230, 0, 90, 0.25) 70%, rgba(255, 255, 255, 0.70) 100%) !important;
+    linear-gradient(180deg, rgba(255, 255, 255, 0.90) 0%, rgba(230, 0, 90, 0.65) 30%, rgba(230, 0, 90, 0.25) 70%, rgba(255, 255, 255, 0.90) 100%) !important;
   background-origin: padding-box, border-box !important;
   background-clip: padding-box, border-box !important;
   border: 1px solid transparent !important;
-  box-shadow: 0 0 18px rgba(230, 0, 90, 0.35), inset 0 1px 1px 0 rgba(255, 255, 255, 0.25) !important;
+  box-shadow: 0 0 18px rgba(230, 0, 90, 0.35), inset 0 1px 1px 0 rgba(255, 255, 255, 0.25), inset 0 -1px 1px 0 rgba(255, 255, 255, 0.25) !important;
 }
 
 /* Settings Search Container & Floating Search Bar Pill: styled with channel card border */
@@ -551,10 +551,10 @@ html.light-mode #immersive-search-page .text-\[\#E0D8E2\] {
   background-color: #27121d !important;
   background-image: 
     linear-gradient(#27121d, #27121d), 
-    linear-gradient(180deg, rgba(255, 255, 255, 0.65) 0%, rgba(160, 160, 175, 0.18) 15%, rgba(160, 160, 175, 0.05) 35%, rgba(160, 160, 175, 0.05) 65%, rgba(160, 160, 175, 0.18) 85%, rgba(255, 255, 255, 0.45) 100%) !important;
+    linear-gradient(180deg, rgba(255, 255, 255, 0.48) 0%, rgba(160, 160, 175, 0.14) 15%, rgba(160, 160, 175, 0.04) 35%, rgba(160, 160, 175, 0.04) 65%, rgba(160, 160, 175, 0.14) 85%, rgba(255, 255, 255, 0.48) 100%) !important;
   background-origin: padding-box, border-box;
   background-clip: padding-box, border-box;
-  box-shadow: inset 0 1px 1px 0 rgba(255, 255, 255, 0.15), 0 2px 8px rgba(0, 0, 0, 0.22);
+  box-shadow: inset 0 1px 1px 0 rgba(255, 255, 255, 0.10), inset 0 -1px 1px 0 rgba(255, 255, 255, 0.10), 0 2px 8px rgba(0, 0, 0, 0.22);
   transform: scale(1);
   transition: transform 0.38s cubic-bezier(0.34, 1.65, 0.64, 1), box-shadow 0.24s ease-out, background-image 0.18s ease-in-out, border 0.18s ease-in-out;
   will-change: transform;
@@ -581,10 +581,10 @@ html.light-mode #immersive-search-page .text-\[\#E0D8E2\] {
   background-color: #331726 !important;
   background-image: 
     linear-gradient(#331726, #331726), 
-    linear-gradient(180deg, rgba(255, 255, 255, 0.85) 0%, rgba(160, 160, 175, 0.28) 15%, rgba(160, 160, 175, 0.10) 35%, rgba(160, 160, 175, 0.10) 65%, rgba(160, 160, 175, 0.28) 85%, rgba(255, 255, 255, 0.65) 100%) !important;
+    linear-gradient(180deg, rgba(255, 255, 255, 0.65) 0%, rgba(160, 160, 175, 0.20) 15%, rgba(160, 160, 175, 0.07) 35%, rgba(160, 160, 175, 0.07) 65%, rgba(160, 160, 175, 0.20) 85%, rgba(255, 255, 255, 0.65) 100%) !important;
   background-origin: padding-box, border-box;
   background-clip: padding-box, border-box;
-  box-shadow: inset 0 1px 1px 0 rgba(255, 255, 255, 0.25), 0 5px 16px rgba(0, 0, 0, 0.32);
+  box-shadow: inset 0 1px 1px 0 rgba(255, 255, 255, 0.18), inset 0 -1px 1px 0 rgba(255, 255, 255, 0.18), 0 5px 16px rgba(0, 0, 0, 0.32);
   transform: scale(1.085) !important;
 }
 
@@ -594,10 +594,10 @@ html.light-mode #immersive-search-page .text-\[\#E0D8E2\] {
   background-color: #331726 !important;
   background-image: 
     linear-gradient(#331726, #331726), 
-    linear-gradient(180deg, rgba(255, 255, 255, 0.85) 0%, rgba(160, 160, 175, 0.28) 15%, rgba(160, 160, 175, 0.10) 35%, rgba(160, 160, 175, 0.10) 65%, rgba(160, 160, 175, 0.28) 85%, rgba(255, 255, 255, 0.65) 100%) !important;
+    linear-gradient(180deg, rgba(255, 255, 255, 0.85) 0%, rgba(160, 160, 175, 0.28) 15%, rgba(160, 160, 175, 0.10) 35%, rgba(160, 160, 175, 0.10) 65%, rgba(160, 160, 175, 0.28) 85%, rgba(255, 255, 255, 0.85) 100%) !important;
   background-origin: padding-box, border-box !important;
   background-clip: padding-box, border-box !important;
-  box-shadow: inset 0 1px 1px 0 rgba(255, 255, 255, 0.25), 0 3px 10px rgba(0, 0, 0, 0.28) !important;
+  box-shadow: inset 0 1px 1px 0 rgba(255, 255, 255, 0.25), inset 0 -1px 1px 0 rgba(255, 255, 255, 0.25), 0 3px 10px rgba(0, 0, 0, 0.28) !important;
   color: #FFFFFF !important;
   transform: none !important;
 }
@@ -729,12 +729,12 @@ button:hover > .settings-icon-hoverable,
   background-color: #E6005A !important;
   background-image: 
     linear-gradient(#E6005A, #E6005A), 
-    linear-gradient(180deg, rgba(255, 255, 255, 0.85) 0%, rgba(255, 255, 255, 0.25) 35%, rgba(255, 255, 255, 0.25) 65%, rgba(255, 255, 255, 0.70) 100%) !important;
+    linear-gradient(180deg, rgba(255, 255, 255, 0.85) 0%, rgba(255, 255, 255, 0.25) 35%, rgba(255, 255, 255, 0.25) 65%, rgba(255, 255, 255, 0.85) 100%) !important;
   background-origin: padding-box, border-box !important;
   background-clip: padding-box, border-box !important;
   border: 1px solid transparent !important;
   border-radius: 9999px !important;
-  box-shadow: inset 0 1px 1.5px 0 rgba(255, 255, 255, 0.45), 0 3px 12px rgba(230, 0, 90, 0.40) !important;
+  box-shadow: inset 0 1px 1.5px 0 rgba(255, 255, 255, 0.45), inset 0 -1px 1.5px 0 rgba(255, 255, 255, 0.45), 0 3px 12px rgba(230, 0, 90, 0.40) !important;
   transform: scale(1);
   transition: transform 0.35s cubic-bezier(0.34, 1.65, 0.64, 1), box-shadow 0.25s ease !important;
 }
@@ -742,8 +742,8 @@ button:hover > .settings-icon-hoverable,
 #btn-top-settings-apply-checkbox:hover {
   background-image: 
     linear-gradient(#FF1A75, #FF1A75), 
-    linear-gradient(180deg, rgba(255, 255, 255, 0.95) 0%, rgba(255, 255, 255, 0.35) 35%, rgba(255, 255, 255, 0.35) 65%, rgba(255, 255, 255, 0.85) 100%) !important;
-  box-shadow: inset 0 1px 1.5px 0 rgba(255, 255, 255, 0.55), 0 4px 16px rgba(230, 0, 90, 0.55) !important;
+    linear-gradient(180deg, rgba(255, 255, 255, 0.95) 0%, rgba(255, 255, 255, 0.35) 35%, rgba(255, 255, 255, 0.35) 65%, rgba(255, 255, 255, 0.95) 100%) !important;
+  box-shadow: inset 0 1px 1.5px 0 rgba(255, 255, 255, 0.55), inset 0 -1px 1.5px 0 rgba(255, 255, 255, 0.55), 0 4px 16px rgba(230, 0, 90, 0.55) !important;
   transform: scale(1.10) !important;
 }
 
@@ -756,15 +756,15 @@ html.light-mode #btn-top-settings-apply-checkbox {
   background-color: #E6005A !important;
   background-image: 
     linear-gradient(#E6005A, #E6005A), 
-    linear-gradient(180deg, rgba(255, 255, 255, 0.85) 0%, rgba(255, 255, 255, 0.25) 35%, rgba(255, 255, 255, 0.25) 65%, rgba(255, 255, 255, 0.70) 100%) !important;
-  box-shadow: inset 0 1px 1.5px 0 rgba(255, 255, 255, 0.45), 0 3px 12px rgba(230, 0, 90, 0.35) !important;
+    linear-gradient(180deg, rgba(255, 255, 255, 0.85) 0%, rgba(255, 255, 255, 0.25) 35%, rgba(255, 255, 255, 0.25) 65%, rgba(255, 255, 255, 0.85) 100%) !important;
+  box-shadow: inset 0 1px 1.5px 0 rgba(255, 255, 255, 0.45), inset 0 -1px 1.5px 0 rgba(255, 255, 255, 0.45), 0 3px 12px rgba(230, 0, 90, 0.35) !important;
 }
 
 html.light-mode #btn-top-settings-apply-checkbox:hover {
   background-image: 
     linear-gradient(#FF1A75, #FF1A75), 
-    linear-gradient(180deg, rgba(255, 255, 255, 0.95) 0%, rgba(255, 255, 255, 0.35) 35%, rgba(255, 255, 255, 0.35) 65%, rgba(255, 255, 255, 0.85) 100%) !important;
-  box-shadow: inset 0 1px 1.5px 0 rgba(255, 255, 255, 0.55), 0 4px 16px rgba(230, 0, 90, 0.45) !important;
+    linear-gradient(180deg, rgba(255, 255, 255, 0.95) 0%, rgba(255, 255, 255, 0.35) 35%, rgba(255, 255, 255, 0.35) 65%, rgba(255, 255, 255, 0.95) 100%) !important;
+  box-shadow: inset 0 1px 1.5px 0 rgba(255, 255, 255, 0.55), inset 0 -1px 1.5px 0 rgba(255, 255, 255, 0.55), 0 4px 16px rgba(230, 0, 90, 0.45) !important;
   transform: scale(1.10) !important;
 }
 
@@ -1011,10 +1011,10 @@ html.light-mode #floating-search-build-info .build-info-line-2 {
   background-color: #331726 !important;
   background-image: 
     linear-gradient(#331726, #331726), 
-    linear-gradient(180deg, rgba(255, 255, 255, 0.72) 0%, rgba(255, 255, 255, 0.18) 35%, rgba(255, 255, 255, 0.18) 65%, rgba(255, 255, 255, 0.60) 100%) !important;
+    linear-gradient(180deg, rgba(255, 255, 255, 0.72) 0%, rgba(255, 255, 255, 0.18) 35%, rgba(255, 255, 255, 0.18) 65%, rgba(255, 255, 255, 0.72) 100%) !important;
   background-origin: padding-box, border-box;
   background-clip: padding-box, border-box;
-  box-shadow: inset 0 1px 1px 0 rgba(255, 255, 255, 0.2), 0 5px 16px rgba(0, 0, 0, 0.28);
+  box-shadow: inset 0 1px 1px 0 rgba(255, 255, 255, 0.2), inset 0 -1px 1px 0 rgba(255, 255, 255, 0.2), 0 5px 16px rgba(0, 0, 0, 0.28);
   transform: scale(1.035) !important;
 }
 
@@ -1071,16 +1071,18 @@ button[role="switch"]::after,
 #btn-spotlight-search::after,
 #btn-mobile-spotlight-search::after,
 #btn-spotlight-search-mini::after,
-#floating-search-bar-pill::after {
+#floating-search-bar-pill::after,
+#vplay-tools-dropdown-card::after {
   content: "";
   position: absolute;
   inset: 0;
   box-sizing: border-box !important;
   border-radius: inherit;
   pointer-events: none;
-  border: 1px solid rgba(255, 255, 255, 0.4);
-  border-top: 1px solid rgba(255, 255, 255, 0.7);
-  border-bottom: 1px solid rgba(255, 255, 255, 0.4);
+  border: 1px solid rgba(255, 255, 255, 0.28);
+  border-top: 1px solid rgba(255, 255, 255, 0.55);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.55);
+  box-shadow: inset 0 1px 0 0 rgba(255, 255, 255, 0.14), inset 0 -1px 0 0 rgba(255, 255, 255, 0.14);
   -webkit-mask-image: linear-gradient(90deg, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0.25) 12%, rgba(0, 0, 0, 0.85) 35%, rgba(0, 0, 0, 1) 50%, rgba(0, 0, 0, 0.85) 65%, rgba(0, 0, 0, 0.25) 88%, rgba(0, 0, 0, 0) 100%);
   mask-image: linear-gradient(90deg, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0.25) 12%, rgba(0, 0, 0, 0.85) 35%, rgba(0, 0, 0, 1) 50%, rgba(0, 0, 0, 0.85) 65%, rgba(0, 0, 0, 0.25) 88%, rgba(0, 0, 0, 0) 100%);
   z-index: 25;
@@ -1124,10 +1126,12 @@ button[role="switch"]:hover::after,
 #btn-spotlight-search:hover::after,
 #btn-mobile-spotlight-search:hover::after,
 #btn-spotlight-search-mini:hover::after,
-#floating-search-bar-pill:hover::after {
-  border-color: rgba(255, 255, 255, 0.55);
-  border-top: 1px solid rgba(255, 255, 255, 0.95);
-  border-bottom: 1px solid rgba(255, 255, 255, 0.55);
+#floating-search-bar-pill:hover::after,
+#vplay-tools-dropdown-card:hover::after {
+  border-color: rgba(255, 255, 255, 0.40);
+  border-top: 1px solid rgba(255, 255, 255, 0.75);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.75);
+  box-shadow: inset 0 1px 0 0 rgba(255, 255, 255, 0.22), inset 0 -1px 0 0 rgba(255, 255, 255, 0.22);
   -webkit-mask-image: linear-gradient(90deg, rgba(0, 0, 0, 0.05) 0%, rgba(0, 0, 0, 0.35) 12%, rgba(0, 0, 0, 0.9) 35%, rgba(0, 0, 0, 1) 50%, rgba(0, 0, 0, 0.9) 65%, rgba(0, 0, 0, 0.35) 88%, rgba(0, 0, 0, 0.05) 100%);
   mask-image: linear-gradient(90deg, rgba(0, 0, 0, 0.05) 0%, rgba(0, 0, 0, 0.35) 12%, rgba(0, 0, 0, 0.9) 35%, rgba(0, 0, 0, 1) 50%, rgba(0, 0, 0, 0.9) 65%, rgba(0, 0, 0, 0.35) 88%, rgba(0, 0, 0, 0.05) 100%);
 }
@@ -1201,28 +1205,28 @@ img[src*="imgur.com"],
 #btn-discord-join,
 #btn-home-join-discord {
   background-color: #5865F2 !important;
-  box-shadow: inset 0 1px 1px 0 rgba(255, 255, 255, 0.35), 0 3px 12px rgba(88, 101, 242, 0.42) !important;
+  box-shadow: inset 0 1px 1px 0 rgba(255, 255, 255, 0.35), inset 0 -1px 1px 0 rgba(255, 255, 255, 0.35), 0 3px 12px rgba(88, 101, 242, 0.42) !important;
   color: #FFFFFF !important;
 }
 
 #btn-discord-join:hover,
 #btn-home-join-discord:hover {
   background-color: #4752C4 !important;
-  box-shadow: inset 0 1px 1px 0 rgba(255, 255, 255, 0.45), 0 5px 18px rgba(88, 101, 242, 0.55) !important;
+  box-shadow: inset 0 1px 1px 0 rgba(255, 255, 255, 0.45), inset 0 -1px 1px 0 rgba(255, 255, 255, 0.45), 0 5px 18px rgba(88, 101, 242, 0.55) !important;
   transform: scale(1.05) !important;
 }
 
 #btn-changelogs-read,
 #btn-test-vplay-switch {
   background-color: #E6005A !important;
-  box-shadow: inset 0 1px 1px 0 rgba(255, 255, 255, 0.3), 0 3px 12px rgba(230, 0, 90, 0.38) !important;
+  box-shadow: inset 0 1px 1px 0 rgba(255, 255, 255, 0.3), inset 0 -1px 1px 0 rgba(255, 255, 255, 0.3), 0 3px 12px rgba(230, 0, 90, 0.38) !important;
   color: #FFFFFF !important;
 }
 
 #btn-changelogs-read:hover,
 #btn-test-vplay-switch:hover {
   background-color: #FF267A !important;
-  box-shadow: inset 0 1px 1px 0 rgba(255, 255, 255, 0.4), 0 5px 18px rgba(230, 0, 90, 0.48) !important;
+  box-shadow: inset 0 1px 1px 0 rgba(255, 255, 255, 0.4), inset 0 -1px 1px 0 rgba(255, 255, 255, 0.4), 0 5px 18px rgba(230, 0, 90, 0.48) !important;
   transform: scale(1.065) !important;
 }
 
@@ -1247,10 +1251,10 @@ img[src*="imgur.com"],
   border: 1px solid transparent !important;
   background-image: 
     linear-gradient(#E6005A, #E6005A), 
-    linear-gradient(180deg, rgba(255, 255, 255, 0.70) 0%, rgba(255, 255, 255, 0.20) 35%, rgba(255, 255, 255, 0.20) 65%, rgba(255, 255, 255, 0.58) 100%) !important;
+    linear-gradient(180deg, rgba(255, 255, 255, 0.70) 0%, rgba(255, 255, 255, 0.20) 35%, rgba(255, 255, 255, 0.20) 65%, rgba(255, 255, 255, 0.70) 100%) !important;
   background-origin: padding-box, border-box !important;
   background-clip: padding-box, border-box !important;
-  box-shadow: inset 0 1px 1px 0 rgba(255, 255, 255, 0.3), 0 3px 12px rgba(230, 0, 90, 0.38) !important;
+  box-shadow: inset 0 1px 1px 0 rgba(255, 255, 255, 0.3), inset 0 -1px 1px 0 rgba(255, 255, 255, 0.3), 0 3px 12px rgba(230, 0, 90, 0.38) !important;
   transform: scale(1);
   transition: transform 0.38s cubic-bezier(0.34, 1.65, 0.64, 1), box-shadow 0.24s ease-out, background-image 0.18s ease-in-out !important;
 }
@@ -1263,10 +1267,10 @@ img[src*="imgur.com"],
   border: 1px solid transparent !important;
   background-image: 
     linear-gradient(#FF267A, #FF267A), 
-    linear-gradient(180deg, rgba(255, 255, 255, 0.88) 0%, rgba(255, 255, 255, 0.30) 35%, rgba(255, 255, 255, 0.30) 65%, rgba(255, 255, 255, 0.78) 100%) !important;
+    linear-gradient(180deg, rgba(255, 255, 255, 0.88) 0%, rgba(255, 255, 255, 0.30) 35%, rgba(255, 255, 255, 0.30) 65%, rgba(255, 255, 255, 0.88) 100%) !important;
   background-origin: padding-box, border-box !important;
   background-clip: padding-box, border-box !important;
-  box-shadow: inset 0 1px 1px 0 rgba(255, 255, 255, 0.4), 0 5px 18px rgba(230, 0, 90, 0.48) !important;
+  box-shadow: inset 0 1px 1px 0 rgba(255, 255, 255, 0.4), inset 0 -1px 1px 0 rgba(255, 255, 255, 0.4), 0 5px 18px rgba(230, 0, 90, 0.48) !important;
   transform: scale(1.065) !important;
 }
 
@@ -1312,16 +1316,16 @@ button[role="switch"][aria-checked="true"],
 .toggle-switch-btn[aria-checked="true"] {
   background-image: 
     linear-gradient(#E6005A, #E6005A), 
-    linear-gradient(180deg, rgba(255, 255, 255, 0.7) 0%, rgba(255, 255, 255, 0.18) 40%, rgba(255, 255, 255, 0.5) 100%) !important;
-  box-shadow: inset 0 1px 1px 0 rgba(255, 255, 255, 0.25), 0 2px 10px rgba(230, 0, 90, 0.35) !important;
+    linear-gradient(180deg, rgba(255, 255, 255, 0.7) 0%, rgba(255, 255, 255, 0.18) 40%, rgba(255, 255, 255, 0.7) 100%) !important;
+  box-shadow: inset 0 1px 1px 0 rgba(255, 255, 255, 0.25), inset 0 -1px 1px 0 rgba(255, 255, 255, 0.25), 0 2px 10px rgba(230, 0, 90, 0.35) !important;
 }
 
 button[role="switch"][aria-checked="false"],
 .toggle-switch-btn[aria-checked="false"] {
   background-image: 
     linear-gradient(#3F3F46, #3F3F46), 
-    linear-gradient(180deg, rgba(255, 255, 255, 0.35) 0%, rgba(255, 255, 255, 0.06) 40%, rgba(255, 255, 255, 0.25) 100%) !important;
-  box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.3) !important;
+    linear-gradient(180deg, rgba(255, 255, 255, 0.35) 0%, rgba(255, 255, 255, 0.06) 40%, rgba(255, 255, 255, 0.35) 100%) !important;
+  box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.3), inset 0 -1px 2px rgba(0, 0, 0, 0.3) !important;
 }
 
 /* Switch Pill Thumb (Núm toggle dạng pill) */
@@ -1516,10 +1520,10 @@ html.light-mode .liquid-glass-control {
   border: 1px solid transparent !important;
   background-image: 
     linear-gradient(#FFFFFF, #FFFFFF), 
-    linear-gradient(180deg, rgba(100, 116, 139, 0.45) 0%, rgba(148, 163, 184, 0) 25%, rgba(148, 163, 184, 0) 75%, rgba(100, 116, 139, 0.45) 100%) !important;
+    linear-gradient(180deg, rgba(100, 116, 139, 0.32) 0%, rgba(148, 163, 184, 0) 25%, rgba(148, 163, 184, 0) 75%, rgba(100, 116, 139, 0.32) 100%) !important;
   background-origin: padding-box, border-box !important;
   background-clip: padding-box, border-box !important;
-  box-shadow: inset 0 1px 1.5px 0 rgba(255, 255, 255, 0.95), 0 0 0 1px rgba(0, 0, 0, 0.08), 0 0 14px rgba(0, 0, 0, 0.18), 0 3px 8px rgba(0, 0, 0, 0.12) !important;
+  box-shadow: inset 0 1px 1px 0 rgba(255, 255, 255, 0.75), inset 0 -1px 1px 0 rgba(255, 255, 255, 0.75), 0 0 0 1px rgba(0, 0, 0, 0.06), 0 0 14px rgba(0, 0, 0, 0.18), 0 3px 8px rgba(0, 0, 0, 0.12) !important;
   color: #374151 !important;
 }
 
@@ -1545,10 +1549,10 @@ html.light-mode .search-box-capsule:hover {
   border: 1px solid transparent !important;
   background-image: 
     linear-gradient(#FFFFFF, #FFFFFF), 
-    linear-gradient(180deg, rgba(71, 85, 105, 0.65) 0%, rgba(100, 116, 139, 0) 25%, rgba(100, 116, 139, 0) 75%, rgba(71, 85, 105, 0.65) 100%) !important;
+    linear-gradient(180deg, rgba(71, 85, 105, 0.48) 0%, rgba(100, 116, 139, 0) 25%, rgba(100, 116, 139, 0) 75%, rgba(71, 85, 105, 0.48) 100%) !important;
   background-origin: padding-box, border-box !important;
   background-clip: padding-box, border-box !important;
-  box-shadow: inset 0 1px 2px 0 rgba(255, 255, 255, 1), 0 0 0 1px rgba(0, 0, 0, 0.12), 0 0 20px rgba(0, 0, 0, 0.28), 0 6px 14px rgba(0, 0, 0, 0.16) !important;
+  box-shadow: inset 0 1px 1.5px 0 rgba(255, 255, 255, 0.85), inset 0 -1px 1.5px 0 rgba(255, 255, 255, 0.85), 0 0 0 1px rgba(0, 0, 0, 0.10), 0 0 20px rgba(0, 0, 0, 0.28), 0 6px 14px rgba(0, 0, 0, 0.16) !important;
   color: #111827 !important;
 }
 
@@ -1563,27 +1567,27 @@ html.light-mode #btn-test-vplay-switch {
 html.light-mode #btn-discord-join,
 html.light-mode #btn-home-join-discord {
   background-color: #5865F2 !important;
-  box-shadow: inset 0 1px 1px 0 rgba(255, 255, 255, 0.4), 0 3px 12px rgba(88, 101, 242, 0.35) !important;
+  box-shadow: inset 0 1px 1px 0 rgba(255, 255, 255, 0.4), inset 0 -1px 1px 0 rgba(255, 255, 255, 0.4), 0 3px 12px rgba(88, 101, 242, 0.35) !important;
   color: #FFFFFF !important;
 }
 
 html.light-mode #btn-discord-join:hover,
 html.light-mode #btn-home-join-discord:hover {
   background-color: #4752C4 !important;
-  box-shadow: inset 0 1px 1px 0 rgba(255, 255, 255, 0.5), 0 5px 16px rgba(88, 101, 242, 0.5) !important;
+  box-shadow: inset 0 1px 1px 0 rgba(255, 255, 255, 0.5), inset 0 -1px 1px 0 rgba(255, 255, 255, 0.5), 0 5px 16px rgba(88, 101, 242, 0.5) !important;
 }
 
 html.light-mode #btn-changelogs-read,
 html.light-mode #btn-test-vplay-switch {
   background-color: #E6005A !important;
-  box-shadow: inset 0 1px 1px 0 rgba(255, 255, 255, 0.35), 0 3px 12px rgba(230, 0, 90, 0.30) !important;
+  box-shadow: inset 0 1px 1px 0 rgba(255, 255, 255, 0.35), inset 0 -1px 1px 0 rgba(255, 255, 255, 0.35), 0 3px 12px rgba(230, 0, 90, 0.30) !important;
   color: #FFFFFF !important;
 }
 
 html.light-mode #btn-changelogs-read:hover,
 html.light-mode #btn-test-vplay-switch:hover {
   background-color: #FF267A !important;
-  box-shadow: inset 0 1px 1px 0 rgba(255, 255, 255, 0.45), 0 5px 16px rgba(230, 0, 90, 0.40) !important;
+  box-shadow: inset 0 1px 1px 0 rgba(255, 255, 255, 0.45), inset 0 -1px 1px 0 rgba(255, 255, 255, 0.45), 0 5px 16px rgba(230, 0, 90, 0.40) !important;
 }
 
 html.light-mode #btn-welcome-close,
@@ -1598,10 +1602,10 @@ html.light-mode #btn-theme-dark.bg-[#E6005A] {
   border: 1px solid transparent !important;
   background-image: 
     linear-gradient(#E6005A, #E6005A), 
-    linear-gradient(180deg, rgba(255, 255, 255, 0.85) 0%, rgba(255, 255, 255, 0) 25%, rgba(255, 255, 255, 0) 75%, rgba(255, 255, 255, 0.65) 100%) !important;
+    linear-gradient(180deg, rgba(255, 255, 255, 0.85) 0%, rgba(255, 255, 255, 0) 25%, rgba(255, 255, 255, 0) 75%, rgba(255, 255, 255, 0.85) 100%) !important;
   background-origin: padding-box, border-box !important;
   background-clip: padding-box, border-box !important;
-  box-shadow: inset 0 1px 1px 0 rgba(255, 255, 255, 0.35), 0 0 0 1px rgba(0, 0, 0, 0.12), 0 0 14px rgba(0, 0, 0, 0.20), 0 4px 12px rgba(230, 0, 90, 0.30) !important;
+  box-shadow: inset 0 1px 1px 0 rgba(255, 255, 255, 0.35), inset 0 -1px 1px 0 rgba(255, 255, 255, 0.35), 0 0 0 1px rgba(0, 0, 0, 0.12), 0 0 14px rgba(0, 0, 0, 0.20), 0 4px 12px rgba(230, 0, 90, 0.30) !important;
   color: #FFFFFF !important;
 }
 
@@ -1613,10 +1617,10 @@ html.light-mode #btn-theme-dark.bg-[#E6005A]:hover {
   border: 1px solid transparent !important;
   background-image: 
     linear-gradient(#FF267A, #FF267A), 
-    linear-gradient(180deg, rgba(255, 255, 255, 1) 0%, rgba(255, 255, 255, 0) 25%, rgba(255, 255, 255, 0) 75%, rgba(255, 255, 255, 0.85) 100%) !important;
+    linear-gradient(180deg, rgba(255, 255, 255, 1) 0%, rgba(255, 255, 255, 0) 25%, rgba(255, 255, 255, 0) 75%, rgba(255, 255, 255, 1) 100%) !important;
   background-origin: padding-box, border-box !important;
   background-clip: padding-box, border-box !important;
-  box-shadow: inset 0 1px 1px 0 rgba(255, 255, 255, 0.45), 0 0 0 1px rgba(0, 0, 0, 0.16), 0 0 20px rgba(0, 0, 0, 0.28), 0 6px 18px rgba(230, 0, 90, 0.38) !important;
+  box-shadow: inset 0 1px 1px 0 rgba(255, 255, 255, 0.45), inset 0 -1px 1px 0 rgba(255, 255, 255, 0.45), 0 0 0 1px rgba(0, 0, 0, 0.16), 0 0 20px rgba(0, 0, 0, 0.28), 0 6px 18px rgba(230, 0, 90, 0.38) !important;
   color: #FFFFFF !important;
 }
 
@@ -2035,6 +2039,8 @@ html.light-mode #btn-hero-watch-now svg {
 /* Recommended Channel Cards, Live TV Cards & Search Bars in Light Mode */
 html.light-mode [id^="recommended-channel-"],
 html.light-mode [id^="livetv-channel-card-"]:not(.is-selected),
+html.light-mode [id^="home-channel-card-"],
+html.light-mode [id^="channel-card-"]:not(.is-selected),
 html.light-mode [id^="test-channel-card-"]:not(.is-selected),
 html.light-mode #settings-search-container,
 html.light-mode #btn-spotlight-search,
@@ -2045,10 +2051,10 @@ html.light-mode #floating-search-bar-pill {
   border: 3.5px solid transparent !important;
   background-image: 
     linear-gradient(#FFFFFF, #FFFFFF), 
-    linear-gradient(180deg, rgba(100, 116, 139, 0.45) 0%, rgba(148, 163, 184, 0) 25%, rgba(148, 163, 184, 0) 75%, rgba(100, 116, 139, 0.45) 100%) !important;
+    linear-gradient(180deg, rgba(100, 116, 139, 0.32) 0%, rgba(148, 163, 184, 0) 25%, rgba(148, 163, 184, 0) 75%, rgba(100, 116, 139, 0.32) 100%) !important;
   background-origin: padding-box, border-box !important;
   background-clip: padding-box, border-box !important;
-  box-shadow: inset 0 1px 1.5px 0 rgba(255, 255, 255, 0.95), 0 0 0 1px rgba(0, 0, 0, 0.08), 0 0 14px rgba(0, 0, 0, 0.18), 0 3px 8px rgba(0, 0, 0, 0.12) !important;
+  box-shadow: inset 0 1px 1px 0 rgba(255, 255, 255, 0.75), inset 0 -1px 1px 0 rgba(255, 255, 255, 0.75), 0 0 0 1px rgba(0, 0, 0, 0.06), 0 0 14px rgba(0, 0, 0, 0.18), 0 3px 8px rgba(0, 0, 0, 0.12) !important;
   color: #374151 !important;
   transform: none !important;
   transition: none !important;
@@ -2056,6 +2062,8 @@ html.light-mode #floating-search-bar-pill {
 
 html.light-mode [id^="recommended-channel-"]:hover,
 html.light-mode [id^="livetv-channel-card-"]:not(.is-selected):hover,
+html.light-mode [id^="home-channel-card-"]:hover,
+html.light-mode [id^="channel-card-"]:not(.is-selected):hover,
 html.light-mode [id^="test-channel-card-"]:not(.is-selected):hover,
 html.light-mode #settings-search-container:hover,
 html.light-mode #btn-spotlight-search:hover,
@@ -2063,16 +2071,43 @@ html.light-mode #btn-mobile-spotlight-search:hover,
 html.light-mode #btn-spotlight-search-mini:hover,
 html.light-mode #floating-search-bar-pill:hover {
   box-sizing: border-box !important;
-  border: 3.5px solid rgba(0, 0, 0, 0.2) !important;
+  border: 3.5px solid rgba(0, 0, 0, 0.15) !important;
   background-image: 
     linear-gradient(#FFFFFF, #FFFFFF), 
-    linear-gradient(180deg, rgba(71, 85, 105, 0.65) 0%, rgba(100, 116, 139, 0) 25%, rgba(100, 116, 139, 0) 75%, rgba(71, 85, 105, 0.65) 100%) !important;
+    linear-gradient(180deg, rgba(71, 85, 105, 0.48) 0%, rgba(100, 116, 139, 0) 25%, rgba(100, 116, 139, 0) 75%, rgba(71, 85, 105, 0.48) 100%) !important;
   background-origin: padding-box, border-box !important;
   background-clip: padding-box, border-box !important;
-  box-shadow: inset 0 1px 2px 0 rgba(255, 255, 255, 1), 0 0 0 1px rgba(0, 0, 0, 0.12), 0 0 20px rgba(0, 0, 0, 0.28), 0 6px 14px rgba(0, 0, 0, 0.16) !important;
+  box-shadow: inset 0 1px 1.5px 0 rgba(255, 255, 255, 0.85), inset 0 -1px 1.5px 0 rgba(255, 255, 255, 0.85), 0 0 0 1px rgba(0, 0, 0, 0.10), 0 0 20px rgba(0, 0, 0, 0.28), 0 6px 14px rgba(0, 0, 0, 0.16) !important;
   color: #111827 !important;
   transform: none !important;
   transition: none !important;
+}
+
+/* News Cards & Hero Slides in Light Mode ::after border */
+html.light-mode .hero-carousel-slide::after,
+html.light-mode [id^="hero-carousel-slide-"]::after,
+html.light-mode .news-card::after,
+html.light-mode [id^="news-card-"]::after,
+html.light-mode .news-card-featured::after,
+html.light-mode #featured-news-card::after,
+html.light-mode #vplay-tools-dropdown-card::after {
+  border: 1px solid rgba(0, 0, 0, 0.06) !important;
+  border-top: 1px solid rgba(100, 116, 139, 0.32) !important;
+  border-bottom: 1px solid rgba(100, 116, 139, 0.32) !important;
+  box-shadow: inset 0 1px 1px 0 rgba(255, 255, 255, 0.75), inset 0 -1px 1px 0 rgba(255, 255, 255, 0.75) !important;
+}
+
+html.light-mode .hero-carousel-slide:hover::after,
+html.light-mode [id^="hero-carousel-slide-"]:hover::after,
+html.light-mode .news-card:hover::after,
+html.light-mode [id^="news-card-"]:hover::after,
+html.light-mode .news-card-featured:hover::after,
+html.light-mode #featured-news-card:hover::after,
+html.light-mode #vplay-tools-dropdown-card:hover::after {
+  border-color: rgba(0, 0, 0, 0.10) !important;
+  border-top: 1px solid rgba(71, 85, 105, 0.48) !important;
+  border-bottom: 1px solid rgba(71, 85, 105, 0.48) !important;
+  box-shadow: inset 0 1px 1.5px 0 rgba(255, 255, 255, 0.85), inset 0 -1px 1.5px 0 rgba(255, 255, 255, 0.85) !important;
 }
 
 html.light-mode [id^="livetv-channel-card-"].is-selected,
@@ -2090,10 +2125,10 @@ html.light-mode #spotlight-popup-card {
   border: 1px solid transparent !important;
   background-image: 
     linear-gradient(#FFFFFF, #FFFFFF), 
-    linear-gradient(180deg, rgba(100, 116, 139, 0.45) 0%, rgba(148, 163, 184, 0) 25%, rgba(148, 163, 184, 0) 75%, rgba(100, 116, 139, 0.48) 100%) !important;
+    linear-gradient(180deg, rgba(100, 116, 139, 0.45) 0%, rgba(148, 163, 184, 0) 25%, rgba(148, 163, 184, 0) 75%, rgba(100, 116, 139, 0.45) 100%) !important;
   background-origin: padding-box, border-box !important;
   background-clip: padding-box, border-box !important;
-  box-shadow: inset 0 1px 2px 0 rgba(255, 255, 255, 0.95), 0 0 0 1px rgba(0, 0, 0, 0.10), 0 0 32px rgba(0, 0, 0, 0.22), 0 20px 45px -8px rgba(0, 0, 0, 0.24) !important;
+  box-shadow: inset 0 1px 2px 0 rgba(255, 255, 255, 0.95), inset 0 -1px 2px 0 rgba(255, 255, 255, 0.95), 0 0 0 1px rgba(0, 0, 0, 0.10), 0 0 32px rgba(0, 0, 0, 0.22), 0 20px 45px -8px rgba(0, 0, 0, 0.24) !important;
 }
 
 html.light-mode .spotlight-bubble-box input,
@@ -2359,10 +2394,10 @@ html.light-mode .toggle-switch-btn[aria-checked="true"] {
   border: 1px solid transparent !important;
   background-image: 
     linear-gradient(#E6005A, #E6005A), 
-    linear-gradient(180deg, rgba(255, 255, 255, 0.85) 0%, rgba(255, 255, 255, 0) 25%, rgba(255, 255, 255, 0) 75%, rgba(255, 255, 255, 0.65) 100%) !important;
+    linear-gradient(180deg, rgba(255, 255, 255, 0.85) 0%, rgba(255, 255, 255, 0) 25%, rgba(255, 255, 255, 0) 75%, rgba(255, 255, 255, 0.85) 100%) !important;
   background-origin: padding-box, border-box !important;
   background-clip: padding-box, border-box !important;
-  box-shadow: inset 0 1px 1px 0 rgba(255, 255, 255, 0.3), 0 2px 10px rgba(230, 0, 90, 0.3) !important;
+  box-shadow: inset 0 1px 1px 0 rgba(255, 255, 255, 0.3), inset 0 -1px 1px 0 rgba(255, 255, 255, 0.3), 0 2px 10px rgba(230, 0, 90, 0.3) !important;
 }
 
 html.light-mode button[role="switch"][aria-checked="false"],
@@ -2373,7 +2408,7 @@ html.light-mode .toggle-switch-btn[aria-checked="false"] {
     linear-gradient(180deg, rgba(100, 116, 139, 0.45) 0%, rgba(148, 163, 184, 0) 25%, rgba(148, 163, 184, 0) 75%, rgba(100, 116, 139, 0.45) 100%) !important;
   background-origin: padding-box, border-box !important;
   background-clip: padding-box, border-box !important;
-  box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.08) !important;
+  box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.08), inset 0 -1px 2px rgba(0, 0, 0, 0.08) !important;
 }
 
 html.light-mode button[role="switch"] span,
@@ -2465,8 +2500,8 @@ html.light-mode #settings-section-other > div:first-child svg {
 .settings-checkmark[data-checked="true"] {
   background-image: 
     linear-gradient(#E6005A, #E6005A), 
-    linear-gradient(180deg, rgba(255, 255, 255, 0.85) 0%, rgba(255, 255, 255, 0.25) 35%, rgba(255, 255, 255, 0.25) 65%, rgba(255, 255, 255, 0.70) 100%) !important;
-  box-shadow: inset 0 1px 1.5px 0 rgba(255, 255, 255, 0.45), 0 3px 12px rgba(230, 0, 90, 0.40) !important;
+    linear-gradient(180deg, rgba(255, 255, 255, 0.85) 0%, rgba(255, 255, 255, 0.25) 35%, rgba(255, 255, 255, 0.25) 65%, rgba(255, 255, 255, 0.85) 100%) !important;
+  box-shadow: inset 0 1px 1.5px 0 rgba(255, 255, 255, 0.45), inset 0 -1px 1.5px 0 rgba(255, 255, 255, 0.45), 0 3px 12px rgba(230, 0, 90, 0.40) !important;
 }
 
 /* Checked Hover - Dark Mode */
@@ -2474,8 +2509,8 @@ html.light-mode #settings-section-other > div:first-child svg {
 .settings-checkmark[data-checked="true"]:hover {
   background-image: 
     linear-gradient(#FF1A75, #FF1A75), 
-    linear-gradient(180deg, rgba(255, 255, 255, 0.95) 0%, rgba(255, 255, 255, 0.35) 35%, rgba(255, 255, 255, 0.35) 65%, rgba(255, 255, 255, 0.85) 100%) !important;
-  box-shadow: inset 0 1px 1.5px 0 rgba(255, 255, 255, 0.55), 0 4px 16px rgba(230, 0, 90, 0.52) !important;
+    linear-gradient(180deg, rgba(255, 255, 255, 0.95) 0%, rgba(255, 255, 255, 0.35) 35%, rgba(255, 255, 255, 0.35) 65%, rgba(255, 255, 255, 0.95) 100%) !important;
+  box-shadow: inset 0 1px 1.5px 0 rgba(255, 255, 255, 0.55), inset 0 -1px 1.5px 0 rgba(255, 255, 255, 0.55), 0 4px 16px rgba(230, 0, 90, 0.52) !important;
   transform: scale(1.06);
 }
 
@@ -2484,8 +2519,8 @@ html.light-mode #settings-section-other > div:first-child svg {
   background-color: #24242A !important;
   background-image: 
     linear-gradient(#24242A, #24242A), 
-    linear-gradient(180deg, rgba(255, 255, 255, 0.32) 0%, rgba(160, 160, 175, 0.12) 30%, rgba(160, 160, 175, 0.08) 70%, rgba(255, 255, 255, 0.22) 100%) !important;
-  box-shadow: inset 0 1px 1px 0 rgba(255, 255, 255, 0.10), 0 2px 5px rgba(0, 0, 0, 0.25) !important;
+    linear-gradient(180deg, rgba(255, 255, 255, 0.32) 0%, rgba(160, 160, 175, 0.12) 30%, rgba(160, 160, 175, 0.08) 70%, rgba(255, 255, 255, 0.32) 100%) !important;
+  box-shadow: inset 0 1px 1px 0 rgba(255, 255, 255, 0.10), inset 0 -1px 1px 0 rgba(255, 255, 255, 0.10), 0 2px 5px rgba(0, 0, 0, 0.25) !important;
 }
 
 /* Unchecked Hover - Dark Mode */
@@ -2493,8 +2528,8 @@ html.light-mode #settings-section-other > div:first-child svg {
 .settings-checkmark[data-checked="false"]:hover {
   background-image: 
     linear-gradient(#2E2E36, #2E2E36), 
-    linear-gradient(180deg, rgba(255, 255, 255, 0.55) 0%, rgba(160, 160, 175, 0.20) 30%, rgba(160, 160, 175, 0.15) 70%, rgba(255, 255, 255, 0.40) 100%) !important;
-  box-shadow: inset 0 1px 1.2px 0 rgba(255, 255, 255, 0.18), 0 2px 8px rgba(0, 0, 0, 0.35) !important;
+    linear-gradient(180deg, rgba(255, 255, 255, 0.55) 0%, rgba(160, 160, 175, 0.20) 30%, rgba(160, 160, 175, 0.15) 70%, rgba(255, 255, 255, 0.55) 100%) !important;
+  box-shadow: inset 0 1px 1.2px 0 rgba(255, 255, 255, 0.18), inset 0 -1px 1.2px 0 rgba(255, 255, 255, 0.18), 0 2px 8px rgba(0, 0, 0, 0.35) !important;
   transform: scale(1.06);
 }
 
@@ -2502,16 +2537,16 @@ html.light-mode #settings-section-other > div:first-child svg {
 html.light-mode .settings-checkmark[data-checked="true"] {
   background-image: 
     linear-gradient(#E6005A, #E6005A), 
-    linear-gradient(180deg, rgba(255, 255, 255, 0.85) 0%, rgba(255, 255, 255, 0.25) 35%, rgba(255, 255, 255, 0.25) 65%, rgba(255, 255, 255, 0.70) 100%) !important;
-  box-shadow: inset 0 1px 1.5px 0 rgba(255, 255, 255, 0.45), 0 3px 12px rgba(230, 0, 90, 0.35) !important;
+    linear-gradient(180deg, rgba(255, 255, 255, 0.85) 0%, rgba(255, 255, 255, 0.25) 35%, rgba(255, 255, 255, 0.25) 65%, rgba(255, 255, 255, 0.85) 100%) !important;
+  box-shadow: inset 0 1px 1.5px 0 rgba(255, 255, 255, 0.45), inset 0 -1px 1.5px 0 rgba(255, 255, 255, 0.45), 0 3px 12px rgba(230, 0, 90, 0.35) !important;
 }
 
 html.light-mode .group:hover .settings-checkmark[data-checked="true"],
 html.light-mode .settings-checkmark[data-checked="true"]:hover {
   background-image: 
     linear-gradient(#FF1A75, #FF1A75), 
-    linear-gradient(180deg, rgba(255, 255, 255, 0.95) 0%, rgba(255, 255, 255, 0.35) 35%, rgba(255, 255, 255, 0.35) 65%, rgba(255, 255, 255, 0.85) 100%) !important;
-  box-shadow: inset 0 1px 1.5px 0 rgba(255, 255, 255, 0.55), 0 4px 16px rgba(230, 0, 90, 0.45) !important;
+    linear-gradient(180deg, rgba(255, 255, 255, 0.95) 0%, rgba(255, 255, 255, 0.35) 35%, rgba(255, 255, 255, 0.35) 65%, rgba(255, 255, 255, 0.95) 100%) !important;
+  box-shadow: inset 0 1px 1.5px 0 rgba(255, 255, 255, 0.55), inset 0 -1px 1.5px 0 rgba(255, 255, 255, 0.55), 0 4px 16px rgba(230, 0, 90, 0.45) !important;
   transform: scale(1.06);
 }
 
@@ -2675,14 +2710,16 @@ input[type="range"] {
 
 /* Light Mode Tools Menu Dropdown Card */
 html.light-mode #vplay-tools-dropdown-card {
+  position: absolute !important;
+  box-sizing: border-box !important;
   border-radius: 30px !important;
   background-color: rgba(255, 255, 255, 0.82) !important;
   backdrop-filter: blur(14px) saturate(150%) !important;
   -webkit-backdrop-filter: blur(14px) saturate(150%) !important;
-  border: 1px solid rgba(0, 0, 0, 0.08) !important;
+  border: none !important;
   background-image: none !important;
   color: #111827 !important;
-  box-shadow: inset 0 1px 1px 0 rgba(255, 255, 255, 0.7), 0 16px 40px rgba(0, 0, 0, 0.10) !important;
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.10) !important;
 }
 
 html.light-mode #vplay-tools-dropdown-card button {
@@ -2739,14 +2776,16 @@ html.light-mode #vplay-tools-dropdown-card .tools-toast-badge {
 
 /* Dark Mode Tools Menu Dropdown Card */
 html:not(.light-mode) #vplay-tools-dropdown-card {
+  position: absolute !important;
+  box-sizing: border-box !important;
   border-radius: 30px !important;
   background-color: rgba(30, 30, 36, 0.80) !important;
   backdrop-filter: blur(14px) saturate(150%) !important;
   -webkit-backdrop-filter: blur(14px) saturate(150%) !important;
-  border: 1px solid rgba(255, 255, 255, 0.10) !important;
+  border: none !important;
   background-image: none !important;
   color: #FFFFFF !important;
-  box-shadow: inset 0 1px 1px 0 rgba(255, 255, 255, 0.10), 0 20px 50px rgba(0, 0, 0, 0.45) !important;
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.45) !important;
 }
 
 html:not(.light-mode) #vplay-tools-dropdown-card button {
@@ -2910,10 +2949,10 @@ html.light-mode #news-summary-dialog button.bg-\[\#28282E\]:hover {
   border: 1px solid transparent !important;
   background-image: 
     linear-gradient(#000000, #000000), 
-    linear-gradient(180deg, rgba(255, 255, 255, 0.50) 0%, rgba(160, 160, 175, 0.15) 20%, rgba(160, 160, 175, 0.05) 50%, rgba(160, 160, 175, 0.15) 80%, rgba(255, 255, 255, 0.35) 100%) !important;
+    linear-gradient(180deg, rgba(255, 255, 255, 0.50) 0%, rgba(160, 160, 175, 0.15) 20%, rgba(160, 160, 175, 0.05) 50%, rgba(160, 160, 175, 0.15) 80%, rgba(255, 255, 255, 0.50) 100%) !important;
   background-origin: padding-box, border-box !important;
   background-clip: padding-box, border-box !important;
-  box-shadow: inset 0 1px 1px 0 rgba(255, 255, 255, 0.12), 0 20px 50px rgba(0, 0, 0, 0.55) !important;
+  box-shadow: inset 0 1px 1px 0 rgba(255, 255, 255, 0.12), inset 0 -1px 1px 0 rgba(255, 255, 255, 0.12), 0 20px 50px rgba(0, 0, 0, 0.55) !important;
 }
 
 /* VisionOS Liquid Glass Player Buttons */
@@ -2922,7 +2961,7 @@ html.light-mode #news-summary-dialog button.bg-\[\#28282E\]:hover {
   backdrop-filter: blur(6px) saturate(150%) !important;
   -webkit-backdrop-filter: blur(6px) saturate(150%) !important;
   border: 1px solid rgba(255, 255, 255, 0.35) !important;
-  box-shadow: inset 0 1px 1.5px 0 rgba(255, 255, 255, 0.45), 0 8px 24px rgba(0, 0, 0, 0.35) !important;
+  box-shadow: inset 0 1px 1.5px 0 rgba(255, 255, 255, 0.45), inset 0 -1px 1.5px 0 rgba(255, 255, 255, 0.45), 0 8px 24px rgba(0, 0, 0, 0.35) !important;
   color: #FFFFFF !important;
   transition: all 0.22s cubic-bezier(0.34, 1.5, 0.64, 1) !important;
 }
@@ -2930,7 +2969,7 @@ html.light-mode #news-summary-dialog button.bg-\[\#28282E\]:hover {
 .glass-player-btn:hover {
   background-color: rgba(255, 255, 255, 0.30) !important;
   border-color: rgba(255, 255, 255, 0.60) !important;
-  box-shadow: inset 0 1px 2px 0 rgba(255, 255, 255, 0.65), 0 12px 30px rgba(0, 0, 0, 0.45) !important;
+  box-shadow: inset 0 1px 2px 0 rgba(255, 255, 255, 0.65), inset 0 -1px 2px 0 rgba(255, 255, 255, 0.65), 0 12px 30px rgba(0, 0, 0, 0.45) !important;
   transform: scale(1.06) !important;
 }
 
@@ -2944,7 +2983,7 @@ html.light-mode #news-summary-dialog button.bg-\[\#28282E\]:hover {
   backdrop-filter: blur(6px) saturate(150%) !important;
   -webkit-backdrop-filter: blur(6px) saturate(150%) !important;
   border: 1.5px solid rgba(255, 255, 255, 0.45) !important;
-  box-shadow: inset 0 1.5px 2px 0 rgba(255, 255, 255, 0.60), 0 16px 45px rgba(0, 0, 0, 0.50) !important;
+  box-shadow: inset 0 1.5px 2px 0 rgba(255, 255, 255, 0.60), inset 0 -1.5px 2px 0 rgba(255, 255, 255, 0.60), 0 16px 45px rgba(0, 0, 0, 0.50) !important;
   color: #FFFFFF !important;
   transition: all 0.25s cubic-bezier(0.34, 1.5, 0.64, 1) !important;
 }
@@ -2952,7 +2991,7 @@ html.light-mode #news-summary-dialog button.bg-\[\#28282E\]:hover {
 .glass-player-center-play:hover {
   background-color: rgba(255, 255, 255, 0.32) !important;
   border-color: rgba(255, 255, 255, 0.75) !important;
-  box-shadow: inset 0 2px 3px 0 rgba(255, 255, 255, 0.80), 0 20px 50px rgba(0, 0, 0, 0.60) !important;
+  box-shadow: inset 0 2px 3px 0 rgba(255, 255, 255, 0.80), inset 0 -2px 3px 0 rgba(255, 255, 255, 0.80), 0 20px 50px rgba(0, 0, 0, 0.60) !important;
   transform: scale(1.08) !important;
 }
 
@@ -2966,7 +3005,7 @@ html.light-mode #news-summary-dialog button.bg-\[\#28282E\]:hover {
   backdrop-filter: blur(6px) saturate(150%) !important;
   -webkit-backdrop-filter: blur(6px) saturate(150%) !important;
   border: 1px solid rgba(255, 255, 255, 0.35) !important;
-  box-shadow: inset 0 1px 1.5px 0 rgba(255, 255, 255, 0.40), 0 10px 30px rgba(0, 0, 0, 0.35) !important;
+  box-shadow: inset 0 1px 1.5px 0 rgba(255, 255, 255, 0.40), inset 0 -1px 1.5px 0 rgba(255, 255, 255, 0.40), 0 10px 30px rgba(0, 0, 0, 0.35) !important;
   color: #FFFFFF !important;
   transition: all 0.22s cubic-bezier(0.34, 1.5, 0.64, 1) !important;
 }
@@ -2974,7 +3013,7 @@ html.light-mode #news-summary-dialog button.bg-\[\#28282E\]:hover {
 .glass-player-center-seek:hover {
   background-color: rgba(255, 255, 255, 0.28) !important;
   border-color: rgba(255, 255, 255, 0.60) !important;
-  box-shadow: inset 0 1.5px 2px 0 rgba(255, 255, 255, 0.65), 0 14px 36px rgba(0, 0, 0, 0.45) !important;
+  box-shadow: inset 0 1.5px 2px 0 rgba(255, 255, 255, 0.65), inset 0 -1.5px 2px 0 rgba(255, 255, 255, 0.65), 0 14px 36px rgba(0, 0, 0, 0.45) !important;
   transform: scale(1.08) !important;
 }
 
@@ -2988,7 +3027,7 @@ html.light-mode #news-summary-dialog button.bg-\[\#28282E\]:hover {
   backdrop-filter: blur(6px) saturate(150%) !important;
   -webkit-backdrop-filter: blur(6px) saturate(150%) !important;
   border: 1px solid rgba(255, 255, 255, 0.35) !important;
-  box-shadow: inset 0 1px 1.5px 0 rgba(255, 255, 255, 0.40), 0 8px 28px rgba(0, 0, 0, 0.35) !important;
+  box-shadow: inset 0 1px 1.5px 0 rgba(255, 255, 255, 0.40), inset 0 -1px 1.5px 0 rgba(255, 255, 255, 0.40), 0 8px 28px rgba(0, 0, 0, 0.35) !important;
   color: #FFFFFF !important;
 }
 
@@ -2998,7 +3037,7 @@ html.light-mode #news-summary-dialog button.bg-\[\#28282E\]:hover {
   backdrop-filter: blur(6px) saturate(150%) !important;
   -webkit-backdrop-filter: blur(6px) saturate(150%) !important;
   border: 1px solid rgba(255, 255, 255, 0.35) !important;
-  box-shadow: inset 0 1px 1.5px 0 rgba(255, 255, 255, 0.45), 0 14px 45px rgba(0, 0, 0, 0.45) !important;
+  box-shadow: inset 0 1px 1.5px 0 rgba(255, 255, 255, 0.45), inset 0 -1px 1.5px 0 rgba(255, 255, 255, 0.45), 0 14px 45px rgba(0, 0, 0, 0.45) !important;
   color: #FFFFFF !important;
 }
 
@@ -3027,10 +3066,10 @@ html.light-mode #news-summary-dialog button.bg-\[\#28282E\]:hover {
   background-color: rgba(20, 20, 24, 0.84) !important;
   background-image: 
     linear-gradient(rgba(20, 20, 24, 0.84), rgba(20, 20, 24, 0.84)), 
-    linear-gradient(180deg, rgba(255, 255, 255, 0.70) 0%, rgba(160, 160, 175, 0.22) 20%, rgba(160, 160, 175, 0.05) 50%, rgba(160, 160, 175, 0.22) 80%, rgba(255, 255, 255, 0.50) 100%) !important;
+    linear-gradient(180deg, rgba(255, 255, 255, 0.70) 0%, rgba(160, 160, 175, 0.22) 20%, rgba(160, 160, 175, 0.05) 50%, rgba(160, 160, 175, 0.22) 80%, rgba(255, 255, 255, 0.70) 100%) !important;
   background-origin: padding-box, border-box !important;
   background-clip: padding-box, border-box !important;
-  box-shadow: inset 0 1px 1px 0 rgba(255, 255, 255, 0.20), 0 12px 36px rgba(0, 0, 0, 0.6) !important;
+  box-shadow: inset 0 1px 1px 0 rgba(255, 255, 255, 0.20), inset 0 -1px 1px 0 rgba(255, 255, 255, 0.20), 0 12px 36px rgba(0, 0, 0, 0.6) !important;
   backdrop-filter: blur(16px) !important;
   -webkit-backdrop-filter: blur(16px) !important;
 }
@@ -3041,10 +3080,10 @@ html.light-mode #news-summary-dialog button.bg-\[\#28282E\]:hover {
   background-color: rgba(45, 45, 54, 0.75) !important;
   background-image: 
     linear-gradient(rgba(45, 45, 54, 0.75), rgba(45, 45, 54, 0.75)), 
-    linear-gradient(180deg, rgba(255, 255, 255, 0.65) 0%, rgba(160, 160, 175, 0.20) 25%, rgba(160, 160, 175, 0.05) 50%, rgba(160, 160, 175, 0.20) 75%, rgba(255, 255, 255, 0.45) 100%) !important;
+    linear-gradient(180deg, rgba(255, 255, 255, 0.65) 0%, rgba(160, 160, 175, 0.20) 25%, rgba(160, 160, 175, 0.05) 50%, rgba(160, 160, 175, 0.20) 75%, rgba(255, 255, 255, 0.65) 100%) !important;
   background-origin: padding-box, border-box !important;
   background-clip: padding-box, border-box !important;
-  box-shadow: inset 0 1px 1px 0 rgba(255, 255, 255, 0.18), 0 2px 6px rgba(0, 0, 0, 0.3) !important;
+  box-shadow: inset 0 1px 1px 0 rgba(255, 255, 255, 0.18), inset 0 -1px 1px 0 rgba(255, 255, 255, 0.18), 0 2px 6px rgba(0, 0, 0, 0.3) !important;
   backdrop-filter: blur(12px) !important;
   -webkit-backdrop-filter: blur(12px) !important;
   transition: all 0.22s cubic-bezier(0.34, 1.5, 0.64, 1) !important;
@@ -3054,8 +3093,8 @@ html.light-mode #news-summary-dialog button.bg-\[\#28282E\]:hover {
   background-color: rgba(62, 62, 74, 0.9) !important;
   background-image: 
     linear-gradient(rgba(62, 62, 74, 0.9), rgba(62, 62, 74, 0.9)), 
-    linear-gradient(180deg, rgba(255, 255, 255, 0.90) 0%, rgba(160, 160, 175, 0.32) 20%, rgba(160, 160, 175, 0.10) 50%, rgba(160, 160, 175, 0.32) 80%, rgba(255, 255, 255, 0.70) 100%) !important;
-  box-shadow: inset 0 1px 1.5px 0 rgba(255, 255, 255, 0.35), 0 4px 14px rgba(0, 0, 0, 0.45) !important;
+    linear-gradient(180deg, rgba(255, 255, 255, 0.90) 0%, rgba(160, 160, 175, 0.32) 20%, rgba(160, 160, 175, 0.10) 50%, rgba(160, 160, 175, 0.32) 80%, rgba(255, 255, 255, 0.90) 100%) !important;
+  box-shadow: inset 0 1px 1.5px 0 rgba(255, 255, 255, 0.35), inset 0 -1px 1.5px 0 rgba(255, 255, 255, 0.35), 0 4px 14px rgba(0, 0, 0, 0.45) !important;
 }
 
 .video-player-glass-btn:active {
@@ -3068,10 +3107,10 @@ html.light-mode #news-summary-dialog button.bg-\[\#28282E\]:hover {
   background-color: rgba(230, 0, 90, 0.20) !important;
   background-image: 
     linear-gradient(rgba(230, 0, 90, 0.20), rgba(230, 0, 90, 0.20)), 
-    linear-gradient(180deg, rgba(255, 255, 255, 0.75) 0%, rgba(255, 77, 141, 0.35) 30%, rgba(255, 77, 141, 0.15) 70%, rgba(255, 255, 255, 0.55) 100%) !important;
+    linear-gradient(180deg, rgba(255, 255, 255, 0.75) 0%, rgba(255, 77, 141, 0.35) 30%, rgba(255, 77, 141, 0.15) 70%, rgba(255, 255, 255, 0.75) 100%) !important;
   background-origin: padding-box, border-box !important;
   background-clip: padding-box, border-box !important;
-  box-shadow: inset 0 1px 1px 0 rgba(255, 255, 255, 0.25), 0 2px 8px rgba(230, 0, 90, 0.3) !important;
+  box-shadow: inset 0 1px 1px 0 rgba(255, 255, 255, 0.25), inset 0 -1px 1px 0 rgba(255, 255, 255, 0.25), 0 2px 8px rgba(230, 0, 90, 0.3) !important;
   color: #FF4D8D !important;
   transition: all 0.22s ease !important;
 }
@@ -3080,8 +3119,8 @@ html.light-mode #news-summary-dialog button.bg-\[\#28282E\]:hover {
   background-color: rgba(230, 0, 90, 0.35) !important;
   background-image: 
     linear-gradient(rgba(230, 0, 90, 0.35), rgba(230, 0, 90, 0.35)), 
-    linear-gradient(180deg, rgba(255, 255, 255, 0.90) 0%, rgba(255, 77, 141, 0.50) 30%, rgba(255, 77, 141, 0.25) 70%, rgba(255, 255, 255, 0.75) 100%) !important;
-  box-shadow: inset 0 1px 1px 0 rgba(255, 255, 255, 0.4), 0 4px 14px rgba(230, 0, 90, 0.45) !important;
+    linear-gradient(180deg, rgba(255, 255, 255, 0.90) 0%, rgba(255, 77, 141, 0.50) 30%, rgba(255, 77, 141, 0.25) 70%, rgba(255, 255, 255, 0.90) 100%) !important;
+  box-shadow: inset 0 1px 1px 0 rgba(255, 255, 255, 0.4), inset 0 -1px 1px 0 rgba(255, 255, 255, 0.4), 0 4px 14px rgba(230, 0, 90, 0.45) !important;
 }
 
 /* Video Player Center Play Button */
@@ -3089,10 +3128,10 @@ html.light-mode #news-summary-dialog button.bg-\[\#28282E\]:hover {
   border: 1px solid transparent !important;
   background-image: 
     linear-gradient(#E6005A, #E6005A), 
-    linear-gradient(180deg, rgba(255, 255, 255, 0.88) 0%, rgba(255, 255, 255, 0.25) 35%, rgba(255, 255, 255, 0.25) 65%, rgba(255, 255, 255, 0.75) 100%) !important;
+    linear-gradient(180deg, rgba(255, 255, 255, 0.88) 0%, rgba(255, 255, 255, 0.25) 35%, rgba(255, 255, 255, 0.25) 65%, rgba(255, 255, 255, 0.88) 100%) !important;
   background-origin: padding-box, border-box !important;
   background-clip: padding-box, border-box !important;
-  box-shadow: inset 0 1px 2px 0 rgba(255, 255, 255, 0.45), 0 10px 30px rgba(230, 0, 90, 0.55) !important;
+  box-shadow: inset 0 1px 2px 0 rgba(255, 255, 255, 0.45), inset 0 -1px 2px 0 rgba(255, 255, 255, 0.45), 0 10px 30px rgba(230, 0, 90, 0.55) !important;
 }
 
 /* Video Player Favorite Button Active */
@@ -3100,10 +3139,10 @@ html.light-mode #news-summary-dialog button.bg-\[\#28282E\]:hover {
   border: 1px solid transparent !important;
   background-image: 
     linear-gradient(#E6005A, #E6005A), 
-    linear-gradient(180deg, rgba(255, 255, 255, 0.85) 0%, rgba(255, 255, 255, 0.25) 35%, rgba(255, 255, 255, 0.25) 65%, rgba(255, 255, 255, 0.70) 100%) !important;
+    linear-gradient(180deg, rgba(255, 255, 255, 0.85) 0%, rgba(255, 255, 255, 0.25) 35%, rgba(255, 255, 255, 0.25) 65%, rgba(255, 255, 255, 0.85) 100%) !important;
   background-origin: padding-box, border-box !important;
   background-clip: padding-box, border-box !important;
-  box-shadow: inset 0 1px 1px 0 rgba(255, 255, 255, 0.4), 0 4px 14px rgba(230, 0, 90, 0.45) !important;
+  box-shadow: inset 0 1px 1px 0 rgba(255, 255, 255, 0.4), inset 0 -1px 1px 0 rgba(255, 255, 255, 0.4), 0 4px 14px rgba(230, 0, 90, 0.45) !important;
 }
 
 /* Video Player Quality Badge in Header */
@@ -3111,10 +3150,10 @@ html.light-mode #news-summary-dialog button.bg-\[\#28282E\]:hover {
   border: 1px solid transparent !important;
   background-image: 
     linear-gradient(#E6005A, #E6005A), 
-    linear-gradient(180deg, rgba(255, 255, 255, 0.80) 0%, rgba(255, 255, 255, 0.22) 35%, rgba(255, 255, 255, 0.22) 65%, rgba(255, 255, 255, 0.65) 100%) !important;
+    linear-gradient(180deg, rgba(255, 255, 255, 0.80) 0%, rgba(255, 255, 255, 0.22) 35%, rgba(255, 255, 255, 0.22) 65%, rgba(255, 255, 255, 0.80) 100%) !important;
   background-origin: padding-box, border-box !important;
   background-clip: padding-box, border-box !important;
-  box-shadow: inset 0 1px 1px 0 rgba(255, 255, 255, 0.35), 0 2px 8px rgba(230, 0, 90, 0.35) !important;
+  box-shadow: inset 0 1px 1px 0 rgba(255, 255, 255, 0.35), inset 0 -1px 1px 0 rgba(255, 255, 255, 0.35), 0 2px 8px rgba(230, 0, 90, 0.35) !important;
 }
 
 /* Video Player Buffering Badge */
@@ -3123,10 +3162,10 @@ html.light-mode #news-summary-dialog button.bg-\[\#28282E\]:hover {
   background-color: rgba(24, 24, 28, 0.80) !important;
   background-image: 
     linear-gradient(rgba(24, 24, 28, 0.80), rgba(24, 24, 28, 0.80)), 
-    linear-gradient(180deg, rgba(255, 255, 255, 0.65) 0%, rgba(160, 160, 175, 0.18) 25%, rgba(160, 160, 175, 0.05) 50%, rgba(160, 160, 175, 0.18) 75%, rgba(255, 255, 255, 0.45) 100%) !important;
+    linear-gradient(180deg, rgba(255, 255, 255, 0.65) 0%, rgba(160, 160, 175, 0.18) 25%, rgba(160, 160, 175, 0.05) 50%, rgba(160, 160, 175, 0.18) 75%, rgba(255, 255, 255, 0.65) 100%) !important;
   background-origin: padding-box, border-box !important;
   background-clip: padding-box, border-box !important;
-  box-shadow: inset 0 1px 1px 0 rgba(255, 255, 255, 0.15), 0 4px 16px rgba(0, 0, 0, 0.4) !important;
+  box-shadow: inset 0 1px 1px 0 rgba(255, 255, 255, 0.15), inset 0 -1px 1px 0 rgba(255, 255, 255, 0.15), 0 4px 16px rgba(0, 0, 0, 0.4) !important;
   backdrop-filter: blur(12px) !important;
   -webkit-backdrop-filter: blur(12px) !important;
 }
@@ -3137,10 +3176,10 @@ html.light-mode #news-summary-dialog button.bg-\[\#28282E\]:hover {
   background-color: #1E1E24 !important;
   background-image: 
     linear-gradient(#1E1E24, #1E1E24), 
-    linear-gradient(180deg, rgba(255, 255, 255, 0.75) 0%, rgba(160, 160, 175, 0.25) 15%, rgba(160, 160, 175, 0.05) 35%, rgba(160, 160, 175, 0.05) 65%, rgba(160, 160, 175, 0.25) 85%, rgba(255, 255, 255, 0.55) 100%) !important;
+    linear-gradient(180deg, rgba(255, 255, 255, 0.75) 0%, rgba(160, 160, 175, 0.25) 15%, rgba(160, 160, 175, 0.05) 35%, rgba(160, 160, 175, 0.05) 65%, rgba(160, 160, 175, 0.25) 85%, rgba(255, 255, 255, 0.75) 100%) !important;
   background-origin: padding-box, border-box !important;
   background-clip: padding-box, border-box !important;
-  box-shadow: inset 0 1px 1px 0 rgba(255, 255, 255, 0.18), 0 16px 40px rgba(0, 0, 0, 0.6) !important;
+  box-shadow: inset 0 1px 1px 0 rgba(255, 255, 255, 0.18), inset 0 -1px 1px 0 rgba(255, 255, 255, 0.18), 0 16px 40px rgba(0, 0, 0, 0.6) !important;
 }
 
 /* Video Player Accent Buttons (e.g. Retry) */
@@ -3148,17 +3187,17 @@ html.light-mode #news-summary-dialog button.bg-\[\#28282E\]:hover {
   border: 1px solid transparent !important;
   background-image: 
     linear-gradient(#E6005A, #E6005A), 
-    linear-gradient(180deg, rgba(255, 255, 255, 0.85) 0%, rgba(255, 255, 255, 0.25) 35%, rgba(255, 255, 255, 0.25) 65%, rgba(255, 255, 255, 0.70) 100%) !important;
+    linear-gradient(180deg, rgba(255, 255, 255, 0.85) 0%, rgba(255, 255, 255, 0.25) 35%, rgba(255, 255, 255, 0.25) 65%, rgba(255, 255, 255, 0.85) 100%) !important;
   background-origin: padding-box, border-box !important;
   background-clip: padding-box, border-box !important;
-  box-shadow: inset 0 1px 1px 0 rgba(255, 255, 255, 0.4), 0 4px 14px rgba(230, 0, 90, 0.45) !important;
+  box-shadow: inset 0 1px 1px 0 rgba(255, 255, 255, 0.4), inset 0 -1px 1px 0 rgba(255, 255, 255, 0.4), 0 4px 14px rgba(230, 0, 90, 0.45) !important;
   transition: all 0.22s ease !important;
 }
 .video-player-accent-btn:hover {
   background-image: 
     linear-gradient(#FF267A, #FF267A), 
-    linear-gradient(180deg, rgba(255, 255, 255, 0.95) 0%, rgba(255, 255, 255, 0.32) 35%, rgba(255, 255, 255, 0.32) 65%, rgba(255, 255, 255, 0.85) 100%) !important;
-  box-shadow: inset 0 1px 1px 0 rgba(255, 255, 255, 0.5), 0 6px 18px rgba(230, 0, 90, 0.55) !important;
+    linear-gradient(180deg, rgba(255, 255, 255, 0.95) 0%, rgba(255, 255, 255, 0.32) 35%, rgba(255, 255, 255, 0.32) 65%, rgba(255, 255, 255, 0.95) 100%) !important;
+  box-shadow: inset 0 1px 1px 0 rgba(255, 255, 255, 0.5), inset 0 -1px 1px 0 rgba(255, 255, 255, 0.5), 0 6px 18px rgba(230, 0, 90, 0.55) !important;
 }
 
 /* ==========================================================================
@@ -3182,7 +3221,7 @@ html.light-mode .video-player-controls-bar {
     linear-gradient(180deg, rgba(100, 116, 139, 0.45) 0%, rgba(148, 163, 184, 0) 25%, rgba(148, 163, 184, 0) 75%, rgba(100, 116, 139, 0.45) 100%) !important;
   background-origin: padding-box, border-box !important;
   background-clip: padding-box, border-box !important;
-  box-shadow: inset 0 1px 1.5px 0 rgba(255, 255, 255, 0.95), 0 0 0 1px rgba(0, 0, 0, 0.08), 0 12px 36px rgba(0, 0, 0, 0.2) !important;
+  box-shadow: inset 0 1px 1.5px 0 rgba(255, 255, 255, 0.95), inset 0 -1px 1.5px 0 rgba(255, 255, 255, 0.95), 0 0 0 1px rgba(0, 0, 0, 0.08), 0 12px 36px rgba(0, 0, 0, 0.2) !important;
   color: #111827 !important;
 }
 
@@ -3194,7 +3233,7 @@ html.light-mode .video-player-glass-btn {
     linear-gradient(180deg, rgba(100, 116, 139, 0.40) 0%, rgba(148, 163, 184, 0) 25%, rgba(148, 163, 184, 0) 75%, rgba(100, 116, 139, 0.40) 100%) !important;
   background-origin: padding-box, border-box !important;
   background-clip: padding-box, border-box !important;
-  box-shadow: inset 0 1px 1px 0 rgba(255, 255, 255, 0.9), 0 1px 3px rgba(0, 0, 0, 0.08) !important;
+  box-shadow: inset 0 1px 1px 0 rgba(255, 255, 255, 0.9), inset 0 -1px 1px 0 rgba(255, 255, 255, 0.9), 0 1px 3px rgba(0, 0, 0, 0.08) !important;
   color: #1F2937 !important;
 }
 
@@ -3203,7 +3242,7 @@ html.light-mode .video-player-glass-btn:hover {
   background-image: 
     linear-gradient(rgba(229, 231, 235, 0.95), rgba(229, 231, 235, 0.95)), 
     linear-gradient(180deg, rgba(71, 85, 105, 0.65) 0%, rgba(100, 116, 139, 0) 25%, rgba(100, 116, 139, 0) 75%, rgba(71, 85, 105, 0.65) 100%) !important;
-  box-shadow: inset 0 1px 2px 0 rgba(255, 255, 255, 1), 0 2px 8px rgba(0, 0, 0, 0.12) !important;
+  box-shadow: inset 0 1px 2px 0 rgba(255, 255, 255, 1), inset 0 -1px 2px 0 rgba(255, 255, 255, 1), 0 2px 8px rgba(0, 0, 0, 0.12) !important;
   color: #111827 !important;
 }
 
@@ -3215,7 +3254,7 @@ html.light-mode .video-player-quality-menu {
     linear-gradient(180deg, rgba(71, 85, 105, 0.45) 0%, rgba(100, 116, 139, 0.12) 25%, rgba(100, 116, 139, 0.12) 75%, rgba(71, 85, 105, 0.45) 100%) !important;
   background-origin: padding-box, border-box !important;
   background-clip: padding-box, border-box !important;
-  box-shadow: inset 0 1px 1px 0 rgba(255, 255, 255, 0.9), 0 0 0 1px rgba(0, 0, 0, 0.06), 0 16px 40px rgba(0, 0, 0, 0.14) !important;
+  box-shadow: inset 0 1px 1px 0 rgba(255, 255, 255, 0.9), inset 0 -1px 1px 0 rgba(255, 255, 255, 0.9), 0 0 0 1px rgba(0, 0, 0, 0.06), 0 16px 40px rgba(0, 0, 0, 0.14) !important;
   color: #111827 !important;
 }
 
@@ -3421,5 +3460,253 @@ html.light-mode .floaty-bar #dock-settings:hover {
   backdrop-filter: blur(16px) !important;
   -webkit-backdrop-filter: blur(16px) !important;
 }
+
+/* ==========================================================================
+   DISABLE SHINY OUTLINE FEATURE
+   Removes the white shiny border around menu elements, buttons, search boxes,
+   cards, banners, channel cards, etc.
+   ========================================================================== */
+
+/* 1. Universal removal of all ::after shiny border overlays */
+html.no-shiny-outline ::after,
+body.no-shiny-outline ::after,
+html.no-shiny-outline [id^="recommended-channel-"]::after,
+html.no-shiny-outline [id^="livetv-channel-card-"]::after,
+html.no-shiny-outline [id^="home-channel-card-"]::after,
+html.no-shiny-outline [id^="channel-card-"]::after,
+html.no-shiny-outline [id^="test-channel-card-"]::after,
+html.no-shiny-outline .channel-card::after,
+html.no-shiny-outline .hero-carousel-slide::after,
+html.no-shiny-outline [id^="hero-carousel-slide-"]::after,
+html.no-shiny-outline [id^="hero-slide-"]::after,
+html.no-shiny-outline .news-card::after,
+html.no-shiny-outline [id^="news-card-"]::after,
+html.no-shiny-outline .news-card-featured::after,
+html.no-shiny-outline #featured-news-card::after,
+html.no-shiny-outline #btn-discord-join::after,
+html.no-shiny-outline #btn-home-join-discord::after,
+html.no-shiny-outline #btn-changelogs-read::after,
+html.no-shiny-outline #btn-test-vplay-switch::after,
+html.no-shiny-outline button[role="switch"]::after,
+html.no-shiny-outline .toggle-switch-btn::after,
+html.no-shiny-outline #settings-search-container::after,
+html.no-shiny-outline #btn-spotlight-search::after,
+html.no-shiny-outline #btn-mobile-spotlight-search::after,
+html.no-shiny-outline #btn-spotlight-search-mini::after,
+html.no-shiny-outline #floating-search-bar-pill::after,
+html.no-shiny-outline #vplay-tools-dropdown-card::after {
+  display: none !important;
+  content: none !important;
+  opacity: 0 !important;
+  border: none !important;
+  box-shadow: none !important;
+}
+
+/* 2. Channel cards (ô kênh), cards (thẻ), banners */
+html.no-shiny-outline [id^="recommended-channel-"],
+html.no-shiny-outline [id^="livetv-channel-card-"],
+html.no-shiny-outline [id^="home-channel-card-"],
+html.no-shiny-outline [id^="channel-card-"],
+html.no-shiny-outline [id^="test-channel-card-"],
+html.no-shiny-outline .channel-card,
+html.no-shiny-outline .news-card,
+html.no-shiny-outline [id^="news-card-"],
+html.no-shiny-outline .news-card-featured,
+html.no-shiny-outline #featured-news-card,
+html.no-shiny-outline .hero-carousel-slide,
+html.no-shiny-outline [id^="hero-carousel-slide-"],
+html.no-shiny-outline [id^="hero-slide-"],
+html.no-shiny-outline #hero-carousel,
+html.no-shiny-outline #home-hero-carousel,
+html.no-shiny-outline #waves-video-player-container {
+  border: 0 !important;
+  border-width: 0 !important;
+  border-color: transparent !important;
+  outline: none !important;
+  box-shadow: none !important;
+  background-image: none !important;
+}
+
+/* Hover & Selected states for channel cards, news cards, banners */
+html.no-shiny-outline [id^="recommended-channel-"]:hover,
+html.no-shiny-outline [id^="livetv-channel-card-"]:hover,
+html.no-shiny-outline [id^="home-channel-card-"]:hover,
+html.no-shiny-outline [id^="channel-card-"]:hover,
+html.no-shiny-outline [id^="test-channel-card-"]:hover,
+html.no-shiny-outline .channel-card:hover,
+html.no-shiny-outline .news-card:hover,
+html.no-shiny-outline [id^="news-card-"]:hover,
+html.no-shiny-outline .news-card-featured:hover,
+html.no-shiny-outline #featured-news-card:hover,
+html.no-shiny-outline .hero-carousel-slide:hover,
+html.no-shiny-outline [id^="hero-carousel-slide-"]:hover,
+html.no-shiny-outline .hero-carousel-slide.is-center,
+html.no-shiny-outline [id^="hero-carousel-slide-"].is-center,
+html.no-shiny-outline [id^="livetv-channel-card-"].is-selected,
+html.no-shiny-outline [id^="channel-card-"].is-selected,
+html.no-shiny-outline [id^="test-channel-card-"].is-selected {
+  border: 0 !important;
+  border-width: 0 !important;
+  border-color: transparent !important;
+  outline: none !important;
+  box-shadow: none !important;
+  background-image: none !important;
+}
+
+/* 3. Search boxes */
+html.no-shiny-outline #floating-search-bar-pill,
+html.no-shiny-outline #spotlight-search-container,
+html.no-shiny-outline #settings-search-container,
+html.no-shiny-outline #btn-spotlight-search,
+html.no-shiny-outline #btn-mobile-spotlight-search,
+html.no-shiny-outline #btn-spotlight-search-mini,
+html.no-shiny-outline #btn-spotlight-search-desktop,
+html.no-shiny-outline #btn-close-immersive-search,
+html.no-shiny-outline #immersive-search-capsule,
+html.no-shiny-outline .spotlight-bubble-box,
+html.no-shiny-outline .spotlight-input-container,
+html.no-shiny-outline .search-box-capsule,
+html.no-shiny-outline [id*="search"] input,
+html.no-shiny-outline input[type="search"],
+html.no-shiny-outline input[type="text"] {
+  border: 0 !important;
+  border-width: 0 !important;
+  border-color: transparent !important;
+  outline: none !important;
+  background-image: none !important;
+  box-shadow: none !important;
+}
+
+html.no-shiny-outline #floating-search-bar-pill:hover,
+html.no-shiny-outline #spotlight-search-container:hover,
+html.no-shiny-outline #spotlight-search-container:focus-within,
+html.no-shiny-outline #settings-search-container:hover,
+html.no-shiny-outline #settings-search-container:focus-within,
+html.no-shiny-outline #btn-spotlight-search-desktop:hover,
+html.no-shiny-outline #btn-close-immersive-search:hover,
+html.no-shiny-outline #immersive-search-capsule:hover,
+html.no-shiny-outline #immersive-search-capsule:focus-within,
+html.no-shiny-outline .spotlight-bubble-box:hover,
+html.no-shiny-outline .spotlight-input-container:hover,
+html.no-shiny-outline .spotlight-input-container:focus-within,
+html.no-shiny-outline .search-box-capsule:hover {
+  border: 0 !important;
+  border-width: 0 !important;
+  border-color: transparent !important;
+  outline: none !important;
+  background-image: none !important;
+  box-shadow: none !important;
+}
+
+/* 4. Menu & Dropdowns (tools menu, context menus) */
+html.no-shiny-outline #vplay-tools-dropdown-card,
+html.no-shiny-outline [role="menu"],
+html.no-shiny-outline [role="menuitem"],
+html.no-shiny-outline .tools-font-box,
+html.no-shiny-outline .tools-toast-badge {
+  border: 0 !important;
+  border-width: 0 !important;
+  border-color: transparent !important;
+  outline: none !important;
+  background-image: none !important;
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.45) !important;
+}
+
+/* 5. Buttons (nút) & Switches & Controls everywhere */
+html.no-shiny-outline button,
+html.no-shiny-outline [role="button"],
+html.no-shiny-outline [role="switch"],
+html.no-shiny-outline .toggle-switch-btn,
+html.no-shiny-outline .liquid-glass-control,
+html.no-shiny-outline .btn-normal,
+html.no-shiny-outline .tools-font-btn,
+html.no-shiny-outline .glass-player-btn,
+html.no-shiny-outline .glass-player-center-play,
+html.no-shiny-outline .glass-player-center-seek,
+html.no-shiny-outline .glass-player-volume-pill,
+html.no-shiny-outline .glass-player-progress-pill,
+html.no-shiny-outline .video-player-controls-bar,
+html.no-shiny-outline .video-player-glass-btn,
+html.no-shiny-outline .video-player-live-badge,
+html.no-shiny-outline #btn-sidebar-collapse,
+html.no-shiny-outline #btn-sidebar-expand,
+html.no-shiny-outline #btn-mobile-sidebar-close,
+html.no-shiny-outline #btn-sidebar-back,
+html.no-shiny-outline #slider-prev-btn,
+html.no-shiny-outline #slider-next-btn,
+html.no-shiny-outline #btn-discord-close,
+html.no-shiny-outline #btn-welcome-close-icon,
+html.no-shiny-outline #btn-under-construction-close-icon,
+html.no-shiny-outline #btn-theme-light,
+html.no-shiny-outline #btn-theme-dark,
+html.no-shiny-outline #btn-discord-join,
+html.no-shiny-outline #btn-home-join-discord,
+html.no-shiny-outline #btn-changelogs-read,
+html.no-shiny-outline #btn-test-vplay-switch,
+html.no-shiny-outline #btn-welcome-close,
+html.no-shiny-outline #btn-under-construction-close,
+html.no-shiny-outline #dock-spotlight-btn,
+html.no-shiny-outline #dock-home,
+html.no-shiny-outline #dock-tv,
+html.no-shiny-outline #dock-news,
+html.no-shiny-outline #dock-settings,
+html.no-shiny-outline #livetv-category-tabs button,
+html.no-shiny-outline #news-category-tabs button,
+html.no-shiny-outline [id^="btn-"],
+html.no-shiny-outline [id$="-btn"],
+html.no-shiny-outline #native-keyboard button,
+html.no-shiny-outline .toggle-switch-thumb {
+  border: 0 !important;
+  border-width: 0 !important;
+  border-color: transparent !important;
+  outline: none !important;
+  background-image: none !important;
+}
+
+html.no-shiny-outline button:hover,
+html.no-shiny-outline button:focus,
+html.no-shiny-outline button:active,
+html.no-shiny-outline [role="button"]:hover,
+html.no-shiny-outline [role="button"]:focus,
+html.no-shiny-outline [role="button"]:active,
+html.no-shiny-outline .liquid-glass-control:hover,
+html.no-shiny-outline .btn-normal:hover,
+html.no-shiny-outline .tools-font-btn:hover,
+html.no-shiny-outline .glass-player-btn:hover,
+html.no-shiny-outline .glass-player-center-play:hover,
+html.no-shiny-outline .glass-player-center-seek:hover,
+html.no-shiny-outline .video-player-glass-btn:hover,
+html.no-shiny-outline .video-player-live-badge:hover,
+html.no-shiny-outline #livetv-category-tabs button:hover,
+html.no-shiny-outline #news-category-tabs button:hover,
+html.no-shiny-outline #native-keyboard button:hover {
+  border: 0 !important;
+  border-width: 0 !important;
+  border-color: transparent !important;
+  outline: none !important;
+  background-image: none !important;
+}
+
+/* 6. Modals, Dialogs, Cards & inner badges/containers */
+html.no-shiny-outline [role="dialog"],
+html.no-shiny-outline [role="dialog"] > div,
+html.no-shiny-outline .modal-card,
+html.no-shiny-outline [id$="-modal"] > div,
+html.no-shiny-outline [id^="recommended-channel-"] *,
+html.no-shiny-outline [id^="livetv-channel-card-"] *,
+html.no-shiny-outline [id^="home-channel-card-"] *,
+html.no-shiny-outline [id^="channel-card-"] *,
+html.no-shiny-outline [id^="test-channel-card-"] *,
+html.no-shiny-outline .channel-card *,
+html.no-shiny-outline .news-card *,
+html.no-shiny-outline [id^="news-card-"] *,
+html.no-shiny-outline #vplay-tools-dropdown-card *,
+html.no-shiny-outline #floating-search-bar-pill *,
+html.no-shiny-outline #spotlight-search-container *,
+html.no-shiny-outline #settings-search-container *,
+html.no-shiny-outline .hero-carousel-slide * {
+  border-color: transparent !important;
+}
+
 
 

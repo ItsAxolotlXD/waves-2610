@@ -5,6 +5,7 @@ import { DEFAULT_KEYBINDS } from '../utils/keybinds';
 export interface SystemSettings {
   theme: 'dark';
   superDarkMode: boolean;
+  disableShinyOutline: boolean;
   dockToSidebar: boolean;
   fontScale: number; // 0: Cực nhỏ, 1: Nhỏ, 2: Trung bình, 3: Lớn, 4: Cực lớn
   fontScaleVersion?: number;
@@ -41,6 +42,7 @@ export const getDefaultNavigationMode = (): 'sidebar' | 'topbar' | 'floaty' | 'i
 export const DEFAULT_SETTINGS: SystemSettings = {
   theme: 'dark',
   superDarkMode: false,
+  disableShinyOutline: false,
   dockToSidebar: true,
   fontScale: 2, // Mặc định là "Trung bình" (quy chuẩn chuẩn cho cả desktop nhỏ và mobile)
   fontScaleVersion: 2,
@@ -120,6 +122,7 @@ export const getStoredSettings = (): SystemSettings => {
         floatingSearchBarVersion: 1,
         nativeKeyboard: typeof parsed.nativeKeyboard === 'boolean' ? parsed.nativeKeyboard : DEFAULT_SETTINGS.nativeKeyboard,
         superDarkMode: typeof parsed.superDarkMode === 'boolean' ? parsed.superDarkMode : DEFAULT_SETTINGS.superDarkMode,
+        disableShinyOutline: typeof parsed.disableShinyOutline === 'boolean' ? parsed.disableShinyOutline : DEFAULT_SETTINGS.disableShinyOutline,
         customKeybinds: {
           ...DEFAULT_KEYBINDS,
           ...(parsed.customKeybinds || {})
@@ -150,6 +153,15 @@ export const applySystemSettings = (settings: SystemSettings) => {
   } else {
     document.documentElement.classList.remove('super-dark');
     document.body?.classList.remove('super-dark');
+  }
+
+  // Disable Shiny Outline
+  if (settings.disableShinyOutline) {
+    document.documentElement.classList.add('no-shiny-outline');
+    document.body?.classList.add('no-shiny-outline');
+  } else {
+    document.documentElement.classList.remove('no-shiny-outline');
+    document.body?.classList.remove('no-shiny-outline');
   }
 
   // Apply font scale
@@ -218,6 +230,7 @@ export const updateDraftSetting = <K extends keyof SystemSettings>(key: K, value
 
 export const discardDraftSettings = () => {
   draftSettingsStore = { ...settingsStore };
+  applySystemSettings(settingsStore);
   notifyDraftListeners();
 };
 

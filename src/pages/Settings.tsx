@@ -68,6 +68,15 @@ export const Settings: React.FC<SettingsProps> = ({
         document.body?.classList.remove('super-dark');
       }
     }
+    if (key === 'disableShinyOutline') {
+      if (value) {
+        document.documentElement.classList.add('no-shiny-outline');
+        document.body?.classList.add('no-shiny-outline');
+      } else {
+        document.documentElement.classList.remove('no-shiny-outline');
+        document.body?.classList.remove('no-shiny-outline');
+      }
+    }
   };
 
   const handleApplySettings = () => {
@@ -241,6 +250,11 @@ export const Settings: React.FC<SettingsProps> = ({
   matchesSearch('phải') ||
   matchesSearch('Super Dark Mode') ||
   matchesSearch('Super Dark') ||
+  matchesSearch('Disable shiny outline') ||
+  matchesSearch('shiny outline') ||
+  matchesSearch('shiny') ||
+  matchesSearch('outline') ||
+  matchesSearch('viền') ||
   matchesSearch('Floaty Search Box') ||
   matchesSearch('Floating Search Bar')) && (
         <section 
@@ -479,6 +493,40 @@ export const Settings: React.FC<SettingsProps> = ({
                     draftSettings.floatingSearchBar ? 'bg-[#E6005A]' : 'bg-[#E4E4E7] dark:bg-[#3F3F46]'
                   }`}
                   title="Bật/Tắt Floaty Search Box"
+                >
+                  <span
+                    className="toggle-switch-thumb block w-[32px] h-[22px] rounded-full bg-white border border-black/10 dark:border-white/10 shadow-md pointer-events-none"
+                  />
+                </button>
+              </div>
+            )}
+
+            {/* Card: Disable shiny outline */}
+            {(matchesSearch('Disable shiny outline') || matchesSearch('shiny outline') || matchesSearch('shiny') || matchesSearch('outline') || matchesSearch('viền') || matchesSearch('Giao diện')) && (
+              <div 
+                id="setting-disable-shiny-outline"
+                className="p-3.5 sm:p-4 rounded-[20px] flex items-center justify-between gap-4 transition-colors hover:bg-white/5"
+              >
+                <div>
+                  <div className="font-semibold text-white text-sm">
+                    Disable shiny outline
+                  </div>
+                  <div className="text-xs text-[#9CA3AF] mt-1 leading-normal">
+                    Removes the white shiny border around menu elements
+                  </div>
+                </div>
+
+                {/* Magenta Toggle Switch */}
+                <button
+                  id="toggle-disable-shiny-outline"
+                  type="button"
+                  role="switch"
+                  aria-checked={draftSettings.disableShinyOutline}
+                  onClick={() => updateDraft('disableShinyOutline', !draftSettings.disableShinyOutline)}
+                  className={`toggle-switch-btn relative w-[66px] h-7 rounded-full p-[3px] transition-colors duration-200 ease-in-out cursor-pointer shrink-0 flex items-center ${
+                    draftSettings.disableShinyOutline ? 'bg-[#E6005A]' : 'bg-[#E4E4E7] dark:bg-[#3F3F46]'
+                  }`}
+                  title="Bật/Tắt Disable shiny outline"
                 >
                   <span
                     className="toggle-switch-thumb block w-[32px] h-[22px] rounded-full bg-white border border-black/10 dark:border-white/10 shadow-md pointer-events-none"
