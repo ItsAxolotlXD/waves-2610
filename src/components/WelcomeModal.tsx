@@ -119,7 +119,7 @@ export const WelcomeModal: React.FC<WelcomeModalProps> = ({
                 <li className="flex items-start gap-2.5">
                   <span className="w-1.5 h-1.5 rounded-full bg-[#E6005A] mt-1.5 shrink-0" />
                   <div>
-                    <span className="font-medium text-white">Đã áp dụng hiệu ứng Liquid Glass lên các thẻ kênh, thẻ banner, thẻ article và một số khu vực khác</span>
+                    <span className="font-medium text-white">Đã áp dụng hiệu ứng Spatial Glass lên các thẻ kênh, thẻ banner, thẻ article và một số khu vực khác</span>
                   </div>
                 </li>
               </ul>

@@ -46,6 +46,8 @@ export const NativeKeyboardProvider: React.FC<{ children: React.ReactNode }> = (
   const [isOpen, setIsOpen] = useState(false);
   const [activeInput, setActiveInput] = useState<HTMLInputElement | HTMLTextAreaElement | null>(null);
   const activeInputRef = useRef<HTMLInputElement | HTMLTextAreaElement | null>(null);
+  // Track selection range so typing indicator and characters never erroneously jump to 0
+  const lastSelectionRef = useRef<{ input: HTMLElement; start: number; end: number } | null>(null);
 
   // Input method: 'en' | 'vi-telex' | 'vi-vni' (defaults to 'vi-telex')
   const [inputMethod, setInputMethodState] = useState<VietnameseInputMethod>(() => {
@@ -65,8 +67,8 @@ export const NativeKeyboardProvider: React.FC<{ children: React.ReactNode }> = (
     } catch {}
   }, []);
   
-  // Standard iOS on-screen keyboard height is approx 285px - 300px
-  const keyboardHeight = 290;
+  // Dynamic iOS on-screen keyboard height (approx 290px, or 336px with dedicated number row)
+  const keyboardHeight = settings.keyboardNumberRow ? 336 : 290;
 
   const isNativeKeyboardEnabled = Boolean(settings.nativeKeyboard);
 
@@ -75,11 +77,43 @@ export const NativeKeyboardProvider: React.FC<{ children: React.ReactNode }> = (
     activeInputRef.current = activeInput;
   }, [activeInput]);
 
+  // Track selection changes across user interactions
+  useEffect(() => {
+    const handleSelectionUpdate = () => {
+      const el = document.activeElement;
+      if (el instanceof HTMLInputElement || el instanceof HTMLTextAreaElement) {
+        if (el === activeInputRef.current && el.selectionStart !== null && el.selectionEnd !== null) {
+          lastSelectionRef.current = {
+            input: el,
+            start: el.selectionStart,
+            end: el.selectionEnd,
+          };
+        }
+      }
+    };
+
+    document.addEventListener('selectionchange', handleSelectionUpdate);
+    document.addEventListener('mouseup', handleSelectionUpdate);
+    document.addEventListener('touchend', handleSelectionUpdate);
+    return () => {
+      document.removeEventListener('selectionchange', handleSelectionUpdate);
+      document.removeEventListener('mouseup', handleSelectionUpdate);
+      document.removeEventListener('touchend', handleSelectionUpdate);
+    };
+  }, []);
+
   const openKeyboard = useCallback((input: HTMLInputElement | HTMLTextAreaElement) => {
     if (!isNativeKeyboardEnabled) return;
     keyboardSound.unlockAudio();
     setActiveInput(input);
     setIsOpen(true);
+
+    const pos = input.selectionStart ?? input.value.length;
+    lastSelectionRef.current = {
+      input,
+      start: pos,
+      end: pos,
+    };
 
     // Scroll active element into comfortable view if partially obscured
     setTimeout(() => {
@@ -98,30 +132,25 @@ export const NativeKeyboardProvider: React.FC<{ children: React.ReactNode }> = (
     setIsOpen(false);
   }, []);
 
-  // Switch to device's physical/OS keyboard: disables virtual native keyboard and focuses target
+  // Switch to device's physical/OS keyboard: temporarily switches to device keyboard for current input without permanently disabling native keyboard setting
   const switchToDeviceKeyboard = useCallback(() => {
     const currentInput = activeInputRef.current;
     setIsOpen(false);
     setActiveInput(null);
 
-    // Remove inputmode="none" so native OS keyboard appears
-    document.querySelectorAll('input, textarea').forEach((el) => {
-      el.removeAttribute('inputmode');
-      el.removeAttribute('data-native-keyboard-intercepted');
-    });
-
-    // Update system setting
-    updateSetting('nativeKeyboard', false);
-
-    // Refocus the input so device keyboard opens
+    // Temporarily allow device keyboard on current input
     if (currentInput) {
+      currentInput.removeAttribute('inputmode');
+      currentInput.removeAttribute('data-native-keyboard-intercepted');
+      currentInput.setAttribute('data-temporary-device-keyboard', 'true');
+
       setTimeout(() => {
         try {
           currentInput.focus();
         } catch {}
-      }, 80);
+      }, 60);
     }
-  }, [updateSetting]);
+  }, []);
 
   // Insert character into active input element with Vietnamese IME support
   const insertText = useCallback((text: string) => {
@@ -129,10 +158,27 @@ export const NativeKeyboardProvider: React.FC<{ children: React.ReactNode }> = (
     if (!input) return;
 
     try {
-      const start = input.selectionStart ?? input.value.length;
-      const end = input.selectionEnd ?? input.value.length;
-      const val = input.value;
+      let start = input.selectionStart;
+      let end = input.selectionEnd;
+      const isFocused = document.activeElement === input;
 
+      // Prevent jumping to position 0 if React re-rendered or focus temporarily shifted
+      if (
+        lastSelectionRef.current &&
+        lastSelectionRef.current.input === input &&
+        (start === null || (start === 0 && end === 0 && !isFocused && input.value.length > 0))
+      ) {
+        start = lastSelectionRef.current.start;
+        end = lastSelectionRef.current.end;
+      } else if (start === null || (!isFocused && start === 0 && end === 0 && input.value.length > 0)) {
+        start = input.value.length;
+        end = input.value.length;
+      } else if (start === null) {
+        start = input.value.length;
+        end = input.value.length;
+      }
+
+      const val = input.value;
       let newVal = '';
       let newPos = start + text.length;
 
@@ -172,6 +218,9 @@ export const NativeKeyboardProvider: React.FC<{ children: React.ReactNode }> = (
         newPos = start + text.length;
       }
 
+      // Track updated selection
+      lastSelectionRef.current = { input, start: newPos, end: newPos };
+
       // Native property setter to invoke React 16+ synthetic onChange tracker
       const prototype = input instanceof HTMLTextAreaElement
         ? window.HTMLTextAreaElement.prototype
@@ -184,12 +233,31 @@ export const NativeKeyboardProvider: React.FC<{ children: React.ReactNode }> = (
       }
 
       try {
+        input.focus({ preventScroll: true });
         input.setSelectionRange(newPos, newPos);
       } catch {}
 
       // Dispatch standard input and change events
       input.dispatchEvent(new Event('input', { bubbles: true }));
       input.dispatchEvent(new Event('change', { bubbles: true }));
+
+      // Re-assert selection range synchronously and in next frames to combat React re-render resetting selection to 0
+      requestAnimationFrame(() => {
+        try {
+          if (activeInputRef.current === input) {
+            input.focus({ preventScroll: true });
+            input.setSelectionRange(newPos, newPos);
+          }
+        } catch {}
+      });
+      setTimeout(() => {
+        try {
+          if (activeInputRef.current === input) {
+            input.focus({ preventScroll: true });
+            input.setSelectionRange(newPos, newPos);
+          }
+        } catch {}
+      }, 0);
     } catch {}
   }, [inputMethod]);
 
@@ -199,10 +267,26 @@ export const NativeKeyboardProvider: React.FC<{ children: React.ReactNode }> = (
     if (!input) return;
 
     try {
-      const start = input.selectionStart ?? input.value.length;
-      const end = input.selectionEnd ?? input.value.length;
-      const val = input.value;
+      let start = input.selectionStart;
+      let end = input.selectionEnd;
+      const isFocused = document.activeElement === input;
 
+      if (
+        lastSelectionRef.current &&
+        lastSelectionRef.current.input === input &&
+        (start === null || (start === 0 && end === 0 && !isFocused && input.value.length > 0))
+      ) {
+        start = lastSelectionRef.current.start;
+        end = lastSelectionRef.current.end;
+      } else if (start === null || (!isFocused && start === 0 && end === 0 && input.value.length > 0)) {
+        start = input.value.length;
+        end = input.value.length;
+      } else if (start === null) {
+        start = input.value.length;
+        end = input.value.length;
+      }
+
+      const val = input.value;
       let newVal = val;
       let newPos = start;
 
@@ -215,6 +299,8 @@ export const NativeKeyboardProvider: React.FC<{ children: React.ReactNode }> = (
         newPos = start;
       }
 
+      lastSelectionRef.current = { input, start: newPos, end: newPos };
+
       const prototype = input instanceof HTMLTextAreaElement
         ? window.HTMLTextAreaElement.prototype
         : window.HTMLInputElement.prototype;
@@ -226,11 +312,29 @@ export const NativeKeyboardProvider: React.FC<{ children: React.ReactNode }> = (
       }
 
       try {
+        input.focus({ preventScroll: true });
         input.setSelectionRange(newPos, newPos);
       } catch {}
 
       input.dispatchEvent(new Event('input', { bubbles: true }));
       input.dispatchEvent(new Event('change', { bubbles: true }));
+
+      requestAnimationFrame(() => {
+        try {
+          if (activeInputRef.current === input) {
+            input.focus({ preventScroll: true });
+            input.setSelectionRange(newPos, newPos);
+          }
+        } catch {}
+      });
+      setTimeout(() => {
+        try {
+          if (activeInputRef.current === input) {
+            input.focus({ preventScroll: true });
+            input.setSelectionRange(newPos, newPos);
+          }
+        } catch {}
+      }, 0);
     } catch {}
   }, []);
 
@@ -340,6 +444,11 @@ export const NativeKeyboardProvider: React.FC<{ children: React.ReactNode }> = (
       const target = e.target as HTMLElement | null;
       if (!target) return;
 
+      // Do not re-intercept if temporarily using device keyboard
+      if (target.getAttribute('data-temporary-device-keyboard') === 'true') {
+        return;
+      }
+
       if (!isIgnoredInput(target)) {
         applyInputModeNone(target);
       }
@@ -350,8 +459,23 @@ export const NativeKeyboardProvider: React.FC<{ children: React.ReactNode }> = (
       const target = e.target as HTMLElement | null;
       if (!target || isIgnoredInput(target)) return;
 
+      // Do not open native keyboard if temporarily switched to device keyboard for this input
+      if (target.getAttribute('data-temporary-device-keyboard') === 'true') {
+        return;
+      }
+
       applyInputModeNone(target);
       openKeyboard(target as HTMLInputElement | HTMLTextAreaElement);
+    };
+
+    // Reset temporary switch flag when input loses focus
+    const handleFocusOut = (e: FocusEvent) => {
+      const target = e.target as HTMLElement | null;
+      if (!target) return;
+      if (target.getAttribute('data-temporary-device-keyboard') === 'true') {
+        target.removeAttribute('data-temporary-device-keyboard');
+        applyInputModeNone(target);
+      }
     };
 
     // Intercept click on document to close keyboard if clicked outside input & keyboard
@@ -381,6 +505,7 @@ export const NativeKeyboardProvider: React.FC<{ children: React.ReactNode }> = (
     window.addEventListener('pointerdown', handlePointerDown, { passive: true, capture: true });
     window.addEventListener('touchstart', handlePointerDown, { passive: true, capture: true });
     window.addEventListener('focusin', handleFocusIn, { capture: true });
+    window.addEventListener('focusout', handleFocusOut, { capture: true });
     window.addEventListener('mousedown', handleClickOutside, { capture: true });
 
     // Apply to already rendered inputs on mount
@@ -392,6 +517,7 @@ export const NativeKeyboardProvider: React.FC<{ children: React.ReactNode }> = (
       window.removeEventListener('pointerdown', handlePointerDown, { capture: true });
       window.removeEventListener('touchstart', handlePointerDown, { capture: true });
       window.removeEventListener('focusin', handleFocusIn, { capture: true });
+      window.removeEventListener('focusout', handleFocusOut, { capture: true });
       window.removeEventListener('mousedown', handleClickOutside, { capture: true });
     };
   }, [isNativeKeyboardEnabled, isOpen, keyboardHeight, openKeyboard, closeKeyboard]);

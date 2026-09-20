@@ -98,9 +98,9 @@ export function clearTonesInWord(word: string): string {
 
 /**
  * Determine which vowel in the syllable should receive the tone mark.
- * Follows modern Vietnamese orthography standards.
+ * Follows traditional Vietnamese orthography standards (Bộ Giáo dục & Đào tạo).
  */
-function findToneTargetIndex(cleanWord: string): number {
+export function findToneTargetIndex(cleanWord: string): number {
   const lower = cleanWord.toLowerCase();
   const vowelIndices: number[] = [];
 
@@ -117,54 +117,163 @@ function findToneTargetIndex(cleanWord: string): number {
   const lastVowelIdx = vowelIndices[vowelIndices.length - 1];
   const hasConsonantAfter = lastVowelIdx < lower.length - 1;
 
-  // Handle 'qu' (qu is treated as consonant cluster)
+  // 1. Handle 'qu' (in 'qu', 'u' acts as consonant cluster; e.g. 'quán', 'quý', 'quyên', 'quận')
+  let effectiveVowelIndices = vowelIndices;
   if (lower.startsWith('qu') && firstVowelIdx === 1) {
-    if (vowelIndices.length === 2) {
-      return vowelIndices[1];
-    }
-    if (vowelIndices.length > 2) {
-      // e.g. quye^n -> e^
-      return hasConsonantAfter ? vowelIndices[2] : vowelIndices[1];
+    effectiveVowelIndices = vowelIndices.slice(1);
+    if (effectiveVowelIndices.length === 0) return vowelIndices[0];
+    if (effectiveVowelIndices.length === 1) return effectiveVowelIndices[0];
+  } else if (lower.startsWith('gi') && vowelIndices.length >= 2 && firstVowelIdx === 1) {
+    // In 'gi' followed by vowel (e.g. 'giá', 'gió', 'già', 'giếng'), 'gi' is initial consonant
+    effectiveVowelIndices = vowelIndices.slice(1);
+    if (effectiveVowelIndices.length === 0) return vowelIndices[0];
+    if (effectiveVowelIndices.length === 1) return effectiveVowelIndices[0];
+  }
+
+  // 2. Highest priority: 'ươ' (or 'ưo', 'uơ') diphthong.
+  // In ALL cases (trường, nước, mười, rượu, hướng, được, lượn, thưở),
+  // the tone ALWAYS lands on 'ơ', NEVER on 'ư'!
+  for (let k = 0; k < effectiveVowelIndices.length - 1; k++) {
+    const v1 = lower[effectiveVowelIndices[k]];
+    const v2 = lower[effectiveVowelIndices[k + 1]];
+    if ((v1 === 'ư' && (v2 === 'ơ' || v2 === 'o')) || (v1 === 'u' && v2 === 'ơ')) {
+      return effectiveVowelIndices[k + 1];
     }
   }
 
-  // Handle 'gi' (gi followed by vowel: 'g' is consonant, 'i' merges)
-  if (lower.startsWith('gi') && vowelIndices.length >= 2 && firstVowelIdx === 1) {
-    if (hasConsonantAfter) {
-      return vowelIndices[vowelIndices.length - 1];
-    }
-    return vowelIndices[1];
-  }
-
-  // Check for vowels with diacritics: â, ă, ê, ô, ơ, ư
-  // Usually these diacritic vowels take the tone mark
-  for (const idx of vowelIndices) {
+  // 3. Priority for single diacritic vowels: 'ê', 'ô', 'â', 'ă' (e.g. 'tiếng', 'buồn', 'hoặc', 'xuân')
+  for (const idx of effectiveVowelIndices) {
     const ch = lower[idx];
-    if (['â', 'ă', 'ê', 'ô', 'ơ', 'ư'].includes(ch)) {
+    if (['ê', 'ô', 'â', 'ă'].includes(ch)) {
       return idx;
     }
   }
 
-  // If there are consonants following the vowels (e.g. 'hoan', 'tieng', 'toan')
+  // Standalone 'ơ' or 'ư' if present
+  for (const idx of effectiveVowelIndices) {
+    const ch = lower[idx];
+    if (['ơ', 'ư'].includes(ch)) {
+      return idx;
+    }
+  }
+
+  const vowelCluster = effectiveVowelIndices.map(i => lower[i]).join('');
+
+  // 4. Syllables with final consonants (e.g. 'toán', 'hoàn', 'loạng', 'xoét', 'huỳnh', 'hoạt')
   if (hasConsonantAfter) {
-    // Second vowel receives tone
-    return vowelIndices[1] !== undefined ? vowelIndices[1] : vowelIndices[0];
+    // For 'oa', 'oe' with final consonant -> tone on 2nd vowel (a, e): 'toán', 'hoàn', 'xoét'
+    if (vowelCluster.startsWith('oa') || vowelCluster.startsWith('oe')) {
+      return effectiveVowelIndices[1];
+    }
+    // For 'uy' with final consonant -> tone on y: 'huỳnh', 'huých'
+    if (vowelCluster.startsWith('uy')) {
+      return effectiveVowelIndices[1];
+    }
+    // General rule with ending consonant: tone on second vowel
+    if (effectiveVowelIndices.length >= 2) {
+      return effectiveVowelIndices[1];
+    }
+    return effectiveVowelIndices[0];
   }
 
-  // Diphthongs without ending consonants:
-  // 'oa', 'oe', 'uy' -> tone on the 2nd vowel (hóa, hòe, thúy)
-  const vowelCluster = vowelIndices.map(i => lower[i]).join('');
-  if (['oa', 'oe', 'uy'].includes(vowelCluster)) {
-    return vowelIndices[1];
+  // 5. Open syllables WITHOUT final consonant (traditional standard):
+  // 'oa', 'oe': tone on 'o' (e.g. 'òa', 'hòa', 'hóa', 'tòa', 'xóa', 'thỏa', 'òe', 'hòe', 'khỏe', 'lóe')
+  if (vowelCluster === 'oa' || vowelCluster === 'oe') {
+    return effectiveVowelIndices[0];
   }
 
-  // 'ia', 'ua', 'ưa' -> tone on the 1st vowel (mía, của, chứa)
+  // 'uy': tone on 'u' (e.g. 'úy', 'thúy', 'tùy', 'hủy', 'lũy', 'thủy')
+  if (vowelCluster === 'uy') {
+    return effectiveVowelIndices[0];
+  }
+
+  // 'ia', 'ua', 'ưa': tone on 1st vowel (e.g. 'mía', 'chùa', 'lửa')
   if (['ia', 'ua', 'ưa'].includes(vowelCluster)) {
-    return vowelIndices[0];
+    return effectiveVowelIndices[0];
   }
 
-  // Default: put tone on 2nd to last or 1st vowel
-  return vowelIndices.length >= 2 ? vowelIndices[0] : vowelIndices[0];
+  // Diphthongs with off-glide semivowels ('ai', 'ay', 'ao', 'au', 'eo', 'oi', 'ui'):
+  // tone on 1st vowel (e.g. 'hải', 'máy', 'cháo', 'sáu', 'kéo', 'nếu', 'tối', 'mùi')
+  if (['ai', 'ay', 'ao', 'au', 'eo', 'oi', 'ui'].some(p => vowelCluster.startsWith(p))) {
+    return effectiveVowelIndices[0];
+  }
+
+  // Default: put tone on 2nd vowel if 2 vowels, else 1st
+  return effectiveVowelIndices.length >= 2 ? effectiveVowelIndices[1] : effectiveVowelIndices[0];
+}
+
+/**
+ * Normalizes misplaced Vietnamese tone accents (such as trừơng -> trường, oà -> òa, uý -> úy).
+ */
+export function normalizeVietnameseWord(word: string): string {
+  if (!word) return word;
+
+  let result = word;
+
+  // Fix misplaced tone on 'ư' instead of 'ơ' in 'ươ'
+  result = result
+    .replace(/ừơ/g, 'ườ').replace(/ứơ/g, 'ướ').replace(/ửơ/g, 'ưở').replace(/ữơ/g, 'ưỡ').replace(/ựơ/g, 'ượ')
+    .replace(/ừo/g, 'ườ').replace(/ứo/g, 'ướ').replace(/ửo/g, 'ưở').replace(/ữo/g, 'ưỡ').replace(/ựo/g, 'ượ')
+    .replace(/Ừơ/g, 'Ườ').replace(/Ứơ/g, 'Ướ').replace(/Ửơ/g, 'Ưở').replace(/Ữơ/g, 'Ưỡ').replace(/Ựơ/g, 'Ượ')
+    .replace(/ỪƠ/g, 'ƯỜ').replace(/ỨƠ/g, 'ƯỚ').replace(/ỬƠ/g, 'ƯỞ').replace(/ỮƠ/g, 'ƯỠ').replace(/ỰƠ/g, 'ƯỢ')
+    .replace(/Ừo/g, 'Ườ').replace(/Ứo/g, 'Ướ').replace(/Ửo/g, 'Ưở').replace(/Ữo/g, 'Ưỡ').replace(/Ựo/g, 'Ượ')
+    .replace(/ỪO/g, 'ƯỜ').replace(/ỨO/g, 'ƯỚ').replace(/ỬO/g, 'ƯỞ').replace(/ỮO/g, 'ƯỠ').replace(/ỰO/g, 'ƯỢ');
+
+  // Fix open syllable 'oa' tones: oà -> òa, oá -> óa, etc.
+  result = result
+    .replace(/oà(?![a-zA-Zà-ỹÀ-Ỹ])/g, 'òa')
+    .replace(/oá(?![a-zA-Zà-ỹÀ-Ỹ])/g, 'óa')
+    .replace(/oả(?![a-zA-Zà-ỹÀ-Ỹ])/g, 'ỏa')
+    .replace(/oã(?![a-zA-Zà-ỹÀ-Ỹ])/g, 'õa')
+    .replace(/oạ(?![a-zA-Zà-ỹÀ-Ỹ])/g, 'ọa')
+    .replace(/Oà(?![a-zA-Zà-ỹÀ-Ỹ])/g, 'Òa')
+    .replace(/Oá(?![a-zA-Zà-ỹÀ-Ỹ])/g, 'Óa')
+    .replace(/Oả(?![a-zA-Zà-ỹÀ-Ỹ])/g, 'Ỏa')
+    .replace(/Oã(?![a-zA-Zà-ỹÀ-Ỹ])/g, 'Õa')
+    .replace(/Oạ(?![a-zA-Zà-ỹÀ-Ỹ])/g, 'Ọa')
+    .replace(/OÀ(?![a-zA-Zà-ỹÀ-Ỹ])/g, 'ÒA')
+    .replace(/OÁ(?![a-zA-Zà-ỹÀ-Ỹ])/g, 'ÓA')
+    .replace(/OẢ(?![a-zA-Zà-ỹÀ-Ỹ])/g, 'ỎA')
+    .replace(/OÃ(?![a-zA-Zà-ỹÀ-Ỹ])/g, 'ÕA')
+    .replace(/OẠ(?![a-zA-Zà-ỹÀ-Ỹ])/g, 'ỌA');
+
+  // Fix open syllable 'oe' tones: oè -> òe, oé -> óe, etc.
+  result = result
+    .replace(/oè(?![a-zA-Zà-ỹÀ-Ỹ])/g, 'òe')
+    .replace(/oé(?![a-zA-Zà-ỹÀ-Ỹ])/g, 'óe')
+    .replace(/oẻ(?![a-zA-Zà-ỹÀ-Ỹ])/g, 'ỏe')
+    .replace(/oẽ(?![a-zA-Zà-ỹÀ-Ỹ])/g, 'õe')
+    .replace(/oẹ(?![a-zA-Zà-ỹÀ-Ỹ])/g, 'ọe')
+    .replace(/Oè(?![a-zA-Zà-ỹÀ-Ỹ])/g, 'Òe')
+    .replace(/Oé(?![a-zA-Zà-ỹÀ-Ỹ])/g, 'Óe')
+    .replace(/Oẻ(?![a-zA-Zà-ỹÀ-Ỹ])/g, 'Ỏe')
+    .replace(/Oẽ(?![a-zA-Zà-ỹÀ-Ỹ])/g, 'Õe')
+    .replace(/Oẹ(?![a-zA-Zà-ỹÀ-Ỹ])/g, 'Ọe')
+    .replace(/OÈ(?![a-zA-Zà-ỹÀ-Ỹ])/g, 'ÒE')
+    .replace(/OÉ(?![a-zA-Zà-ỹÀ-Ỹ])/g, 'ÓE')
+    .replace(/OẺ(?![a-zA-Zà-ỹÀ-Ỹ])/g, 'ỎE')
+    .replace(/OẼ(?![a-zA-Zà-ỹÀ-Ỹ])/g, 'ÕE')
+    .replace(/OẸ(?![a-zA-Zà-ỹÀ-Ỹ])/g, 'ỌE');
+
+  // Fix open syllable 'uy' tones: uý -> úy, uỳ -> ùy (when not preceded by q/Q)
+  result = result
+    .replace(/(?<![qQ])uý(?![a-zA-Zà-ỹÀ-Ỹ])/g, 'úy')
+    .replace(/(?<![qQ])uỳ(?![a-zA-Zà-ỹÀ-Ỹ])/g, 'ùy')
+    .replace(/(?<![qQ])uỷ(?![a-zA-Zà-ỹÀ-Ỹ])/g, 'ủy')
+    .replace(/(?<![qQ])uỹ(?![a-zA-Zà-ỹÀ-Ỹ])/g, 'ũy')
+    .replace(/(?<![qQ])uỵ(?![a-zA-Zà-ỹÀ-Ỹ])/g, 'ụy')
+    .replace(/(?<![qQ])Uý(?![a-zA-Zà-ỹÀ-Ỹ])/g, 'Úy')
+    .replace(/(?<![qQ])Uỳ(?![a-zA-Zà-ỹÀ-Ỹ])/g, 'Ùy')
+    .replace(/(?<![qQ])Uỷ(?![a-zA-Zà-ỹÀ-Ỹ])/g, 'Ủy')
+    .replace(/(?<![qQ])Uỹ(?![a-zA-Zà-ỹÀ-Ỹ])/g, 'Ũy')
+    .replace(/(?<![qQ])Uỵ(?![a-zA-Zà-ỹÀ-Ỹ])/g, 'Ụy')
+    .replace(/(?<![qQ])UÝ(?![a-zA-Zà-ỹÀ-Ỹ])/g, 'ÚY')
+    .replace(/(?<![qQ])UỲ(?![a-zA-Zà-ỹÀ-Ỹ])/g, 'ÙY')
+    .replace(/(?<![qQ])UỶ(?![a-zA-Zà-ỹÀ-Ỹ])/g, 'ỦY')
+    .replace(/(?<![qQ])UỸ(?![a-zA-Zà-ỹÀ-Ỹ])/g, 'ŨY')
+    .replace(/(?<![qQ])UỴ(?![a-zA-Zà-ỹÀ-Ỹ])/g, 'ỤY');
+
+  return result;
 }
 
 /**
@@ -176,11 +285,11 @@ export function applyToneToWord(word: string, tone: number): string {
 
   // If typing the same tone again, remove the tone (toggle off)
   if (currentTone === tone || tone === 0) {
-    return clean;
+    return normalizeVietnameseWord(clean);
   }
 
   const targetIdx = findToneTargetIndex(clean);
-  if (targetIdx === -1) return word;
+  if (targetIdx === -1) return normalizeVietnameseWord(word);
 
   let result = '';
   for (let i = 0; i < clean.length; i++) {
@@ -190,7 +299,7 @@ export function applyToneToWord(word: string, tone: number): string {
       result += clean[i];
     }
   }
-  return result;
+  return normalizeVietnameseWord(result);
 }
 
 /**
@@ -272,17 +381,58 @@ export function processTelexKey(currentWord: string, char: string): string | nul
       }
     }
 
+    // Direct vowel combination: if ends with 'ư' and next key is 'o' or 'ơ' -> 'ươ'
+    if (key === 'o' || key === 'ơ') {
+      const tone = getWordTone(currentWord);
+      const clean = clearTonesInWord(currentWord);
+      const lower = clean.toLowerCase();
+      if (lower.endsWith('ư')) {
+        const isLastUpper = clean[clean.length - 1] === clean[clean.length - 1].toUpperCase();
+        const replaced = clean.slice(0, -1) + (isLastUpper ? 'Ư' : 'ư') + (isKeyUpper ? 'Ơ' : 'ơ');
+        return applyToneToWord(replaced, tone);
+      }
+    }
+
+    // Direct vowel combination: if ends with 'u' and next key is 'ơ' -> 'ươ'
+    if (key === 'ơ') {
+      const tone = getWordTone(currentWord);
+      const clean = clearTonesInWord(currentWord);
+      const lower = clean.toLowerCase();
+      if (lower.endsWith('u')) {
+        const isLastUpper = clean[clean.length - 1] === clean[clean.length - 1].toUpperCase();
+        const replaced = clean.slice(0, -1) + (isLastUpper ? 'Ư' : 'ư') + (isKeyUpper ? 'Ơ' : 'ơ');
+        return applyToneToWord(replaced, tone);
+      }
+    }
+
     // 'w' modifier -> 'ă', 'ơ', 'ư', 'ươ'
     if (key === 'w') {
       const tone = getWordTone(currentWord);
       const clean = clearTonesInWord(currentWord);
       const lower = clean.toLowerCase();
 
-      // Check for 'uo' -> 'ươ' (e.g. 'duowc' -> 'được')
-      if (lower.endsWith('uo')) {
-        const isLastUpper = clean[clean.length - 1] === clean[clean.length - 1].toUpperCase();
-        const isPrevUpper = clean[clean.length - 2] === clean[clean.length - 2].toUpperCase();
-        const replaced = clean.slice(0, -2) + (isPrevUpper ? 'Ư' : 'ư') + (isLastUpper ? 'Ơ' : 'ơ');
+      // Check for 'uo', 'ưo', 'uơ' anywhere in the word -> 'ươ' (e.g. 'truong' -> 'trương', 'duoc' -> 'được')
+      if (lower.includes('uo')) {
+        const idx = lower.lastIndexOf('uo');
+        const isUUpper = clean[idx] === clean[idx].toUpperCase();
+        const isOUpper = clean[idx + 1] === clean[idx + 1].toUpperCase();
+        const replaced = clean.slice(0, idx) + (isUUpper ? 'Ư' : 'ư') + (isOUpper ? 'Ơ' : 'ơ') + clean.slice(idx + 2);
+        return applyToneToWord(replaced, tone);
+      }
+
+      if (lower.includes('ưo')) {
+        const idx = lower.lastIndexOf('ưo');
+        const isUUpper = clean[idx] === clean[idx].toUpperCase();
+        const isOUpper = clean[idx + 1] === clean[idx + 1].toUpperCase();
+        const replaced = clean.slice(0, idx) + (isUUpper ? 'Ư' : 'ư') + (isOUpper ? 'Ơ' : 'ơ') + clean.slice(idx + 2);
+        return applyToneToWord(replaced, tone);
+      }
+
+      if (lower.includes('uơ')) {
+        const idx = lower.lastIndexOf('uơ');
+        const isUUpper = clean[idx] === clean[idx].toUpperCase();
+        const isOUpper = clean[idx + 1] === clean[idx + 1].toUpperCase();
+        const replaced = clean.slice(0, idx) + (isUUpper ? 'Ư' : 'ư') + (isOUpper ? 'Ơ' : 'ơ') + clean.slice(idx + 2);
         return applyToneToWord(replaced, tone);
       }
 
@@ -325,7 +475,7 @@ export function processTelexKey(currentWord: string, char: string): string | nul
         return clean.slice(0, -1) + (isUpper ? 'U' : 'u') + (isKeyUpper ? 'W' : 'w');
       }
 
-      // Standalone 'w' at beginning of word or after consonant: can act as 'ư' in quick typing
+      // Standalone 'w' at beginning of word or after consonant: acts as 'ư'
       if (currentWord.length === 0 || !isVowel(currentWord[currentWord.length - 1])) {
         return currentWord + (isKeyUpper ? 'Ư' : 'ư');
       }
@@ -409,8 +559,9 @@ export function processVniKey(currentWord: string, char: string): string | null 
 
   // 7: râu (ơ, ư, ươ)
   if (char === '7') {
-    if (lower.includes('uo')) {
-      const idx = lower.lastIndexOf('uo');
+    if (lower.includes('uo') || lower.includes('ưo') || lower.includes('uơ')) {
+      const matchPattern = lower.includes('uo') ? 'uo' : lower.includes('ưo') ? 'ưo' : 'uơ';
+      const idx = lower.lastIndexOf(matchPattern);
       const isUUpper = clean[idx] === clean[idx].toUpperCase();
       const isOUpper = clean[idx + 1] === clean[idx + 1].toUpperCase();
       const replaced = clean.slice(0, idx) + (isUUpper ? 'Ư' : 'ư') + (isOUpper ? 'Ơ' : 'ơ') + clean.slice(idx + 2);

@@ -1,11 +1,14 @@
 import { useSyncExternalStore } from 'react';
 import { CustomKeybinds } from '../types';
 import { DEFAULT_KEYBINDS } from '../utils/keybinds';
+import { keyboardSound } from '../utils/keyboardSound';
 
 export interface SystemSettings {
   theme: 'dark';
   superDarkMode: boolean;
-  disableShinyOutline: boolean;
+  spatialGlass: boolean;
+  spatialGlassVersion?: number;
+  disableShinyOutline?: boolean;
   dockToSidebar: boolean;
   fontScale: number; // 0: Cực nhỏ, 1: Nhỏ, 2: Trung bình, 3: Lớn, 4: Cực lớn
   fontScaleVersion?: number;
@@ -22,6 +25,9 @@ export interface SystemSettings {
   animatePageTransitions: boolean;
   immersiveSearch: boolean;
   nativeKeyboard: boolean;
+  keyboardNumberRow: boolean;
+  keyboardClipboard: boolean;
+  keyboardSoundEnabled: boolean;
   immersiveSidebar: boolean;
   sidebarPosition: 'left' | 'right';
   navigationMode: 'sidebar' | 'topbar' | 'floaty' | 'immersive_floaty';
@@ -42,6 +48,8 @@ export const getDefaultNavigationMode = (): 'sidebar' | 'topbar' | 'floaty' | 'i
 export const DEFAULT_SETTINGS: SystemSettings = {
   theme: 'dark',
   superDarkMode: false,
+  spatialGlass: true,
+  spatialGlassVersion: 1,
   disableShinyOutline: false,
   dockToSidebar: true,
   fontScale: 2, // Mặc định là "Trung bình" (quy chuẩn chuẩn cho cả desktop nhỏ và mobile)
@@ -59,6 +67,9 @@ export const DEFAULT_SETTINGS: SystemSettings = {
   animatePageTransitions: true,
   immersiveSearch: true,
   nativeKeyboard: false,
+  keyboardNumberRow: false,
+  keyboardClipboard: true,
+  keyboardSoundEnabled: true,
   immersiveSidebar: false,
   sidebarPosition: 'left',
   navigationMode: getDefaultNavigationMode(),
@@ -121,8 +132,15 @@ export const getStoredSettings = (): SystemSettings => {
           : true,
         floatingSearchBarVersion: 1,
         nativeKeyboard: typeof parsed.nativeKeyboard === 'boolean' ? parsed.nativeKeyboard : DEFAULT_SETTINGS.nativeKeyboard,
+        keyboardNumberRow: typeof parsed.keyboardNumberRow === 'boolean' ? parsed.keyboardNumberRow : DEFAULT_SETTINGS.keyboardNumberRow,
+        keyboardClipboard: typeof parsed.keyboardClipboard === 'boolean' ? parsed.keyboardClipboard : DEFAULT_SETTINGS.keyboardClipboard,
+        keyboardSoundEnabled: typeof parsed.keyboardSoundEnabled === 'boolean' ? parsed.keyboardSoundEnabled : DEFAULT_SETTINGS.keyboardSoundEnabled,
         superDarkMode: typeof parsed.superDarkMode === 'boolean' ? parsed.superDarkMode : DEFAULT_SETTINGS.superDarkMode,
-        disableShinyOutline: typeof parsed.disableShinyOutline === 'boolean' ? parsed.disableShinyOutline : DEFAULT_SETTINGS.disableShinyOutline,
+        spatialGlass: parsed.spatialGlassVersion === 1
+          ? (typeof parsed.spatialGlass === 'boolean' ? parsed.spatialGlass : true)
+          : true,
+        spatialGlassVersion: 1,
+        disableShinyOutline: false,
         customKeybinds: {
           ...DEFAULT_KEYBINDS,
           ...(parsed.customKeybinds || {})
@@ -155,18 +173,22 @@ export const applySystemSettings = (settings: SystemSettings) => {
     document.body?.classList.remove('super-dark');
   }
 
-  // Disable Shiny Outline
-  if (settings.disableShinyOutline) {
-    document.documentElement.classList.add('no-shiny-outline');
-    document.body?.classList.add('no-shiny-outline');
+  // Spatial Glass (when turned off, all borders on elements across the app disappear)
+  const isSpatialGlassActive = settings.spatialGlass !== false;
+  if (!isSpatialGlassActive) {
+    document.documentElement.classList.add('no-spatial-glass', 'no-shiny-outline');
+    document.body?.classList.add('no-spatial-glass', 'no-shiny-outline');
   } else {
-    document.documentElement.classList.remove('no-shiny-outline');
-    document.body?.classList.remove('no-shiny-outline');
+    document.documentElement.classList.remove('no-spatial-glass', 'no-shiny-outline');
+    document.body?.classList.remove('no-spatial-glass', 'no-shiny-outline');
   }
 
   // Apply font scale
   const scaleVal = FONT_SCALE_CONFIG[settings.fontScale]?.scale || '1';
   document.documentElement.style.setProperty('--waves-font-scale', scaleVal);
+
+  // Apply keyboard sound preference
+  keyboardSound.setEnabled(settings.keyboardSoundEnabled !== false);
 };
 
 // Initialize current settings and apply them to DOM immediately

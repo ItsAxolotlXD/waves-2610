@@ -13,7 +13,8 @@ import {
   FlaskConical,
   Keyboard,
   RotateCcw,
-  AlertCircle
+  AlertCircle,
+  Info
 } from 'lucide-react';
 import { motion, AnimatePresence } from 'motion/react';
 import { useSettings, FONT_SCALE_CONFIG, SystemSettings } from '../hooks/useSettings';
@@ -232,6 +233,58 @@ export const Settings: React.FC<SettingsProps> = ({
         </div>
       </div>
 
+      {/* 1. Section: Giới thiệu phiên bản */}
+      {(matchesSearch('Giới thiệu phiên bản') ||
+        matchesSearch('Phiên bản') ||
+        matchesSearch('Giới thiệu') ||
+        matchesSearch('Software') ||
+        matchesSearch('Software Build') ||
+        matchesSearch('Software Update') ||
+        matchesSearch('Build') ||
+        matchesSearch('Update') ||
+        matchesSearch('Compatible') ||
+        matchesSearch('Spatial Glass') ||
+        matchesSearch('26.10.0') ||
+        matchesSearch('26W1001a')) && (
+        <section 
+          id="settings-section-version"
+          className="p-5 sm:p-6 rounded-[28px] bg-white/10 backdrop-blur-md shadow-xl space-y-4"
+        >
+          {/* Section Header */}
+          <div className="flex items-start gap-3">
+            <Info className="w-5 h-5 text-white shrink-0 mt-0.5" />
+            <div>
+              <h2 className="text-base font-bold text-white leading-tight">
+                Giới thiệu phiên bản
+              </h2>
+              <p className="text-xs text-[#9CA3AF] mt-1 leading-relaxed">
+                Thông tin bản cập nhật, bản dựng phần mềm và độ tương thích hệ thống
+              </p>
+            </div>
+          </div>
+
+          <div className="p-4 sm:p-5 rounded-[20px] bg-white/5 space-y-3.5 select-text">
+            <div className="flex items-center justify-between text-sm sm:text-[15px]">
+              <span className="font-medium text-white">Software Update</span>
+              <span className="font-semibold text-[#9CA3AF]">26.10.0</span>
+            </div>
+            <div className="flex items-center justify-between text-sm sm:text-[15px]">
+              <span className="font-medium text-white">Software Build</span>
+              <span className="font-semibold text-[#9CA3AF]">26W1001a</span>
+            </div>
+            {/* Dòng chữ to dưới Software Build: Compatible with Spatial Glass */}
+            <div id="settings-compatible-spatial-glass" className="pt-3 mt-1 border-t border-white/10 flex items-center">
+              <p className="text-base sm:text-lg font-bold tracking-tight text-white">
+                Compatible with{' '}
+                <span className="bg-gradient-to-r from-[#E6005A] via-[#FF4D97] to-[#FFFFFF] bg-clip-text text-transparent font-extrabold drop-shadow-[0_0_12px_rgba(230,0,90,0.35)]">
+                  Spatial Glass.
+                </span>
+              </p>
+            </div>
+          </div>
+        </section>
+      )}
+
       {/* 2. Section 1: Giao diện */}
       {(matchesSearch('Giao diện') ||
         matchesSearch('Chế độ giao diện') ||
@@ -320,7 +373,7 @@ export const Settings: React.FC<SettingsProps> = ({
               </div>
             )}
 
-            {/* Card 1: Cỡ chữ ứng dụng (Liquid Glass Pill Slider Style) */}
+            {/* Card 1: Cỡ chữ ứng dụng (Spatial Glass Pill Slider Style) */}
             {matchesSearch('Cỡ chữ ứng dụng') && (
               <div className="p-3 sm:p-4 rounded-[20px] space-y-4">
                 {/* Header Row */}
@@ -333,7 +386,7 @@ export const Settings: React.FC<SettingsProps> = ({
                   </div>
                 </div>
 
-                {/* Liquid Glass Capsule Slider Container */}
+                {/* Spatial Glass Capsule Slider Container */}
                 <div className="pt-1">
                   <div className="group relative w-full h-16 rounded-[24px] bg-[#1E1D24] dark:bg-[#1E1D24] border border-[#34343E]/60 flex items-center px-6 transition-all settings-slider-capsule select-none">
                     {/* Native Range Input (Transparent Overlay for Smooth Drag & Touch) */}
@@ -501,32 +554,32 @@ export const Settings: React.FC<SettingsProps> = ({
               </div>
             )}
 
-            {/* Card: Disable shiny outline */}
-            {(matchesSearch('Disable shiny outline') || matchesSearch('shiny outline') || matchesSearch('shiny') || matchesSearch('outline') || matchesSearch('viền') || matchesSearch('Giao diện')) && (
+            {/* Card: Spatial Glass */}
+            {(matchesSearch('Spatial Glass') || matchesSearch('spatial') || matchesSearch('glass') || matchesSearch('viền') || matchesSearch('outline') || matchesSearch('shiny') || matchesSearch('Giao diện')) && (
               <div 
-                id="setting-disable-shiny-outline"
+                id="setting-spatial-glass"
                 className="p-3.5 sm:p-4 rounded-[20px] flex items-center justify-between gap-4 transition-colors hover:bg-white/5"
               >
                 <div>
                   <div className="font-semibold text-white text-sm">
-                    Disable shiny outline
+                    Spatial Glass
                   </div>
                   <div className="text-xs text-[#9CA3AF] mt-1 leading-normal">
-                    Removes the white shiny border around menu elements
+                    Hiệu ứng viền sáng Spatial Glass trên các ô kênh, thẻ và nút bấm trong ứng dụng
                   </div>
                 </div>
 
                 {/* Magenta Toggle Switch */}
                 <button
-                  id="toggle-disable-shiny-outline"
+                  id="toggle-spatial-glass"
                   type="button"
                   role="switch"
-                  aria-checked={draftSettings.disableShinyOutline}
-                  onClick={() => updateDraft('disableShinyOutline', !draftSettings.disableShinyOutline)}
+                  aria-checked={draftSettings.spatialGlass}
+                  onClick={() => updateDraft('spatialGlass', !draftSettings.spatialGlass)}
                   className={`toggle-switch-btn relative w-[66px] h-7 rounded-full p-[3px] transition-colors duration-200 ease-in-out cursor-pointer shrink-0 flex items-center ${
-                    draftSettings.disableShinyOutline ? 'bg-[#E6005A]' : 'bg-[#E4E4E7] dark:bg-[#3F3F46]'
+                    draftSettings.spatialGlass ? 'bg-[#E6005A]' : 'bg-[#E4E4E7] dark:bg-[#3F3F46]'
                   }`}
-                  title="Bật/Tắt Disable shiny outline"
+                  title="Bật/Tắt Spatial Glass"
                 >
                   <span
                     className="toggle-switch-thumb block w-[32px] h-[22px] rounded-full bg-white border border-black/10 dark:border-white/10 shadow-md pointer-events-none"
@@ -991,6 +1044,156 @@ export const Settings: React.FC<SettingsProps> = ({
         </section>
       )}
 
+      {/* Section: Bàn phím */}
+      {(matchesSearch('Bàn phím') ||
+        matchesSearch('Keyboard') ||
+        matchesSearch('Bàn phím số') ||
+        matchesSearch('Clipboard') ||
+        matchesSearch('Sao chép') ||
+        matchesSearch('Âm bàn phím') ||
+        matchesSearch('Âm thanh') ||
+        matchesSearch('Sound') ||
+        matchesSearch('pop') ||
+        matchesSearch('Lịch sử sao chép')) && (
+        <section 
+          id="settings-section-keyboard"
+          className="p-5 sm:p-6 rounded-[28px] bg-white/10 backdrop-blur-md shadow-xl space-y-4"
+        >
+          {/* Section Header */}
+          <div className="flex items-start gap-3">
+            <Keyboard className="w-5 h-5 text-white shrink-0 mt-0.5" />
+            <div>
+              <h2 className="text-base font-bold text-white leading-tight">
+                Bàn phím
+              </h2>
+              <p className="text-xs text-[#9CA3AF] mt-1 leading-relaxed">
+                Tùy chỉnh cấu hình và hành vi bàn phím ảo trong ứng dụng
+              </p>
+            </div>
+          </div>
+
+          <div className="space-y-3 pt-1">
+            {/* 1. Bàn phím số (off by default) */}
+            {(matchesSearch('Bàn phím số') ||
+              matchesSearch('Bàn phím') ||
+              matchesSearch('Keyboard') ||
+              matchesSearch('dải phím chữ') ||
+              matchesSearch('0 đến 9') ||
+              matchesSearch('số')) && (
+              <div 
+                id="setting-keyboard-number-row"
+                onClick={() => updateDraft('keyboardNumberRow', !draftSettings.keyboardNumberRow)}
+                className="group p-3.5 sm:p-4 rounded-[20px] flex items-center justify-between gap-4 cursor-pointer hover:bg-white/5 transition-colors"
+              >
+                <div>
+                  <div className="font-semibold text-white text-sm">
+                    Bàn phím số
+                  </div>
+                  <div className="text-xs text-[#9CA3AF] mt-1 leading-normal">
+                    Hiển thị bàn phím số từ 0 đến 9 ngay trên dải phím chữ
+                  </div>
+                </div>
+
+                <button
+                  id="toggle-keyboard-number-row"
+                  type="button"
+                  role="switch"
+                  aria-checked={draftSettings.keyboardNumberRow}
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    updateDraft('keyboardNumberRow', !draftSettings.keyboardNumberRow);
+                  }}
+                  className={`toggle-switch-btn relative w-[66px] h-7 rounded-full p-[3px] transition-colors duration-200 ease-in-out cursor-pointer shrink-0 flex items-center ${
+                    draftSettings.keyboardNumberRow ? 'bg-[#E6005A]' : 'bg-[#E4E4E7] dark:bg-[#3F3F46]'
+                  }`}
+                >
+                  <span className="toggle-switch-thumb block w-[32px] h-[22px] rounded-full bg-white border border-black/10 dark:border-white/10 shadow-md pointer-events-none" />
+                </button>
+              </div>
+            )}
+
+            {/* 2. Clipboard (on by default) */}
+            {(matchesSearch('Clipboard') ||
+              matchesSearch('Bàn phím') ||
+              matchesSearch('Keyboard') ||
+              matchesSearch('Sao chép') ||
+              matchesSearch('Lịch sử sao chép') ||
+              matchesSearch('Danh sách lịch sử sao chép trong ứng dụng')) && (
+              <div 
+                id="setting-keyboard-clipboard"
+                onClick={() => updateDraft('keyboardClipboard', !draftSettings.keyboardClipboard)}
+                className="group p-3.5 sm:p-4 rounded-[20px] flex items-center justify-between gap-4 cursor-pointer hover:bg-white/5 transition-colors"
+              >
+                <div>
+                  <div className="font-semibold text-white text-sm">
+                    Clipboard
+                  </div>
+                  <div className="text-xs text-[#9CA3AF] mt-1 leading-normal">
+                    Danh sách lịch sử sao chép trong ứng dụng
+                  </div>
+                </div>
+
+                <button
+                  id="toggle-keyboard-clipboard"
+                  type="button"
+                  role="switch"
+                  aria-checked={draftSettings.keyboardClipboard}
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    updateDraft('keyboardClipboard', !draftSettings.keyboardClipboard);
+                  }}
+                  className={`toggle-switch-btn relative w-[66px] h-7 rounded-full p-[3px] transition-colors duration-200 ease-in-out cursor-pointer shrink-0 flex items-center ${
+                    draftSettings.keyboardClipboard ? 'bg-[#E6005A]' : 'bg-[#E4E4E7] dark:bg-[#3F3F46]'
+                  }`}
+                >
+                  <span className="toggle-switch-thumb block w-[32px] h-[22px] rounded-full bg-white border border-black/10 dark:border-white/10 shadow-md pointer-events-none" />
+                </button>
+              </div>
+            )}
+
+            {/* 3. Âm bàn phím (on by default) */}
+            {(matchesSearch('Âm bàn phím') ||
+              matchesSearch('Bàn phím') ||
+              matchesSearch('Keyboard') ||
+              matchesSearch('Âm thanh') ||
+              matchesSearch('Sound') ||
+              matchesSearch('pop') ||
+              matchesSearch('Phát ra tiếng "pop" khi gõ trên bàn phím')) && (
+              <div 
+                id="setting-keyboard-sound"
+                onClick={() => updateDraft('keyboardSoundEnabled', !draftSettings.keyboardSoundEnabled)}
+                className="group p-3.5 sm:p-4 rounded-[20px] flex items-center justify-between gap-4 cursor-pointer hover:bg-white/5 transition-colors"
+              >
+                <div>
+                  <div className="font-semibold text-white text-sm">
+                    Âm bàn phím
+                  </div>
+                  <div className="text-xs text-[#9CA3AF] mt-1 leading-normal">
+                    Phát ra tiếng "pop" khi gõ trên bàn phím
+                  </div>
+                </div>
+
+                <button
+                  id="toggle-keyboard-sound"
+                  type="button"
+                  role="switch"
+                  aria-checked={draftSettings.keyboardSoundEnabled}
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    updateDraft('keyboardSoundEnabled', !draftSettings.keyboardSoundEnabled);
+                  }}
+                  className={`toggle-switch-btn relative w-[66px] h-7 rounded-full p-[3px] transition-colors duration-200 ease-in-out cursor-pointer shrink-0 flex items-center ${
+                    draftSettings.keyboardSoundEnabled ? 'bg-[#E6005A]' : 'bg-[#E4E4E7] dark:bg-[#3F3F46]'
+                  }`}
+                >
+                  <span className="toggle-switch-thumb block w-[32px] h-[22px] rounded-full bg-white border border-black/10 dark:border-white/10 shadow-md pointer-events-none" />
+                </button>
+              </div>
+            )}
+          </div>
+        </section>
+      )}
+
       {/* Experimental Features Section */}
       {(matchesSearch('Experimental') ||
         matchesSearch('Experimental Features') ||
@@ -1359,42 +1562,25 @@ export const Settings: React.FC<SettingsProps> = ({
 
             {/* Changelogs Option Card */}
             {(matchesSearch('Changelogs') || matchesSearch('Khác') || matchesSearch('Nhật ký thay đổi') || matchesSearch('Cập nhật') || matchesSearch('Release Notes') || matchesSearch('Vplay')) && (
-              <div className="space-y-3">
-                <div className="p-3.5 sm:p-4 rounded-[20px] flex items-center justify-between gap-4 transition-colors hover:bg-white/5">
-                  <div>
-                    <div className="font-semibold text-white text-sm">
-                      Changelogs
-                    </div>
-                    <div className="text-xs text-[#9CA3AF] mt-1 leading-normal">
-                      Danh sách những sự thay đổi trong bản cập nhật mới nhất của Vplay.
-                    </div>
+              <div className="p-3.5 sm:p-4 rounded-[20px] flex items-center justify-between gap-4 transition-colors hover:bg-white/5">
+                <div>
+                  <div className="font-semibold text-white text-sm">
+                    Changelogs
                   </div>
-
-                  {/* Colored Button: Read */}
-                  <button
-                    id="btn-changelogs-read"
-                    type="button"
-                    onClick={() => setIsWelcomeModalOpen(true)}
-                    className="px-5 py-2 rounded-full font-bold text-white bg-[#E6005A] hover:bg-[#FF267A] active:scale-[0.96] transition-all text-xs sm:text-sm cursor-pointer flex items-center justify-center shrink-0 shadow-md tracking-tight text-center"
-                  >
-                    Read
-                  </button>
-                </div>
-
-                {/* Divider between Changelogs setting and update information */}
-                <hr className="border-white/10 mx-3 sm:mx-4" />
-
-                {/* 2 lines under Changelogs: Software Update left & 26.10.0 right; Software Build left & 26W1001a right */}
-                <div className="px-4 py-1.5 flex flex-col gap-2 select-text text-sm sm:text-[15px]">
-                  <div className="flex items-center justify-between">
-                    <span className="font-medium text-white">Software Update</span>
-                    <span className="font-medium text-[#9CA3AF]">26.10.0</span>
-                  </div>
-                  <div className="flex items-center justify-between">
-                    <span className="font-medium text-white">Software Build</span>
-                    <span className="font-medium text-[#9CA3AF]">26W1001a</span>
+                  <div className="text-xs text-[#9CA3AF] mt-1 leading-normal">
+                    Danh sách những sự thay đổi trong bản cập nhật mới nhất của Vplay.
                   </div>
                 </div>
+
+                {/* Colored Button: Read */}
+                <button
+                  id="btn-changelogs-read"
+                  type="button"
+                  onClick={() => setIsWelcomeModalOpen(true)}
+                  className="px-5 py-2 rounded-full font-bold text-white bg-[#E6005A] hover:bg-[#FF267A] active:scale-[0.96] transition-all text-xs sm:text-sm cursor-pointer flex items-center justify-center shrink-0 shadow-md tracking-tight text-center"
+                >
+                  Read
+                </button>
               </div>
             )}
           </div>

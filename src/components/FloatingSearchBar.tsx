@@ -292,7 +292,7 @@ export const FloatingSearchBar: React.FC<FloatingSearchBarProps> = ({
             <img
               src={SF_SEARCH_ICON_URL}
               alt="Search"
-              className="w-5.5 h-5.5 sm:w-6 sm:h-6 object-contain filter brightness-0 invert opacity-85 group-hover:opacity-100 select-none pointer-events-none transition-opacity"
+              className="w-[18px] h-[18px] sm:w-[20px] sm:h-[20px] object-contain filter brightness-0 invert opacity-85 group-hover:opacity-100 select-none pointer-events-none transition-opacity"
               referrerPolicy="no-referrer"
               onError={(e) => {
                 (e.target as HTMLImageElement).src = '/icons/sf-magnifyingglass.png';
@@ -392,7 +392,7 @@ export const FloatingSearchBar: React.FC<FloatingSearchBarProps> = ({
               <img
                 src={SF_MIC_ICON_URL}
                 alt="Mic"
-                className={`w-5.5 h-5.5 sm:w-6 sm:h-6 object-contain filter brightness-0 invert select-none pointer-events-none transition-opacity ${
+                className={`w-[18px] h-[18px] sm:w-[20px] sm:h-[20px] object-contain filter brightness-0 invert select-none pointer-events-none transition-opacity ${
                   isListening ? 'opacity-100' : 'opacity-85 hover:opacity-100'
                 }`}
                 referrerPolicy="no-referrer"

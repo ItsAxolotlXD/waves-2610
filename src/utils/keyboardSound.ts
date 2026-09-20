@@ -4,9 +4,18 @@
 class KeyboardSoundEngine {
   private ctx: AudioContext | null = null;
   private isUnlocked = false;
+  private enabled = true;
 
   constructor() {
     this.setupUnlockListeners();
+  }
+
+  public setEnabled(val: boolean) {
+    this.enabled = val;
+  }
+
+  public isEnabled(): boolean {
+    return this.enabled;
   }
 
   private setupUnlockListeners() {
@@ -59,6 +68,7 @@ class KeyboardSoundEngine {
   }
 
   playKeyClick(type: 'char' | 'space' | 'delete' | 'action' | 'modifier' = 'char') {
+    if (!this.enabled) return;
     try {
       const ctx = this.getContext();
       if (!ctx) return;
@@ -81,83 +91,82 @@ class KeyboardSoundEngine {
     try {
       const now = Math.max(ctx.currentTime, 0.0001) + 0.002;
 
-      // Master gain for this click
+      // Master gain for crisp volume
       const masterGain = ctx.createGain();
-      const masterVol = type === 'action' ? 0.90 : type === 'delete' ? 0.85 : type === 'space' ? 0.82 : 0.80;
+      const masterVol = type === 'action' ? 0.95 : type === 'delete' ? 0.90 : type === 'space' ? 0.88 : 0.85;
       masterGain.gain.setValueAtTime(masterVol, now);
       masterGain.connect(ctx.destination);
 
-      // 1. High frequency mechanical impulse (crisp click transient - ~12ms)
-      const impulseSamples = Math.floor(ctx.sampleRate * 0.015);
-      const impulseBuffer = ctx.createBuffer(1, impulseSamples, ctx.sampleRate);
-      const data = impulseBuffer.getChannelData(0);
-      for (let i = 0; i < impulseSamples; i++) {
-        // High passed burst noise decaying rapidly
-        data[i] = (Math.random() * 2 - 1) * Math.exp(-i / (impulseSamples * 0.28));
-      }
-
-      const noiseSource = ctx.createBufferSource();
-      noiseSource.buffer = impulseBuffer;
-
-      const highpass = ctx.createBiquadFilter();
-      highpass.type = 'highpass';
-      const highpassFreq = type === 'delete' ? 1400 : type === 'space' ? 1600 : type === 'action' ? 2600 : 2200;
-      highpass.frequency.setValueAtTime(highpassFreq, now);
-
-      const noiseGain = ctx.createGain();
-      const clickVolume = type === 'action' ? 0.80 : type === 'delete' ? 0.75 : 0.70;
-      noiseGain.gain.setValueAtTime(clickVolume, now);
-      noiseGain.gain.linearRampToValueAtTime(0.001, now + 0.015);
-
-      noiseSource.connect(highpass);
-      highpass.connect(noiseGain);
-      noiseGain.connect(masterGain);
-      noiseSource.start(now);
-
-      // 2. Resonant body pop (wooden/plastic key resonance - ~35ms)
+      // 1. High-pitch pop synthesizer (fast pitch sweep sine creating a satisfying bubble/pop sound)
       const osc = ctx.createOscillator();
       const oscGain = ctx.createGain();
-      const bandpass = ctx.createBiquadFilter();
 
-      bandpass.type = 'bandpass';
-      let freq = 1450;
+      let startFreq = 2650; // High pitch start for 'char'
+      let endFreq = 1200;
       let decay = 0.035;
-      let bodyVolume = 0.75;
+      let popVolume = 0.85;
 
       if (type === 'delete') {
-        freq = 900;
-        decay = 0.040;
-        bodyVolume = 0.78;
-      } else if (type === 'space') {
-        freq = 1100;
+        startFreq = 2000;
+        endFreq = 900;
         decay = 0.038;
-        bodyVolume = 0.74;
+        popVolume = 0.82;
+      } else if (type === 'space') {
+        startFreq = 2250;
+        endFreq = 1000;
+        decay = 0.038;
+        popVolume = 0.82;
       } else if (type === 'action') {
-        freq = 1750;
-        decay = 0.042;
-        bodyVolume = 0.85;
+        startFreq = 3000;
+        endFreq = 1400;
+        decay = 0.040;
+        popVolume = 0.92;
       } else if (type === 'modifier') {
-        freq = 1200;
+        startFreq = 2450;
+        endFreq = 1150;
         decay = 0.030;
-        bodyVolume = 0.65;
+        popVolume = 0.78;
       }
 
-      osc.type = 'triangle';
-      osc.frequency.setValueAtTime(freq, now);
-      osc.frequency.exponentialRampToValueAtTime(Math.max(freq * 0.35, 40), now + decay);
+      osc.type = 'sine';
+      osc.frequency.setValueAtTime(startFreq, now);
+      // Rapid exponential drop gives the signature high-pitch pop / bloop
+      osc.frequency.exponentialRampToValueAtTime(endFreq, now + decay * 0.65);
 
-      bandpass.frequency.setValueAtTime(freq, now);
-      bandpass.Q.setValueAtTime(2.6, now);
+      // Snappy attack and exponential decay
+      oscGain.gain.setValueAtTime(0.001, now);
+      oscGain.gain.linearRampToValueAtTime(popVolume, now + 0.0015);
+      oscGain.gain.exponentialRampToValueAtTime(0.0001, now + decay);
 
-      oscGain.gain.setValueAtTime(bodyVolume, now);
-      oscGain.gain.linearRampToValueAtTime(0.001, now + decay);
-
-      osc.connect(bandpass);
-      bandpass.connect(oscGain);
+      osc.connect(oscGain);
       oscGain.connect(masterGain);
-
       osc.start(now);
       osc.stop(now + decay);
+
+      // 2. High frequency crisp transient click (~7ms)
+      const clickSamples = Math.floor(ctx.sampleRate * 0.008);
+      const clickBuffer = ctx.createBuffer(1, clickSamples, ctx.sampleRate);
+      const clickData = clickBuffer.getChannelData(0);
+      for (let i = 0; i < clickSamples; i++) {
+        clickData[i] = (Math.random() * 2 - 1) * Math.exp(-i / (clickSamples * 0.22));
+      }
+
+      const clickSource = ctx.createBufferSource();
+      clickSource.buffer = clickBuffer;
+
+      const clickFilter = ctx.createBiquadFilter();
+      clickFilter.type = 'bandpass';
+      clickFilter.frequency.setValueAtTime(startFreq * 1.15, now);
+      clickFilter.Q.setValueAtTime(3.2, now);
+
+      const clickGain = ctx.createGain();
+      clickGain.gain.setValueAtTime(0.40, now);
+      clickGain.gain.exponentialRampToValueAtTime(0.001, now + 0.008);
+
+      clickSource.connect(clickFilter);
+      clickFilter.connect(clickGain);
+      clickGain.connect(masterGain);
+      clickSource.start(now);
     } catch {
       // Audio playback fails silently if unsupported
     }

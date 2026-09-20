@@ -22,6 +22,14 @@
   src: url('https://fonts.gstatic.com/s/googlesans/v58/4UabrENHsxJlGDuGo1OIlLV154t3CwZ-Pw.woff2') format('woff2');
 }
 
+@font-face {
+  font-family: 'Integer';
+  font-style: normal;
+  font-weight: 100 900;
+  font-display: swap;
+  src: local('Integer'), local('Inter'), url('https://fonts.gstatic.com/s/inter/v18/UcC73FwrK3iLTeHuS_fvQtMwCp50KnMa1ZL7W0Q5nw.woff2') format('woff2');
+}
+
 @layer base {
   :root {
     --primary-red: #E6005A;
@@ -35,7 +43,7 @@
   }
 
   *, *::before, *::after {
-    font-family: 'Alata', 'Google Sans', 'Plus Jakarta Sans', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif !important;
+    font-family: 'Integer', 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif !important;
   }
 
   html {
@@ -125,7 +133,7 @@ html.light-mode #btn-top-notifications svg {
   color: #18181B !important;
 }
 
-/* Sidebar Backdrop Blur & Liquid Glass (Dark & Light Mode) */
+/* Sidebar Backdrop Blur & Spatial Glass (Dark & Light Mode) */
 #waves-desktop-sidebar,
 #waves-mobile-sidebar {
   background-color: rgba(18, 10, 24, 0.30) !important;
@@ -183,6 +191,7 @@ html.light-mode .spotlight-bubble-box input::placeholder,
 html.light-mode .search-box-capsule input::placeholder {
   color: #6B7280 !important;
 }
+html.light-mode #settings-section-version,
 html.light-mode #settings-section-interface,
 html.light-mode #settings-section-accessibility,
 html.light-mode #settings-section-motion,
@@ -194,6 +203,7 @@ html.light-mode #settings-section-other {
   border-width: 0 !important;
   box-shadow: 0 4px 16px -2px rgba(0, 0, 0, 0.05) !important;
 }
+html.light-mode #settings-section-version .text-white,
 html.light-mode #settings-section-interface .text-white,
 html.light-mode #settings-section-accessibility .text-white,
 html.light-mode #settings-section-motion .text-white,
@@ -202,6 +212,7 @@ html.light-mode #settings-section-experimental .text-white,
 html.light-mode #settings-section-other .text-white {
   color: #111827 !important;
 }
+html.light-mode #settings-section-version .bg-\[\#28272E\],
 html.light-mode #settings-section-interface .bg-\[\#28272E\],
 html.light-mode #settings-section-accessibility .bg-\[\#28272E\],
 html.light-mode #settings-section-motion .bg-\[\#28272E\],
@@ -353,7 +364,7 @@ html.light-mode[data-immersive-sidebar="true"][data-sidebar-position="right"] #w
   box-shadow: 0 5px 18px rgba(0, 0, 0, 0.35) !important;
 }
 
-/* Search Bars: Specular Liquid Glass border effect with #27121d background */
+/* Search Bars: Specular Spatial Glass border effect with #27121d background */
 .spotlight-bubble-box:not(#btn-spotlight-search):not(#btn-mobile-spotlight-search):not(#btn-spotlight-search-mini):not(#settings-search-container),
 .spotlight-input-container:not(#btn-spotlight-search):not(#btn-mobile-spotlight-search):not(#settings-search-container),
 .search-box-capsule,
@@ -482,7 +493,7 @@ html.light-mode #settings-search-container:focus-within {
   opacity: 1 !important;
 }
 
-/* Light mode adaptation for clean liquid glass search capsules */
+/* Light mode adaptation for clean spatial glass search capsules */
 html.light-mode .spotlight-bubble-box,
 html.light-mode .spotlight-input-container,
 html.light-mode .search-box-capsule,
@@ -523,10 +534,10 @@ html.light-mode #immersive-search-page .text-\[\#E0D8E2\] {
 }
 
 /* ==========================================================================
-   LIQUID GLASS DESIGN SYSTEM (Vplay 26.9 - Developer Beta 6)
+   SPATIAL GLASS DESIGN SYSTEM (Vplay 26.9 - Developer Beta 6)
    ========================================================================== */
 
-/* Liquid Glass Capsule / Surface Style for Controls & Action Buttons */
+/* Spatial Glass Capsule / Surface Style for Controls & Action Buttons */
 #btn-sidebar-collapse,
 #btn-sidebar-expand,
 #btn-mobile-sidebar-close,
@@ -724,7 +735,7 @@ button:hover > .settings-icon-hoverable,
   transform: rotate(180deg);
 }
 
-/* Settings TopBar Apply Checkbox Button: Always colored button (Pink Accent with Liquid Glass border & depth) */
+/* Settings TopBar Apply Checkbox Button: Always colored button (Pink Accent with Spatial Glass border & depth) */
 #btn-top-settings-apply-checkbox {
   background-color: #E6005A !important;
   background-image: 
@@ -1072,19 +1083,20 @@ button[role="switch"]::after,
 #btn-mobile-spotlight-search::after,
 #btn-spotlight-search-mini::after,
 #floating-search-bar-pill::after,
-#vplay-tools-dropdown-card::after {
+#vplay-tools-dropdown-card::after,
+#native-keyboard-lang-menu::after {
   content: "";
   position: absolute;
   inset: 0;
   box-sizing: border-box !important;
   border-radius: inherit;
   pointer-events: none;
-  border: 1px solid rgba(255, 255, 255, 0.28);
-  border-top: 1px solid rgba(255, 255, 255, 0.55);
-  border-bottom: 1px solid rgba(255, 255, 255, 0.55);
-  box-shadow: inset 0 1px 0 0 rgba(255, 255, 255, 0.14), inset 0 -1px 0 0 rgba(255, 255, 255, 0.14);
-  -webkit-mask-image: linear-gradient(90deg, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0.25) 12%, rgba(0, 0, 0, 0.85) 35%, rgba(0, 0, 0, 1) 50%, rgba(0, 0, 0, 0.85) 65%, rgba(0, 0, 0, 0.25) 88%, rgba(0, 0, 0, 0) 100%);
-  mask-image: linear-gradient(90deg, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0.25) 12%, rgba(0, 0, 0, 0.85) 35%, rgba(0, 0, 0, 1) 50%, rgba(0, 0, 0, 0.85) 65%, rgba(0, 0, 0, 0.25) 88%, rgba(0, 0, 0, 0) 100%);
+  border: 1.5px solid rgba(255, 255, 255, 0.35);
+  border-top: 1.5px solid rgba(255, 255, 255, 0.78);
+  border-bottom: 1.5px solid rgba(255, 255, 255, 0.78);
+  box-shadow: none !important;
+  -webkit-mask-image: linear-gradient(90deg, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0.35) 4%, rgba(0, 0, 0, 0.9) 14%, rgba(0, 0, 0, 1) 28%, rgba(0, 0, 0, 1) 72%, rgba(0, 0, 0, 0.9) 86%, rgba(0, 0, 0, 0.35) 96%, rgba(0, 0, 0, 0) 100%);
+  mask-image: linear-gradient(90deg, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0.35) 4%, rgba(0, 0, 0, 0.9) 14%, rgba(0, 0, 0, 1) 28%, rgba(0, 0, 0, 1) 72%, rgba(0, 0, 0, 0.9) 86%, rgba(0, 0, 0, 0.35) 96%, rgba(0, 0, 0, 0) 100%);
   z-index: 25;
   transition: opacity 0.15s ease;
 }
@@ -1127,13 +1139,14 @@ button[role="switch"]:hover::after,
 #btn-mobile-spotlight-search:hover::after,
 #btn-spotlight-search-mini:hover::after,
 #floating-search-bar-pill:hover::after,
-#vplay-tools-dropdown-card:hover::after {
-  border-color: rgba(255, 255, 255, 0.40);
-  border-top: 1px solid rgba(255, 255, 255, 0.75);
-  border-bottom: 1px solid rgba(255, 255, 255, 0.75);
-  box-shadow: inset 0 1px 0 0 rgba(255, 255, 255, 0.22), inset 0 -1px 0 0 rgba(255, 255, 255, 0.22);
-  -webkit-mask-image: linear-gradient(90deg, rgba(0, 0, 0, 0.05) 0%, rgba(0, 0, 0, 0.35) 12%, rgba(0, 0, 0, 0.9) 35%, rgba(0, 0, 0, 1) 50%, rgba(0, 0, 0, 0.9) 65%, rgba(0, 0, 0, 0.35) 88%, rgba(0, 0, 0, 0.05) 100%);
-  mask-image: linear-gradient(90deg, rgba(0, 0, 0, 0.05) 0%, rgba(0, 0, 0, 0.35) 12%, rgba(0, 0, 0, 0.9) 35%, rgba(0, 0, 0, 1) 50%, rgba(0, 0, 0, 0.9) 65%, rgba(0, 0, 0, 0.35) 88%, rgba(0, 0, 0, 0.05) 100%);
+#vplay-tools-dropdown-card:hover::after,
+#native-keyboard-lang-menu:hover::after {
+  border-color: rgba(255, 255, 255, 0.48);
+  border-top: 1.5px solid rgba(255, 255, 255, 0.95);
+  border-bottom: 1.5px solid rgba(255, 255, 255, 0.95);
+  box-shadow: none !important;
+  -webkit-mask-image: linear-gradient(90deg, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0.5) 3%, rgba(0, 0, 0, 0.95) 12%, rgba(0, 0, 0, 1) 22%, rgba(0, 0, 0, 1) 78%, rgba(0, 0, 0, 0.95) 88%, rgba(0, 0, 0, 0.5) 97%, rgba(0, 0, 0, 0) 100%);
+  mask-image: linear-gradient(90deg, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0.5) 3%, rgba(0, 0, 0, 0.95) 12%, rgba(0, 0, 0, 1) 22%, rgba(0, 0, 0, 1) 78%, rgba(0, 0, 0, 0.95) 88%, rgba(0, 0, 0, 0.5) 97%, rgba(0, 0, 0, 0) 100%);
 }
 
 [id^="recommended-channel-"]:active,
@@ -1189,7 +1202,7 @@ img[src*="imgur.com"],
   transition: none !important;
 }
 
-/* Buttons with Channel Card Liquid Glass Border (Join Discord, Read, Switch) */
+/* Buttons with Channel Card Spatial Glass Border (Join Discord, Read, Switch) */
 #btn-discord-join,
 #btn-home-join-discord,
 #btn-changelogs-read,
@@ -1205,14 +1218,14 @@ img[src*="imgur.com"],
 #btn-discord-join,
 #btn-home-join-discord {
   background-color: #5865F2 !important;
-  box-shadow: inset 0 1px 1px 0 rgba(255, 255, 255, 0.35), inset 0 -1px 1px 0 rgba(255, 255, 255, 0.35), 0 3px 12px rgba(88, 101, 242, 0.42) !important;
+  box-shadow: 0 4px 14px rgba(88, 101, 242, 0.42) !important;
   color: #FFFFFF !important;
 }
 
 #btn-discord-join:hover,
 #btn-home-join-discord:hover {
   background-color: #4752C4 !important;
-  box-shadow: inset 0 1px 1px 0 rgba(255, 255, 255, 0.45), inset 0 -1px 1px 0 rgba(255, 255, 255, 0.45), 0 5px 18px rgba(88, 101, 242, 0.55) !important;
+  box-shadow: 0 6px 20px rgba(88, 101, 242, 0.55) !important;
   transform: scale(1.05) !important;
 }
 
@@ -1238,7 +1251,7 @@ img[src*="imgur.com"],
   transition: transform 0.1s ease-out !important;
 }
 
-/* Primary / Accent Pink Liquid Glass Action Buttons */
+/* Primary / Accent Pink Spatial Glass Action Buttons */
 #btn-welcome-close,
 #btn-under-construction-close,
 #btn-hero-watch-now,
@@ -1281,7 +1294,7 @@ img[src*="imgur.com"],
   transition: transform 0.1s ease-out !important;
 }
 
-/* Liquid Glass Toggle Switch Styling */
+/* Spatial Glass Toggle Switch Styling */
 button[role="switch"],
 .toggle-switch-btn {
   width: 66px !important;
@@ -1496,7 +1509,7 @@ html.light-mode [id^="news-cat-btn-"]:active {
   background-color: transparent !important;
 }
 
-/* Light Mode Liquid Glass for Buttons & Search Capsules */
+/* Light Mode Spatial Glass for Buttons & Search Capsules */
 html.light-mode #btn-sidebar-collapse,
 html.light-mode #btn-sidebar-expand,
 html.light-mode #btn-mobile-sidebar-close,
@@ -2090,7 +2103,8 @@ html.light-mode .news-card::after,
 html.light-mode [id^="news-card-"]::after,
 html.light-mode .news-card-featured::after,
 html.light-mode #featured-news-card::after,
-html.light-mode #vplay-tools-dropdown-card::after {
+html.light-mode #vplay-tools-dropdown-card::after,
+html.light-mode #native-keyboard-lang-menu::after {
   border: 1px solid rgba(0, 0, 0, 0.06) !important;
   border-top: 1px solid rgba(100, 116, 139, 0.32) !important;
   border-bottom: 1px solid rgba(100, 116, 139, 0.32) !important;
@@ -2103,7 +2117,8 @@ html.light-mode .news-card:hover::after,
 html.light-mode [id^="news-card-"]:hover::after,
 html.light-mode .news-card-featured:hover::after,
 html.light-mode #featured-news-card:hover::after,
-html.light-mode #vplay-tools-dropdown-card:hover::after {
+html.light-mode #vplay-tools-dropdown-card:hover::after,
+html.light-mode #native-keyboard-lang-menu:hover::after {
   border-color: rgba(0, 0, 0, 0.10) !important;
   border-top: 1px solid rgba(71, 85, 105, 0.48) !important;
   border-bottom: 1px solid rgba(71, 85, 105, 0.48) !important;
@@ -2479,6 +2494,7 @@ html.light-mode #settings-section-search .bg-\[\#24242A\] {
 }
 
 /* Settings Section Header Icons in Light Mode */
+html.light-mode #settings-section-version > div:first-child svg,
 html.light-mode #settings-section-interface > div:first-child svg,
 html.light-mode #settings-section-accessibility > div:first-child svg,
 html.light-mode #settings-section-search > div:first-child svg,
@@ -2487,7 +2503,7 @@ html.light-mode #settings-section-other > div:first-child svg {
 }
 
 /* Global Form Controls (Checkboxes, Switches, Sliders) */
-/* Full-rounded Checkmark with Liquid Glass Border Effect */
+/* Full-rounded Checkmark with Spatial Glass Border Effect */
 .settings-checkmark {
   border-radius: 9999px !important;
   border: 1px solid transparent !important;
@@ -2813,6 +2829,72 @@ html:not(.light-mode) #vplay-tools-dropdown-card svg.fill-current {
   fill: #FFFFFF !important;
 }
 
+/* ==========================================================================
+   Native Keyboard - Language Flyout (20% White Opacity + Backdrop Blur)
+   & No Scale on Hover + Default Cursor
+   ========================================================================== */
+#native-keyboard-lang-menu {
+  position: absolute !important;
+  box-sizing: border-box !important;
+  border-radius: 28px !important;
+  background-color: rgba(255, 255, 255, 0.20) !important;
+  backdrop-filter: blur(18px) saturate(160%) !important;
+  -webkit-backdrop-filter: blur(18px) saturate(160%) !important;
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.20) !important;
+  border: 1px solid rgba(255, 255, 255, 0.35) !important;
+  color: #000000 !important;
+  cursor: default !important;
+}
+
+#native-keyboard-lang-menu,
+#native-keyboard-lang-menu * {
+  cursor: default !important;
+}
+
+#native-keyboard-lang-menu button:not(.bg-\[\#E6005A\]):hover {
+  background-color: rgba(255, 255, 255, 0.25) !important;
+}
+
+/* Native Keyboard: Strict No Zoom/Scale on Hover & Default Cursor across all keys */
+#vplay-native-keyboard,
+#vplay-native-keyboard *,
+#native-keyboard,
+#native-keyboard * {
+  cursor: default !important;
+}
+
+#vplay-native-keyboard button,
+#native-keyboard button {
+  cursor: default !important;
+  transition: transform 0.06s ease, box-shadow 0.06s ease, background-color 0.06s ease !important;
+}
+
+#vplay-native-keyboard button:hover,
+#vplay-native-keyboard button:focus,
+#native-keyboard button:hover,
+#native-keyboard button:focus {
+  transform: none !important;
+  scale: 1 !important;
+  zoom: 1 !important;
+  cursor: default !important;
+}
+
+/* Key pressed-down tactile effect (chỉ có hiệu ứng khi nhấn phím, lún xuống nhẹ 2px) */
+#vplay-native-keyboard button:active,
+#native-keyboard button:active {
+  transform: translateY(2px) !important;
+  scale: 1 !important;
+  box-shadow: 0 0 1px rgba(0, 0, 0, 0.25) !important;
+  filter: brightness(0.95) !important;
+}
+
+/* Native Keyboard Blue Search Button - Absolutely No Glow */
+#btn-native-keyboard-search {
+  box-shadow: none !important;
+  filter: none !important;
+  text-shadow: none !important;
+}
+
 html:not(.light-mode) #vplay-tools-dropdown-card .tools-font-box {
   background-color: rgba(20, 19, 24, 0.60) !important;
   backdrop-filter: blur(6px) !important;
@@ -2941,7 +3023,7 @@ html.light-mode #news-summary-dialog button.bg-\[\#28282E\]:hover {
 }
 
 /* ==========================================================================
-   Live TV Video Player - Liquid Glass Elements & Controls
+   Live TV Video Player - Spatial Glass Elements & Controls
    ========================================================================== */
 #waves-video-player-container {
   border-radius: 16px !important;
@@ -2955,7 +3037,7 @@ html.light-mode #news-summary-dialog button.bg-\[\#28282E\]:hover {
   box-shadow: inset 0 1px 1px 0 rgba(255, 255, 255, 0.12), inset 0 -1px 1px 0 rgba(255, 255, 255, 0.12), 0 20px 50px rgba(0, 0, 0, 0.55) !important;
 }
 
-/* VisionOS Liquid Glass Player Buttons */
+/* VisionOS Spatial Glass Player Buttons */
 .glass-player-btn {
   background-color: rgba(255, 255, 255, 0.18) !important;
   backdrop-filter: blur(6px) saturate(150%) !important;
@@ -3446,6 +3528,7 @@ html.light-mode .floaty-bar #dock-settings:hover {
 }
 
 /* Settings categories white 10% opacity */
+#settings-section-version,
 #settings-section-interface,
 #settings-section-accessibility,
 #settings-section-motion,
@@ -3462,14 +3545,41 @@ html.light-mode .floaty-bar #dock-settings:hover {
 }
 
 /* ==========================================================================
-   DISABLE SHINY OUTLINE FEATURE
-   Removes the white shiny border around menu elements, buttons, search boxes,
-   cards, banners, channel cards, etc.
+   SPATIAL GLASS FEATURE (BORDER TOGGLE)
+   When Spatial Glass is disabled, removes borders around menu elements, buttons,
+   search boxes, cards, banners, channel cards, and elements across the entire app.
    ========================================================================== */
 
-/* 1. Universal removal of all ::after shiny border overlays */
+/* 1. Universal removal of all ::after spatial glass border overlays */
+html.no-spatial-glass ::after,
+body.no-spatial-glass ::after,
 html.no-shiny-outline ::after,
 body.no-shiny-outline ::after,
+html.no-spatial-glass [id^="recommended-channel-"]::after,
+html.no-spatial-glass [id^="livetv-channel-card-"]::after,
+html.no-spatial-glass [id^="home-channel-card-"]::after,
+html.no-spatial-glass [id^="channel-card-"]::after,
+html.no-spatial-glass [id^="test-channel-card-"]::after,
+html.no-spatial-glass .channel-card::after,
+html.no-spatial-glass .hero-carousel-slide::after,
+html.no-spatial-glass [id^="hero-carousel-slide-"]::after,
+html.no-spatial-glass [id^="hero-slide-"]::after,
+html.no-spatial-glass .news-card::after,
+html.no-spatial-glass [id^="news-card-"]::after,
+html.no-spatial-glass .news-card-featured::after,
+html.no-spatial-glass #featured-news-card::after,
+html.no-spatial-glass #btn-discord-join::after,
+html.no-spatial-glass #btn-home-join-discord::after,
+html.no-spatial-glass #btn-changelogs-read::after,
+html.no-spatial-glass #btn-test-vplay-switch::after,
+html.no-spatial-glass button[role="switch"]::after,
+html.no-spatial-glass .toggle-switch-btn::after,
+html.no-spatial-glass #settings-search-container::after,
+html.no-spatial-glass #btn-spotlight-search::after,
+html.no-spatial-glass #btn-mobile-spotlight-search::after,
+html.no-spatial-glass #btn-spotlight-search-mini::after,
+html.no-spatial-glass #floating-search-bar-pill::after,
+html.no-spatial-glass #vplay-tools-dropdown-card::after,
 html.no-shiny-outline [id^="recommended-channel-"]::after,
 html.no-shiny-outline [id^="livetv-channel-card-"]::after,
 html.no-shiny-outline [id^="home-channel-card-"]::after,
@@ -3503,6 +3613,22 @@ html.no-shiny-outline #vplay-tools-dropdown-card::after {
 }
 
 /* 2. Channel cards (ô kênh), cards (thẻ), banners */
+html.no-spatial-glass [id^="recommended-channel-"],
+html.no-spatial-glass [id^="livetv-channel-card-"],
+html.no-spatial-glass [id^="home-channel-card-"],
+html.no-spatial-glass [id^="channel-card-"],
+html.no-spatial-glass [id^="test-channel-card-"],
+html.no-spatial-glass .channel-card,
+html.no-spatial-glass .news-card,
+html.no-spatial-glass [id^="news-card-"],
+html.no-spatial-glass .news-card-featured,
+html.no-spatial-glass #featured-news-card,
+html.no-spatial-glass .hero-carousel-slide,
+html.no-spatial-glass [id^="hero-carousel-slide-"],
+html.no-spatial-glass [id^="hero-slide-"],
+html.no-spatial-glass #hero-carousel,
+html.no-spatial-glass #home-hero-carousel,
+html.no-spatial-glass #waves-video-player-container,
 html.no-shiny-outline [id^="recommended-channel-"],
 html.no-shiny-outline [id^="livetv-channel-card-"],
 html.no-shiny-outline [id^="home-channel-card-"],
@@ -3528,6 +3654,23 @@ html.no-shiny-outline #waves-video-player-container {
 }
 
 /* Hover & Selected states for channel cards, news cards, banners */
+html.no-spatial-glass [id^="recommended-channel-"]:hover,
+html.no-spatial-glass [id^="livetv-channel-card-"]:hover,
+html.no-spatial-glass [id^="home-channel-card-"]:hover,
+html.no-spatial-glass [id^="channel-card-"]:hover,
+html.no-spatial-glass [id^="test-channel-card-"]:hover,
+html.no-spatial-glass .channel-card:hover,
+html.no-spatial-glass .news-card:hover,
+html.no-spatial-glass [id^="news-card-"]:hover,
+html.no-spatial-glass .news-card-featured:hover,
+html.no-spatial-glass #featured-news-card:hover,
+html.no-spatial-glass .hero-carousel-slide:hover,
+html.no-spatial-glass [id^="hero-carousel-slide-"]:hover,
+html.no-spatial-glass .hero-carousel-slide.is-center,
+html.no-spatial-glass [id^="hero-carousel-slide-"].is-center,
+html.no-spatial-glass [id^="livetv-channel-card-"].is-selected,
+html.no-spatial-glass [id^="channel-card-"].is-selected,
+html.no-spatial-glass [id^="test-channel-card-"].is-selected,
 html.no-shiny-outline [id^="recommended-channel-"]:hover,
 html.no-shiny-outline [id^="livetv-channel-card-"]:hover,
 html.no-shiny-outline [id^="home-channel-card-"]:hover,
@@ -3554,6 +3697,21 @@ html.no-shiny-outline [id^="test-channel-card-"].is-selected {
 }
 
 /* 3. Search boxes */
+html.no-spatial-glass #floating-search-bar-pill,
+html.no-spatial-glass #spotlight-search-container,
+html.no-spatial-glass #settings-search-container,
+html.no-spatial-glass #btn-spotlight-search,
+html.no-spatial-glass #btn-mobile-spotlight-search,
+html.no-spatial-glass #btn-spotlight-search-mini,
+html.no-spatial-glass #btn-spotlight-search-desktop,
+html.no-spatial-glass #btn-close-immersive-search,
+html.no-spatial-glass #immersive-search-capsule,
+html.no-spatial-glass .spotlight-bubble-box,
+html.no-spatial-glass .spotlight-input-container,
+html.no-spatial-glass .search-box-capsule,
+html.no-spatial-glass [id*="search"] input,
+html.no-spatial-glass input[type="search"],
+html.no-spatial-glass input[type="text"],
 html.no-shiny-outline #floating-search-bar-pill,
 html.no-shiny-outline #spotlight-search-container,
 html.no-shiny-outline #settings-search-container,
@@ -3577,6 +3735,19 @@ html.no-shiny-outline input[type="text"] {
   box-shadow: none !important;
 }
 
+html.no-spatial-glass #floating-search-bar-pill:hover,
+html.no-spatial-glass #spotlight-search-container:hover,
+html.no-spatial-glass #spotlight-search-container:focus-within,
+html.no-spatial-glass #settings-search-container:hover,
+html.no-spatial-glass #settings-search-container:focus-within,
+html.no-spatial-glass #btn-spotlight-search-desktop:hover,
+html.no-spatial-glass #btn-close-immersive-search:hover,
+html.no-spatial-glass #immersive-search-capsule:hover,
+html.no-spatial-glass #immersive-search-capsule:focus-within,
+html.no-spatial-glass .spotlight-bubble-box:hover,
+html.no-spatial-glass .spotlight-input-container:hover,
+html.no-spatial-glass .spotlight-input-container:focus-within,
+html.no-spatial-glass .search-box-capsule:hover,
 html.no-shiny-outline #floating-search-bar-pill:hover,
 html.no-shiny-outline #spotlight-search-container:hover,
 html.no-shiny-outline #spotlight-search-container:focus-within,
@@ -3599,6 +3770,11 @@ html.no-shiny-outline .search-box-capsule:hover {
 }
 
 /* 4. Menu & Dropdowns (tools menu, context menus) */
+html.no-spatial-glass #vplay-tools-dropdown-card,
+html.no-spatial-glass [role="menu"],
+html.no-spatial-glass [role="menuitem"],
+html.no-spatial-glass .tools-font-box,
+html.no-spatial-glass .tools-toast-badge,
 html.no-shiny-outline #vplay-tools-dropdown-card,
 html.no-shiny-outline [role="menu"],
 html.no-shiny-outline [role="menuitem"],
@@ -3613,10 +3789,55 @@ html.no-shiny-outline .tools-toast-badge {
 }
 
 /* 5. Buttons (nút) & Switches & Controls everywhere */
+html.no-spatial-glass button,
+html.no-spatial-glass [role="button"],
+html.no-spatial-glass [role="switch"],
+html.no-spatial-glass .toggle-switch-btn,
+html.no-spatial-glass .spatial-glass-control,
+html.no-spatial-glass .liquid-glass-control,
+html.no-spatial-glass .btn-normal,
+html.no-spatial-glass .tools-font-btn,
+html.no-spatial-glass .glass-player-btn,
+html.no-spatial-glass .glass-player-center-play,
+html.no-spatial-glass .glass-player-center-seek,
+html.no-spatial-glass .glass-player-volume-pill,
+html.no-spatial-glass .glass-player-progress-pill,
+html.no-spatial-glass .video-player-controls-bar,
+html.no-spatial-glass .video-player-glass-btn,
+html.no-spatial-glass .video-player-live-badge,
+html.no-spatial-glass #btn-sidebar-collapse,
+html.no-spatial-glass #btn-sidebar-expand,
+html.no-spatial-glass #btn-mobile-sidebar-close,
+html.no-spatial-glass #btn-sidebar-back,
+html.no-spatial-glass #slider-prev-btn,
+html.no-spatial-glass #slider-next-btn,
+html.no-spatial-glass #btn-discord-close,
+html.no-spatial-glass #btn-welcome-close-icon,
+html.no-spatial-glass #btn-under-construction-close-icon,
+html.no-spatial-glass #btn-theme-light,
+html.no-spatial-glass #btn-theme-dark,
+html.no-spatial-glass #btn-discord-join,
+html.no-spatial-glass #btn-home-join-discord,
+html.no-spatial-glass #btn-changelogs-read,
+html.no-spatial-glass #btn-test-vplay-switch,
+html.no-spatial-glass #btn-welcome-close,
+html.no-spatial-glass #btn-under-construction-close,
+html.no-spatial-glass #dock-spotlight-btn,
+html.no-spatial-glass #dock-home,
+html.no-spatial-glass #dock-tv,
+html.no-spatial-glass #dock-news,
+html.no-spatial-glass #dock-settings,
+html.no-spatial-glass #livetv-category-tabs button,
+html.no-spatial-glass #news-category-tabs button,
+html.no-spatial-glass [id^="btn-"],
+html.no-spatial-glass [id$="-btn"],
+html.no-spatial-glass #native-keyboard button,
+html.no-spatial-glass .toggle-switch-thumb,
 html.no-shiny-outline button,
 html.no-shiny-outline [role="button"],
 html.no-shiny-outline [role="switch"],
 html.no-shiny-outline .toggle-switch-btn,
+html.no-shiny-outline .spatial-glass-control,
 html.no-shiny-outline .liquid-glass-control,
 html.no-shiny-outline .btn-normal,
 html.no-shiny-outline .tools-font-btn,
@@ -3663,12 +3884,31 @@ html.no-shiny-outline .toggle-switch-thumb {
   background-image: none !important;
 }
 
+html.no-spatial-glass button:hover,
+html.no-spatial-glass button:focus,
+html.no-spatial-glass button:active,
+html.no-spatial-glass [role="button"]:hover,
+html.no-spatial-glass [role="button"]:focus,
+html.no-spatial-glass [role="button"]:active,
+html.no-spatial-glass .spatial-glass-control:hover,
+html.no-spatial-glass .liquid-glass-control:hover,
+html.no-spatial-glass .btn-normal:hover,
+html.no-spatial-glass .tools-font-btn:hover,
+html.no-spatial-glass .glass-player-btn:hover,
+html.no-spatial-glass .glass-player-center-play:hover,
+html.no-spatial-glass .glass-player-center-seek:hover,
+html.no-spatial-glass .video-player-glass-btn:hover,
+html.no-spatial-glass .video-player-live-badge:hover,
+html.no-spatial-glass #livetv-category-tabs button:hover,
+html.no-spatial-glass #news-category-tabs button:hover,
+html.no-spatial-glass #native-keyboard button:hover,
 html.no-shiny-outline button:hover,
 html.no-shiny-outline button:focus,
 html.no-shiny-outline button:active,
 html.no-shiny-outline [role="button"]:hover,
 html.no-shiny-outline [role="button"]:focus,
 html.no-shiny-outline [role="button"]:active,
+html.no-shiny-outline .spatial-glass-control:hover,
 html.no-shiny-outline .liquid-glass-control:hover,
 html.no-shiny-outline .btn-normal:hover,
 html.no-shiny-outline .tools-font-btn:hover,
@@ -3688,6 +3928,23 @@ html.no-shiny-outline #native-keyboard button:hover {
 }
 
 /* 6. Modals, Dialogs, Cards & inner badges/containers */
+html.no-spatial-glass [role="dialog"],
+html.no-spatial-glass [role="dialog"] > div,
+html.no-spatial-glass .modal-card,
+html.no-spatial-glass [id$="-modal"] > div,
+html.no-spatial-glass [id^="recommended-channel-"] *,
+html.no-spatial-glass [id^="livetv-channel-card-"] *,
+html.no-spatial-glass [id^="home-channel-card-"] *,
+html.no-spatial-glass [id^="channel-card-"] *,
+html.no-spatial-glass [id^="test-channel-card-"] *,
+html.no-spatial-glass .channel-card *,
+html.no-spatial-glass .news-card *,
+html.no-spatial-glass [id^="news-card-"] *,
+html.no-spatial-glass #vplay-tools-dropdown-card *,
+html.no-spatial-glass #floating-search-bar-pill *,
+html.no-spatial-glass #spotlight-search-container *,
+html.no-spatial-glass #settings-search-container *,
+html.no-spatial-glass .hero-carousel-slide *,
 html.no-shiny-outline [role="dialog"],
 html.no-shiny-outline [role="dialog"] > div,
 html.no-shiny-outline .modal-card,
