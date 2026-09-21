@@ -104,14 +104,12 @@ export const NativeKeyboard: React.FC = () => {
   }, []);
 
   const handlePasteClipboardItem = (text: string) => {
-    playSound('action');
     insertText(text);
     setCopiedFeedback('Đã dán!');
     setTimeout(() => setCopiedFeedback(null), 1200);
   };
 
   const handlePasteFromDevice = async () => {
-    playSound('action');
     try {
       if (navigator.clipboard && navigator.clipboard.readText) {
         const text = await navigator.clipboard.readText();
@@ -129,13 +127,11 @@ export const NativeKeyboard: React.FC = () => {
   };
 
   const handleClearAllClipboard = () => {
-    playSound('delete');
     clearClipboardHistory();
   };
 
   const handleDeleteClipboardItem = (id: string, e: React.MouseEvent) => {
     e.stopPropagation();
-    playSound('delete');
     removeClipboardItem(id);
   };
 
@@ -176,13 +172,8 @@ export const NativeKeyboard: React.FC = () => {
 
   if (!isNativeKeyboardEnabled) return null;
 
-  // Key press handlers
+  // Key press handlers (Sound is triggered exclusively on pointerdown/press, NEVER on release/click)
   const handleCharPress = (char: string) => {
-    playSound('char');
-    if (navigator.vibrate) {
-      try { navigator.vibrate(8); } catch {}
-    }
-
     const output = (isShiftActive || isCapsLock) ? char.toUpperCase() : char.toLowerCase();
     insertText(output);
 
@@ -193,10 +184,6 @@ export const NativeKeyboard: React.FC = () => {
   };
 
   const handleSpacePress = () => {
-    playSound('space');
-    if (navigator.vibrate) {
-      try { navigator.vibrate(10); } catch {}
-    }
     insertText(' ');
   };
 
@@ -222,11 +209,6 @@ export const NativeKeyboard: React.FC = () => {
   };
 
   const handleShiftTap = () => {
-    playSound('modifier');
-    if (navigator.vibrate) {
-      try { navigator.vibrate(10); } catch {}
-    }
-
     const now = Date.now();
     // Double tap within 300ms toggles Caps Lock
     if (now - lastShiftTapRef.current < 300) {
@@ -244,15 +226,10 @@ export const NativeKeyboard: React.FC = () => {
   };
 
   const handleSearchAction = () => {
-    playSound('action');
-    if (navigator.vibrate) {
-      try { navigator.vibrate(18); } catch {}
-    }
     submitAction();
   };
 
   const toggleMic = () => {
-    playSound('action');
     if (!('webkitSpeechRecognition' in window) && !('SpeechRecognition' in window)) {
       insertText('🎤 ');
       return;
@@ -323,6 +300,9 @@ export const NativeKeyboard: React.FC = () => {
         onPointerDown={(e) => {
           e.preventDefault();
           playSound('char');
+          if (navigator.vibrate) {
+            try { navigator.vibrate(8); } catch {}
+          }
           setActiveBubbleKey(keyId);
         }}
         onPointerUp={() => {
@@ -452,6 +432,7 @@ export const NativeKeyboard: React.FC = () => {
                 <button
                   type="button"
                   onMouseDown={(e) => e.preventDefault()}
+                  onPointerDown={() => playSound('action')}
                   onClick={handlePasteFromDevice}
                   className="flex items-center gap-1 px-2.5 py-1 rounded-full bg-black/10 hover:bg-black/15 active:bg-black/20 text-black text-[11px] font-medium transition-colors cursor-default"
                   title="Dán từ bộ nhớ tạm của thiết bị"
@@ -465,6 +446,7 @@ export const NativeKeyboard: React.FC = () => {
                   <button
                     type="button"
                     onMouseDown={(e) => e.preventDefault()}
+                    onPointerDown={() => playSound('delete')}
                     onClick={handleClearAllClipboard}
                     className="flex items-center gap-1 px-2 py-1 rounded-full bg-red-500/10 hover:bg-red-500/20 active:bg-red-500/30 text-red-700 text-[11px] font-medium transition-colors cursor-default"
                     title="Xóa tất cả lịch sử sao chép"
@@ -504,6 +486,7 @@ export const NativeKeyboard: React.FC = () => {
                 clipboardList.map((item) => (
                   <div
                     key={item.id}
+                    onPointerDown={() => playSound('action')}
                     onClick={() => handlePasteClipboardItem(item.text)}
                     className="group w-full flex items-center justify-between gap-3 p-2.5 rounded-xl bg-white/50 hover:bg-white/70 active:bg-white/80 border border-white/30 backdrop-blur-md shadow-xs cursor-default transition-colors text-left"
                   >
@@ -520,6 +503,10 @@ export const NativeKeyboard: React.FC = () => {
                     <button
                       type="button"
                       onMouseDown={(e) => e.preventDefault()}
+                      onPointerDown={(e) => {
+                        e.stopPropagation();
+                        playSound('delete');
+                      }}
                       onClick={(e) => handleDeleteClipboardItem(item.id, e)}
                       className="p-1.5 rounded-lg text-black/40 hover:text-red-600 hover:bg-red-50 transition-colors shrink-0 cursor-default"
                       title="Xóa mục này"
@@ -626,6 +613,9 @@ export const NativeKeyboard: React.FC = () => {
                   onPointerDown={(e) => {
                     e.preventDefault();
                     playSound('modifier');
+                    if (navigator.vibrate) {
+                      try { navigator.vibrate(10); } catch {}
+                    }
                   }}
                   onClick={handleShiftTap}
                   className={`w-[13.5%] min-w-[38px] sm:min-w-[48px] ${keyHeightClass} rounded-[7px] sm:rounded-[9px] flex items-center justify-center shadow-[0_1px_2px_rgba(0,0,0,0.14)] transition-colors cursor-default backdrop-blur-md border ${
@@ -664,20 +654,14 @@ export const NativeKeyboard: React.FC = () => {
               {/* Backspace Key - Black icon */}
               <button
                 type="button"
-                onMouseDown={(e) => {
+                onMouseDown={(e) => e.preventDefault()}
+                onPointerDown={(e) => {
                   e.preventDefault();
                   handleDeleteDown();
                 }}
-                onMouseUp={handleDeleteUp}
-                onMouseLeave={handleDeleteUp}
-                onTouchStart={(e) => {
-                  e.preventDefault();
-                  handleDeleteDown();
-                }}
-                onTouchEnd={(e) => {
-                  e.preventDefault();
-                  handleDeleteUp();
-                }}
+                onPointerUp={handleDeleteUp}
+                onPointerLeave={handleDeleteUp}
+                onPointerCancel={handleDeleteUp}
                 className={`w-[13.5%] min-w-[38px] sm:min-w-[48px] ${keyHeightClass} rounded-[7px] sm:rounded-[9px] bg-white/40 hover:bg-white/50 backdrop-blur-md text-black border border-white/25 flex items-center justify-center shadow-[0_1px_2px_rgba(0,0,0,0.14)] transition-colors cursor-default`}
                 title="Xóa"
                 aria-label="Xóa"
@@ -711,6 +695,9 @@ export const NativeKeyboard: React.FC = () => {
                 onPointerDown={(e) => {
                   e.preventDefault();
                   playSound('space');
+                  if (navigator.vibrate) {
+                    try { navigator.vibrate(10); } catch {}
+                  }
                 }}
                 onClick={handleSpacePress}
                 className={`flex-1 min-w-0 ${keyHeightClass} rounded-[7px] sm:rounded-[9px] bg-white/40 hover:bg-white/50 active:bg-white/60 backdrop-blur-md text-black border border-white/25 font-semibold text-sm flex items-center justify-center shadow-[0_1px_2px_rgba(0,0,0,0.14)] transition-colors cursor-default`}
@@ -733,6 +720,9 @@ export const NativeKeyboard: React.FC = () => {
                 onPointerDown={(e) => {
                   e.preventDefault();
                   playSound('action');
+                  if (navigator.vibrate) {
+                    try { navigator.vibrate(16); } catch {}
+                  }
                 }}
                 onClick={handleSearchAction}
                 className={`w-[22%] sm:w-[20%] min-w-[65px] sm:min-w-[85px] ${keyHeightClass} rounded-[7px] sm:rounded-[9px] bg-[#007AFF] hover:bg-[#006FDF] active:bg-[#005EC4] text-white flex items-center justify-center shadow-none border-0 transition-colors cursor-default`}

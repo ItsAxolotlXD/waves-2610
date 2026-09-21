@@ -1,6 +1,7 @@
 import React from 'react';
 import { HeroCarousel } from '../components/HeroCarousel';
 import { OnAirSlider } from '../components/OnAirSlider';
+import { IntroducingSpatialGlass } from '../components/IntroducingSpatialGlass';
 import { NEWS_DATA } from '../data/news';
 import { DEFAULT_BANNER_PLACEHOLDER } from '../data/heroSlides';
 import { Channel } from '../types';
@@ -311,6 +312,9 @@ export const Home: React.FC<HomeProps> = ({
           onSelectChannel={onSelectChannel}
           navigate={navigate}
         />
+
+        {/* Dòng giới thiệu: Introducing Spatial Glass (gradient đỏ - trắng, chữ có glow và hạt bay chậm) */}
+        <IntroducingSpatialGlass />
 
         {/* 3. News Feed: Banner ngang - Nghệ thuật tiến hóa tinh tế */}
         {featuredArticle && (

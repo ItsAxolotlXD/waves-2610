@@ -108,7 +108,7 @@ export const OnAirSlider: React.FC<OnAirSliderProps> = ({
                 navigate(`/live-tv?channel=${ch.slug}`);
               }
             }}
-            className="min-w-[84px] sm:min-w-[96px] md:min-w-[108px] h-[46px] sm:h-[52px] md:h-[58px] shrink-0 rounded-xl sm:rounded-2xl p-2 flex items-center justify-center cursor-pointer group select-none bg-[#353535] hover:bg-[#3d3d3d] backdrop-blur-md transition-colors shadow-sm"
+            className="min-w-[84px] sm:min-w-[96px] md:min-w-[108px] h-[46px] sm:h-[52px] md:h-[58px] shrink-0 rounded-xl sm:rounded-2xl p-2 flex items-center justify-center cursor-pointer group select-none bg-[#353535] hover:bg-[#3d3d3d] transition-colors shadow-sm"
             title={ch.name}
             aria-label={ch.name}
           >

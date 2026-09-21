@@ -470,7 +470,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
           id="waves-desktop-sidebar"
           onMouseEnter={() => setIsHovered(true)}
           onMouseLeave={() => setIsHovered(false)}
-          className={`hidden md:flex flex-col h-screen bg-[#180a1c]/30 backdrop-blur-2xl border-r border-white/10 select-none shrink-0 fixed top-0 z-40 overflow-hidden ${
+          className={`hidden md:flex flex-col h-screen bg-[#180a1c]/80 backdrop-blur-md border-r border-white/10 select-none shrink-0 fixed top-0 z-40 overflow-hidden ${
             settings.sidebarPosition === 'right' ? 'right-0 border-l border-r-0' : 'left-0'
           } ${
             shouldAnimateSidebar ? 'transition-all duration-300 ease-in-out' : 'transition-none'
@@ -683,7 +683,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
               animate={{ x: 0 }}
               exit={{ x: shouldAnimateSidebar ? '-100%' : 0 }}
               transition={{ duration: shouldAnimateSidebar ? 0.38 : 0, ease: [0.16, 1, 0.3, 1] }}
-              className="relative w-[290px] sm:w-[320px] max-w-[85vw] h-full bg-[#180a1c]/30 backdrop-blur-2xl border-r border-white/10 flex flex-col shadow-2xl z-10 overflow-hidden"
+              className="relative w-[290px] sm:w-[320px] max-w-[85vw] h-full bg-[#180a1c]/80 backdrop-blur-md border-r border-white/10 flex flex-col shadow-2xl z-10 overflow-hidden"
             >
               {renderSidebarBody(true)}
             </motion.div>

@@ -206,7 +206,7 @@ export const HeroCarousel: React.FC<HeroCarouselProps> = ({
         className="absolute inset-0 -top-16 -bottom-20 pointer-events-none overflow-hidden select-none -z-10"
         aria-hidden="true"
       >
-        {/* Layer hình ảnh banner chính được phóng to và làm mờ đa tầng */}
+        {/* Layer hình ảnh banner chính được phóng to và làm mờ nhẹ nhàng */}
         <div className="absolute inset-0 flex items-center justify-center overflow-hidden">
           <AnimatePresence mode="popLayout">
             {currentBannerBg && (
@@ -215,34 +215,26 @@ export const HeroCarousel: React.FC<HeroCarouselProps> = ({
                 src={currentBannerBg}
                 alt=""
                 referrerPolicy="no-referrer"
-                initial={{ opacity: 0, scale: 1.25 }}
-                animate={{ opacity: 0.50, scale: 1.45 }}
-                exit={{ opacity: 0, scale: 1.45 }}
-                transition={{ duration: 0.85, ease: 'easeOut' }}
+                initial={{ opacity: 0, scale: 1.15 }}
+                animate={{ opacity: 0.38, scale: 1.25 }}
+                exit={{ opacity: 0, scale: 1.25 }}
+                transition={{ duration: 0.65, ease: 'easeOut' }}
                 className="w-full h-full object-cover select-none pointer-events-none"
                 style={{
-                  filter: 'blur(55px) saturate(160%)',
-                  WebkitFilter: 'blur(55px) saturate(160%)',
-                  transform: 'scale(1.45) translateZ(0)',
-                  willChange: 'filter, opacity, transform',
+                  filter: 'blur(28px) saturate(140%)',
+                  WebkitFilter: 'blur(28px) saturate(140%)',
+                  transform: 'scale(1.25) translateZ(0)',
+                  willChange: 'opacity',
                 }}
               />
             )}
           </AnimatePresence>
         </div>
 
-        {/* Lớp kính mờ Backdrop Blur overlay phủ lên trên */}
-        <div 
-          className="absolute inset-0 backdrop-blur-2xl bg-[#181818]/40"
-          style={{
-            backdropFilter: 'blur(40px)',
-            WebkitBackdropFilter: 'blur(40px)',
-          }}
-        />
-
-        {/* Chuyển sắc mượt mà hòa vào màu nền ứng dụng #181818 ở trên, dưới và 2 bên */}
-        <div className="absolute inset-0 bg-gradient-to-b from-[#181818]/80 via-transparent to-[#181818]" />
-        <div className="absolute inset-0 bg-gradient-to-r from-[#181818]/85 via-transparent to-[#181818]/85" />
+        {/* Lớp phủ chuyển sắc mượt mà hòa vào màu nền ứng dụng #181818 ở trên, dưới và 2 bên */}
+        <div className="absolute inset-0 bg-[#181818]/30" />
+        <div className="absolute inset-0 bg-gradient-to-b from-[#181818]/85 via-transparent to-[#181818]" />
+        <div className="absolute inset-0 bg-gradient-to-r from-[#181818]/90 via-transparent to-[#181818]/90" />
       </div>
 
       {/* 3D Stage Container */}
