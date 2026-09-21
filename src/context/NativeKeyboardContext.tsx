@@ -115,9 +115,12 @@ export const NativeKeyboardProvider: React.FC<{ children: React.ReactNode }> = (
       end: pos,
     };
 
-    // Scroll active element into comfortable view if partially obscured
+    // Scroll active element into comfortable view if partially obscured (skip for fixed floating search dock)
     setTimeout(() => {
       try {
+        if (input.id === 'floating-search-input' || input.closest('#bottom-dock-container') || input.closest('#floating-search-bar-container')) {
+          return;
+        }
         const rect = input.getBoundingClientRect();
         const keyboardTop = window.innerHeight - keyboardHeight - 16;
         if (rect.bottom > keyboardTop) {

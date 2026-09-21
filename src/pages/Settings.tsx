@@ -14,7 +14,8 @@ import {
   Keyboard,
   RotateCcw,
   AlertCircle,
-  Info
+  Info,
+  Tv
 } from 'lucide-react';
 import { motion, AnimatePresence } from 'motion/react';
 import { useSettings, FONT_SCALE_CONFIG, SystemSettings } from '../hooks/useSettings';
@@ -386,9 +387,9 @@ export const Settings: React.FC<SettingsProps> = ({
                   </div>
                 </div>
 
-                {/* Spatial Glass Capsule Slider Container */}
+                {/* Slider Container (No background) */}
                 <div className="pt-1">
-                  <div className="group relative w-full h-16 rounded-[24px] bg-[#1E1D24] dark:bg-[#1E1D24] border border-[#34343E]/60 flex items-center px-6 transition-all settings-slider-capsule select-none">
+                  <div className="group relative w-full h-10 flex items-center px-1 transition-all settings-slider-capsule select-none">
                     {/* Native Range Input (Transparent Overlay for Smooth Drag & Touch) */}
                     <input
                       id="slider-font-scale"
@@ -398,7 +399,7 @@ export const Settings: React.FC<SettingsProps> = ({
                       step="1"
                       value={draftSettings.fontScale}
                       onChange={(e) => updateDraft('fontScale', parseInt(e.target.value, 10))}
-                      className="absolute left-6 right-6 top-0 bottom-0 opacity-0 cursor-pointer z-20"
+                      className="absolute left-1 right-1 top-0 bottom-0 opacity-0 cursor-pointer z-20"
                       aria-label="Cỡ chữ ứng dụng"
                     />
 
@@ -447,6 +448,47 @@ export const Settings: React.FC<SettingsProps> = ({
                       );
                     })}
                   </div>
+                </div>
+              </div>
+            )}
+
+            {/* Tỉ lệ luồng truyền hình (16:9 vs 4:3 Squish) */}
+            {(matchesSearch('Tỉ lệ luồng') || matchesSearch('Tỉ lệ khung hình') || matchesSearch('16:9') || matchesSearch('4:3') || matchesSearch('squish') || matchesSearch('truyền hình') || matchesSearch('resolution')) && (
+              <div className="p-3 sm:p-4 rounded-[20px] space-y-3">
+                <div className="flex items-center justify-between">
+                  <div className="flex items-center gap-2">
+                    <Tv className="w-4.5 h-4.5 text-[#9CA3AF]" />
+                    <span className="font-semibold text-white text-sm">
+                      Tỉ lệ luồng truyền hình
+                    </span>
+                  </div>
+                  <span className="text-xs font-semibold text-[#E6005A] font-mono">
+                    {draftSettings.streamAspectRatio === '4:3' ? '4:3 (Squish)' : '16:9 (Chuẩn)'}
+                  </span>
+                </div>
+                <div className="text-xs text-[#9CA3AF] leading-relaxed">
+                  Chuyển đổi tỉ lệ phát sóng kênh truyền hình. Ở chế độ 4:3, luồng video sẽ được co (squish) lại theo tỉ lệ màn hình TV 4:3 cổ điển.
+                </div>
+                <div className="grid grid-cols-2 gap-2 pt-1">
+                  {[
+                    { value: '16:9', label: '16:9 (Chuẩn rộng)' },
+                    { value: '4:3', label: '4:3 (Squish co lại)' },
+                  ].map(({ value, label }) => (
+                    <button
+                      key={value}
+                      type="button"
+                      id={`btn-aspect-${value.replace(':', '-')}`}
+                      onClick={() => updateDraft('streamAspectRatio', value as '16:9' | '4:3')}
+                      className={`h-10 rounded-xl font-medium text-xs sm:text-sm transition-all border cursor-pointer ${
+                        draftSettings.streamAspectRatio === value
+                          ? 'bg-[#E6005A] text-white border-[#E6005A] shadow-[0_2px_10px_rgba(230,0,90,0.35)] font-semibold'
+                          : 'bg-white/5 text-[#9CA3AF] hover:text-white border-white/10 hover:bg-white/10'
+                      }`}
+                      aria-pressed={draftSettings.streamAspectRatio === value}
+                    >
+                      {label}
+                    </button>
+                  ))}
                 </div>
               </div>
             )}

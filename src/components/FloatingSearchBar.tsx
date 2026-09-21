@@ -1,4 +1,5 @@
 import React, { useRef, useState, useEffect, useCallback } from 'react';
+import { motion } from 'motion/react';
 import { X, ChevronUp, ChevronDown } from 'lucide-react';
 import { useVoiceSearch } from '../hooks/useVoiceSearch';
 import { useNativeKeyboard } from '../context/NativeKeyboardContext';
@@ -8,6 +9,10 @@ interface FloatingSearchBarProps {
   searchQuery: string;
   onSearchChange: (query: string) => void;
   onOpenSpotlight?: () => void;
+  onClose?: () => void;
+  autoFocus?: boolean;
+  embedded?: boolean;
+  layoutId?: string;
 }
 
 const SF_SEARCH_ICON_URL = 'https://github.com/andrewtavis/sf-symbols-online/blob/master/glyphs/magnifyingglass.png?raw=true';
@@ -17,7 +22,11 @@ export const FloatingSearchBar: React.FC<FloatingSearchBarProps> = ({
   currentRoute,
   searchQuery,
   onSearchChange,
-  onOpenSpotlight
+  onOpenSpotlight,
+  onClose,
+  autoFocus = false,
+  embedded = false,
+  layoutId
 }) => {
   const inputRef = useRef<HTMLInputElement>(null);
   const [isFocused, setIsFocused] = useState(false);
@@ -25,6 +34,27 @@ export const FloatingSearchBar: React.FC<FloatingSearchBarProps> = ({
   const [currentMatchIndex, setCurrentMatchIndex] = useState(0);
 
   const { isOpen: isKeyboardOpen, keyboardHeight } = useNativeKeyboard();
+
+  useEffect(() => {
+    if (autoFocus) {
+      // Delay focus slightly until morph animation finishes to prevent layout shift / keyboard jumping
+      const timer = setTimeout(() => {
+        inputRef.current?.focus({ preventScroll: true });
+      }, 340);
+      return () => clearTimeout(timer);
+    }
+  }, [autoFocus]);
+
+  useEffect(() => {
+    if (!onClose) return;
+    const handleGlobalEsc = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') {
+        onClose();
+      }
+    };
+    window.addEventListener('keydown', handleGlobalEsc);
+    return () => window.removeEventListener('keydown', handleGlobalEsc);
+  }, [onClose]);
 
   const isArticlePage = currentRoute.startsWith('/news/') && currentRoute !== '/news';
   const isHome = currentRoute === '/' || currentRoute === '/home';
@@ -211,6 +241,9 @@ export const FloatingSearchBar: React.FC<FloatingSearchBarProps> = ({
         setCurrentMatchIndex(0);
       } else {
         inputRef.current?.blur();
+        if (onClose) {
+          onClose();
+        }
       }
     } else if (e.key === 'Enter') {
       if (isArticlePage) {
@@ -225,6 +258,186 @@ export const FloatingSearchBar: React.FC<FloatingSearchBarProps> = ({
       }
     }
   };
+
+  const pillContent = (
+    <motion.div
+      layoutId={layoutId}
+      id="floating-search-bar-pill"
+      onClick={() => inputRef.current?.focus()}
+      transition={{
+        type: 'spring',
+        stiffness: 420,
+        damping: 34,
+        mass: 0.8
+      }}
+      style={{
+        backgroundColor: 'rgba(255, 255, 255, 0.20)',
+        backdropFilter: 'blur(20px)',
+        WebkitBackdropFilter: 'blur(20px)',
+      }}
+      className={`group relative flex items-center ${
+        isArticlePage && searchQuery.trim()
+          ? 'w-[92vw] max-w-[340px] sm:max-w-[400px] md:max-w-[440px]'
+          : 'w-[84vw] max-w-[280px] sm:max-w-[320px] md:max-w-[340px]'
+      } h-[44px] sm:h-[46px] px-3 sm:px-3.5 rounded-full cursor-text shadow-[0_8px_32px_rgba(0,0,0,0.35)] pointer-events-auto border border-white/20 ${
+        isFocused || isListening
+          ? 'ring-2 ring-white/25 shadow-[0_10px_36px_rgba(0,0,0,0.45)]'
+          : 'hover:shadow-[0_9px_34px_rgba(0,0,0,0.40)]'
+      }`}
+    >
+      {/* SF Symbol Search Icon */}
+      <button
+        type="button"
+        onClick={(e) => {
+          if (isArticlePage) {
+            e.stopPropagation();
+            handleNextMatch();
+          } else if (isHome && onOpenSpotlight) {
+            e.stopPropagation();
+            onOpenSpotlight();
+          } else {
+            inputRef.current?.focus();
+          }
+        }}
+        className="flex items-center justify-center shrink-0 pr-2 cursor-pointer transition-opacity"
+        title={isArticlePage ? 'Từ tiếp theo (Enter)' : (isHome ? 'Mở Spotlight Search (⌘K)' : 'Tìm kiếm')}
+      >
+        <img
+          src={SF_SEARCH_ICON_URL}
+          alt="Search"
+          className="w-[18px] h-[18px] sm:w-[20px] sm:h-[20px] object-contain filter brightness-0 invert opacity-85 group-hover:opacity-100 select-none pointer-events-none transition-opacity"
+          referrerPolicy="no-referrer"
+          onError={(e) => {
+            (e.target as HTMLImageElement).src = '/icons/sf-magnifyingglass.png';
+          }}
+        />
+      </button>
+
+      {/* Input Field */}
+      <input
+        ref={inputRef}
+        id="floating-search-input"
+        type="text"
+        value={searchQuery}
+        onChange={(e) => onSearchChange(e.target.value)}
+        onFocus={() => setIsFocused(true)}
+        onBlur={() => setIsFocused(false)}
+        onKeyDown={handleKeyDown}
+        placeholder={isListening ? 'Đang lắng nghe...' : getTabPlaceholder(currentRoute)}
+        className="w-full bg-transparent text-white placeholder:text-white/70 text-[13px] sm:text-[14px] font-medium focus:outline-none truncate caret-white"
+      />
+
+      {/* In-Article Match Counter & Navigation */}
+      {isArticlePage && searchQuery.trim() && (
+        <div className="flex items-center gap-0.5 bg-black/35 backdrop-blur-sm rounded-full pl-2 pr-0.5 py-0.5 border border-white/15 shrink-0 mr-1 select-none">
+          <span className="text-[11px] font-mono text-white/90 whitespace-nowrap">
+            {matchCount > 0 ? `${currentMatchIndex}/${matchCount}` : '0/0'}
+          </span>
+          {matchCount > 0 && (
+            <div className="flex items-center">
+              <button
+                type="button"
+                id="btn-floating-find-prev"
+                onClick={(e) => {
+                  e.stopPropagation();
+                  handlePrevMatch();
+                }}
+                className="p-1 text-white/70 hover:text-white hover:bg-white/20 rounded-full transition-colors cursor-pointer"
+                title="Từ trước (Shift+Enter)"
+                aria-label="Từ trước"
+              >
+                <ChevronUp className="w-3.5 h-3.5" />
+              </button>
+              <button
+                type="button"
+                id="btn-floating-find-next"
+                onClick={(e) => {
+                  e.stopPropagation();
+                  handleNextMatch();
+                }}
+                className="p-1 text-white/70 hover:text-white hover:bg-white/20 rounded-full transition-colors cursor-pointer"
+                title="Từ tiếp theo (Enter)"
+                aria-label="Từ tiếp theo"
+              >
+                <ChevronDown className="w-3.5 h-3.5" />
+              </button>
+            </div>
+          )}
+        </div>
+      )}
+
+      {/* Right Actions: Clear Button & SF Symbol Mic & Close Button */}
+      <div className="flex items-center gap-1 shrink-0 pl-1">
+        {searchQuery && (
+          <button
+            type="button"
+            id="btn-floating-search-clear"
+            onClick={(e) => {
+              e.stopPropagation();
+              onSearchChange('');
+              clearArticleHighlights();
+              setMatchCount(0);
+              setCurrentMatchIndex(0);
+              inputRef.current?.focus();
+            }}
+            className="p-1 rounded-full text-white/70 hover:text-white hover:bg-white/15 transition-colors cursor-pointer"
+            title="Xóa từ khóa tìm kiếm"
+          >
+            <X className="w-4 h-4" />
+          </button>
+        )}
+
+        {/* SF Symbol Mic Button */}
+        <button
+          type="button"
+          id="btn-floating-search-mic"
+          onClick={(e) => {
+            e.stopPropagation();
+            toggleListening();
+          }}
+          className={`p-1.5 rounded-full transition-all cursor-pointer flex items-center justify-center ${
+            isListening
+              ? 'bg-red-500/30 ring-2 ring-red-500/50 scale-105'
+              : 'hover:bg-white/15'
+          }`}
+          title={isListening ? 'Dừng ghi âm' : 'Tìm kiếm bằng giọng nói'}
+        >
+          <img
+            src={SF_MIC_ICON_URL}
+            alt="Mic"
+            className={`w-[18px] h-[18px] sm:w-[20px] sm:h-[20px] object-contain filter brightness-0 invert select-none pointer-events-none transition-opacity ${
+              isListening ? 'opacity-100' : 'opacity-85 hover:opacity-100'
+            }`}
+            referrerPolicy="no-referrer"
+            onError={(e) => {
+              (e.target as HTMLImageElement).src = '/icons/sf-mic.png';
+            }}
+          />
+        </button>
+
+        {/* Optional Close/Collapse Button */}
+        {onClose && (
+          <button
+            type="button"
+            id="btn-floating-search-close"
+            onClick={(e) => {
+              e.stopPropagation();
+              onClose();
+            }}
+            className="p-1.5 rounded-full text-white/70 hover:text-white hover:bg-white/15 transition-colors cursor-pointer flex items-center justify-center"
+            title="Đóng tìm kiếm (Esc)"
+            aria-label="Đóng tìm kiếm"
+          >
+            <X className="w-4 h-4" />
+          </button>
+        )}
+      </div>
+    </motion.div>
+  );
+
+  if (embedded) {
+    return pillContent;
+  }
 
   return (
     <>
@@ -253,156 +466,7 @@ export const FloatingSearchBar: React.FC<FloatingSearchBarProps> = ({
         }}
         className={`fixed ${isKeyboardOpen ? '' : 'bottom-3 sm:bottom-5'} left-1/2 -translate-x-1/2 z-40 flex flex-col items-center pointer-events-none select-none w-auto max-w-[100vw] px-2 font-['Inter','Integer',sans-serif]`}
       >
-        {/* Floating Search Bar Pill with Backdrop Blur, 20% Opacity and Channel Card Border */}
-        <div
-          id="floating-search-bar-pill"
-          onClick={() => inputRef.current?.focus()}
-          style={{
-            backgroundColor: 'rgba(255, 255, 255, 0.20)',
-            backdropFilter: 'blur(20px)',
-            WebkitBackdropFilter: 'blur(20px)',
-          }}
-          className={`group relative flex items-center ${
-            isArticlePage && searchQuery.trim()
-              ? 'w-[92vw] max-w-[340px] sm:max-w-[400px] md:max-w-[440px]'
-              : 'w-[84vw] max-w-[280px] sm:max-w-[320px] md:max-w-[340px]'
-          } h-[44px] sm:h-[46px] px-3 sm:px-3.5 rounded-full transition-all duration-200 cursor-text shadow-[0_8px_32px_rgba(0,0,0,0.35)] pointer-events-auto ${
-            isFocused || isListening
-              ? 'ring-2 ring-white/25 shadow-[0_10px_36px_rgba(0,0,0,0.45)]'
-              : 'hover:shadow-[0_9px_34px_rgba(0,0,0,0.40)]'
-          }`}
-        >
-          {/* SF Symbol Search Icon */}
-          <button
-            type="button"
-            onClick={(e) => {
-              if (isArticlePage) {
-                e.stopPropagation();
-                handleNextMatch();
-              } else if (isHome && onOpenSpotlight) {
-                e.stopPropagation();
-                onOpenSpotlight();
-              } else {
-                inputRef.current?.focus();
-              }
-            }}
-            className="flex items-center justify-center shrink-0 pr-2 cursor-pointer transition-opacity"
-            title={isArticlePage ? 'Từ tiếp theo (Enter)' : (isHome ? 'Mở Spotlight Search (⌘K)' : 'Tìm kiếm')}
-          >
-            <img
-              src={SF_SEARCH_ICON_URL}
-              alt="Search"
-              className="w-[18px] h-[18px] sm:w-[20px] sm:h-[20px] object-contain filter brightness-0 invert opacity-85 group-hover:opacity-100 select-none pointer-events-none transition-opacity"
-              referrerPolicy="no-referrer"
-              onError={(e) => {
-                (e.target as HTMLImageElement).src = '/icons/sf-magnifyingglass.png';
-              }}
-            />
-          </button>
-
-          {/* Input Field */}
-          <input
-            ref={inputRef}
-            id="floating-search-input"
-            type="text"
-            value={searchQuery}
-            onChange={(e) => onSearchChange(e.target.value)}
-            onFocus={() => setIsFocused(true)}
-            onBlur={() => setIsFocused(false)}
-            onKeyDown={handleKeyDown}
-            placeholder={isListening ? 'Đang lắng nghe...' : getTabPlaceholder(currentRoute)}
-            className="w-full bg-transparent text-white placeholder:text-white/70 text-[13px] sm:text-[14px] font-medium focus:outline-none truncate caret-white"
-          />
-
-          {/* In-Article Match Counter & Navigation */}
-          {isArticlePage && searchQuery.trim() && (
-            <div className="flex items-center gap-0.5 bg-black/35 backdrop-blur-sm rounded-full pl-2 pr-0.5 py-0.5 border border-white/15 shrink-0 mr-1 select-none">
-              <span className="text-[11px] font-mono text-white/90 whitespace-nowrap">
-                {matchCount > 0 ? `${currentMatchIndex}/${matchCount}` : '0/0'}
-              </span>
-              {matchCount > 0 && (
-                <div className="flex items-center">
-                  <button
-                    type="button"
-                    id="btn-floating-find-prev"
-                    onClick={(e) => {
-                      e.stopPropagation();
-                      handlePrevMatch();
-                    }}
-                    className="p-1 text-white/70 hover:text-white hover:bg-white/20 rounded-full transition-colors cursor-pointer"
-                    title="Từ trước (Shift+Enter)"
-                    aria-label="Từ trước"
-                  >
-                    <ChevronUp className="w-3.5 h-3.5" />
-                  </button>
-                  <button
-                    type="button"
-                    id="btn-floating-find-next"
-                    onClick={(e) => {
-                      e.stopPropagation();
-                      handleNextMatch();
-                    }}
-                    className="p-1 text-white/70 hover:text-white hover:bg-white/20 rounded-full transition-colors cursor-pointer"
-                    title="Từ tiếp theo (Enter)"
-                    aria-label="Từ tiếp theo"
-                  >
-                    <ChevronDown className="w-3.5 h-3.5" />
-                  </button>
-                </div>
-              )}
-            </div>
-          )}
-
-          {/* Right Actions: Clear Button & SF Symbol Mic */}
-          <div className="flex items-center gap-1 shrink-0 pl-1">
-            {searchQuery && (
-              <button
-                type="button"
-                id="btn-floating-search-clear"
-                onClick={(e) => {
-                  e.stopPropagation();
-                  onSearchChange('');
-                  clearArticleHighlights();
-                  setMatchCount(0);
-                  setCurrentMatchIndex(0);
-                  inputRef.current?.focus();
-                }}
-                className="p-1 rounded-full text-white/70 hover:text-white hover:bg-white/15 transition-colors cursor-pointer"
-                title="Xóa từ khóa tìm kiếm"
-              >
-                <X className="w-4 h-4" />
-              </button>
-            )}
-
-            {/* SF Symbol Mic Button */}
-            <button
-              type="button"
-              id="btn-floating-search-mic"
-              onClick={(e) => {
-                e.stopPropagation();
-                toggleListening();
-              }}
-              className={`p-1.5 rounded-full transition-all cursor-pointer flex items-center justify-center ${
-                isListening
-                  ? 'bg-red-500/30 ring-2 ring-red-500/50 scale-105'
-                  : 'hover:bg-white/15'
-              }`}
-              title={isListening ? 'Dừng ghi âm' : 'Tìm kiếm bằng giọng nói'}
-            >
-              <img
-                src={SF_MIC_ICON_URL}
-                alt="Mic"
-                className={`w-[18px] h-[18px] sm:w-[20px] sm:h-[20px] object-contain filter brightness-0 invert select-none pointer-events-none transition-opacity ${
-                  isListening ? 'opacity-100' : 'opacity-85 hover:opacity-100'
-                }`}
-                referrerPolicy="no-referrer"
-                onError={(e) => {
-                  (e.target as HTMLImageElement).src = '/icons/sf-mic.png';
-                }}
-              />
-            </button>
-          </div>
-        </div>
+        {pillContent}
       </div>
     </>
   );

@@ -415,9 +415,11 @@ html.light-mode[data-immersive-sidebar="true"][data-sidebar-position="right"] #w
   box-shadow: 0 0 18px rgba(230, 0, 90, 0.35), inset 0 1px 1px 0 rgba(255, 255, 255, 0.25), inset 0 -1px 1px 0 rgba(255, 255, 255, 0.25) !important;
 }
 
-/* Settings Search Container & Floating Search Bar Pill: styled with channel card border */
+/* Settings Search Container, Floating Search Bar Pill, Floaty Bar & Search Button: styled with channel card border */
 #settings-search-container,
-#floating-search-bar-pill {
+#floating-search-bar-pill,
+#btn-floaty-search-trigger,
+.floaty-bar__surface {
   position: relative !important;
   border: none !important;
 }
@@ -1083,6 +1085,8 @@ button[role="switch"]::after,
 #btn-mobile-spotlight-search::after,
 #btn-spotlight-search-mini::after,
 #floating-search-bar-pill::after,
+#btn-floaty-search-trigger::after,
+.floaty-bar__surface::after,
 #vplay-tools-dropdown-card::after,
 #native-keyboard-lang-menu::after {
   content: "";
@@ -1139,6 +1143,8 @@ button[role="switch"]:hover::after,
 #btn-mobile-spotlight-search:hover::after,
 #btn-spotlight-search-mini:hover::after,
 #floating-search-bar-pill:hover::after,
+#btn-floaty-search-trigger:hover::after,
+.floaty-bar__surface:hover::after,
 #vplay-tools-dropdown-card:hover::after,
 #native-keyboard-lang-menu:hover::after {
   border-color: rgba(255, 255, 255, 0.48);
@@ -1713,17 +1719,48 @@ html.light-mode .immersive-search-input input {
   max-width: calc(100vw - 2rem) !important;
   justify-content: space-between;
   overflow: hidden;
-  background: rgba(24, 23, 31, 0.42) !important;
-  border: 1px solid rgba(255, 255, 255, 0.2) !important;
-  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.34), inset 0 1px 0 rgba(255, 255, 255, 0.08) !important;
-  backdrop-filter: blur(24px) saturate(135%) !important;
-  -webkit-backdrop-filter: blur(24px) saturate(135%) !important;
+  height: 44px !important;
+  background: rgba(255, 255, 255, 0.20) !important;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.35) !important;
+  backdrop-filter: blur(20px) !important;
+  -webkit-backdrop-filter: blur(20px) !important;
+  border: 1px solid rgba(255, 255, 255, 0.20) !important;
+}
+
+@media (min-width: 640px) {
+  .floaty-bar__surface {
+    height: 46px !important;
+  }
 }
 
 .floaty-bar__surface--immersive {
   min-width: 0 !important;
   width: auto !important;
   max-width: calc(100vw - 2rem) !important;
+  height: 44px !important;
+}
+
+@media (min-width: 640px) {
+  .floaty-bar__surface--immersive {
+    height: 46px !important;
+  }
+}
+
+#btn-floaty-search-trigger {
+  height: 44px !important;
+  width: 44px !important;
+  background: rgba(255, 255, 255, 0.20) !important;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.35) !important;
+  backdrop-filter: blur(20px) !important;
+  -webkit-backdrop-filter: blur(20px) !important;
+  border: 1px solid rgba(255, 255, 255, 0.20) !important;
+}
+
+@media (min-width: 640px) {
+  #btn-floaty-search-trigger {
+    height: 46px !important;
+    width: 46px !important;
+  }
 }
 
 .floaty-bar__arrow,
@@ -1736,9 +1773,21 @@ html.light-mode .immersive-search-input input {
   transform: none !important;
 }
 
+.floaty-bar__arrow {
+  width: 32px !important;
+  height: 32px !important;
+}
+
+@media (min-width: 640px) {
+  .floaty-bar__arrow {
+    width: 34px !important;
+    height: 34px !important;
+  }
+}
+
 .floaty-bar__arrow:hover,
 .floaty-bar__item:hover {
-  background: rgba(255, 255, 255, 0.1) !important;
+  background: rgba(255, 255, 255, 0.15) !important;
   color: #FFFFFF !important;
   transform: none !important;
 }
@@ -1752,7 +1801,7 @@ html.light-mode .immersive-search-input input {
   position: relative;
   display: flex;
   min-width: 0;
-  height: 48px;
+  height: 100% !important;
   overflow: hidden;
   align-items: center;
   justify-content: center;
@@ -1763,7 +1812,7 @@ html.light-mode .immersive-search-input input {
   align-items: center;
   justify-content: space-between;
   width: 100%;
-  height: 48px;
+  height: 100% !important;
   flex-shrink: 0;
 }
 
@@ -2059,7 +2108,9 @@ html.light-mode #settings-search-container,
 html.light-mode #btn-spotlight-search,
 html.light-mode #btn-mobile-spotlight-search,
 html.light-mode #btn-spotlight-search-mini,
-html.light-mode #floating-search-bar-pill {
+html.light-mode #floating-search-bar-pill,
+html.light-mode #btn-floaty-search-trigger,
+html.light-mode .floaty-bar__surface {
   box-sizing: border-box !important;
   border: 3.5px solid transparent !important;
   background-image: 
@@ -2082,7 +2133,9 @@ html.light-mode #settings-search-container:hover,
 html.light-mode #btn-spotlight-search:hover,
 html.light-mode #btn-mobile-spotlight-search:hover,
 html.light-mode #btn-spotlight-search-mini:hover,
-html.light-mode #floating-search-bar-pill:hover {
+html.light-mode #floating-search-bar-pill:hover,
+html.light-mode #btn-floaty-search-trigger:hover,
+html.light-mode .floaty-bar__surface:hover {
   box-sizing: border-box !important;
   border: 3.5px solid rgba(0, 0, 0, 0.15) !important;
   background-image: 
@@ -2350,23 +2403,14 @@ html.light-mode .fixed.bottom-4 > div {
   box-shadow: inset 0 1px 1.5px 0 rgba(255, 255, 255, 0.95), 0 0 0 1px rgba(0, 0, 0, 0.08), 0 0 24px rgba(0, 0, 0, 0.18), 0 10px 30px rgba(0, 0, 0, 0.18) !important;
 }
 
-/* Settings Slider Capsule */
+/* Settings Slider Capsule: No background as requested */
+.settings-slider-capsule,
 html.light-mode .settings-slider-capsule {
-  border: 1px solid transparent !important;
-  background-image: 
-    linear-gradient(#F1F3F5, #F1F3F5), 
-    linear-gradient(180deg, rgba(100, 116, 139, 0.40) 0%, rgba(148, 163, 184, 0) 25%, rgba(148, 163, 184, 0) 75%, rgba(100, 116, 139, 0.40) 100%) !important;
-  background-origin: padding-box, border-box !important;
-  background-clip: padding-box, border-box !important;
-  box-shadow: inset 0 1px 1px 0 rgba(255, 255, 255, 0.8), 0 0 0 1px rgba(0, 0, 0, 0.08), 0 0 14px rgba(0, 0, 0, 0.14), 0 2px 6px rgba(0, 0, 0, 0.10) !important;
-}
-
-html.light-mode .settings-slider-capsule .bg-\[\#383842\] {
-  background-color: #D1D5DB !important;
-}
-
-html.light-mode .settings-slider-capsule .shadow-\[0_2px_10px_rgba\(0\,0\,0\,0\.3\)\] {
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15) !important;
+  border: none !important;
+  background: transparent !important;
+  background-color: transparent !important;
+  background-image: none !important;
+  box-shadow: none !important;
 }
 
 /* Settings Slider Thumb (Núm slider với viền thường) */
@@ -3495,9 +3539,6 @@ html.light-mode .floaty-bar #dock-settings:hover {
   border-radius: 9999px !important;
 }
 
-.floaty-bar__surface {
-  background: rgba(24, 23, 31, 0.42) !important;
-}
 
 #immersive-search-capsule {
   max-width: 480px !important;
@@ -3579,6 +3620,8 @@ html.no-spatial-glass #btn-spotlight-search::after,
 html.no-spatial-glass #btn-mobile-spotlight-search::after,
 html.no-spatial-glass #btn-spotlight-search-mini::after,
 html.no-spatial-glass #floating-search-bar-pill::after,
+html.no-spatial-glass #btn-floaty-search-trigger::after,
+html.no-spatial-glass .floaty-bar__surface::after,
 html.no-spatial-glass #vplay-tools-dropdown-card::after,
 html.no-shiny-outline [id^="recommended-channel-"]::after,
 html.no-shiny-outline [id^="livetv-channel-card-"]::after,
@@ -3604,6 +3647,8 @@ html.no-shiny-outline #btn-spotlight-search::after,
 html.no-shiny-outline #btn-mobile-spotlight-search::after,
 html.no-shiny-outline #btn-spotlight-search-mini::after,
 html.no-shiny-outline #floating-search-bar-pill::after,
+html.no-shiny-outline #btn-floaty-search-trigger::after,
+html.no-shiny-outline .floaty-bar__surface::after,
 html.no-shiny-outline #vplay-tools-dropdown-card::after {
   display: none !important;
   content: none !important;
@@ -3698,6 +3743,8 @@ html.no-shiny-outline [id^="test-channel-card-"].is-selected {
 
 /* 3. Search boxes */
 html.no-spatial-glass #floating-search-bar-pill,
+html.no-spatial-glass #btn-floaty-search-trigger,
+html.no-spatial-glass .floaty-bar__surface,
 html.no-spatial-glass #spotlight-search-container,
 html.no-spatial-glass #settings-search-container,
 html.no-spatial-glass #btn-spotlight-search,
@@ -3713,6 +3760,8 @@ html.no-spatial-glass [id*="search"] input,
 html.no-spatial-glass input[type="search"],
 html.no-spatial-glass input[type="text"],
 html.no-shiny-outline #floating-search-bar-pill,
+html.no-shiny-outline #btn-floaty-search-trigger,
+html.no-shiny-outline .floaty-bar__surface,
 html.no-shiny-outline #spotlight-search-container,
 html.no-shiny-outline #settings-search-container,
 html.no-shiny-outline #btn-spotlight-search,
@@ -3736,6 +3785,8 @@ html.no-shiny-outline input[type="text"] {
 }
 
 html.no-spatial-glass #floating-search-bar-pill:hover,
+html.no-spatial-glass #btn-floaty-search-trigger:hover,
+html.no-spatial-glass .floaty-bar__surface:hover,
 html.no-spatial-glass #spotlight-search-container:hover,
 html.no-spatial-glass #spotlight-search-container:focus-within,
 html.no-spatial-glass #settings-search-container:hover,
@@ -3749,6 +3800,8 @@ html.no-spatial-glass .spotlight-input-container:hover,
 html.no-spatial-glass .spotlight-input-container:focus-within,
 html.no-spatial-glass .search-box-capsule:hover,
 html.no-shiny-outline #floating-search-bar-pill:hover,
+html.no-shiny-outline #btn-floaty-search-trigger:hover,
+html.no-shiny-outline .floaty-bar__surface:hover,
 html.no-shiny-outline #spotlight-search-container:hover,
 html.no-shiny-outline #spotlight-search-container:focus-within,
 html.no-shiny-outline #settings-search-container:hover,

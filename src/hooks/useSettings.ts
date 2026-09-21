@@ -34,6 +34,7 @@ export interface SystemSettings {
   navModeVersion?: number;
   floatingSearchBar: boolean;
   floatingSearchBarVersion?: number;
+  streamAspectRatio: '16:9' | '4:3';
   developerMode: boolean;
   customKeybinds: CustomKeybinds;
 }
@@ -76,6 +77,7 @@ export const DEFAULT_SETTINGS: SystemSettings = {
   navModeVersion: 2,
   floatingSearchBar: true,
   floatingSearchBarVersion: 1,
+  streamAspectRatio: '16:9',
   developerMode: false,
   customKeybinds: DEFAULT_KEYBINDS,
 };

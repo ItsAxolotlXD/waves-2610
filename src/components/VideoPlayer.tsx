@@ -9,11 +9,14 @@ import {
   AlertCircle, 
   Sparkles, 
   RotateCcw, 
-  PictureInPicture2
+  PictureInPicture2,
+  Ratio
 } from 'lucide-react';
+import { motion, AnimatePresence } from 'motion/react';
 import { Channel } from '../types';
 import { useHLS } from '../hooks/useHLS';
 import { useFavorites } from '../hooks/useFavorites';
+import { useSettings } from '../hooks/useSettings';
 
 interface VideoPlayerProps {
   channel: Channel;
@@ -38,6 +41,25 @@ export const VideoPlayer: React.FC<VideoPlayerProps> = ({
 
   const { isChannelFavorite, toggleFavoriteChannel } = useFavorites();
   const isFav = isChannelFavorite(channel.id);
+
+  const { settings, updateSetting } = useSettings();
+  const [aspectRatio, setAspectRatio] = useState<'16:9' | '4:3'>(settings.streamAspectRatio || '16:9');
+  const [aspectRatioToast, setAspectRatioToast] = useState<string | null>(null);
+
+  useEffect(() => {
+    if (settings.streamAspectRatio) {
+      setAspectRatio(settings.streamAspectRatio);
+    }
+  }, [settings.streamAspectRatio]);
+
+  const handleToggleAspectRatio = () => {
+    const nextRatio = aspectRatio === '16:9' ? '4:3' : '16:9';
+    setAspectRatio(nextRatio);
+    updateSetting('streamAspectRatio', nextRatio);
+    setAspectRatioToast(nextRatio === '4:3' ? 'Tỉ lệ: 4:3 (Squish)' : 'Tỉ lệ: 16:9 (Chuẩn)');
+    setTimeout(() => setAspectRatioToast(null), 1800);
+    resetControlsTimeout();
+  };
 
   const {
     videoRef,
@@ -244,11 +266,43 @@ export const VideoPlayer: React.FC<VideoPlayerProps> = ({
       <video
         ref={videoRef}
         playsInline
-        className="w-full h-full object-contain bg-black cursor-pointer rounded-xl sm:rounded-2xl"
+        style={
+          aspectRatio === '4:3'
+            ? {
+                aspectRatio: '4 / 3',
+                width: 'auto',
+                height: '100%',
+                objectFit: 'fill',
+                margin: '0 auto',
+                display: 'block'
+              }
+            : {
+                width: '100%',
+                height: '100%',
+                objectFit: 'contain'
+              }
+        }
+        className="h-full bg-black cursor-pointer rounded-xl sm:rounded-2xl transition-all duration-200"
         onClick={() => {
           if (!isSpinnerVisible && !error) togglePlay();
         }}
       />
+
+      {/* Aspect Ratio Toast Notification */}
+      <AnimatePresence>
+        {aspectRatioToast && (
+          <motion.div
+            initial={{ opacity: 0, scale: 0.85, y: -10 }}
+            animate={{ opacity: 1, scale: 1, y: 0 }}
+            exit={{ opacity: 0, scale: 0.9, y: -10 }}
+            transition={{ duration: 0.18 }}
+            className="absolute top-14 sm:top-18 left-1/2 -translate-x-1/2 z-30 pointer-events-none px-3.5 py-1.5 rounded-full bg-black/80 backdrop-blur-md border border-white/20 text-white font-mono text-xs sm:text-sm font-semibold shadow-2xl flex items-center gap-2"
+          >
+            <Ratio className="w-4 h-4 text-[#E6005A]" />
+            <span>{aspectRatioToast}</span>
+          </motion.div>
+        )}
+      </AnimatePresence>
 
       {/* Subtle Dark Gradient Overlay when controls are active */}
       <div 
@@ -268,6 +322,24 @@ export const VideoPlayer: React.FC<VideoPlayerProps> = ({
 
         {/* Top-Right: Auxiliary controls & Volume Pill */}
         <div className="flex items-center gap-1 sm:gap-2 pointer-events-auto">
+          {/* Aspect Ratio 16:9 or 4:3 (Squish) Toggle Button */}
+          <button
+            id="video-player-aspect-ratio-btn"
+            type="button"
+            onClick={(e) => {
+              e.stopPropagation();
+              handleToggleAspectRatio();
+            }}
+            className={`glass-player-btn h-7 px-2 sm:h-8.5 sm:px-2.5 rounded-full flex items-center gap-1 cursor-pointer transition-all duration-200 text-white select-none ${
+              aspectRatio === '4:3' ? 'border-[#E6005A] text-[#E6005A]' : ''
+            }`}
+            title={`Tỉ lệ luồng: ${aspectRatio} (Bấm để chuyển sang ${aspectRatio === '16:9' ? '4:3 Squish' : '16:9'})`}
+            aria-label={`Tỉ lệ luồng ${aspectRatio}`}
+          >
+            <Ratio className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-white" />
+            <span className="text-[10px] sm:text-xs font-bold font-mono tracking-tight">{aspectRatio}</span>
+          </button>
+
           {/* Favorite Button (Yêu thích) */}
           <button
             id="video-player-favorite-btn"

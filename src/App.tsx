@@ -249,9 +249,11 @@ export default function App() {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
-  // Open search handler (respects immersive search experiment)
+  // Open search handler (respects navigation mode and immersive search experiment)
   const handleOpenSearch = useCallback(() => {
-    if (settings.immersiveSearch) {
+    if (settings.navigationMode === 'floaty' || settings.navigationMode === 'immersive_floaty') {
+      window.dispatchEvent(new CustomEvent('vplay:open-floaty-search'));
+    } else if (settings.immersiveSearch) {
       if (currentRoute !== '/search') {
         previousRouteRef.current = currentRoute;
       }
@@ -259,7 +261,7 @@ export default function App() {
     } else {
       setIsSpotlightOpen(true);
     }
-  }, [settings.immersiveSearch, currentRoute]);
+  }, [settings.navigationMode, settings.immersiveSearch, currentRoute]);
 
   // Global search shortcut (Cmd+K / Ctrl+K)
   useEffect(() => {
@@ -604,6 +606,9 @@ export default function App() {
           onOpenHelp={() => setIsHelpModalOpen(true)}
           onOpenDiscord={() => setIsWelcomeModalOpen(true)}
           isImmersive={settings.navigationMode === 'immersive_floaty'}
+          searchQuery={currentTabSearchQuery}
+          onSearchChange={handleTabSearchChange}
+          onOpenSpotlight={() => setIsSpotlightOpen(true)}
         />
       )}
 
