@@ -388,6 +388,12 @@ export const HeroCarousel: React.FC<HeroCarouselProps> = ({
               {!isCenter && (
                 <div className="absolute inset-0 bg-black/40 hover:bg-black/15 transition-colors z-10 pointer-events-none" />
               )}
+
+              {/* Spatial Glass: Viền trắng ở 2 cạnh trên - dưới, giảm opacity dần khi đi sang 2 bên trái - phải */}
+              <div
+                className="hero-slide-glass-border absolute inset-0 pointer-events-none z-30 rounded-[inherit]"
+                aria-hidden="true"
+              />
             </div>
           );
         })}

@@ -351,7 +351,7 @@ export const Home: React.FC<HomeProps> = ({
                   navigate(`/news/${featuredArticle.slug}`);
                 }
               }}
-              className="group relative w-full overflow-hidden rounded-[24px] sm:rounded-[28px] border border-white/10 hover:border-[#E6005A]/60 bg-[#27121d] hover:bg-[#321726] transition-all duration-300 shadow-2xl cursor-pointer flex flex-col md:flex-row items-stretch select-none"
+              className="group relative w-full overflow-hidden rounded-[24px] sm:rounded-[28px] border-0 bg-[#27121d] hover:bg-[#321726] transition-all duration-300 shadow-2xl cursor-pointer flex flex-col md:flex-row items-stretch select-none"
             >
               {/* Image banner side */}
               <div className="w-full md:w-[42%] lg:w-[40%] relative min-h-[200px] sm:min-h-[230px] md:min-h-[260px] overflow-hidden shrink-0">

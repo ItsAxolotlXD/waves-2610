@@ -50,7 +50,7 @@ export const DEFAULT_SETTINGS: SystemSettings = {
   theme: 'dark',
   superDarkMode: false,
   spatialGlass: true,
-  spatialGlassVersion: 1,
+  spatialGlassVersion: 2,
   disableShinyOutline: false,
   dockToSidebar: true,
   fontScale: 2, // Mặc định là "Trung bình" (quy chuẩn chuẩn cho cả desktop nhỏ và mobile)
@@ -138,10 +138,10 @@ export const getStoredSettings = (): SystemSettings => {
         keyboardClipboard: typeof parsed.keyboardClipboard === 'boolean' ? parsed.keyboardClipboard : DEFAULT_SETTINGS.keyboardClipboard,
         keyboardSoundEnabled: typeof parsed.keyboardSoundEnabled === 'boolean' ? parsed.keyboardSoundEnabled : DEFAULT_SETTINGS.keyboardSoundEnabled,
         superDarkMode: typeof parsed.superDarkMode === 'boolean' ? parsed.superDarkMode : DEFAULT_SETTINGS.superDarkMode,
-        spatialGlass: parsed.spatialGlassVersion === 1
+        spatialGlass: parsed.spatialGlassVersion === 2
           ? (typeof parsed.spatialGlass === 'boolean' ? parsed.spatialGlass : true)
           : true,
-        spatialGlassVersion: 1,
+        spatialGlassVersion: 2,
         disableShinyOutline: false,
         customKeybinds: {
           ...DEFAULT_KEYBINDS,

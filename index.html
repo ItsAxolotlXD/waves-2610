@@ -29,12 +29,16 @@
           if (saved) {
             try {
               var s = JSON.parse(saved);
-              if (s.spatialGlassVersion === 1 && s.spatialGlass === false) {
+              if (s.spatialGlassVersion === 2 && s.spatialGlass === false) {
                 document.documentElement.classList.add('no-spatial-glass', 'no-shiny-outline');
               } else {
                 document.documentElement.classList.remove('no-spatial-glass', 'no-shiny-outline');
               }
-            } catch(e) {}
+            } catch(e) {
+              document.documentElement.classList.remove('no-spatial-glass', 'no-shiny-outline');
+            }
+          } else {
+            document.documentElement.classList.remove('no-spatial-glass', 'no-shiny-outline');
           }
 
           // Force dark mode exclusively
