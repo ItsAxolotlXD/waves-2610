@@ -8,6 +8,8 @@ export interface SystemSettings {
   superDarkMode: boolean;
   spatialGlass: boolean;
   spatialGlassVersion?: number;
+  spatialGlassOpacity: number; // 0 to 100 (%)
+  spatialGlassBlur: number; // 0 to 100 (%)
   disableShinyOutline?: boolean;
   dockToSidebar: boolean;
   fontScale: number; // 0: Cực nhỏ, 1: Nhỏ, 2: Trung bình, 3: Lớn, 4: Cực lớn
@@ -50,7 +52,9 @@ export const DEFAULT_SETTINGS: SystemSettings = {
   theme: 'dark',
   superDarkMode: false,
   spatialGlass: true,
-  spatialGlassVersion: 2,
+  spatialGlassVersion: 3,
+  spatialGlassOpacity: 20, // 20%
+  spatialGlassBlur: 10, // 10%
   disableShinyOutline: false,
   dockToSidebar: true,
   fontScale: 2, // Mặc định là "Trung bình" (quy chuẩn chuẩn cho cả desktop nhỏ và mobile)
@@ -138,10 +142,16 @@ export const getStoredSettings = (): SystemSettings => {
         keyboardClipboard: typeof parsed.keyboardClipboard === 'boolean' ? parsed.keyboardClipboard : DEFAULT_SETTINGS.keyboardClipboard,
         keyboardSoundEnabled: typeof parsed.keyboardSoundEnabled === 'boolean' ? parsed.keyboardSoundEnabled : DEFAULT_SETTINGS.keyboardSoundEnabled,
         superDarkMode: typeof parsed.superDarkMode === 'boolean' ? parsed.superDarkMode : DEFAULT_SETTINGS.superDarkMode,
-        spatialGlass: parsed.spatialGlassVersion === 2
+        spatialGlass: parsed.spatialGlassVersion >= 2
           ? (typeof parsed.spatialGlass === 'boolean' ? parsed.spatialGlass : true)
           : true,
-        spatialGlassVersion: 2,
+        spatialGlassVersion: 3,
+        spatialGlassOpacity: typeof parsed.spatialGlassOpacity === 'number'
+          ? Math.max(0, Math.min(100, parsed.spatialGlassOpacity))
+          : 20,
+        spatialGlassBlur: (parsed.spatialGlassVersion === 3 && typeof parsed.spatialGlassBlur === 'number')
+          ? Math.max(0, Math.min(100, parsed.spatialGlassBlur))
+          : 10,
         disableShinyOutline: false,
         customKeybinds: {
           ...DEFAULT_KEYBINDS,
@@ -177,12 +187,25 @@ export const applySystemSettings = (settings: SystemSettings) => {
 
   // Spatial Glass (when turned off, all borders on elements across the app disappear)
   const isSpatialGlassActive = settings.spatialGlass !== false;
+  const opacity = typeof settings.spatialGlassOpacity === 'number' ? settings.spatialGlassOpacity : 20;
+  const blur = typeof settings.spatialGlassBlur === 'number' ? settings.spatialGlassBlur : 10;
+  const isDarkContent = isSpatialGlassActive && opacity > 40;
+  document.documentElement.classList.toggle('spatial-glass-dark-content', isDarkContent);
+
   if (!isSpatialGlassActive) {
     document.documentElement.classList.add('no-spatial-glass', 'no-shiny-outline');
     document.body?.classList.add('no-spatial-glass', 'no-shiny-outline');
+    document.documentElement.style.setProperty('--spatial-glass-opacity', '0');
+    document.documentElement.style.setProperty('--spatial-glass-bg', 'rgba(24, 24, 27, 0.85)');
+    document.documentElement.style.setProperty('--spatial-glass-blur', '0px');
   } else {
     document.documentElement.classList.remove('no-spatial-glass', 'no-shiny-outline');
     document.body?.classList.remove('no-spatial-glass', 'no-shiny-outline');
+    const opacityVal = opacity / 100;
+    const blurPx = Math.round((blur / 100) * 40);
+    document.documentElement.style.setProperty('--spatial-glass-opacity', String(opacityVal));
+    document.documentElement.style.setProperty('--spatial-glass-bg', `rgba(255, 255, 255, ${opacityVal})`);
+    document.documentElement.style.setProperty('--spatial-glass-blur', `${blurPx}px`);
   }
 
   // Apply font scale
@@ -249,6 +272,25 @@ function getDraftSnapshot(): SystemSettings {
 
 export const updateDraftSetting = <K extends keyof SystemSettings>(key: K, value: SystemSettings[K]) => {
   draftSettingsStore = { ...draftSettingsStore, [key]: value };
+  if (typeof document !== 'undefined' && (key === 'spatialGlassOpacity' || key === 'spatialGlassBlur' || key === 'spatialGlass')) {
+    const isAct = key === 'spatialGlass' ? Boolean(value) : (draftSettingsStore.spatialGlass !== false);
+    const opacity = key === 'spatialGlassOpacity' ? Number(value) : (draftSettingsStore.spatialGlassOpacity ?? 20);
+    const blur = key === 'spatialGlassBlur' ? Number(value) : (draftSettingsStore.spatialGlassBlur ?? 10);
+    const isDarkContent = isAct && opacity > 40;
+    document.documentElement.classList.toggle('spatial-glass-dark-content', isDarkContent);
+
+    if (!isAct) {
+      document.documentElement.style.setProperty('--spatial-glass-opacity', '0');
+      document.documentElement.style.setProperty('--spatial-glass-bg', 'rgba(24, 24, 27, 0.85)');
+      document.documentElement.style.setProperty('--spatial-glass-blur', '0px');
+    } else {
+      const opacityVal = opacity / 100;
+      const blurPx = Math.round((blur / 100) * 40);
+      document.documentElement.style.setProperty('--spatial-glass-opacity', String(opacityVal));
+      document.documentElement.style.setProperty('--spatial-glass-bg', `rgba(255, 255, 255, ${opacityVal})`);
+      document.documentElement.style.setProperty('--spatial-glass-blur', `${blurPx}px`);
+    }
+  }
   notifyDraftListeners();
 };
 
@@ -268,7 +310,7 @@ export const applyDraftSettings = () => {
 };
 
 export const updateGlobalSetting = <K extends keyof SystemSettings>(key: K, value: SystemSettings[K]) => {
-  settingsStore = { ...settingsStore, [key]: value, fontScaleVersion: 2 };
+  settingsStore = { ...settingsStore, [key]: value, fontScaleVersion: 2, spatialGlassVersion: 3 };
   draftSettingsStore = { ...settingsStore };
   try {
     localStorage.setItem('waves_system_settings', JSON.stringify(settingsStore));
@@ -288,7 +330,7 @@ export const updateGlobalSetting = <K extends keyof SystemSettings>(key: K, valu
 };
 
 export const updateMultipleSettings = (newSettings: Partial<SystemSettings>) => {
-  settingsStore = { ...settingsStore, ...newSettings, fontScaleVersion: 2 };
+  settingsStore = { ...settingsStore, ...newSettings, fontScaleVersion: 2, spatialGlassVersion: 3 };
   draftSettingsStore = { ...settingsStore };
   try {
     localStorage.setItem('waves_system_settings', JSON.stringify(settingsStore));

@@ -15,7 +15,8 @@ import {
   RotateCcw,
   AlertCircle,
   Info,
-  Tv
+  Tv,
+  Box
 } from 'lucide-react';
 import { motion, AnimatePresence } from 'motion/react';
 import { useSettings, FONT_SCALE_CONFIG, SystemSettings } from '../hooks/useSettings';
@@ -288,15 +289,194 @@ export const Settings: React.FC<SettingsProps> = ({
         </section>
       )}
 
-      {/* 2. Section 1: Giao diện */}
-      {(matchesSearch('Giao diện') ||
-        matchesSearch('Chế độ giao diện') ||
-        matchesSearch('Spatial Glass') ||
+      {/* 2. Section: Spatial Glass (Dedicated category with Box / Cube icon) */}
+      {(matchesSearch('Spatial Glass') ||
         matchesSearch('spatial') ||
         matchesSearch('glass') ||
         matchesSearch('viền') ||
         matchesSearch('outline') ||
         matchesSearch('shiny') ||
+        matchesSearch('Độ trong suốt') ||
+        matchesSearch('trong suốt') ||
+        matchesSearch('opacity') ||
+        matchesSearch('Độ mờ') ||
+        matchesSearch('mờ') ||
+        matchesSearch('blur') ||
+        matchesSearch('Liquid Glass')) && (
+        <section 
+          id="settings-section-spatial-glass"
+          className="p-5 sm:p-6 rounded-[28px] bg-white/10 backdrop-blur-md shadow-xl space-y-4"
+        >
+          {/* Section Header with Box / Cube Icon */}
+          <div className="flex items-start gap-3">
+            <Box className="w-5 h-5 text-white shrink-0 mt-0.5" />
+            <div>
+              <h2 className="text-base font-bold text-white leading-tight">
+                Spatial Glass
+              </h2>
+              <p className="text-xs text-[#9CA3AF] mt-1 leading-relaxed">
+                Tùy chỉnh hiệu ứng kính không gian, độ trong suốt và độ mờ thị giác.
+              </p>
+            </div>
+          </div>
+
+          <div className="space-y-4 pt-1 select-none">
+            {/* 1. Spatial Glass Master Toggle */}
+            <div 
+              id="setting-spatial-glass"
+              className="p-3.5 sm:p-4 rounded-[20px] flex items-center justify-between gap-4 transition-colors hover:bg-white/5"
+            >
+              <div className="flex-1 min-w-0 pr-2">
+                <div className="font-semibold text-white text-sm">
+                  <span className="bg-gradient-to-r from-[#FF8A00] via-[#FF0A54] to-[#E6005A] bg-clip-text text-transparent font-bold">
+                    Spatial Glass
+                  </span>
+                </div>
+                <div className="text-xs text-[#9CA3AF] mt-1 leading-normal">
+                  Ngôn ngữ thiết kế giao diện người dùng mới dựa trên Liquid Glass của Apple, mô phỏng hiệu ứng kính mờ trong suốt, có khả năng khúc xạ ánh sáng, tạo chiều sâu thị giác và chuyển động linh hoạt theo thao tác cử chỉ của người dùng.
+                </div>
+              </div>
+
+              {/* Toggle Switch */}
+              <button
+                id="toggle-spatial-glass"
+                type="button"
+                role="switch"
+                aria-checked={draftSettings.spatialGlass}
+                onClick={() => updateDraft('spatialGlass', !draftSettings.spatialGlass)}
+                className={`toggle-switch-btn relative w-[66px] h-7 rounded-full p-[3px] transition-colors duration-200 ease-in-out cursor-default shrink-0 flex items-center ${
+                  draftSettings.spatialGlass ? 'bg-[#fd932f]' : 'bg-[#E4E4E7] dark:bg-[#3F3F46]'
+                }`}
+                title="Bật/Tắt Spatial Glass"
+              >
+                <span
+                  className="toggle-switch-thumb block w-[32px] h-[22px] rounded-full bg-white border border-black/10 dark:border-white/10 shadow-md pointer-events-none"
+                />
+              </button>
+            </div>
+
+            {/* 2. Slider: Độ trong suốt (Opacity) */}
+            <div 
+              id="setting-spatial-glass-opacity"
+              className={`p-3.5 sm:p-4 rounded-[20px] space-y-3 transition-opacity duration-200 ${
+                !draftSettings.spatialGlass ? 'opacity-40 pointer-events-none' : ''
+              }`}
+            >
+              <div className="flex items-center justify-between">
+                <div>
+                  <div className="font-semibold text-white text-sm">
+                    Độ trong suốt (Opacity)
+                  </div>
+                  <div className="text-xs text-[#9CA3AF] mt-1 leading-normal">
+                    Điều chỉnh độ trong suốt từ 0% đến 100%. Khi trên 40%, biểu tượng và chữ trên thanh điều hướng nổi và ô tìm kiếm sẽ tự động chuyển sang màu đen để đảm bảo độ tương phản.
+                  </div>
+                </div>
+                <span className="text-xs font-mono font-bold text-[#fd932f] px-2.5 py-1 rounded-full bg-white/10 shrink-0 ml-2">
+                  {draftSettings.spatialGlassOpacity ?? 20}%
+                </span>
+              </div>
+
+              {/* Slider Container */}
+              <div className="pt-1">
+                <div className="group relative w-full h-10 flex items-center px-1 transition-all settings-slider-capsule select-none">
+                  <input
+                    id="slider-spatial-glass-opacity"
+                    type="range"
+                    min="0"
+                    max="100"
+                    step="1"
+                    value={draftSettings.spatialGlassOpacity ?? 20}
+                    onChange={(e) => updateDraft('spatialGlassOpacity', parseInt(e.target.value, 10))}
+                    className="absolute left-1 right-1 top-0 bottom-0 opacity-0 cursor-default z-20"
+                    aria-label="Độ trong suốt (Opacity)"
+                  />
+                  <div className="relative w-full h-2 rounded-full bg-[#383842] overflow-visible pointer-events-none">
+                    <div 
+                      className="absolute left-0 top-0 h-full rounded-full bg-[#fd932f] transition-all duration-75 ease-out"
+                      style={{ width: `${draftSettings.spatialGlassOpacity ?? 20}%` }}
+                    />
+                    <div 
+                      id="settings-slider-thumb-opacity"
+                      className="settings-slider-thumb absolute w-11 h-6 rounded-full bg-white border border-black/10 dark:border-white/10 shadow-[0_2px_8px_rgba(0,0,0,0.25)] pointer-events-none flex items-center justify-center"
+                      style={{ 
+                        left: `${draftSettings.spatialGlassOpacity ?? 20}%`,
+                        top: '50%',
+                        transform: 'translate(-50%, -50%)'
+                      }}
+                    />
+                  </div>
+                </div>
+                <div className="flex justify-between text-[11px] text-[#6B7280] px-1 pt-1">
+                  <span>0%</span>
+                  <span>100%</span>
+                </div>
+              </div>
+            </div>
+
+            {/* 3. Slider: Độ mờ (Blur) */}
+            <div 
+              id="setting-spatial-glass-blur"
+              className={`p-3.5 sm:p-4 rounded-[20px] space-y-3 transition-opacity duration-200 ${
+                !draftSettings.spatialGlass ? 'opacity-40 pointer-events-none' : ''
+              }`}
+            >
+              <div className="flex items-center justify-between">
+                <div>
+                  <div className="font-semibold text-white text-sm">
+                    Độ mờ (Blur)
+                  </div>
+                  <div className="text-xs text-[#9CA3AF] mt-1 leading-normal">
+                    Điều chỉnh độ nhòe mờ phông nền (backdrop blur) từ 0% đến 100% cho nút, tabs, thanh điều hướng nổi và ô tìm kiếm.
+                  </div>
+                </div>
+                <span className="text-xs font-mono font-bold text-[#fd932f] px-2.5 py-1 rounded-full bg-white/10 shrink-0 ml-2">
+                  {draftSettings.spatialGlassBlur ?? 10}%
+                </span>
+              </div>
+
+              {/* Slider Container */}
+              <div className="pt-1">
+                <div className="group relative w-full h-10 flex items-center px-1 transition-all settings-slider-capsule select-none">
+                  <input
+                    id="slider-spatial-glass-blur"
+                    type="range"
+                    min="0"
+                    max="100"
+                    step="1"
+                    value={draftSettings.spatialGlassBlur ?? 10}
+                    onChange={(e) => updateDraft('spatialGlassBlur', parseInt(e.target.value, 10))}
+                    className="absolute left-1 right-1 top-0 bottom-0 opacity-0 cursor-default z-20"
+                    aria-label="Độ mờ (Blur)"
+                  />
+                  <div className="relative w-full h-2 rounded-full bg-[#383842] overflow-visible pointer-events-none">
+                    <div 
+                      className="absolute left-0 top-0 h-full rounded-full bg-[#fd932f] transition-all duration-75 ease-out"
+                      style={{ width: `${draftSettings.spatialGlassBlur ?? 10}%` }}
+                    />
+                    <div 
+                      id="settings-slider-thumb-blur"
+                      className="settings-slider-thumb absolute w-11 h-6 rounded-full bg-white border border-black/10 dark:border-white/10 shadow-[0_2px_8px_rgba(0,0,0,0.25)] pointer-events-none flex items-center justify-center"
+                      style={{ 
+                        left: `${draftSettings.spatialGlassBlur ?? 10}%`,
+                        top: '50%',
+                        transform: 'translate(-50%, -50%)'
+                      }}
+                    />
+                  </div>
+                </div>
+                <div className="flex justify-between text-[11px] text-[#6B7280] px-1 pt-1">
+                  <span>0%</span>
+                  <span>100%</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+      )}
+
+      {/* 3. Section: Giao diện */}
+      {(matchesSearch('Giao diện') ||
+        matchesSearch('Chế độ giao diện') ||
         matchesSearch('Sáng') ||
         matchesSearch('Tối') ||
         matchesSearch('Theme') ||
@@ -315,8 +495,6 @@ export const Settings: React.FC<SettingsProps> = ({
         matchesSearch('OLED Dark') ||
         matchesSearch('Super Dark Mode') ||
         matchesSearch('Super Dark') ||
-        matchesSearch('Disable shiny outline') ||
-        matchesSearch('shiny outline') ||
         matchesSearch('Thanh tìm kiếm nổi') ||
         matchesSearch('Floaty Search Box') ||
         matchesSearch('Floating Search Bar')) && (
@@ -338,43 +516,7 @@ export const Settings: React.FC<SettingsProps> = ({
           </div>
 
           <div className="space-y-3 pt-1">
-            {/* 1. Spatial Glass (Chuyển lên đầu danh mục cài đặt giao diện) */}
-            {(matchesSearch('Spatial Glass') || matchesSearch('spatial') || matchesSearch('glass') || matchesSearch('viền') || matchesSearch('outline') || matchesSearch('shiny') || matchesSearch('Giao diện')) && (
-              <div 
-                id="setting-spatial-glass"
-                className="p-3.5 sm:p-4 rounded-[20px] flex items-center justify-between gap-4 transition-colors hover:bg-white/5"
-              >
-                <div>
-                  <div className="font-semibold text-white text-sm">
-                    <span className="bg-gradient-to-r from-[#FF8A00] via-[#FF0A54] to-[#E6005A] bg-clip-text text-transparent font-bold">
-                      Spatial Glass
-                    </span>
-                  </div>
-                  <div className="text-xs text-[#9CA3AF] mt-1 leading-normal">
-                    Ngôn ngữ thiết kế giao diện người dùng mới dựa trên Liquid Glass của Apple, mô phỏng hiệu ứng kính mờ trong suốt, có khả năng khúc xạ ánh sáng, tạo chiều sâu thị giác và chuyển động linh hoạt theo thao tác cử chỉ của người dùng.
-                  </div>
-                </div>
-
-                {/* Magenta Toggle Switch */}
-                <button
-                  id="toggle-spatial-glass"
-                  type="button"
-                  role="switch"
-                  aria-checked={draftSettings.spatialGlass}
-                  onClick={() => updateDraft('spatialGlass', !draftSettings.spatialGlass)}
-                  className={`toggle-switch-btn relative w-[66px] h-7 rounded-full p-[3px] transition-colors duration-200 ease-in-out cursor-default shrink-0 flex items-center ${
-                    draftSettings.spatialGlass ? 'bg-[#fd932f]' : 'bg-[#E4E4E7] dark:bg-[#3F3F46]'
-                  }`}
-                  title="Bật/Tắt Spatial Glass"
-                >
-                  <span
-                    className="toggle-switch-thumb block w-[32px] h-[22px] rounded-full bg-white border border-black/10 dark:border-white/10 shadow-md pointer-events-none"
-                  />
-                </button>
-              </div>
-            )}
-
-            {/* 2. Thanh điều hướng */}
+            {/* 1. Thanh điều hướng */}
             {(matchesSearch('Thanh điều hướng') || matchesSearch('Top Bar') || matchesSearch('Giao diện Top Bar')) && (
               <div className="p-3 sm:p-4 rounded-[20px] space-y-3">
                 <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-1">

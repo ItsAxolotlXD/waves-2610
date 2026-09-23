@@ -40,6 +40,9 @@
     --sidebar-bg: #250F1A;
     --card-bg: #280e32;
     --waves-font-scale: 1;
+    --spatial-glass-opacity: 0.20;
+    --spatial-glass-bg: rgba(255, 255, 255, var(--spatial-glass-opacity, 0.20));
+    --spatial-glass-blur: 4px;
   }
 
   *, *::before, *::after {
@@ -1125,12 +1128,12 @@ button[role="switch"],
   will-change: auto;
 }
 
-/* 2. Viền trắng ở 2 cạnh trên - dưới, giảm opacity dần khi đi sang 2 bên trái - phải */
+/* 2. Viền trắng ở 2 cạnh trên - dưới chạy hết, rồi sang 2 bên trái - phải mới mất dần */
 [id^="recommended-channel-"]::after,
-[id^="livetv-channel-card-"]::after,
+[id^="livetv-channel-card-"]:not(.is-selected)::after,
 [id^="home-channel-card-"]::after,
-[id^="channel-card-"]::after,
-[id^="test-channel-card-"]::after,
+[id^="channel-card-"]:not(.is-selected)::after,
+[id^="test-channel-card-"]:not(.is-selected)::after,
 .channel-card::after,
 [class*="channel-card"]::after,
 .hero-carousel-slide::after,
@@ -1191,23 +1194,38 @@ button[role="switch"]::after,
   border-radius: inherit;
   pointer-events: none;
   z-index: 25;
-  border: none !important;
-  border-top: 1px solid rgba(255, 255, 255, 0.4) !important;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.4) !important;
-  border-left: 0 !important;
-  border-right: 0 !important;
-  border-left-width: 0 !important;
-  border-right-width: 0 !important;
+  border: 1px solid rgba(255, 255, 255, 0.45) !important;
   box-shadow: none !important;
-  -webkit-mask-image: linear-gradient(90deg, transparent 0%, rgba(0, 0, 0, 0.15) 6%, rgba(0, 0, 0, 0.4) 18%, #000000 30%, #000000 70%, rgba(0, 0, 0, 0.4) 82%, rgba(0, 0, 0, 0.15) 94%, transparent 100%) !important;
-  mask-image: linear-gradient(90deg, transparent 0%, rgba(0, 0, 0, 0.15) 6%, rgba(0, 0, 0, 0.4) 18%, #000000 30%, #000000 70%, rgba(0, 0, 0, 0.4) 82%, rgba(0, 0, 0, 0.15) 94%, transparent 100%) !important;
-  background-image: 
-    linear-gradient(90deg, transparent 0%, rgba(255, 255, 255, 0.12) 6%, rgba(255, 255, 255, 0.4) 18%, rgba(255, 255, 255, 0.4) 30%, rgba(255, 255, 255, 0.4) 70%, rgba(255, 255, 255, 0.4) 82%, rgba(255, 255, 255, 0.12) 94%, transparent 100%),
-    linear-gradient(90deg, transparent 0%, rgba(255, 255, 255, 0.12) 6%, rgba(255, 255, 255, 0.4) 18%, rgba(255, 255, 255, 0.4) 30%, rgba(255, 255, 255, 0.4) 70%, rgba(255, 255, 255, 0.4) 82%, rgba(255, 255, 255, 0.12) 94%, transparent 100%) !important;
-  background-position: top center, bottom center !important;
-  background-size: 100% 1px, 100% 1px !important;
-  background-repeat: no-repeat !important;
+  background: transparent !important;
+  background-image: none !important;
+  -webkit-mask-image: linear-gradient(180deg, 
+    #000000 0%, 
+    #000000 20%, 
+    rgba(0, 0, 0, 0.75) 30%, 
+    rgba(0, 0, 0, 0.30) 40%, 
+    transparent 50%, 
+    rgba(0, 0, 0, 0.30) 60%, 
+    rgba(0, 0, 0, 0.75) 70%, 
+    #000000 80%, 
+    #000000 100%
+  ) !important;
+  mask-image: linear-gradient(180deg, 
+    #000000 0%, 
+    #000000 20%, 
+    rgba(0, 0, 0, 0.75) 30%, 
+    rgba(0, 0, 0, 0.30) 40%, 
+    transparent 50%, 
+    rgba(0, 0, 0, 0.30) 60%, 
+    rgba(0, 0, 0, 0.75) 70%, 
+    #000000 80%, 
+    #000000 100%
+  ) !important;
   transition: opacity 0.2s ease, border-color 0.2s ease;
+}
+
+[id^="livetv-channel-card-"].is-selected::after,
+[id^="test-channel-card-"].is-selected::after {
+  display: none !important;
 }
 
 [id^="recommended-channel-"]:hover,
@@ -1285,22 +1303,32 @@ button[role="switch"]:hover::after,
 .floaty-bar__surface:hover::after,
 #vplay-tools-dropdown-card:hover::after,
 #native-keyboard-lang-menu:hover::after {
-  border: none !important;
-  border-top: 1px solid rgba(255, 255, 255, 0.6) !important;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.6) !important;
-  border-left: 0 !important;
-  border-right: 0 !important;
-  border-left-width: 0 !important;
-  border-right-width: 0 !important;
+  border: 1px solid rgba(255, 255, 255, 0.70) !important;
   box-shadow: none !important;
-  -webkit-mask-image: linear-gradient(90deg, transparent 0%, rgba(0, 0, 0, 0.25) 4%, rgba(0, 0, 0, 0.6) 14%, #000000 24%, #000000 76%, rgba(0, 0, 0, 0.6) 86%, rgba(0, 0, 0, 0.25) 96%, transparent 100%) !important;
-  mask-image: linear-gradient(90deg, transparent 0%, rgba(0, 0, 0, 0.25) 4%, rgba(0, 0, 0, 0.6) 14%, #000000 24%, #000000 76%, rgba(0, 0, 0, 0.6) 86%, rgba(0, 0, 0, 0.25) 96%, transparent 100%) !important;
-  background-image: 
-    linear-gradient(90deg, transparent 0%, rgba(255, 255, 255, 0.18) 4%, rgba(255, 255, 255, 0.6) 14%, rgba(255, 255, 255, 0.6) 24%, rgba(255, 255, 255, 0.6) 76%, rgba(255, 255, 255, 0.6) 86%, rgba(255, 255, 255, 0.18) 96%, transparent 100%),
-    linear-gradient(90deg, transparent 0%, rgba(255, 255, 255, 0.18) 4%, rgba(255, 255, 255, 0.6) 14%, rgba(255, 255, 255, 0.6) 24%, rgba(255, 255, 255, 0.6) 76%, rgba(255, 255, 255, 0.6) 86%, rgba(255, 255, 255, 0.18) 96%, transparent 100%) !important;
-  background-position: top center, bottom center !important;
-  background-size: 100% 1px, 100% 1px !important;
-  background-repeat: no-repeat !important;
+  background: transparent !important;
+  background-image: none !important;
+  -webkit-mask-image: linear-gradient(180deg, 
+    #000000 0%, 
+    #000000 24%, 
+    rgba(0, 0, 0, 0.80) 34%, 
+    rgba(0, 0, 0, 0.35) 44%, 
+    transparent 50%, 
+    rgba(0, 0, 0, 0.35) 56%, 
+    rgba(0, 0, 0, 0.80) 66%, 
+    #000000 76%, 
+    #000000 100%
+  ) !important;
+  mask-image: linear-gradient(180deg, 
+    #000000 0%, 
+    #000000 24%, 
+    rgba(0, 0, 0, 0.80) 34%, 
+    rgba(0, 0, 0, 0.35) 44%, 
+    transparent 50%, 
+    rgba(0, 0, 0, 0.35) 56%, 
+    rgba(0, 0, 0, 0.80) 66%, 
+    #000000 76%, 
+    #000000 100%
+  ) !important;
 }
 
 [id^="recommended-channel-"]:active,
@@ -1573,6 +1601,7 @@ button,
 input[type="button"],
 input[type="submit"],
 input[type="reset"],
+input[type="range"],
 .settings-container button,
 .settings-container [role="switch"],
 .settings-container [role="button"],
@@ -1580,8 +1609,11 @@ input[type="reset"],
 [id^="settings-section-"] button,
 [id^="settings-section-"] [role="switch"],
 [id^="settings-section-"] [role="button"],
+[id^="settings-section-"] input[type="range"],
 [id^="toggle-"],
 #slider-font-scale,
+[id^="slider-spatial-glass-"],
+.settings-slider-thumb,
 #settings-slider-thumb {
   cursor: default !important;
 }
@@ -1591,6 +1623,8 @@ button:hover,
 [role="switch"]:hover,
 .cursor-pointer:hover,
 .toggle-switch-btn:hover,
+input[type="range"]:hover,
+.settings-slider-thumb:hover,
 button *:hover,
 [role="button"] *:hover,
 [role="switch"] *:hover {
@@ -3841,6 +3875,7 @@ html.light-mode .floaty-bar #dock-settings:hover {
 
 /* Settings categories white 10% opacity */
 #settings-section-version,
+#settings-section-spatial-glass,
 #settings-section-interface,
 #settings-section-accessibility,
 #settings-section-motion,
@@ -3854,6 +3889,125 @@ html.light-mode .floaty-bar #dock-settings:hover {
   border-width: 0 !important;
   backdrop-filter: blur(16px) !important;
   -webkit-backdrop-filter: blur(16px) !important;
+}
+
+/* ==========================================================================
+   SPATIAL GLASS DYNAMIC OPACITY & BLUR (BUTTONS, TABS, FLOATY BAR, FLOAT SEARCH BOX)
+   Driven by --spatial-glass-bg, --spatial-glass-opacity, and --spatial-glass-blur
+   ========================================================================== */
+
+/* 1. Floaty Bar Surface */
+html:not(.no-spatial-glass) .floaty-bar__surface {
+  background-color: var(--spatial-glass-bg, rgba(255, 255, 255, 0.20)) !important;
+  backdrop-filter: blur(var(--spatial-glass-blur, 20px)) !important;
+  -webkit-backdrop-filter: blur(var(--spatial-glass-blur, 20px)) !important;
+}
+
+/* 2. Float Search Box */
+html:not(.no-spatial-glass) #floating-search-bar-pill,
+html:not(.no-spatial-glass) #floating-search-bar-container [id^="floating-search-bar-pill"],
+html:not(.no-spatial-glass) #floating-search-bar-container .floating-search-pill,
+html:not(.no-spatial-glass) .floaty-search-box-pill {
+  background-color: var(--spatial-glass-bg, rgba(255, 255, 255, 0.20)) !important;
+  backdrop-filter: blur(var(--spatial-glass-blur, 20px)) !important;
+  -webkit-backdrop-filter: blur(var(--spatial-glass-blur, 20px)) !important;
+}
+
+/* 3. Category & Navigation Tabs */
+html:not(.no-spatial-glass) #livetv-category-tabs button:not(.bg-white):not([data-active="true"]):not(.text-black),
+html:not(.no-spatial-glass) #news-category-tabs button:not(.bg-white):not([data-active="true"]):not(.text-black),
+html:not(.no-spatial-glass) #test-category-tabs button:not(.bg-white):not([data-active="true"]):not(.text-black),
+html:not(.no-spatial-glass) [id^="livetv-cat-btn-"]:not(.bg-white):not(.text-black),
+html:not(.no-spatial-glass) [id^="news-cat-btn-"]:not(.bg-white):not(.text-black),
+html:not(.no-spatial-glass) [id^="test-cat-btn-"]:not(.bg-white):not(.text-black),
+html:not(.no-spatial-glass) .category-tab-btn:not(.is-active) {
+  background-color: var(--spatial-glass-bg, rgba(255, 255, 255, 0.20)) !important;
+  backdrop-filter: blur(var(--spatial-glass-blur, 20px)) !important;
+  -webkit-backdrop-filter: blur(var(--spatial-glass-blur, 20px)) !important;
+}
+
+html:not(.no-spatial-glass) #livetv-category-tabs button,
+html:not(.no-spatial-glass) #news-category-tabs button,
+html:not(.no-spatial-glass) #test-category-tabs button,
+html:not(.no-spatial-glass) [id^="livetv-cat-btn-"],
+html:not(.no-spatial-glass) [id^="news-cat-btn-"],
+html:not(.no-spatial-glass) [id^="test-cat-btn-"],
+html:not(.no-spatial-glass) .category-tab-btn {
+  backdrop-filter: blur(var(--spatial-glass-blur, 20px)) !important;
+  -webkit-backdrop-filter: blur(var(--spatial-glass-blur, 20px)) !important;
+}
+
+/* 4. Interactive Glass Buttons */
+html:not(.no-spatial-glass) .spatial-glass-btn,
+html:not(.no-spatial-glass) .liquid-glass-control,
+html:not(.no-spatial-glass) .glass-player-btn,
+html:not(.no-spatial-glass) .video-player-glass-btn,
+html:not(.no-spatial-glass) #btn-top-tools-menu,
+html:not(.no-spatial-glass) #btn-top-search,
+html:not(.no-spatial-glass) #btn-top-settings-gear,
+html:not(.no-spatial-glass) #btn-top-notifications,
+html:not(.no-spatial-glass) #btn-floaty-search-trigger,
+html:not(.no-spatial-glass) #btn-discord-join,
+html:not(.no-spatial-glass) #btn-home-join-discord,
+html:not(.no-spatial-glass) #btn-changelogs-read,
+html:not(.no-spatial-glass) #btn-welcome-close {
+  backdrop-filter: blur(var(--spatial-glass-blur, 4px)) !important;
+  -webkit-backdrop-filter: blur(var(--spatial-glass-blur, 4px)) !important;
+}
+
+/* ==========================================================================
+   SPATIAL GLASS HIGH OPACITY (>40%): AUTOMATIC BLACK ICONS & TEXT
+   When spatial glass opacity is above 40%, the glass surface becomes sufficiently
+   opaque/white that dark foreground icons and text are required for contrast.
+   ========================================================================== */
+html.spatial-glass-dark-content .floaty-bar__surface,
+html.spatial-glass-dark-content #btn-floaty-search-trigger,
+html.spatial-glass-dark-content #floating-search-bar-pill,
+html.spatial-glass-dark-content #floating-search-bar-container [id^="floating-search-bar-pill"],
+html.spatial-glass-dark-content .floaty-search-box-pill {
+  border-color: rgba(0, 0, 0, 0.15) !important;
+}
+
+html.spatial-glass-dark-content .floaty-bar__arrow,
+html.spatial-glass-dark-content .floaty-bar__item,
+html.spatial-glass-dark-content .floaty-bar__item button,
+html.spatial-glass-dark-content #btn-floaty-search-trigger {
+  color: #000000 !important;
+}
+
+html.spatial-glass-dark-content .floaty-bar__item.is-active,
+html.spatial-glass-dark-content .floaty-bar__item.bg-white\/20 {
+  background-color: rgba(0, 0, 0, 0.12) !important;
+  color: #000000 !important;
+}
+
+html.spatial-glass-dark-content .floaty-bar__arrow svg,
+html.spatial-glass-dark-content .floaty-bar__item svg,
+html.spatial-glass-dark-content #btn-floaty-search-trigger svg {
+  stroke: #000000 !important;
+}
+
+/* Invert image icons back to black by removing invert */
+html.spatial-glass-dark-content .floaty-bar__item img,
+html.spatial-glass-dark-content #btn-floaty-search-trigger img,
+html.spatial-glass-dark-content #floating-search-bar-container img {
+  filter: brightness(0) !important;
+}
+
+html.spatial-glass-dark-content #floating-search-input {
+  color: #000000 !important;
+  caret-color: #000000 !important;
+}
+
+html.spatial-glass-dark-content #floating-search-input::placeholder {
+  color: rgba(0, 0, 0, 0.6) !important;
+}
+
+html.spatial-glass-dark-content #btn-floating-search-clear svg,
+html.spatial-glass-dark-content #btn-floating-search-close svg,
+html.spatial-glass-dark-content #btn-floating-find-prev svg,
+html.spatial-glass-dark-content #btn-floating-find-next svg {
+  stroke: #000000 !important;
 }
 
 /* ==========================================================================

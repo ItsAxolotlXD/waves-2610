@@ -44,7 +44,13 @@ export const BottomDock: React.FC<BottomDockProps> = ({
   onSearchChange,
   onOpenSpotlight
 }) => {
-  const { settings } = useSettings();
+  const { settings, draftSettings } = useSettings();
+  const currentOpacity = typeof draftSettings?.spatialGlassOpacity === 'number'
+    ? draftSettings.spatialGlassOpacity
+    : (settings.spatialGlassOpacity ?? 20);
+  const isSpatialGlassActive = (draftSettings?.spatialGlass ?? settings.spatialGlass) !== false;
+  const isDarkContent = isSpatialGlassActive && currentOpacity > 40;
+
   const [page, setPage] = useState(0);
   const [direction, setDirection] = useState(1);
   const [hoveredId, setHoveredId] = useState<string | null>(null);
@@ -179,17 +185,21 @@ export const BottomDock: React.FC<BottomDockProps> = ({
                 onTouchStart={handleTouchStart}
                 onTouchEnd={handleTouchEnd}
                 style={{
-                  backgroundColor: 'rgba(255, 255, 255, 0.20)',
-                  backdropFilter: 'blur(20px)',
-                  WebkitBackdropFilter: 'blur(20px)',
+                  backgroundColor: 'var(--spatial-glass-bg, rgba(255, 255, 255, 0.20))',
+                  backdropFilter: 'blur(var(--spatial-glass-blur, 4px))',
+                  WebkitBackdropFilter: 'blur(var(--spatial-glass-blur, 4px))',
                 }}
-                className={`floaty-bar__surface ${isImmersive ? 'floaty-bar__surface--immersive' : ''} h-[44px] sm:h-[46px] flex items-center gap-1 sm:gap-1.5 px-1.5 sm:px-2 rounded-full shadow-[0_8px_32px_rgba(0,0,0,0.35)] transition-all duration-300 pointer-events-auto border border-white/10`}
+                className={`floaty-bar__surface ${isImmersive ? 'floaty-bar__surface--immersive' : ''} h-[44px] sm:h-[46px] flex items-center gap-1 sm:gap-1.5 px-1.5 sm:px-2 rounded-full shadow-[0_8px_32px_rgba(0,0,0,0.35)] transition-all duration-300 pointer-events-auto ${
+                  isDarkContent ? 'border border-black/15 text-black' : 'border border-white/10 text-white'
+                }`}
               >
                 <button
                   type="button"
                   aria-label="Trang dock trước"
                   onClick={goToPrevPage}
-                  className="floaty-bar__arrow size-8 sm:size-[34px] rounded-full flex items-center justify-center cursor-default transition-colors shrink-0 text-white/80 hover:text-white"
+                  className={`floaty-bar__arrow size-8 sm:size-[34px] rounded-full flex items-center justify-center cursor-default transition-colors shrink-0 ${
+                    isDarkContent ? 'text-black/80 hover:text-black hover:bg-black/10' : 'text-white/80 hover:text-white hover:bg-white/10'
+                  }`}
                 >
                   <ChevronLeft className="w-4 h-4 sm:w-[18px] sm:h-[18px]" />
                 </button>
@@ -250,8 +260,8 @@ export const BottomDock: React.FC<BottomDockProps> = ({
                               }}
                               className={`floaty-bar__item h-8 sm:h-[34px] rounded-full flex items-center justify-center cursor-default transition-colors duration-150 outline-none select-none shrink-0 ${
                                 isSelectedOrHovered
-                                  ? 'is-active px-3 sm:px-3.5 bg-white/20 text-white shadow-sm'
-                                  : 'px-2 sm:px-2.5 text-white/80 hover:text-white'
+                                  ? (isDarkContent ? 'is-active px-3 sm:px-3.5 bg-black/15 text-black shadow-sm' : 'is-active px-3 sm:px-3.5 bg-white/20 text-white shadow-sm')
+                                  : (isDarkContent ? 'px-2 sm:px-2.5 text-black/80 hover:text-black hover:bg-black/10' : 'px-2 sm:px-2.5 text-white/80 hover:text-white hover:bg-white/10')
                               }`}
                             >
                               {item.image ? (
@@ -259,7 +269,9 @@ export const BottomDock: React.FC<BottomDockProps> = ({
                                   src={item.image}
                                   alt={item.label}
                                   referrerPolicy="no-referrer"
-                                  className={`size-4 sm:size-[18px] object-contain shrink-0 brightness-0 invert ${
+                                  className={`size-4 sm:size-[18px] object-contain shrink-0 ${
+                                    isDarkContent ? 'brightness-0' : 'brightness-0 invert'
+                                  } ${
                                     isSelectedOrHovered ? 'opacity-100' : 'opacity-75'
                                   }`}
                                 />
@@ -285,8 +297,8 @@ export const BottomDock: React.FC<BottomDockProps> = ({
                             }}
                             className={`floaty-bar__item relative h-8 sm:h-[34px] rounded-full flex items-center justify-center cursor-default transition-colors duration-150 outline-none overflow-hidden select-none shrink-0 ${
                               isExpanded
-                                ? 'is-active bg-white/20 text-white shadow-sm px-3 sm:px-3.5'
-                                : 'text-white/80 hover:text-white hover:bg-white/10 w-8 sm:w-[34px]'
+                                ? (isDarkContent ? 'is-active bg-black/15 text-black shadow-sm px-3 sm:px-3.5' : 'is-active bg-white/20 text-white shadow-sm px-3 sm:px-3.5')
+                                : (isDarkContent ? 'text-black/80 hover:text-black hover:bg-black/10 w-8 sm:w-[34px]' : 'text-white/80 hover:text-white hover:bg-white/10 w-8 sm:w-[34px]')
                             }`}
                           >
                             <div className="flex items-center justify-center gap-1.5 whitespace-nowrap">
@@ -295,7 +307,9 @@ export const BottomDock: React.FC<BottomDockProps> = ({
                                   src={item.image}
                                   alt={item.label}
                                   referrerPolicy="no-referrer"
-                                  className={`size-4 sm:size-[18px] object-contain shrink-0 brightness-0 invert ${
+                                  className={`size-4 sm:size-[18px] object-contain shrink-0 ${
+                                    isDarkContent ? 'brightness-0' : 'brightness-0 invert'
+                                  } ${
                                     isExpanded ? 'opacity-100' : 'opacity-75'
                                   }`}
                                 />
@@ -311,7 +325,7 @@ export const BottomDock: React.FC<BottomDockProps> = ({
                                     animate={{ opacity: 1, width: 'auto' }}
                                     exit={{ opacity: 0, width: 0 }}
                                     transition={{ duration: 0.2, ease: 'easeOut' }}
-                                    className="text-xs font-bold text-white tracking-tight whitespace-nowrap overflow-hidden pl-0.5"
+                                    className={`text-xs font-bold ${isDarkContent ? 'text-black' : 'text-white'} tracking-tight whitespace-nowrap overflow-hidden pl-0.5`}
                                   >
                                     {item.label}
                                   </motion.span>
@@ -329,7 +343,9 @@ export const BottomDock: React.FC<BottomDockProps> = ({
                   type="button"
                   aria-label="Trang dock tiếp theo"
                   onClick={goToNextPage}
-                  className="floaty-bar__arrow size-8 sm:size-[34px] rounded-full flex items-center justify-center cursor-default transition-colors shrink-0 text-white/80 hover:text-white"
+                  className={`floaty-bar__arrow size-8 sm:size-[34px] rounded-full flex items-center justify-center cursor-default transition-colors shrink-0 ${
+                    isDarkContent ? 'text-black/80 hover:text-black hover:bg-black/10' : 'text-white/80 hover:text-white hover:bg-white/10'
+                  }`}
                 >
                   <ChevronRight className="w-4 h-4 sm:w-[18px] sm:h-[18px]" />
                 </button>
@@ -356,20 +372,24 @@ export const BottomDock: React.FC<BottomDockProps> = ({
                 mass: 0.6
               }}
               style={{
-                backgroundColor: 'rgba(255, 255, 255, 0.20)',
-                backdropFilter: 'blur(20px)',
-                WebkitBackdropFilter: 'blur(20px)',
+                backgroundColor: 'var(--spatial-glass-bg, rgba(255, 255, 255, 0.20))',
+                backdropFilter: 'blur(var(--spatial-glass-blur, 4px))',
+                WebkitBackdropFilter: 'blur(var(--spatial-glass-blur, 4px))',
               }}
-              className={`group h-[44px] w-[44px] sm:h-[46px] sm:w-[46px] rounded-full flex items-center justify-center cursor-default shadow-[0_8px_32px_rgba(0,0,0,0.35)] select-none shrink-0 text-white pointer-events-auto border border-white/10 transition-[background-color,border-color,box-shadow] ${
+              className={`group h-[44px] w-[44px] sm:h-[46px] sm:w-[46px] rounded-full flex items-center justify-center cursor-default shadow-[0_8px_32px_rgba(0,0,0,0.35)] select-none shrink-0 pointer-events-auto transition-[background-color,border-color,box-shadow] ${
+                isDarkContent ? 'border border-black/15 text-black' : 'border border-white/10 text-white'
+              } ${
                 searchQuery?.trim()
-                  ? 'ring-2 ring-white/25 shadow-[0_10px_36px_rgba(0,0,0,0.45)]'
-                  : 'hover:bg-white/25 hover:shadow-[0_9px_34px_rgba(0,0,0,0.40)]'
+                  ? (isDarkContent ? 'ring-2 ring-black/20 shadow-[0_10px_36px_rgba(0,0,0,0.35)]' : 'ring-2 ring-white/25 shadow-[0_10px_36px_rgba(0,0,0,0.45)]')
+                  : (isDarkContent ? 'hover:bg-black/10 hover:shadow-[0_9px_34px_rgba(0,0,0,0.30)]' : 'hover:bg-white/25 hover:shadow-[0_9px_34px_rgba(0,0,0,0.40)]')
               }`}
             >
               <img
                 src={SF_SEARCH_ICON_URL}
                 alt="Search"
-                className="w-[18px] h-[18px] sm:w-[20px] sm:h-[20px] object-contain filter brightness-0 invert opacity-85 group-hover:opacity-100 select-none pointer-events-none transition-opacity"
+                className={`w-[18px] h-[18px] sm:w-[20px] sm:h-[20px] object-contain select-none pointer-events-none transition-opacity ${
+                  isDarkContent ? 'brightness-0' : 'filter brightness-0 invert'
+                } opacity-85 group-hover:opacity-100`}
                 referrerPolicy="no-referrer"
                 onError={(e) => {
                   (e.target as HTMLImageElement).src = '/icons/sf-magnifyingglass.png';
