@@ -183,13 +183,13 @@ export const BottomDock: React.FC<BottomDockProps> = ({
                   backdropFilter: 'blur(20px)',
                   WebkitBackdropFilter: 'blur(20px)',
                 }}
-                className={`floaty-bar__surface ${isImmersive ? 'floaty-bar__surface--immersive' : ''} h-[44px] sm:h-[46px] flex items-center gap-1 sm:gap-1.5 px-1.5 sm:px-2 rounded-full shadow-[0_8px_32px_rgba(0,0,0,0.35)] transition-all duration-300 pointer-events-auto border border-white/20`}
+                className={`floaty-bar__surface ${isImmersive ? 'floaty-bar__surface--immersive' : ''} h-[44px] sm:h-[46px] flex items-center gap-1 sm:gap-1.5 px-1.5 sm:px-2 rounded-full shadow-[0_8px_32px_rgba(0,0,0,0.35)] transition-all duration-300 pointer-events-auto border border-white/10`}
               >
                 <button
                   type="button"
                   aria-label="Trang dock trước"
                   onClick={goToPrevPage}
-                  className="floaty-bar__arrow size-8 sm:size-[34px] rounded-full flex items-center justify-center cursor-pointer transition-colors shrink-0 text-white/80 hover:text-white"
+                  className="floaty-bar__arrow size-8 sm:size-[34px] rounded-full flex items-center justify-center cursor-default transition-colors shrink-0 text-white/80 hover:text-white"
                 >
                   <ChevronLeft className="w-4 h-4 sm:w-[18px] sm:h-[18px]" />
                 </button>
@@ -248,7 +248,7 @@ export const BottomDock: React.FC<BottomDockProps> = ({
                               transition={{
                                 layout: { duration: 0.25, ease: [0.25, 1, 0.5, 1] }
                               }}
-                              className={`floaty-bar__item h-8 sm:h-[34px] rounded-full flex items-center justify-center cursor-pointer transition-colors duration-150 outline-none select-none shrink-0 ${
+                              className={`floaty-bar__item h-8 sm:h-[34px] rounded-full flex items-center justify-center cursor-default transition-colors duration-150 outline-none select-none shrink-0 ${
                                 isSelectedOrHovered
                                   ? 'is-active px-3 sm:px-3.5 bg-white/20 text-white shadow-sm'
                                   : 'px-2 sm:px-2.5 text-white/80 hover:text-white'
@@ -283,7 +283,7 @@ export const BottomDock: React.FC<BottomDockProps> = ({
                             transition={{
                               layout: { duration: 0.28, ease: [0.25, 1, 0.5, 1] }
                             }}
-                            className={`floaty-bar__item relative h-8 sm:h-[34px] rounded-full flex items-center justify-center cursor-pointer transition-colors duration-150 outline-none overflow-hidden select-none shrink-0 ${
+                            className={`floaty-bar__item relative h-8 sm:h-[34px] rounded-full flex items-center justify-center cursor-default transition-colors duration-150 outline-none overflow-hidden select-none shrink-0 ${
                               isExpanded
                                 ? 'is-active bg-white/20 text-white shadow-sm px-3 sm:px-3.5'
                                 : 'text-white/80 hover:text-white hover:bg-white/10 w-8 sm:w-[34px]'
@@ -329,7 +329,7 @@ export const BottomDock: React.FC<BottomDockProps> = ({
                   type="button"
                   aria-label="Trang dock tiếp theo"
                   onClick={goToNextPage}
-                  className="floaty-bar__arrow size-8 sm:size-[34px] rounded-full flex items-center justify-center cursor-pointer transition-colors shrink-0 text-white/80 hover:text-white"
+                  className="floaty-bar__arrow size-8 sm:size-[34px] rounded-full flex items-center justify-center cursor-default transition-colors shrink-0 text-white/80 hover:text-white"
                 >
                   <ChevronRight className="w-4 h-4 sm:w-[18px] sm:h-[18px]" />
                 </button>
@@ -360,7 +360,7 @@ export const BottomDock: React.FC<BottomDockProps> = ({
                 backdropFilter: 'blur(20px)',
                 WebkitBackdropFilter: 'blur(20px)',
               }}
-              className={`group h-[44px] w-[44px] sm:h-[46px] sm:w-[46px] rounded-full flex items-center justify-center cursor-pointer shadow-[0_8px_32px_rgba(0,0,0,0.35)] select-none shrink-0 text-white pointer-events-auto border border-white/20 transition-[background-color,border-color,box-shadow] ${
+              className={`group h-[44px] w-[44px] sm:h-[46px] sm:w-[46px] rounded-full flex items-center justify-center cursor-default shadow-[0_8px_32px_rgba(0,0,0,0.35)] select-none shrink-0 text-white pointer-events-auto border border-white/10 transition-[background-color,border-color,box-shadow] ${
                 searchQuery?.trim()
                   ? 'ring-2 ring-white/25 shadow-[0_10px_36px_rgba(0,0,0,0.45)]'
                   : 'hover:bg-white/25 hover:shadow-[0_9px_34px_rgba(0,0,0,0.40)]'

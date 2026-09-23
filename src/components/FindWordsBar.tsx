@@ -158,7 +158,7 @@ export const FindWordsBar: React.FC<FindWordsBarProps> = ({ isOpen, onClose }) =
               onClick={handlePrev}
               disabled={matchCount === 0}
               title="Từ trước (Shift+Enter)"
-              className="p-1.5 rounded-lg bg-[#27121d] hover:bg-[#331726] disabled:opacity-40 disabled:hover:bg-[#27121d] text-white cursor-pointer"
+              className="p-1.5 rounded-lg bg-[#27121d] hover:bg-[#331726] disabled:opacity-40 disabled:hover:bg-[#27121d] text-white cursor-default"
             >
               <ChevronUp className="w-4 h-4" />
             </button>
@@ -167,7 +167,7 @@ export const FindWordsBar: React.FC<FindWordsBarProps> = ({ isOpen, onClose }) =
               onClick={handleNext}
               disabled={matchCount === 0}
               title="Từ kế tiếp (Enter)"
-              className="p-1.5 rounded-lg bg-[#27121d] hover:bg-[#331726] disabled:opacity-40 disabled:hover:bg-[#27121d] text-white cursor-pointer"
+              className="p-1.5 rounded-lg bg-[#27121d] hover:bg-[#331726] disabled:opacity-40 disabled:hover:bg-[#27121d] text-white cursor-default"
             >
               <ChevronDown className="w-4 h-4" />
             </button>
@@ -175,7 +175,7 @@ export const FindWordsBar: React.FC<FindWordsBarProps> = ({ isOpen, onClose }) =
               type="button"
               onClick={onClose}
               title="Đóng tìm kiếm (Esc)"
-              className="p-1.5 rounded-lg bg-[#27121d] hover:bg-[#331726] text-[#9CA3AF] hover:text-white cursor-pointer ml-1"
+              className="p-1.5 rounded-lg bg-[#27121d] hover:bg-[#331726] text-[#9CA3AF] hover:text-white cursor-default ml-1"
             >
               <X className="w-4 h-4" />
             </button>

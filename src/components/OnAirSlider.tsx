@@ -66,7 +66,7 @@ export const OnAirSlider: React.FC<OnAirSliderProps> = ({
             whileTap={{ scale: 0.88 }}
             whileHover={{ scale: 1.1 }}
             onClick={() => scroll('left')}
-            className="w-8 h-8 rounded-full flex items-center justify-center text-[#A1A1AA] hover:text-white bg-white/5 hover:bg-white/10 transition-all cursor-pointer"
+            className="w-8 h-8 rounded-full flex items-center justify-center text-[#A1A1AA] hover:text-white bg-white/5 hover:bg-white/10 transition-all cursor-default"
             aria-label="Cuộn sang trái"
           >
             <ChevronLeft className="w-4 h-4" />
@@ -76,7 +76,7 @@ export const OnAirSlider: React.FC<OnAirSliderProps> = ({
             whileTap={{ scale: 0.88 }}
             whileHover={{ scale: 1.1 }}
             onClick={() => scroll('right')}
-            className="w-8 h-8 rounded-full flex items-center justify-center text-[#A1A1AA] hover:text-white bg-white/5 hover:bg-white/10 transition-all cursor-pointer"
+            className="w-8 h-8 rounded-full flex items-center justify-center text-[#A1A1AA] hover:text-white bg-white/5 hover:bg-white/10 transition-all cursor-default"
             aria-label="Cuộn sang phải"
           >
             <ChevronRight className="w-4 h-4" />
@@ -108,7 +108,7 @@ export const OnAirSlider: React.FC<OnAirSliderProps> = ({
                 navigate(`/live-tv?channel=${ch.slug}`);
               }
             }}
-            className="min-w-[84px] sm:min-w-[96px] md:min-w-[108px] h-[46px] sm:h-[52px] md:h-[58px] shrink-0 rounded-xl sm:rounded-2xl p-2 flex items-center justify-center cursor-pointer group select-none bg-[#353535] hover:bg-[#3d3d3d] transition-colors shadow-sm"
+            className="min-w-[84px] sm:min-w-[96px] md:min-w-[108px] h-[46px] sm:h-[52px] md:h-[58px] shrink-0 rounded-xl sm:rounded-2xl p-2 flex items-center justify-center cursor-default group select-none bg-[#353535] hover:bg-[#3d3d3d] transition-colors shadow-sm"
             title={ch.name}
             aria-label={ch.name}
           >

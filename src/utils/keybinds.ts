@@ -12,31 +12,31 @@ export const KEYBIND_DEFINITIONS: KeybindDefinition[] = [
   {
     id: 'home',
     label: 'Home',
-    description: 'Chuyển nhanh đến Trang chủ',
+    description: 'Chuyển nhanh đến Trang chủ.',
     defaultKey: 'Alt+1'
   },
   {
     id: 'search',
     label: 'Search',
-    description: 'Mở Spotlight Search / Tìm kiếm',
+    description: 'Mở Spotlight Search / Tìm kiếm.',
     defaultKey: 'Alt+2'
   },
   {
     id: 'tools',
     label: 'Tools menu',
-    description: 'Mở nhanh Trình đơn Công cụ (Tools menu)',
+    description: 'Mở nhanh Trình đơn Công cụ (Tools menu).',
     defaultKey: 'Alt+3'
   },
   {
     id: 'settings',
     label: 'Settings',
-    description: 'Chuyển nhanh đến trang Cài đặt hệ thống',
+    description: 'Chuyển nhanh đến trang Cài đặt hệ thống.',
     defaultKey: 'Alt+4'
   },
   {
     id: 'recentChannel',
     label: 'Kênh xem gần nhất',
-    description: 'Bật phát kênh truyền hình vừa xem gần đây nhất',
+    description: 'Bật phát kênh truyền hình vừa xem gần đây nhất.',
     defaultKey: 'Alt+5'
   }
 ];

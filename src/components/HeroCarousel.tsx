@@ -1,9 +1,8 @@
-import React, { useState, useEffect, useRef, useMemo } from 'react';
-import { ChevronLeft, ChevronRight, Sparkles } from 'lucide-react';
+import React, { useState, useEffect, useRef } from 'react';
+import { ChevronLeft, ChevronRight } from 'lucide-react';
 import { motion, AnimatePresence } from 'motion/react';
 import { HERO_SLIDES, DEFAULT_BANNER_PLACEHOLDER } from '../data/heroSlides';
 import { Channel } from '../types';
-import { CHANNELS_DATA } from '../data/channels';
 
 interface HeroCarouselProps {
   navigate?: (route: string) => void;
@@ -11,52 +10,24 @@ interface HeroCarouselProps {
   channels?: Channel[];
 }
 
-export const HeroCarousel: React.FC<HeroCarouselProps> = ({
-  channels
-}) => {
+export const HeroCarousel: React.FC<HeroCarouselProps> = () => {
   const timerRef = useRef<NodeJS.Timeout | null>(null);
 
-  // Danh sách kênh hợp lệ có logo
-  const channelList = useMemo(() => {
-    const list = (channels && channels.length > 0) ? channels : CHANNELS_DATA;
-    return list.filter((c) => Boolean(c.logo));
-  }, [channels]);
-
-  // Hàm chọn ngẫu nhiên 1 kênh đề xuất
-  const pickRandomChannel = (excludeId?: string): Channel => {
-    const available = channelList.filter((c) => c.id !== excludeId);
-    const pool = available.length > 0 ? available : channelList;
-    if (pool.length === 0) return CHANNELS_DATA[0];
-    const idx = Math.floor(Math.random() * pool.length);
-    return pool[idx];
-  };
-
-  // State kênh đề xuất ngẫu nhiên
-  const [recommendedChannel, setRecommendedChannel] = useState<Channel>(() => {
-    return channelList.length > 0 ? channelList[0] : CHANNELS_DATA[0];
-  });
-
-  // Tạo danh sách slide gồm các banner gốc + 1 banner kênh đề xuất
-  const allSlides = useMemo(() => {
-    const recSlide = {
-      id: 'banner-recommended-channel',
-      isRecommended: true,
-      title: recommendedChannel.name,
-      channel: recommendedChannel,
-      backgroundImage: recommendedChannel.logo,
-    };
-    return [...HERO_SLIDES, recSlide];
-  }, [recommendedChannel]);
-
+  // Danh sách slide gồm các banner chất lượng cao
+  const allSlides = HERO_SLIDES;
   const totalSlides = allSlides.length;
 
-  const [slideState, setSlideState] = useState({ current: 0, prev: 0 });
+  // Mặc định hiển thị THỜI SỰ 19H ở trung tâm (index 3), bên trái là CHÀO BUỔI SÁNG, bên phải là WAVES
+  const initialIndex = allSlides.findIndex((s) => s.id === 'thoi-su-19h-vtv');
+  const defaultIndex = initialIndex >= 0 ? initialIndex : 0;
+
+  const [slideState, setSlideState] = useState({ current: defaultIndex, prev: defaultIndex });
   const { current: currentIndex, prev: prevIndex } = slideState;
 
-  // Preload banner images to avoid layout reflow or frame drop during animation
+  // Preload banner images to avoid layout reflow or frame drop
   useEffect(() => {
     allSlides.forEach((s) => {
-      const src = s.backgroundImage || s.channel?.logo;
+      const src = s.backgroundImage;
       if (src) {
         const img = new Image();
         img.src = src;
@@ -74,32 +45,26 @@ export const HeroCarousel: React.FC<HeroCarouselProps> = ({
     }, 5000);
   };
 
-  const nextSlide = (isManualArrow = false) => {
+  const nextSlide = (isManual = false) => {
     if (totalSlides > 1) {
       setSlideState((s) => ({
         current: (s.current + 1) % totalSlides,
         prev: s.current,
       }));
-      if (isManualArrow) {
+      if (isManual) {
         resetTimer();
-        setTimeout(() => {
-          setRecommendedChannel((prev) => pickRandomChannel(prev.id));
-        }, 900);
       }
     }
   };
 
-  const prevSlide = (isManualArrow = false) => {
+  const prevSlide = (isManual = false) => {
     if (totalSlides > 1) {
       setSlideState((s) => ({
         current: (s.current - 1 + totalSlides) % totalSlides,
         prev: s.current,
       }));
-      if (isManualArrow) {
+      if (isManual) {
         resetTimer();
-        setTimeout(() => {
-          setRecommendedChannel((prev) => pickRandomChannel(prev.id));
-        }, 900);
       }
     }
   };
@@ -114,7 +79,7 @@ export const HeroCarousel: React.FC<HeroCarouselProps> = ({
     }
   };
 
-  // Cứ mỗi 5 giây banner sẽ chuyển liên tục không delay
+  // Cứ mỗi 5 giây banner tự động chuyển slide mượt mà
   useEffect(() => {
     if (totalSlides > 1) {
       resetTimer();
@@ -152,8 +117,7 @@ export const HeroCarousel: React.FC<HeroCarouselProps> = ({
     if (!isSwipingRef.current || touchStartXRef.current === null || touchStartYRef.current === null) return;
     const deltaX = e.touches[0].clientX - touchStartXRef.current;
     const deltaY = e.touches[0].clientY - touchStartYRef.current;
-    
-    // If predominantly horizontal movement, pause auto-scroll
+
     if (Math.abs(deltaX) > Math.abs(deltaY) && Math.abs(deltaX) > 10) {
       if (timerRef.current) clearInterval(timerRef.current);
     }
@@ -170,13 +134,10 @@ export const HeroCarousel: React.FC<HeroCarouselProps> = ({
     const deltaX = touchEndX - touchStartXRef.current;
     const deltaY = touchEndY - touchStartYRef.current;
 
-    // Minimum swipe threshold: 35px horizontal, deltaX > deltaY
     if (Math.abs(deltaX) > 35 && Math.abs(deltaX) > Math.abs(deltaY)) {
       if (deltaX < 0) {
-        // Swiped left -> next slide
         nextSlide(true);
       } else {
-        // Swiped right -> prev slide
         prevSlide(true);
       }
     } else {
@@ -189,24 +150,23 @@ export const HeroCarousel: React.FC<HeroCarouselProps> = ({
   };
 
   const currentSlide = allSlides[currentIndex];
-  const currentBannerBg = currentSlide ? (currentSlide.backgroundImage || currentSlide.channel?.logo || DEFAULT_BANNER_PLACEHOLDER) : '';
+  const currentBannerBg = currentSlide ? (currentSlide.backgroundImage || DEFAULT_BANNER_PLACEHOLDER) : '';
 
   return (
-    <div 
+    <div
       id="hero-3d-coverflow-carousel"
       onTouchStart={handleTouchStart}
       onTouchMove={handleTouchMove}
       onTouchEnd={handleTouchEnd}
       style={{ touchAction: 'pan-y' }}
-      className="relative w-full overflow-hidden select-none pt-1 sm:pt-2 pb-0"
+      className="relative w-full overflow-hidden select-none pt-1 sm:pt-2 pb-1"
     >
       {/* Nền phía sau các banner: Lấy hình ảnh banner chính với hiệu ứng backdrop blur & diffuse ambient glow */}
-      <div 
-        id="hero-banner-ambient-background" 
+      <div
+        id="hero-banner-ambient-background"
         className="absolute inset-0 -top-16 -bottom-20 pointer-events-none overflow-hidden select-none -z-10"
         aria-hidden="true"
       >
-        {/* Layer hình ảnh banner chính được phóng to và làm mờ nhẹ nhàng */}
         <div className="absolute inset-0 flex items-center justify-center overflow-hidden">
           <AnimatePresence mode="popLayout">
             {currentBannerBg && (
@@ -231,21 +191,21 @@ export const HeroCarousel: React.FC<HeroCarouselProps> = ({
           </AnimatePresence>
         </div>
 
-        {/* Lớp phủ chuyển sắc mượt mà hòa vào màu nền ứng dụng #181818 ở trên, dưới và 2 bên */}
+        {/* Lớp phủ chuyển sắc mượt mà hòa vào màu nền ứng dụng #181818 */}
         <div className="absolute inset-0 bg-[#181818]/30" />
         <div className="absolute inset-0 bg-gradient-to-b from-[#181818]/85 via-transparent to-[#181818]" />
         <div className="absolute inset-0 bg-gradient-to-r from-[#181818]/90 via-transparent to-[#181818]/90" />
       </div>
 
       {/* 3D Stage Container */}
-      <div 
+      <div
         className="relative w-full flex items-center justify-center"
         style={{ perspective: '1200px', transformStyle: 'preserve-3d' }}
       >
-        {/* Aspect ratio spacer so stage height strictly matches the banner height without dead gap */}
-        <div 
-          className="w-[88%] sm:w-[74%] md:w-[65%] lg:w-[62%] max-w-[840px] aspect-[16/9] pointer-events-none invisible" 
-          aria-hidden="true" 
+        {/* Aspect ratio spacer so stage height strictly matches banner height */}
+        <div
+          className="w-[88%] sm:w-[76%] md:w-[66%] lg:w-[62%] max-w-[860px] aspect-[16/9] pointer-events-none invisible"
+          aria-hidden="true"
         />
 
         {allSlides.map((slide, i) => {
@@ -260,12 +220,11 @@ export const HeroCarousel: React.FC<HeroCarouselProps> = ({
           const isFarLeft = diff === -2;
           const isFarRight = diff === 2;
           const isNear = Math.abs(diff) <= 2;
-          const isRec = 'isRecommended' in slide && slide.isRecommended;
 
-          // Xây dựng style 3D Coverflow mượt mà, thời gian 1.08s vừa vặn, trôi êm ái hơn
+          // Xây dựng style 3D Coverflow mượt mà
           let transformStyle: React.CSSProperties = {
             transition: !isWrapJump && isNear
-              ? 'transform 1.08s cubic-bezier(0.22, 1, 0.36, 1), opacity 1.08s cubic-bezier(0.22, 1, 0.36, 1)'
+              ? 'transform 0.95s cubic-bezier(0.22, 1, 0.36, 1), opacity 0.95s cubic-bezier(0.22, 1, 0.36, 1)'
               : 'none',
             willChange: isNear ? 'transform, opacity' : 'auto',
             WebkitBackfaceVisibility: 'hidden',
@@ -283,23 +242,23 @@ export const HeroCarousel: React.FC<HeroCarouselProps> = ({
           } else if (isLeft) {
             transformStyle = {
               ...transformStyle,
-              transform: 'translate3d(-50%, 0, -110px) rotateY(38deg) scale(0.78)',
+              transform: 'translate3d(-52%, 0, -100px) rotateY(38deg) scale(0.80)',
               zIndex: 20,
-              opacity: 0.7,
+              opacity: 0.85,
               visibility: 'visible',
             };
           } else if (isRight) {
             transformStyle = {
               ...transformStyle,
-              transform: 'translate3d(50%, 0, -110px) rotateY(-38deg) scale(0.78)',
+              transform: 'translate3d(52%, 0, -100px) rotateY(-38deg) scale(0.80)',
               zIndex: 20,
-              opacity: 0.7,
+              opacity: 0.85,
               visibility: 'visible',
             };
           } else if (isFarLeft) {
             transformStyle = {
               ...transformStyle,
-              transform: 'translate3d(-80%, 0, -230px) rotateY(50deg) scale(0.64)',
+              transform: 'translate3d(-85%, 0, -220px) rotateY(48deg) scale(0.65)',
               zIndex: 10,
               opacity: 0,
               visibility: 'visible',
@@ -307,7 +266,7 @@ export const HeroCarousel: React.FC<HeroCarouselProps> = ({
           } else if (isFarRight) {
             transformStyle = {
               ...transformStyle,
-              transform: 'translate3d(80%, 0, -230px) rotateY(-50deg) scale(0.64)',
+              transform: 'translate3d(85%, 0, -220px) rotateY(-48deg) scale(0.65)',
               zIndex: 10,
               opacity: 0,
               visibility: 'visible',
@@ -328,68 +287,32 @@ export const HeroCarousel: React.FC<HeroCarouselProps> = ({
               key={slide.id}
               id={`hero-carousel-slide-${slide.id}`}
               style={transformStyle}
-              className={`hero-carousel-slide absolute inset-0 m-auto w-[88%] sm:w-[74%] md:w-[65%] lg:w-[62%] max-w-[840px] aspect-[16/9] rounded-2xl sm:rounded-[24px] overflow-hidden cursor-default select-none pointer-events-none transition-shadow duration-500 ${
+              className={`hero-carousel-slide absolute inset-0 m-auto w-[88%] sm:w-[76%] md:w-[66%] lg:w-[62%] max-w-[860px] aspect-[16/9] rounded-2xl sm:rounded-[24px] overflow-hidden cursor-default select-none pointer-events-none transition-shadow duration-500 ${
                 isCenter
                   ? 'is-center shadow-[0_20px_50px_rgba(0,0,0,0.85),0_0_35px_rgba(230,0,90,0.32)]'
                   : 'shadow-[0_16px_40px_rgba(0,0,0,0.7)]'
               }`}
             >
-              {isRec ? (
-                /* Banner Kênh Đề Xuất (Sử dụng logo kênh với hiệu ứng studio broadcast) */
-                <div className="w-full h-full relative flex flex-col items-center justify-center p-6 bg-gradient-to-br from-[#1C1C24] via-[#121217] to-[#0A0A0D]">
-                  {/* Studio ambient radial glow */}
-                  <div className="absolute inset-0 flex items-center justify-center pointer-events-none overflow-hidden">
-                    <div className="w-64 h-64 sm:w-80 sm:h-80 rounded-full bg-gradient-to-tr from-[#E6005A]/25 to-[#FF3366]/20 blur-3xl opacity-80" />
-                  </div>
+              {/* Ảnh nền banner - 16:9 với object-cover */}
+              <img
+                src={slide.backgroundImage || DEFAULT_BANNER_PLACEHOLDER}
+                alt={slide.title}
+                referrerPolicy="no-referrer"
+                className="w-full h-full object-cover object-center pointer-events-none select-none"
+                onError={(e) => {
+                  const target = e.currentTarget;
+                  if (target.src !== DEFAULT_BANNER_PLACEHOLDER) {
+                    target.src = DEFAULT_BANNER_PLACEHOLDER;
+                  }
+                }}
+              />
 
-                  {/* Logo chính giữa hiển thị nổi bật */}
-                  <div className="relative z-10 w-full max-w-[240px] sm:max-w-[320px] max-h-[95px] sm:max-h-[120px] flex items-center justify-center p-2">
-                    <img
-                      src={recommendedChannel.logo}
-                      alt={recommendedChannel.name}
-                      referrerPolicy="no-referrer"
-                      className="max-h-[75px] sm:max-h-[95px] max-w-full object-contain filter drop-shadow-[0_8px_20px_rgba(0,0,0,0.75)]"
-                      onError={(e) => {
-                        const target = e.currentTarget;
-                        if (target.src !== DEFAULT_BANNER_PLACEHOLDER) {
-                          target.src = DEFAULT_BANNER_PLACEHOLDER;
-                        }
-                      }}
-                    />
-                  </div>
-
-                  {/* Tên kênh & Thể loại */}
-                  <div className="relative z-10 mt-3 text-center">
-                    <h3 className="text-sm sm:text-base md:text-lg font-bold text-white tracking-wide">
-                      {recommendedChannel.name}
-                    </h3>
-                    <p className="text-[11px] sm:text-xs text-[#9CA3AF] mt-0.5 font-medium">
-                      {recommendedChannel.category}
-                    </p>
-                  </div>
-                </div>
-              ) : (
-                /* Ảnh nền slide thông thường - Chỉ xem, không thể bấm */
-                <img
-                  src={slide.backgroundImage || DEFAULT_BANNER_PLACEHOLDER}
-                  alt={slide.title}
-                  referrerPolicy="no-referrer"
-                  className="w-full h-full object-cover object-center pointer-events-none select-none"
-                  onError={(e) => {
-                    const target = e.currentTarget;
-                    if (target.src !== DEFAULT_BANNER_PLACEHOLDER) {
-                      target.src = DEFAULT_BANNER_PLACEHOLDER;
-                    }
-                  }}
-                />
-              )}
-
-              {/* Lớp phủ tối mờ khi slide ở 2 bên */}
+              {/* Lớp phủ tối mờ tinh tế khi slide ở 2 bên góc nhìn 3D */}
               {!isCenter && (
-                <div className="absolute inset-0 bg-black/40 hover:bg-black/15 transition-colors z-10 pointer-events-none" />
+                <div className="absolute inset-0 bg-black/35 hover:bg-black/15 transition-colors z-10 pointer-events-none" />
               )}
 
-              {/* Spatial Glass: Viền trắng ở 2 cạnh trên - dưới, giảm opacity dần khi đi sang 2 bên trái - phải */}
+              {/* Spatial Glass: Viền trắng ở 2 cạnh trên - dưới, mỏng 1px với opacity 40% */}
               <div
                 className="hero-slide-glass-border absolute inset-0 pointer-events-none z-30 rounded-[inherit]"
                 aria-hidden="true"
@@ -398,47 +321,47 @@ export const HeroCarousel: React.FC<HeroCarouselProps> = ({
           );
         })}
 
-        {/* Nút mũi tên Chevron trái (<) - bấm sẽ randomize 1 kênh đề xuất */}
+        {/* Nút mũi tên Chevron trái (<) - Kính mờ tròn chuẩn theo ảnh */}
         {totalSlides > 1 && (
           <button
             id="btn-coverflow-prev"
             onClick={() => prevSlide(true)}
             aria-label="Slide trước"
-            className="absolute left-[2%] sm:left-[6%] md:left-[10%] lg:left-[13%] top-1/2 -translate-y-1/2 z-40 text-white/90 hover:text-white hover:scale-125 active:scale-95 transition-all p-2 cursor-pointer drop-shadow-[0_2px_10px_rgba(0,0,0,0.9)]"
+            className="absolute left-[3%] sm:left-[6%] md:left-[9%] lg:left-[11%] top-1/2 -translate-y-1/2 z-40 w-10 h-10 sm:w-11 sm:h-11 md:w-12 md:h-12 rounded-full bg-[#1c1c1f]/60 hover:bg-[#1c1c1f]/90 active:scale-95 hover:scale-110 backdrop-blur-md border border-white/20 flex items-center justify-center text-white/90 hover:text-white transition-all shadow-[0_8px_25px_rgba(0,0,0,0.7)] cursor-default select-none outline-none"
           >
-            <ChevronLeft className="w-8 h-8 sm:w-10 sm:h-10 md:w-11 md:h-11 stroke-[2.5]" />
+            <ChevronLeft className="w-5 h-5 sm:w-6 sm:h-6 stroke-[2.5]" />
           </button>
         )}
 
-        {/* Nút mũi tên Chevron phải (>) - bấm sẽ randomize 1 kênh đề xuất */}
+        {/* Nút mũi tên Chevron phải (>) - Kính mờ tròn chuẩn theo ảnh */}
         {totalSlides > 1 && (
           <button
             id="btn-coverflow-next"
             onClick={() => nextSlide(true)}
             aria-label="Slide tiếp theo"
-            className="absolute right-[2%] sm:right-[6%] md:right-[10%] lg:right-[13%] top-1/2 -translate-y-1/2 z-40 text-white/90 hover:text-white hover:scale-125 active:scale-95 transition-all p-2 cursor-pointer drop-shadow-[0_2px_10px_rgba(0,0,0,0.9)]"
+            className="absolute right-[3%] sm:right-[6%] md:right-[9%] lg:right-[11%] top-1/2 -translate-y-1/2 z-40 w-10 h-10 sm:w-11 sm:h-11 md:w-12 md:h-12 rounded-full bg-[#1c1c1f]/60 hover:bg-[#1c1c1f]/90 active:scale-95 hover:scale-110 backdrop-blur-md border border-white/20 flex items-center justify-center text-white/90 hover:text-white transition-all shadow-[0_8px_25px_rgba(0,0,0,0.7)] cursor-default select-none outline-none"
           >
-            <ChevronRight className="w-8 h-8 sm:w-10 sm:h-10 md:w-11 md:h-11 stroke-[2.5]" />
+            <ChevronRight className="w-5 h-5 sm:w-6 sm:h-6 stroke-[2.5]" />
           </button>
         )}
       </div>
 
-      {/* Pagination Indicators có animation mượt mà sử dụng motion layout */}
+      {/* Pagination Indicators chuẩn thiết kế: Các chấm tròn và thanh dài ở trung tâm */}
       {totalSlides > 1 && (
-        <div className="flex items-center justify-center gap-1.5 sm:gap-2 mt-2.5 sm:mt-3">
+        <div className="flex items-center justify-center gap-1.5 sm:gap-2 mt-3 sm:mt-3.5">
           {allSlides.map((_, idx) => {
             const isActive = idx === currentIndex;
             return (
               <button
                 key={idx}
                 onClick={() => goToSlide(idx)}
-                className="relative py-1.5 px-0.5 flex items-center justify-center cursor-pointer group focus:outline-none"
+                className="relative py-1.5 px-0.5 flex items-center justify-center cursor-default group focus:outline-none"
                 aria-label={`Đi tới slide ${idx + 1}`}
               >
                 {isActive ? (
                   <motion.span
                     layoutId="hero-active-pill"
-                    className="w-7 sm:w-9 h-1.5 rounded-full bg-white shadow-[0_0_12px_rgba(255,255,255,0.95)]"
+                    className="w-7 sm:w-8 h-1.5 rounded-full bg-white shadow-[0_0_12px_rgba(255,255,255,0.95)]"
                     transition={{
                       type: 'spring',
                       stiffness: 380,
@@ -448,7 +371,6 @@ export const HeroCarousel: React.FC<HeroCarouselProps> = ({
                 ) : (
                   <motion.span
                     className="w-1.5 h-1.5 rounded-full bg-white/30 group-hover:bg-white/60 transition-colors"
-                    layout
                   />
                 )}
               </button>

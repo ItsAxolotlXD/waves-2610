@@ -155,7 +155,7 @@ export const CustomStreamModal: React.FC<CustomStreamModalProps> = ({
               </div>
               <button
                 onClick={onClose}
-                className="w-7 h-7 rounded-full bg-[#27121d] flex items-center justify-center text-[#9CA3AF] hover:text-white cursor-pointer"
+                className="w-7 h-7 rounded-full bg-[#27121d] flex items-center justify-center text-[#9CA3AF] hover:text-white cursor-default"
               >
                 <X className="w-3.5 h-3.5" />
               </button>
@@ -166,7 +166,7 @@ export const CustomStreamModal: React.FC<CustomStreamModalProps> = ({
               <button
                 type="button"
                 onClick={() => setActiveTab('single')}
-                className={`flex-1 py-2 rounded-full text-xs font-bold transition-all cursor-pointer ${
+                className={`flex-1 py-2 rounded-full text-xs font-bold transition-all cursor-default ${
                   activeTab === 'single'
                     ? 'bg-[#fd932f] text-white shadow-md'
                     : 'text-[#9CA3AF] hover:text-white'
@@ -177,7 +177,7 @@ export const CustomStreamModal: React.FC<CustomStreamModalProps> = ({
               <button
                 type="button"
                 onClick={() => setActiveTab('playlist')}
-                className={`flex-1 py-2 rounded-full text-xs font-bold transition-all cursor-pointer ${
+                className={`flex-1 py-2 rounded-full text-xs font-bold transition-all cursor-default ${
                   activeTab === 'playlist'
                     ? 'bg-[#fd932f] text-white shadow-md'
                     : 'text-[#9CA3AF] hover:text-white'
@@ -230,7 +230,7 @@ export const CustomStreamModal: React.FC<CustomStreamModalProps> = ({
                           setStreamUrl('https://test-streams.mux.dev/x36xhzz/x36xhzz.m3u8');
                           setChannelName('Mux HLS Test Multi-Rate');
                         }}
-                        className="px-3.5 py-1.5 rounded-full bg-[#27121d] text-[11px] text-[#C5C5CE] hover:text-white hover:bg-[#331726] border border-white/10 cursor-pointer"
+                        className="px-3.5 py-1.5 rounded-full bg-[#27121d] text-[11px] text-[#C5C5CE] hover:text-white hover:bg-[#331726] border border-white/10 cursor-default"
                       >
                         Mux HLS HD
                       </button>
@@ -240,7 +240,7 @@ export const CustomStreamModal: React.FC<CustomStreamModalProps> = ({
                           setStreamUrl('https://cph-p2p-msl.akamaized.net/hls/live/2000341/test/master.m3u8');
                           setChannelName('Akamai Live Master HLS');
                         }}
-                        className="px-3.5 py-1.5 rounded-full bg-[#27121d] text-[11px] text-[#C5C5CE] hover:text-white hover:bg-[#331726] border border-white/10 cursor-pointer"
+                        className="px-3.5 py-1.5 rounded-full bg-[#27121d] text-[11px] text-[#C5C5CE] hover:text-white hover:bg-[#331726] border border-white/10 cursor-default"
                       >
                         Akamai Live HD
                       </button>
@@ -250,7 +250,7 @@ export const CustomStreamModal: React.FC<CustomStreamModalProps> = ({
                   <div className="pt-2">
                     <button
                       type="submit"
-                      className="w-full py-4 rounded-full bg-[#fd932f] text-white text-base font-bold flex items-center justify-center gap-2 hover:bg-[#e68428] active:scale-[0.98] transition-all shadow-md cursor-pointer"
+                      className="w-full py-4 rounded-full bg-[#fd932f] text-white text-base font-bold flex items-center justify-center gap-2 hover:bg-[#e68428] active:scale-[0.98] transition-all shadow-md cursor-default"
                     >
                       <Play className="w-4 h-4 fill-current ml-0.5" />
                       <span>Phát Ngay Trên Player</span>
@@ -267,7 +267,7 @@ export const CustomStreamModal: React.FC<CustomStreamModalProps> = ({
                       <button
                         type="button"
                         onClick={handleLoadSample}
-                        className="text-[11px] text-[#E6005A] hover:underline cursor-pointer font-semibold"
+                        className="text-[11px] text-[#E6005A] hover:underline cursor-default font-semibold"
                       >
                         Nạp playlist mẫu
                       </button>
@@ -291,7 +291,7 @@ export const CustomStreamModal: React.FC<CustomStreamModalProps> = ({
                   <button
                     type="button"
                     onClick={handleImportM3U}
-                    className="w-full py-4 rounded-full bg-[#fd932f] text-white text-base font-bold flex items-center justify-center gap-2 hover:bg-[#e68428] active:scale-[0.98] transition-all shadow-md cursor-pointer"
+                    className="w-full py-4 rounded-full bg-[#fd932f] text-white text-base font-bold flex items-center justify-center gap-2 hover:bg-[#e68428] active:scale-[0.98] transition-all shadow-md cursor-default"
                   >
                     <Upload className="w-4 h-4" />
                     <span>Nhập Toàn Bộ Kênh Vào Danh Sách</span>

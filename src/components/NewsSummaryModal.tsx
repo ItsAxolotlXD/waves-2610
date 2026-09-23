@@ -98,7 +98,7 @@ export const NewsSummaryModal: React.FC<NewsSummaryModalProps> = ({
               </h3>
               <button
                 onClick={onClose}
-                className="w-7 h-7 rounded-full bg-[#27121d] flex items-center justify-center text-[#9CA3AF] hover:text-white cursor-pointer transition-colors"
+                className="w-7 h-7 rounded-full bg-[#27121d] flex items-center justify-center text-[#9CA3AF] hover:text-white cursor-default transition-colors"
                 title="Đóng"
               >
                 <X className="w-3.5 h-3.5" />
@@ -202,7 +202,7 @@ export const NewsSummaryModal: React.FC<NewsSummaryModalProps> = ({
                   <button
                     type="button"
                     onClick={handleCopySummary}
-                    className="flex-1 py-3 px-4 rounded-full bg-[#27121d] hover:bg-[#331726] border border-white/10 text-xs font-bold text-white flex items-center justify-center gap-2 transition-all cursor-pointer"
+                    className="flex-1 py-3 px-4 rounded-full bg-[#27121d] hover:bg-[#331726] border border-white/10 text-xs font-bold text-white flex items-center justify-center gap-2 transition-all cursor-default"
                   >
                     {copied ? <CheckCircle2 className="w-4 h-4 text-emerald-500" /> : <Copy className="w-4 h-4" />}
                     <span>{copied ? 'Đã sao chép tóm tắt' : 'Sao chép tóm tắt'}</span>
@@ -212,7 +212,7 @@ export const NewsSummaryModal: React.FC<NewsSummaryModalProps> = ({
                     type="button"
                     onClick={handleExportDocx}
                     disabled={exporting}
-                    className="flex-1 py-3 px-4 rounded-full bg-[#E50914] hover:bg-[#CC0812] text-xs font-bold text-white flex items-center justify-center gap-2 transition-all cursor-pointer shadow-md"
+                    className="flex-1 py-3 px-4 rounded-full bg-[#E50914] hover:bg-[#CC0812] text-xs font-bold text-white flex items-center justify-center gap-2 transition-all cursor-default shadow-md"
                   >
                     <FileText className="w-4 h-4" />
                     <span>{exporting ? 'Đang xuất...' : 'Xuất .docx'}</span>

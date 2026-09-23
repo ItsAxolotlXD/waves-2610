@@ -127,111 +127,113 @@ export const Settings: React.FC<SettingsProps> = ({
           Cài đặt
         </h1>
         <p className="text-xs sm:text-sm text-[#9CA3AF]">
-          Quản lý giao diện, trợ năng và tiện ích hệ thống
+          Quản lý giao diện, trợ năng và tiện ích hệ thống.
         </p>
 
-        {/* Search Header */}
-        <div className="pt-2">
-          {/* Search Bar Capsule styled with channel card border */}
-          <div 
-            id="settings-search-container"
-            onClick={() => {
-              setIsFocused(true);
-              inputRef.current?.focus();
-            }}
-            className="relative w-full h-[48px] flex items-center px-4 rounded-full bg-white/15 backdrop-blur-md text-sm transition-all shadow-lg overflow-hidden cursor-text select-none"
-          >
-            <motion.div 
-              animate={{
-                x: isFocused || searchQuery ? 0 : 'calc(50% - 75px)',
+        {/* Search Header - Hidden when Floaty Search Box option is enabled */}
+        {!draftSettings.floatingSearchBar && (
+          <div className="pt-2">
+            {/* Search Bar Capsule styled with channel card border */}
+            <div 
+              id="settings-search-container"
+              onClick={() => {
+                setIsFocused(true);
+                inputRef.current?.focus();
               }}
-              transition={{
-                type: "spring",
-                stiffness: 350,
-                damping: 28,
-                mass: 0.8
-              }}
-              className={`flex items-center gap-2.5 w-full ${isFocused || isListening ? 'pr-16' : 'pr-8'}`}
+              className="relative w-full h-[48px] flex items-center px-4 rounded-full bg-white/15 backdrop-blur-md text-sm transition-all shadow-lg overflow-hidden cursor-text select-none"
             >
-              <Search className="w-5 h-5 text-[#9CA3AF] shrink-0" />
-              <input
-                ref={inputRef}
-                id="settings-search-input"
-                type="text"
-                value={searchQuery}
-                onFocus={() => setIsFocused(true)}
-                onBlur={() => {
-                  if (!searchQuery && !isListening) setIsFocused(false);
+              <motion.div 
+                animate={{
+                  x: isFocused || searchQuery ? 0 : 'calc(50% - 75px)',
                 }}
-                onChange={(e) => setSearchQuery(e.target.value)}
-                placeholder={isListening ? "Đang nghe giọng nói..." : "Tìm kiếm cài đặt"}
-                className="w-full bg-transparent text-white placeholder-[#9CA3AF] text-sm focus:outline-none font-medium truncate text-left"
-              />
-            </motion.div>
+                transition={{
+                  type: "spring",
+                  stiffness: 350,
+                  damping: 28,
+                  mass: 0.8
+                }}
+                className={`flex items-center gap-2.5 w-full ${isFocused || isListening ? 'pr-16' : 'pr-8'}`}
+              >
+                <Search className="w-5 h-5 text-[#9CA3AF] shrink-0" />
+                <input
+                  ref={inputRef}
+                  id="settings-search-input"
+                  type="text"
+                  value={searchQuery}
+                  onFocus={() => setIsFocused(true)}
+                  onBlur={() => {
+                    if (!searchQuery && !isListening) setIsFocused(false);
+                  }}
+                  onChange={(e) => setSearchQuery(e.target.value)}
+                  placeholder={isListening ? "Đang nghe giọng nói..." : "Tìm kiếm cài đặt"}
+                  className="w-full bg-transparent text-white placeholder-[#9CA3AF] text-sm focus:outline-none font-medium truncate text-left"
+                />
+              </motion.div>
 
-            {/* Right Side Actions: Clear & Voice Search Mic (visible when focused/active) */}
-            <div className="absolute right-2.5 flex items-center gap-1 shrink-0 overflow-visible">
-              <AnimatePresence>
-                {searchQuery && (
-                  <motion.button 
-                    type="button"
-                    initial={{ opacity: 0, scale: 0.7 }}
-                    animate={{ opacity: 1, scale: 1 }}
-                    exit={{ opacity: 0, scale: 0.7 }}
-                    transition={{ duration: 0.15 }}
-                    onClick={(e) => {
-                      e.stopPropagation();
-                      setSearchQuery('');
-                      setIsFocused(true);
-                      inputRef.current?.focus();
-                    }}
-                    className="p-1 rounded-full text-[#8E8E93] hover:text-white transition-colors cursor-pointer"
-                    title="Xóa tìm kiếm"
-                  >
-                    <X className="w-4 h-4" />
-                  </motion.button>
-                )}
+              {/* Right Side Actions: Clear & Voice Search Mic (visible when focused/active) */}
+              <div className="absolute right-2.5 flex items-center gap-1 shrink-0 overflow-visible">
+                <AnimatePresence>
+                  {searchQuery && (
+                    <motion.button 
+                      type="button"
+                      initial={{ opacity: 0, scale: 0.7 }}
+                      animate={{ opacity: 1, scale: 1 }}
+                      exit={{ opacity: 0, scale: 0.7 }}
+                      transition={{ duration: 0.15 }}
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        setSearchQuery('');
+                        setIsFocused(true);
+                        inputRef.current?.focus();
+                      }}
+                      className="p-1 rounded-full text-[#8E8E93] hover:text-white transition-colors cursor-default"
+                      title="Xóa tìm kiếm"
+                    >
+                      <X className="w-4 h-4" />
+                    </motion.button>
+                  )}
 
-                {(isFocused || isListening) && (
-                  <motion.button
-                    type="button"
-                    initial={{ opacity: 0, x: 24, scale: 0.85 }}
-                    animate={{ opacity: 1, x: 0, scale: 1 }}
-                    exit={{ opacity: 0, x: 24, scale: 0.85 }}
-                    transition={{
-                      type: "spring",
-                      stiffness: 350,
-                      damping: 28,
-                      mass: 0.8
-                    }}
-                    onClick={(e) => {
-                      e.stopPropagation();
-                      toggleListening();
-                    }}
-                    className={`w-7 h-7 rounded-full transition-all cursor-pointer flex items-center justify-center shrink-0 ${
-                      isListening
-                        ? 'bg-[#fd932f] shadow-[0_0_14px_rgba(253,147,47,0.8)] scale-105 animate-pulse'
-                        : 'hover:bg-white/10 dark:hover:bg-white/15'
-                    }`}
-                    title={isListening ? "Dừng nghe giọng nói" : "Tìm kiếm bằng giọng nói"}
-                  >
-                    <div className="w-[18px] h-[18px] min-w-[18px] min-h-[18px] max-w-[18px] max-h-[18px] flex items-center justify-center shrink-0">
-                      <img
-                        src="https://github.com/andrewtavis/sf-symbols-online/blob/master/glyphs/mic.png?raw=true"
-                        alt="Voice Search"
-                        referrerPolicy="no-referrer"
-                        className="w-full h-full aspect-square object-contain brightness-0 invert opacity-90 select-none pointer-events-none drop-shadow-sm"
-                        onError={(e) => {
-                          (e.target as HTMLElement).style.display = 'none';
-                        }}
-                      />
-                    </div>
-                  </motion.button>
-                )}
-              </AnimatePresence>
+                  {(isFocused || isListening) && (
+                    <motion.button
+                      type="button"
+                      initial={{ opacity: 0, x: 24, scale: 0.85 }}
+                      animate={{ opacity: 1, x: 0, scale: 1 }}
+                      exit={{ opacity: 0, x: 24, scale: 0.85 }}
+                      transition={{
+                        type: "spring",
+                        stiffness: 350,
+                        damping: 28,
+                        mass: 0.8
+                      }}
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        toggleListening();
+                      }}
+                      className={`w-7 h-7 rounded-full transition-all cursor-default flex items-center justify-center shrink-0 ${
+                        isListening
+                          ? 'bg-[#fd932f] shadow-[0_0_14px_rgba(253,147,47,0.8)] scale-105 animate-pulse'
+                          : 'hover:bg-white/10 dark:hover:bg-white/15'
+                      }`}
+                      title={isListening ? "Dừng nghe giọng nói" : "Tìm kiếm bằng giọng nói"}
+                    >
+                      <div className="w-[18px] h-[18px] min-w-[18px] min-h-[18px] max-w-[18px] max-h-[18px] flex items-center justify-center shrink-0">
+                        <img
+                          src="https://github.com/andrewtavis/sf-symbols-online/blob/master/glyphs/mic.png?raw=true"
+                          alt="Voice Search"
+                          referrerPolicy="no-referrer"
+                          className="w-full h-full aspect-square object-contain brightness-0 invert opacity-90 select-none pointer-events-none drop-shadow-sm"
+                          onError={(e) => {
+                            (e.target as HTMLElement).style.display = 'none';
+                          }}
+                        />
+                      </div>
+                    </motion.button>
+                  )}
+                </AnimatePresence>
+              </div>
             </div>
           </div>
-        </div>
+        )}
       </div>
 
       {/* 1. Section: Giới thiệu phiên bản */}
@@ -246,7 +248,7 @@ export const Settings: React.FC<SettingsProps> = ({
         matchesSearch('Compatible') ||
         matchesSearch('Spatial Glass') ||
         matchesSearch('26.10.0') ||
-        matchesSearch('26W1001a')) && (
+        matchesSearch('26W1002a')) && (
         <section 
           id="settings-section-version"
           className="p-5 sm:p-6 rounded-[28px] bg-white/10 backdrop-blur-md shadow-xl space-y-4"
@@ -259,7 +261,7 @@ export const Settings: React.FC<SettingsProps> = ({
                 Giới thiệu phiên bản
               </h2>
               <p className="text-xs text-[#9CA3AF] mt-1 leading-relaxed">
-                Thông tin bản cập nhật, bản dựng phần mềm và độ tương thích hệ thống
+                Thông tin bản cập nhật, bản dựng phần mềm và độ tương thích hệ thống.
               </p>
             </div>
           </div>
@@ -271,13 +273,13 @@ export const Settings: React.FC<SettingsProps> = ({
             </div>
             <div className="flex items-center justify-between text-sm sm:text-[15px]">
               <span className="font-medium text-white">Software Build</span>
-              <span className="font-semibold text-[#9CA3AF]">26W1001a</span>
+              <span className="font-semibold text-[#9CA3AF]">26W1002a</span>
             </div>
             {/* Dòng chữ to dưới Software Build: Compatible with Spatial Glass */}
             <div id="settings-compatible-spatial-glass" className="pt-3 mt-1 border-t border-white/10 flex items-center">
               <p className="text-base sm:text-lg font-bold tracking-tight text-white">
                 Compatible with{' '}
-                <span className="bg-gradient-to-r from-[#fd932f] via-[#FF4D97] to-[#FFFFFF] bg-clip-text text-transparent font-extrabold drop-shadow-[0_0_12px_rgba(253,147,47,0.35)]">
+                <span className="bg-gradient-to-r from-[#FF8A00] via-[#FF0A54] to-[#E6005A] bg-clip-text text-transparent font-extrabold drop-shadow-[0_0_12px_rgba(230,0,90,0.35)]">
                   Spatial Glass.
                 </span>
               </p>
@@ -289,28 +291,35 @@ export const Settings: React.FC<SettingsProps> = ({
       {/* 2. Section 1: Giao diện */}
       {(matchesSearch('Giao diện') ||
         matchesSearch('Chế độ giao diện') ||
+        matchesSearch('Spatial Glass') ||
+        matchesSearch('spatial') ||
+        matchesSearch('glass') ||
+        matchesSearch('viền') ||
+        matchesSearch('outline') ||
+        matchesSearch('shiny') ||
         matchesSearch('Sáng') ||
         matchesSearch('Tối') ||
         matchesSearch('Theme') ||
+        matchesSearch('Thu phóng giao diện') ||
         matchesSearch('Cỡ chữ ứng dụng') ||
-  matchesSearch('Immersive sidebar') ||
-  matchesSearch('Thanh điều hướng') ||
-  matchesSearch('Sidebar') ||
-  matchesSearch('Immersive') ||
-  matchesSearch('Floaty bar') ||
-  matchesSearch('Sidebar position') ||
-  matchesSearch('thanh bên') ||
-  matchesSearch('trái') ||
-  matchesSearch('phải') ||
-  matchesSearch('Super Dark Mode') ||
-  matchesSearch('Super Dark') ||
-  matchesSearch('Disable shiny outline') ||
-  matchesSearch('shiny outline') ||
-  matchesSearch('shiny') ||
-  matchesSearch('outline') ||
-  matchesSearch('viền') ||
-  matchesSearch('Floaty Search Box') ||
-  matchesSearch('Floating Search Bar')) && (
+        matchesSearch('Cỡ chữ') ||
+        matchesSearch('Immersive sidebar') ||
+        matchesSearch('Thanh điều hướng') ||
+        matchesSearch('Sidebar') ||
+        matchesSearch('Immersive') ||
+        matchesSearch('Floaty bar') ||
+        matchesSearch('Sidebar position') ||
+        matchesSearch('thanh bên') ||
+        matchesSearch('trái') ||
+        matchesSearch('phải') ||
+        matchesSearch('OLED Dark') ||
+        matchesSearch('Super Dark Mode') ||
+        matchesSearch('Super Dark') ||
+        matchesSearch('Disable shiny outline') ||
+        matchesSearch('shiny outline') ||
+        matchesSearch('Thanh tìm kiếm nổi') ||
+        matchesSearch('Floaty Search Box') ||
+        matchesSearch('Floating Search Bar')) && (
         <section 
           id="settings-section-interface"
           className="p-5 sm:p-6 rounded-[28px] bg-white/10 backdrop-blur-md shadow-xl space-y-4"
@@ -323,18 +332,55 @@ export const Settings: React.FC<SettingsProps> = ({
                 Giao diện
               </h2>
               <p className="text-xs text-[#9CA3AF] mt-1 leading-relaxed">
-                Tùy biến chế độ sáng/tối và tỷ lệ cỡ chữ toàn hệ thống
+                Tùy biến chế độ sáng/tối và tỷ lệ cỡ chữ toàn hệ thống.
               </p>
             </div>
           </div>
 
           <div className="space-y-3 pt-1">
+            {/* 1. Spatial Glass (Chuyển lên đầu danh mục cài đặt giao diện) */}
+            {(matchesSearch('Spatial Glass') || matchesSearch('spatial') || matchesSearch('glass') || matchesSearch('viền') || matchesSearch('outline') || matchesSearch('shiny') || matchesSearch('Giao diện')) && (
+              <div 
+                id="setting-spatial-glass"
+                className="p-3.5 sm:p-4 rounded-[20px] flex items-center justify-between gap-4 transition-colors hover:bg-white/5"
+              >
+                <div>
+                  <div className="font-semibold text-white text-sm">
+                    <span className="bg-gradient-to-r from-[#FF8A00] via-[#FF0A54] to-[#E6005A] bg-clip-text text-transparent font-bold">
+                      Spatial Glass
+                    </span>
+                  </div>
+                  <div className="text-xs text-[#9CA3AF] mt-1 leading-normal">
+                    Ngôn ngữ thiết kế giao diện người dùng mới dựa trên Liquid Glass của Apple, mô phỏng hiệu ứng kính mờ trong suốt, có khả năng khúc xạ ánh sáng, tạo chiều sâu thị giác và chuyển động linh hoạt theo thao tác cử chỉ của người dùng.
+                  </div>
+                </div>
+
+                {/* Magenta Toggle Switch */}
+                <button
+                  id="toggle-spatial-glass"
+                  type="button"
+                  role="switch"
+                  aria-checked={draftSettings.spatialGlass}
+                  onClick={() => updateDraft('spatialGlass', !draftSettings.spatialGlass)}
+                  className={`toggle-switch-btn relative w-[66px] h-7 rounded-full p-[3px] transition-colors duration-200 ease-in-out cursor-default shrink-0 flex items-center ${
+                    draftSettings.spatialGlass ? 'bg-[#fd932f]' : 'bg-[#E4E4E7] dark:bg-[#3F3F46]'
+                  }`}
+                  title="Bật/Tắt Spatial Glass"
+                >
+                  <span
+                    className="toggle-switch-thumb block w-[32px] h-[22px] rounded-full bg-white border border-black/10 dark:border-white/10 shadow-md pointer-events-none"
+                  />
+                </button>
+              </div>
+            )}
+
+            {/* 2. Thanh điều hướng */}
             {(matchesSearch('Thanh điều hướng') || matchesSearch('Top Bar') || matchesSearch('Giao diện Top Bar')) && (
               <div className="p-3 sm:p-4 rounded-[20px] space-y-3">
                 <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-1">
                   <div>
                     <div className="font-semibold text-white text-sm">Thanh điều hướng</div>
-                    <div className="text-xs text-[#9CA3AF] mt-1 leading-normal">Chọn kiểu điều hướng chính của ứng dụng</div>
+                    <div className="text-xs text-[#9CA3AF] mt-1 leading-normal">Lựa chọn kiểu điều hướng của ứng dụng.</div>
                   </div>
                   {draftSettings.navigationMode === 'topbar' && (
                     <span className="inline-flex items-center text-[11px] font-medium text-[#fd932f] bg-[#fd932f]/10 px-2 py-0.5 rounded-full self-start sm:self-auto">
@@ -342,7 +388,7 @@ export const Settings: React.FC<SettingsProps> = ({
                     </span>
                   )}
                 </div>
-                <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 rounded-2xl bg-[#1E1D24] p-1" role="group" aria-label="Thanh điều hướng">
+                <div className="grid grid-cols-2 sm:grid-cols-4 gap-1.5 rounded-full bg-[#18181b]/80 border border-white/10 p-1.5 backdrop-blur-md" role="group" aria-label="Thanh điều hướng">
                   {([
                     ['sidebar', 'Sidebar'],
                     ['topbar', 'Top bar'],
@@ -356,8 +402,10 @@ export const Settings: React.FC<SettingsProps> = ({
                         updateDraft('navigationMode', value); 
                         updateDraft('immersiveSidebar', false); 
                       }} 
-                      className={`rounded-xl px-2 py-2.5 text-xs font-semibold transition-colors cursor-pointer text-center truncate ${
-                        draftSettings.navigationMode === value ? 'bg-[#fd932f] text-white' : 'text-[#9CA3AF] hover:text-white'
+                      className={`rounded-full px-3 py-2 text-xs font-semibold transition-all cursor-default text-center truncate ${
+                        draftSettings.navigationMode === value
+                          ? 'bg-[#fd932f] text-white shadow-[0_2px_10px_rgba(253,147,47,0.35)]'
+                          : 'text-[#9CA3AF] hover:text-white hover:bg-white/5'
                       }`} 
                       aria-pressed={draftSettings.navigationMode === value}
                       title={label}
@@ -374,16 +422,21 @@ export const Settings: React.FC<SettingsProps> = ({
               </div>
             )}
 
-            {/* Card 1: Cỡ chữ ứng dụng (Spatial Glass Pill Slider Style) */}
-            {matchesSearch('Cỡ chữ ứng dụng') && (
+            {/* 3. Thu phóng giao diện (trước là Cỡ chữ ứng dụng) */}
+            {(matchesSearch('Thu phóng giao diện') || matchesSearch('Cỡ chữ ứng dụng') || matchesSearch('Cỡ chữ')) && (
               <div className="p-3 sm:p-4 rounded-[20px] space-y-4">
                 {/* Header Row */}
                 <div className="flex items-center justify-between">
-                  <div className="flex items-center gap-2">
-                    <Type className="w-4.5 h-4.5 text-[#9CA3AF]" />
-                    <span className="font-semibold text-white text-sm">
-                      Cỡ chữ ứng dụng
-                    </span>
+                  <div>
+                    <div className="flex items-center gap-2">
+                      <Type className="w-4.5 h-4.5 text-[#9CA3AF]" />
+                      <span className="font-semibold text-white text-sm">
+                        Thu phóng giao diện
+                      </span>
+                    </div>
+                    <div className="text-xs text-[#9CA3AF] mt-1 leading-normal">
+                      Tùy chỉnh kích cỡ giao diện ứng dụng để phù hợp với thiết bị của bạn.
+                    </div>
                   </div>
                 </div>
 
@@ -399,8 +452,8 @@ export const Settings: React.FC<SettingsProps> = ({
                       step="1"
                       value={draftSettings.fontScale}
                       onChange={(e) => updateDraft('fontScale', parseInt(e.target.value, 10))}
-                      className="absolute left-1 right-1 top-0 bottom-0 opacity-0 cursor-pointer z-20"
-                      aria-label="Cỡ chữ ứng dụng"
+                      className="absolute left-1 right-1 top-0 bottom-0 opacity-0 cursor-default z-20"
+                      aria-label="Thu phóng giao diện"
                     />
 
                     {/* Track Background */}
@@ -437,7 +490,7 @@ export const Settings: React.FC<SettingsProps> = ({
                           type="button"
                           id={`btn-font-scale-${idx}`}
                           onClick={() => updateDraft('fontScale', idx)}
-                          className={`cursor-pointer transition-colors py-1 ${alignClass} ${
+                          className={`cursor-default transition-colors py-1 ${alignClass} ${
                             isSelected
                               ? 'text-[#fd932f] font-bold text-xs'
                               : 'text-[#6B7280] hover:text-[#9CA3AF]'
@@ -452,47 +505,7 @@ export const Settings: React.FC<SettingsProps> = ({
               </div>
             )}
 
-            {/* Tỉ lệ luồng truyền hình (16:9 vs 4:3 Squish) */}
-            {(matchesSearch('Tỉ lệ luồng') || matchesSearch('Tỉ lệ khung hình') || matchesSearch('16:9') || matchesSearch('4:3') || matchesSearch('squish') || matchesSearch('truyền hình') || matchesSearch('resolution')) && (
-              <div className="p-3 sm:p-4 rounded-[20px] space-y-3">
-                <div className="flex items-center justify-between">
-                  <div className="flex items-center gap-2">
-                    <Tv className="w-4.5 h-4.5 text-[#9CA3AF]" />
-                    <span className="font-semibold text-white text-sm">
-                      Tỉ lệ luồng truyền hình
-                    </span>
-                  </div>
-                  <span className="text-xs font-semibold text-[#fd932f] font-mono">
-                    {draftSettings.streamAspectRatio === '4:3' ? '4:3 (Squish)' : '16:9 (Chuẩn)'}
-                  </span>
-                </div>
-                <div className="text-xs text-[#9CA3AF] leading-relaxed">
-                  Chuyển đổi tỉ lệ phát sóng kênh truyền hình. Ở chế độ 4:3, luồng video sẽ được co (squish) lại theo tỉ lệ màn hình TV 4:3 cổ điển.
-                </div>
-                <div className="grid grid-cols-2 gap-2 pt-1">
-                  {[
-                    { value: '16:9', label: '16:9 (Chuẩn rộng)' },
-                    { value: '4:3', label: '4:3 (Squish co lại)' },
-                  ].map(({ value, label }) => (
-                    <button
-                      key={value}
-                      type="button"
-                      id={`btn-aspect-${value.replace(':', '-')}`}
-                      onClick={() => updateDraft('streamAspectRatio', value as '16:9' | '4:3')}
-                      className={`h-10 rounded-xl font-medium text-xs sm:text-sm transition-all border cursor-pointer ${
-                        draftSettings.streamAspectRatio === value
-                          ? 'bg-[#fd932f] text-white border-[#fd932f] shadow-[0_2px_10px_rgba(253,147,47,0.35)] font-semibold'
-                          : 'bg-white/5 text-[#9CA3AF] hover:text-white border-white/10 hover:bg-white/10'
-                      }`}
-                      aria-pressed={draftSettings.streamAspectRatio === value}
-                    >
-                      {label}
-                    </button>
-                  ))}
-                </div>
-              </div>
-            )}
-
+            {/* 4. Vị trí thanh bên (nếu dùng chế độ Sidebar) */}
             {draftSettings.navigationMode === 'sidebar' && (matchesSearch('Sidebar position') || matchesSearch('Vị trí sidebar') || matchesSearch('thanh bên') || matchesSearch('trái') || matchesSearch('phải')) && (
               <div
                 id="setting-sidebar-position"
@@ -501,7 +514,7 @@ export const Settings: React.FC<SettingsProps> = ({
                 <div className="flex items-center justify-between gap-4">
                   <div>
                     <div className="font-semibold text-white text-sm">Vị trí thanh bên (Sidebar position)</div>
-                    <div className="text-xs text-[#9CA3AF] mt-1 leading-normal">Chọn vị trí hiển thị thanh bên trái hoặc phải</div>
+                    <div className="text-xs text-[#9CA3AF] mt-1 leading-normal">Chọn vị trí hiển thị thanh bên trái hoặc phải.</div>
                   </div>
                   <div className="flex rounded-full bg-[#1E1D24] p-1 shrink-0" role="group" aria-label="Sidebar position">
                     {(['left', 'right'] as const).map((position) => (
@@ -509,7 +522,7 @@ export const Settings: React.FC<SettingsProps> = ({
                         key={position}
                         type="button"
                         onClick={() => updateDraft('sidebarPosition', position)}
-                        className={`px-3 py-1.5 rounded-full text-xs font-semibold transition-colors cursor-pointer ${
+                        className={`px-3 py-1.5 rounded-full text-xs font-semibold transition-colors cursor-default ${
                           draftSettings.sidebarPosition === position ? 'bg-[#fd932f] text-white' : 'text-[#9CA3AF] hover:text-white'
                         }`}
                       >
@@ -521,8 +534,8 @@ export const Settings: React.FC<SettingsProps> = ({
               </div>
             )}
 
-            {/* Card: Super Dark Mode */}
-            {(matchesSearch('Super Dark Mode') || matchesSearch('Super Dark') || matchesSearch('Tối') || matchesSearch('Giao diện')) && (
+            {/* 5. OLED Dark (trước là Super Dark Mode) */}
+            {(matchesSearch('OLED Dark') || matchesSearch('Super Dark Mode') || matchesSearch('Super Dark') || matchesSearch('Tối') || matchesSearch('Giao diện')) && (
               <div 
                 id="setting-super-dark-mode"
                 className="p-3.5 sm:p-4 rounded-[20px] flex items-center justify-between gap-4 transition-colors hover:bg-white/5"
@@ -530,7 +543,7 @@ export const Settings: React.FC<SettingsProps> = ({
                 <div>
                   <div className="flex items-center gap-2">
                     <span className="font-semibold text-white text-sm">
-                      Super Dark Mode
+                      OLED Dark
                     </span>
                     {draftSettings.superDarkMode && (
                       <span className="inline-flex items-center text-[10px] font-semibold text-white bg-black/80 border border-white/20 px-2 py-0.5 rounded-full">
@@ -539,7 +552,7 @@ export const Settings: React.FC<SettingsProps> = ({
                     )}
                   </div>
                   <div className="text-xs text-[#9CA3AF] mt-1 leading-normal">
-                    Khi bật, toàn bộ nền ứng dụng sẽ chuyển thành màu đen tuyệt đối (#000000)
+                    Chế độ tối... nhưng tối hơn.
                   </div>
                 </div>
 
@@ -550,10 +563,10 @@ export const Settings: React.FC<SettingsProps> = ({
                   role="switch"
                   aria-checked={draftSettings.superDarkMode}
                   onClick={() => updateDraft('superDarkMode', !draftSettings.superDarkMode)}
-                  className={`toggle-switch-btn relative w-[66px] h-7 rounded-full p-[3px] transition-colors duration-200 ease-in-out cursor-pointer shrink-0 flex items-center ${
+                  className={`toggle-switch-btn relative w-[66px] h-7 rounded-full p-[3px] transition-colors duration-200 ease-in-out cursor-default shrink-0 flex items-center ${
                     draftSettings.superDarkMode ? 'bg-[#fd932f]' : 'bg-[#E4E4E7] dark:bg-[#3F3F46]'
                   }`}
-                  title="Bật/Tắt Super Dark Mode"
+                  title="Bật/Tắt OLED Dark"
                 >
                   <span
                     className="toggle-switch-thumb block w-[32px] h-[22px] rounded-full bg-white border border-black/10 dark:border-white/10 shadow-md pointer-events-none"
@@ -562,18 +575,18 @@ export const Settings: React.FC<SettingsProps> = ({
               </div>
             )}
 
-            {/* Card: Floaty Search Box */}
-            {(matchesSearch('Floaty Search Box') || matchesSearch('Floating Search Bar') || matchesSearch('Giao diện') || matchesSearch('Tìm kiếm')) && (
+            {/* 6. Thanh tìm kiếm nổi (trước là Floaty Search Box) */}
+            {(matchesSearch('Thanh tìm kiếm nổi') || matchesSearch('Floaty Search Box') || matchesSearch('Floating Search Bar') || matchesSearch('Giao diện') || matchesSearch('Tìm kiếm')) && (
               <div 
                 id="setting-floating-search-bar"
                 className="p-3.5 sm:p-4 rounded-[20px] flex items-center justify-between gap-4 transition-colors hover:bg-white/5"
               >
                 <div>
                   <div className="font-semibold text-white text-sm">
-                    Floaty Search Box
+                    Thanh tìm kiếm nổi
                   </div>
                   <div className="text-xs text-[#9CA3AF] mt-1 leading-normal">
-                    Hiển thị thanh tìm kiếm nổi ở dưới màn hình (chỉ áp dụng cho điều hướng Topbar hoặc Sidebar)
+                    Hiển thị thanh tìm kiếm nổi dưới màn hình để tìm kiếm nhanh bất cứ lúc nào.
                   </div>
                 </div>
 
@@ -584,44 +597,10 @@ export const Settings: React.FC<SettingsProps> = ({
                   role="switch"
                   aria-checked={draftSettings.floatingSearchBar}
                   onClick={() => updateDraft('floatingSearchBar', !draftSettings.floatingSearchBar)}
-                  className={`toggle-switch-btn relative w-[66px] h-7 rounded-full p-[3px] transition-colors duration-200 ease-in-out cursor-pointer shrink-0 flex items-center ${
+                  className={`toggle-switch-btn relative w-[66px] h-7 rounded-full p-[3px] transition-colors duration-200 ease-in-out cursor-default shrink-0 flex items-center ${
                     draftSettings.floatingSearchBar ? 'bg-[#fd932f]' : 'bg-[#E4E4E7] dark:bg-[#3F3F46]'
                   }`}
-                  title="Bật/Tắt Floaty Search Box"
-                >
-                  <span
-                    className="toggle-switch-thumb block w-[32px] h-[22px] rounded-full bg-white border border-black/10 dark:border-white/10 shadow-md pointer-events-none"
-                  />
-                </button>
-              </div>
-            )}
-
-            {/* Card: Spatial Glass */}
-            {(matchesSearch('Spatial Glass') || matchesSearch('spatial') || matchesSearch('glass') || matchesSearch('viền') || matchesSearch('outline') || matchesSearch('shiny') || matchesSearch('Giao diện')) && (
-              <div 
-                id="setting-spatial-glass"
-                className="p-3.5 sm:p-4 rounded-[20px] flex items-center justify-between gap-4 transition-colors hover:bg-white/5"
-              >
-                <div>
-                  <div className="font-semibold text-white text-sm">
-                    Spatial Glass
-                  </div>
-                  <div className="text-xs text-[#9CA3AF] mt-1 leading-normal">
-                    Hiệu ứng viền sáng Spatial Glass trên các ô kênh, thẻ và nút bấm trong ứng dụng
-                  </div>
-                </div>
-
-                {/* Magenta Toggle Switch */}
-                <button
-                  id="toggle-spatial-glass"
-                  type="button"
-                  role="switch"
-                  aria-checked={draftSettings.spatialGlass}
-                  onClick={() => updateDraft('spatialGlass', !draftSettings.spatialGlass)}
-                  className={`toggle-switch-btn relative w-[66px] h-7 rounded-full p-[3px] transition-colors duration-200 ease-in-out cursor-pointer shrink-0 flex items-center ${
-                    draftSettings.spatialGlass ? 'bg-[#fd932f]' : 'bg-[#E4E4E7] dark:bg-[#3F3F46]'
-                  }`}
-                  title="Bật/Tắt Spatial Glass"
+                  title="Bật/Tắt Thanh tìm kiếm nổi"
                 >
                   <span
                     className="toggle-switch-thumb block w-[32px] h-[22px] rounded-full bg-white border border-black/10 dark:border-white/10 shadow-md pointer-events-none"
@@ -635,6 +614,16 @@ export const Settings: React.FC<SettingsProps> = ({
 
       {/* 3. Section 2: Trợ năng */}
       {(matchesSearch('Trợ năng') ||
+        matchesSearch('Tỉ lệ khung hình') ||
+        matchesSearch('Tỉ lệ luồng') ||
+        matchesSearch('16:9') ||
+        matchesSearch('4:3') ||
+        matchesSearch('4.3') ||
+        matchesSearch('chuẩn vuông') ||
+        matchesSearch('chuẩn rộng') ||
+        matchesSearch('squish') ||
+        matchesSearch('truyền hình') ||
+        matchesSearch('resolution') ||
         matchesSearch('Tự động ẩn Sidebar')) && (
         <section 
           id="settings-section-accessibility"
@@ -648,13 +637,54 @@ export const Settings: React.FC<SettingsProps> = ({
                 Trợ năng
               </h2>
               <p className="text-xs text-[#9CA3AF] mt-1 leading-relaxed">
-                Điều chỉnh tương tác hiển thị và thanh điều hướng
+                Điều chỉnh tương tác hiển thị và thanh điều hướng.
               </p>
             </div>
           </div>
 
           <div className="space-y-3 pt-1">
-            {/* Card: Tự động ẩn Sidebar (No Border) */}
+            {/* 1. Tỉ lệ khung hình (Chuyển vào cài đặt trợ năng) */}
+            {(matchesSearch('Tỉ lệ khung hình') || matchesSearch('Tỉ lệ luồng') || matchesSearch('16:9') || matchesSearch('4:3') || matchesSearch('4.3') || matchesSearch('chuẩn vuông') || matchesSearch('chuẩn rộng') || matchesSearch('squish') || matchesSearch('truyền hình') || matchesSearch('resolution') || matchesSearch('Trợ năng')) && (
+              <div className="p-3 sm:p-4 rounded-[20px] space-y-3">
+                <div className="flex items-center justify-between">
+                  <div className="flex items-center gap-2">
+                    <Tv className="w-4.5 h-4.5 text-[#9CA3AF]" />
+                    <span className="font-semibold text-white text-sm">
+                      Tỉ lệ khung hình
+                    </span>
+                  </div>
+                  <span className="text-xs font-semibold text-[#fd932f] font-mono">
+                    {draftSettings.streamAspectRatio === '4:3' ? '4.3 (chuẩn vuông)' : '16:9 (chuẩn rộng)'}
+                  </span>
+                </div>
+                <div className="text-xs text-[#9CA3AF] leading-relaxed">
+                  Chuyển đổi tỉ lệ khung hình khi xem giữa 4:3 hoặc 16:9.
+                </div>
+                <div className="grid grid-cols-2 gap-1.5 rounded-full bg-[#18181b]/80 border border-white/10 p-1.5 backdrop-blur-md pt-1">
+                  {[
+                    { value: '16:9', label: '16:9 (chuẩn rộng)' },
+                    { value: '4:3', label: '4.3 (chuẩn vuông)' },
+                  ].map(({ value, label }) => (
+                    <button
+                      key={value}
+                      type="button"
+                      id={`btn-aspect-${value.replace(':', '-')}`}
+                      onClick={() => updateDraft('streamAspectRatio', value as '16:9' | '4:3')}
+                      className={`h-9 sm:h-10 rounded-full font-semibold text-xs sm:text-sm transition-all cursor-default flex items-center justify-center ${
+                        draftSettings.streamAspectRatio === value
+                          ? 'bg-[#fd932f] text-white shadow-[0_2px_10px_rgba(253,147,47,0.35)]'
+                          : 'text-[#9CA3AF] hover:text-white hover:bg-white/5'
+                      }`}
+                      aria-pressed={draftSettings.streamAspectRatio === value}
+                    >
+                      {label}
+                    </button>
+                  ))}
+                </div>
+              </div>
+            )}
+
+            {/* 2. Card: Tự động ẩn Sidebar (No Border) */}
             {matchesSearch('Tự động ẩn Sidebar') && (
               <div className="p-3.5 sm:p-4 rounded-[20px] flex items-center justify-between gap-4 transition-colors hover:bg-white/5">
                 <div>
@@ -662,7 +692,7 @@ export const Settings: React.FC<SettingsProps> = ({
                     Tự động ẩn Sidebar
                   </div>
                   <div className="text-xs text-[#9CA3AF] mt-1 leading-normal">
-                    Tự động thu gọn thanh menu khi không di chuột vào
+                    Tự động thu gọn thanh menu khi không di chuột vào.
                   </div>
                 </div>
 
@@ -673,7 +703,7 @@ export const Settings: React.FC<SettingsProps> = ({
                   role="switch"
                   aria-checked={draftSettings.autoHideSidebar}
                   onClick={() => updateDraft('autoHideSidebar', !draftSettings.autoHideSidebar)}
-                  className={`toggle-switch-btn relative w-[66px] h-7 rounded-full p-[3px] transition-colors duration-200 ease-in-out cursor-pointer shrink-0 flex items-center ${
+                  className={`toggle-switch-btn relative w-[66px] h-7 rounded-full p-[3px] transition-colors duration-200 ease-in-out cursor-default shrink-0 flex items-center ${
                     draftSettings.autoHideSidebar ? 'bg-[#fd932f]' : 'bg-[#E4E4E7] dark:bg-[#3F3F46]'
                   }`}
                 >
@@ -706,7 +736,7 @@ export const Settings: React.FC<SettingsProps> = ({
                 Motion and Movements
               </h2>
               <p className="text-xs text-[#9CA3AF] mt-1 leading-relaxed">
-                Tùy chỉnh hiệu ứng trong ứng dụng
+                Tùy chỉnh hiệu ứng trong ứng dụng.
               </p>
             </div>
           </div>
@@ -717,14 +747,14 @@ export const Settings: React.FC<SettingsProps> = ({
               <div 
                 id="setting-motion-reduce-all"
                 onClick={() => updateDraft('reduceAllMotion', !draftSettings.reduceAllMotion)}
-                className="group p-3.5 sm:p-4 rounded-[20px] flex items-center justify-between gap-4 cursor-pointer hover:bg-white/5 transition-colors"
+                className="group p-3.5 sm:p-4 rounded-[20px] flex items-center justify-between gap-4 cursor-default hover:bg-white/5 transition-colors"
               >
                 <div>
                   <div className="font-semibold text-white text-sm">
                     Reduce all animation
                   </div>
                   <div className="text-xs text-[#9CA3AF] mt-1 leading-normal">
-                    Giảm và tắt toàn bộ các hiệu ứng chuyển động trong ứng dụng
+                    Giảm và tắt toàn bộ các hiệu ứng chuyển động trong ứng dụng.
                   </div>
                 </div>
 
@@ -737,7 +767,7 @@ export const Settings: React.FC<SettingsProps> = ({
                     e.stopPropagation();
                     updateDraft('reduceAllMotion', !draftSettings.reduceAllMotion);
                   }}
-                  className={`toggle-switch-btn relative w-[66px] h-7 rounded-full p-[3px] transition-colors duration-200 ease-in-out cursor-pointer shrink-0 flex items-center ${
+                  className={`toggle-switch-btn relative w-[66px] h-7 rounded-full p-[3px] transition-colors duration-200 ease-in-out cursor-default shrink-0 flex items-center ${
                     draftSettings.reduceAllMotion ? 'bg-[#fd932f]' : 'bg-[#E4E4E7] dark:bg-[#3F3F46]'
                   }`}
                 >
@@ -766,14 +796,14 @@ export const Settings: React.FC<SettingsProps> = ({
                       updateDraft('animateSidebar', !draftSettings.animateSidebar);
                     }
                   }}
-                  className="group p-3.5 sm:p-4 rounded-[20px] flex items-center justify-between gap-4 cursor-pointer hover:bg-white/5 transition-colors"
+                  className="group p-3.5 sm:p-4 rounded-[20px] flex items-center justify-between gap-4 cursor-default hover:bg-white/5 transition-colors"
                 >
                   <div>
                     <div className="font-semibold text-white text-sm">
                       Sidebar
                     </div>
                     <div className="text-xs text-[#9CA3AF] mt-1 leading-normal">
-                      Hiệu ứng mở rộng/thu gọn và trượt ngăn kéo menu bên
+                      Hiệu ứng mở rộng/thu gọn và trượt ngăn kéo menu bên.
                     </div>
                   </div>
 
@@ -786,7 +816,7 @@ export const Settings: React.FC<SettingsProps> = ({
                       e.stopPropagation();
                       updateDraft('animateSidebar', !draftSettings.animateSidebar);
                     }}
-                    className={`toggle-switch-btn relative w-[66px] h-7 rounded-full p-[3px] transition-colors duration-200 ease-in-out cursor-pointer shrink-0 flex items-center ${
+                    className={`toggle-switch-btn relative w-[66px] h-7 rounded-full p-[3px] transition-colors duration-200 ease-in-out cursor-default shrink-0 flex items-center ${
                       draftSettings.animateSidebar && !draftSettings.reduceAllMotion ? 'bg-[#fd932f]' : 'bg-[#E4E4E7] dark:bg-[#3F3F46]'
                     }`}
                   >
@@ -804,14 +834,14 @@ export const Settings: React.FC<SettingsProps> = ({
                       updateDraft('animateModals', !draftSettings.animateModals);
                     }
                   }}
-                  className="group p-3.5 sm:p-4 rounded-[20px] flex items-center justify-between gap-4 cursor-pointer hover:bg-white/5 transition-colors"
+                  className="group p-3.5 sm:p-4 rounded-[20px] flex items-center justify-between gap-4 cursor-default hover:bg-white/5 transition-colors"
                 >
                   <div>
                     <div className="font-semibold text-white text-sm">
                       Hộp thoại (Modal dialog)
                     </div>
                     <div className="text-xs text-[#9CA3AF] mt-1 leading-normal">
-                      Hiệu ứng phóng to, thu nhỏ và làm mờ các cửa sổ bật lên
+                      Hiệu ứng phóng to, thu nhỏ và làm mờ các cửa sổ bật lên.
                     </div>
                   </div>
 
@@ -824,7 +854,7 @@ export const Settings: React.FC<SettingsProps> = ({
                       e.stopPropagation();
                       updateDraft('animateModals', !draftSettings.animateModals);
                     }}
-                    className={`toggle-switch-btn relative w-[66px] h-7 rounded-full p-[3px] transition-colors duration-200 ease-in-out cursor-pointer shrink-0 flex items-center ${
+                    className={`toggle-switch-btn relative w-[66px] h-7 rounded-full p-[3px] transition-colors duration-200 ease-in-out cursor-default shrink-0 flex items-center ${
                       draftSettings.animateModals && !draftSettings.reduceAllMotion ? 'bg-[#fd932f]' : 'bg-[#E4E4E7] dark:bg-[#3F3F46]'
                     }`}
                   >
@@ -842,14 +872,14 @@ export const Settings: React.FC<SettingsProps> = ({
                       updateDraft('animatePageTransitions', !draftSettings.animatePageTransitions);
                     }
                   }}
-                  className="group p-3.5 sm:p-4 rounded-[20px] flex items-center justify-between gap-4 cursor-pointer hover:bg-white/5 transition-colors"
+                  className="group p-3.5 sm:p-4 rounded-[20px] flex items-center justify-between gap-4 cursor-default hover:bg-white/5 transition-colors"
                 >
                   <div>
                     <div className="font-semibold text-white text-sm">
                       Chuyển trang
                     </div>
                     <div className="text-xs text-[#9CA3AF] mt-1 leading-normal">
-                      Hiệu ứng trượt lên (slide up) các thành phần khi chuyển giữa các trang
+                      Hiệu ứng trượt lên (slide up) các thành phần khi chuyển giữa các trang.
                     </div>
                   </div>
 
@@ -862,7 +892,7 @@ export const Settings: React.FC<SettingsProps> = ({
                       e.stopPropagation();
                       updateDraft('animatePageTransitions', !draftSettings.animatePageTransitions);
                     }}
-                    className={`toggle-switch-btn relative w-[66px] h-7 rounded-full p-[3px] transition-colors duration-200 ease-in-out cursor-pointer shrink-0 flex items-center ${
+                    className={`toggle-switch-btn relative w-[66px] h-7 rounded-full p-[3px] transition-colors duration-200 ease-in-out cursor-default shrink-0 flex items-center ${
                       draftSettings.animatePageTransitions && !draftSettings.reduceAllMotion ? 'bg-[#fd932f]' : 'bg-[#E4E4E7] dark:bg-[#3F3F46]'
                     }`}
                   >
@@ -894,7 +924,7 @@ export const Settings: React.FC<SettingsProps> = ({
                 Tìm kiếm
               </h2>
               <p className="text-xs text-[#9CA3AF] mt-1 leading-relaxed">
-                Tùy chỉnh các danh mục kết quả hiển thị trong Spotlight Search
+                Tùy chỉnh các danh mục kết quả hiển thị trong Spotlight Search.
               </p>
             </div>
           </div>
@@ -905,14 +935,14 @@ export const Settings: React.FC<SettingsProps> = ({
               <div 
                 id="setting-search-categories"
                 onClick={() => updateDraft('searchCategories', !draftSettings.searchCategories)}
-                className="group p-3.5 sm:p-4 rounded-[20px] flex items-center justify-between gap-4 cursor-pointer hover:bg-white/5 transition-colors"
+                className="group p-3.5 sm:p-4 rounded-[20px] flex items-center justify-between gap-4 cursor-default hover:bg-white/5 transition-colors"
               >
                 <div>
                   <div className="font-semibold text-white text-sm">
                     Danh mục
                   </div>
                   <div className="text-xs text-[#9CA3AF] mt-1 leading-normal">
-                    Hiển thị các tab và điều hướng hệ thống (Home, Live TV, News, v.v.)
+                    Hiển thị các tab và điều hướng hệ thống (Home, Live TV, News, v.v.).
                   </div>
                 </div>
 
@@ -925,7 +955,7 @@ export const Settings: React.FC<SettingsProps> = ({
                     e.stopPropagation();
                     updateDraft('searchCategories', !draftSettings.searchCategories);
                   }}
-                  className={`toggle-switch-btn relative w-[66px] h-7 rounded-full p-[3px] transition-colors duration-200 ease-in-out cursor-pointer shrink-0 flex items-center ${
+                  className={`toggle-switch-btn relative w-[66px] h-7 rounded-full p-[3px] transition-colors duration-200 ease-in-out cursor-default shrink-0 flex items-center ${
                     draftSettings.searchCategories ? 'bg-[#fd932f]' : 'bg-[#E4E4E7] dark:bg-[#3F3F46]'
                   }`}
                 >
@@ -939,14 +969,14 @@ export const Settings: React.FC<SettingsProps> = ({
               <div 
                 id="setting-search-news"
                 onClick={() => updateDraft('searchNews', !draftSettings.searchNews)}
-                className="group p-3.5 sm:p-4 rounded-[20px] flex items-center justify-between gap-4 cursor-pointer hover:bg-white/5 transition-colors"
+                className="group p-3.5 sm:p-4 rounded-[20px] flex items-center justify-between gap-4 cursor-default hover:bg-white/5 transition-colors"
               >
                 <div>
                   <div className="font-semibold text-white text-sm">
                     Tin tức
                   </div>
                   <div className="text-xs text-[#9CA3AF] mt-1 leading-normal">
-                    Hiển thị các bài viết tin tức, thông báo cộng đồng và sự kiện Discord
+                    Hiển thị các bài viết tin tức, thông báo cộng đồng và sự kiện Discord.
                   </div>
                 </div>
 
@@ -959,7 +989,7 @@ export const Settings: React.FC<SettingsProps> = ({
                     e.stopPropagation();
                     updateDraft('searchNews', !draftSettings.searchNews);
                   }}
-                  className={`toggle-switch-btn relative w-[66px] h-7 rounded-full p-[3px] transition-colors duration-200 ease-in-out cursor-pointer shrink-0 flex items-center ${
+                  className={`toggle-switch-btn relative w-[66px] h-7 rounded-full p-[3px] transition-colors duration-200 ease-in-out cursor-default shrink-0 flex items-center ${
                     draftSettings.searchNews ? 'bg-[#fd932f]' : 'bg-[#E4E4E7] dark:bg-[#3F3F46]'
                   }`}
                 >
@@ -976,14 +1006,14 @@ export const Settings: React.FC<SettingsProps> = ({
                   <div 
                     id="setting-search-tv"
                     onClick={() => updateDraft('searchTv', !draftSettings.searchTv)}
-                    className="group flex items-center justify-between gap-4 cursor-pointer"
+                    className="group flex items-center justify-between gap-4 cursor-default"
                   >
                     <div>
                       <div className="font-semibold text-white text-sm">
                         Truyền hình
                       </div>
                       <div className="text-xs text-[#9CA3AF] mt-1 leading-normal">
-                        Hiển thị danh sách kênh truyền hình trực tiếp theo tên hoặc nhóm kênh
+                        Hiển thị danh sách kênh truyền hình trực tiếp theo tên hoặc nhóm kênh.
                       </div>
                     </div>
 
@@ -996,7 +1026,7 @@ export const Settings: React.FC<SettingsProps> = ({
                         e.stopPropagation();
                         updateDraft('searchTv', !draftSettings.searchTv);
                       }}
-                      className={`toggle-switch-btn relative w-[66px] h-7 rounded-full p-[3px] transition-colors duration-200 ease-in-out cursor-pointer shrink-0 flex items-center ${
+                      className={`toggle-switch-btn relative w-[66px] h-7 rounded-full p-[3px] transition-colors duration-200 ease-in-out cursor-default shrink-0 flex items-center ${
                         draftSettings.searchTv ? 'bg-[#fd932f]' : 'bg-[#E4E4E7] dark:bg-[#3F3F46]'
                       }`}
                     >
@@ -1013,7 +1043,7 @@ export const Settings: React.FC<SettingsProps> = ({
                   <div 
                     id="setting-search-channel-number"
                     onClick={() => updateDraft('searchChannelNumber', !draftSettings.searchChannelNumber)}
-                    className="group flex items-center justify-between gap-4 cursor-pointer"
+                    className="group flex items-center justify-between gap-4 cursor-default"
                   >
                     <div>
                       <div className="flex items-center gap-2">
@@ -1025,7 +1055,7 @@ export const Settings: React.FC<SettingsProps> = ({
                         </span>
                       </div>
                       <div className="text-xs text-[#9CA3AF] mt-1 leading-normal">
-                        Cho phép gõ số kênh (ví dụ: 1, 001, #12, kênh 5) để tìm nhanh
+                        Cho phép gõ số kênh (ví dụ: 1, 001, #12, kênh 5) để tìm nhanh.
                       </div>
                     </div>
 
@@ -1038,7 +1068,7 @@ export const Settings: React.FC<SettingsProps> = ({
                         e.stopPropagation();
                         updateDraft('searchChannelNumber', !draftSettings.searchChannelNumber);
                       }}
-                      className={`toggle-switch-btn relative w-[66px] h-7 rounded-full p-[3px] transition-colors duration-200 ease-in-out cursor-pointer shrink-0 flex items-center ${
+                      className={`toggle-switch-btn relative w-[66px] h-7 rounded-full p-[3px] transition-colors duration-200 ease-in-out cursor-default shrink-0 flex items-center ${
                         draftSettings.searchChannelNumber ? 'bg-[#fd932f]' : 'bg-[#E4E4E7] dark:bg-[#3F3F46]'
                       }`}
                     >
@@ -1054,14 +1084,14 @@ export const Settings: React.FC<SettingsProps> = ({
               <div 
                 id="setting-search-settings"
                 onClick={() => updateDraft('searchSettings', !draftSettings.searchSettings)}
-                className="group p-3.5 sm:p-4 rounded-[20px] flex items-center justify-between gap-4 cursor-pointer hover:bg-white/5 transition-colors"
+                className="group p-3.5 sm:p-4 rounded-[20px] flex items-center justify-between gap-4 cursor-default hover:bg-white/5 transition-colors"
               >
                 <div>
                   <div className="font-semibold text-white text-sm">
                     Cài đặt
                   </div>
                   <div className="text-xs text-[#9CA3AF] mt-1 leading-normal">
-                    Quản lý và chuyển nhanh tới các mục tùy chọn hệ thống
+                    Quản lý và chuyển nhanh tới các mục tùy chọn hệ thống.
                   </div>
                 </div>
 
@@ -1074,7 +1104,7 @@ export const Settings: React.FC<SettingsProps> = ({
                     e.stopPropagation();
                     updateDraft('searchSettings', !draftSettings.searchSettings);
                   }}
-                  className={`toggle-switch-btn relative w-[66px] h-7 rounded-full p-[3px] transition-colors duration-200 ease-in-out cursor-pointer shrink-0 flex items-center ${
+                  className={`toggle-switch-btn relative w-[66px] h-7 rounded-full p-[3px] transition-colors duration-200 ease-in-out cursor-default shrink-0 flex items-center ${
                     draftSettings.searchSettings ? 'bg-[#fd932f]' : 'bg-[#E4E4E7] dark:bg-[#3F3F46]'
                   }`}
                 >
@@ -1109,7 +1139,7 @@ export const Settings: React.FC<SettingsProps> = ({
                 Bàn phím
               </h2>
               <p className="text-xs text-[#9CA3AF] mt-1 leading-relaxed">
-                Tùy chỉnh cấu hình và hành vi bàn phím ảo trong ứng dụng
+                Tùy chỉnh cấu hình và hành vi bàn phím ảo trong ứng dụng.
               </p>
             </div>
           </div>
@@ -1125,14 +1155,14 @@ export const Settings: React.FC<SettingsProps> = ({
               <div 
                 id="setting-keyboard-number-row"
                 onClick={() => updateDraft('keyboardNumberRow', !draftSettings.keyboardNumberRow)}
-                className="group p-3.5 sm:p-4 rounded-[20px] flex items-center justify-between gap-4 cursor-pointer hover:bg-white/5 transition-colors"
+                className="group p-3.5 sm:p-4 rounded-[20px] flex items-center justify-between gap-4 cursor-default hover:bg-white/5 transition-colors"
               >
                 <div>
                   <div className="font-semibold text-white text-sm">
                     Bàn phím số
                   </div>
                   <div className="text-xs text-[#9CA3AF] mt-1 leading-normal">
-                    Hiển thị bàn phím số từ 0 đến 9 ngay trên dải phím chữ
+                    Hiển thị bàn phím số từ 0 đến 9 ngay trên dải phím chữ.
                   </div>
                 </div>
 
@@ -1145,7 +1175,7 @@ export const Settings: React.FC<SettingsProps> = ({
                     e.stopPropagation();
                     updateDraft('keyboardNumberRow', !draftSettings.keyboardNumberRow);
                   }}
-                  className={`toggle-switch-btn relative w-[66px] h-7 rounded-full p-[3px] transition-colors duration-200 ease-in-out cursor-pointer shrink-0 flex items-center ${
+                  className={`toggle-switch-btn relative w-[66px] h-7 rounded-full p-[3px] transition-colors duration-200 ease-in-out cursor-default shrink-0 flex items-center ${
                     draftSettings.keyboardNumberRow ? 'bg-[#fd932f]' : 'bg-[#E4E4E7] dark:bg-[#3F3F46]'
                   }`}
                 >
@@ -1160,18 +1190,18 @@ export const Settings: React.FC<SettingsProps> = ({
               matchesSearch('Keyboard') ||
               matchesSearch('Sao chép') ||
               matchesSearch('Lịch sử sao chép') ||
-              matchesSearch('Danh sách lịch sử sao chép trong ứng dụng')) && (
+              matchesSearch('Danh sách lịch sử sao chép trong ứng dụng.')) && (
               <div 
                 id="setting-keyboard-clipboard"
                 onClick={() => updateDraft('keyboardClipboard', !draftSettings.keyboardClipboard)}
-                className="group p-3.5 sm:p-4 rounded-[20px] flex items-center justify-between gap-4 cursor-pointer hover:bg-white/5 transition-colors"
+                className="group p-3.5 sm:p-4 rounded-[20px] flex items-center justify-between gap-4 cursor-default hover:bg-white/5 transition-colors"
               >
                 <div>
                   <div className="font-semibold text-white text-sm">
                     Clipboard
                   </div>
                   <div className="text-xs text-[#9CA3AF] mt-1 leading-normal">
-                    Danh sách lịch sử sao chép trong ứng dụng
+                    Danh sách lịch sử sao chép trong ứng dụng.
                   </div>
                 </div>
 
@@ -1184,7 +1214,7 @@ export const Settings: React.FC<SettingsProps> = ({
                     e.stopPropagation();
                     updateDraft('keyboardClipboard', !draftSettings.keyboardClipboard);
                   }}
-                  className={`toggle-switch-btn relative w-[66px] h-7 rounded-full p-[3px] transition-colors duration-200 ease-in-out cursor-pointer shrink-0 flex items-center ${
+                  className={`toggle-switch-btn relative w-[66px] h-7 rounded-full p-[3px] transition-colors duration-200 ease-in-out cursor-default shrink-0 flex items-center ${
                     draftSettings.keyboardClipboard ? 'bg-[#fd932f]' : 'bg-[#E4E4E7] dark:bg-[#3F3F46]'
                   }`}
                 >
@@ -1200,18 +1230,18 @@ export const Settings: React.FC<SettingsProps> = ({
               matchesSearch('Âm thanh') ||
               matchesSearch('Sound') ||
               matchesSearch('pop') ||
-              matchesSearch('Phát ra tiếng "pop" khi gõ trên bàn phím')) && (
+              matchesSearch('Phát ra tiếng "pop" khi gõ trên bàn phím.')) && (
               <div 
                 id="setting-keyboard-sound"
                 onClick={() => updateDraft('keyboardSoundEnabled', !draftSettings.keyboardSoundEnabled)}
-                className="group p-3.5 sm:p-4 rounded-[20px] flex items-center justify-between gap-4 cursor-pointer hover:bg-white/5 transition-colors"
+                className="group p-3.5 sm:p-4 rounded-[20px] flex items-center justify-between gap-4 cursor-default hover:bg-white/5 transition-colors"
               >
                 <div>
                   <div className="font-semibold text-white text-sm">
                     Âm bàn phím
                   </div>
                   <div className="text-xs text-[#9CA3AF] mt-1 leading-normal">
-                    Phát ra tiếng "pop" khi gõ trên bàn phím
+                    Phát ra tiếng "pop" khi gõ trên bàn phím.
                   </div>
                 </div>
 
@@ -1224,7 +1254,7 @@ export const Settings: React.FC<SettingsProps> = ({
                     e.stopPropagation();
                     updateDraft('keyboardSoundEnabled', !draftSettings.keyboardSoundEnabled);
                   }}
-                  className={`toggle-switch-btn relative w-[66px] h-7 rounded-full p-[3px] transition-colors duration-200 ease-in-out cursor-pointer shrink-0 flex items-center ${
+                  className={`toggle-switch-btn relative w-[66px] h-7 rounded-full p-[3px] transition-colors duration-200 ease-in-out cursor-default shrink-0 flex items-center ${
                     draftSettings.keyboardSoundEnabled ? 'bg-[#fd932f]' : 'bg-[#E4E4E7] dark:bg-[#3F3F46]'
                   }`}
                 >
@@ -1245,7 +1275,7 @@ export const Settings: React.FC<SettingsProps> = ({
         matchesSearch('Keyboard') ||
         matchesSearch('Immersive') ||
         matchesSearch('Immersive search experience') ||
-        matchesSearch('Search UI that looks immersive') ||
+        matchesSearch('Search UI that looks immersive.') ||
         matchesSearch('Thử nghiệm') ||
         matchesSearch('Tính năng thử nghiệm')) && (
         <section 
@@ -1263,7 +1293,7 @@ export const Settings: React.FC<SettingsProps> = ({
                 </span>
               </h2>
               <p className="text-xs text-[#9CA3AF] mt-1 leading-relaxed">
-                Các tính năng và giao diện trải nghiệm mới đang trong giai đoạn thử nghiệm
+                Các tính năng và giao diện trải nghiệm mới đang trong giai đoạn thử nghiệm.
               </p>
             </div>
           </div>
@@ -1281,14 +1311,14 @@ export const Settings: React.FC<SettingsProps> = ({
               <div 
                 id="setting-experimental-native-keyboard"
                 onClick={() => updateDraft('nativeKeyboard', !draftSettings.nativeKeyboard)}
-                className="group p-3.5 sm:p-4 rounded-[20px] flex items-center justify-between gap-4 cursor-pointer hover:bg-white/5 transition-colors"
+                className="group p-3.5 sm:p-4 rounded-[20px] flex items-center justify-between gap-4 cursor-default hover:bg-white/5 transition-colors"
               >
                 <div>
                   <div className="font-semibold text-white text-sm">
                     Native keyboard
                   </div>
                   <div className="text-xs text-[#9CA3AF] mt-1 leading-normal">
-                    Sử dụng bàn phím của ứng dụng thay vì bàn phím của thiết bị (chỉ áp dụng cho thiết bị cảm ứng)
+                    Sử dụng bàn phím của ứng dụng thay vì bàn phím của thiết bị (chỉ áp dụng cho thiết bị cảm ứng).
                   </div>
                 </div>
 
@@ -1301,7 +1331,7 @@ export const Settings: React.FC<SettingsProps> = ({
                     e.stopPropagation();
                     updateDraft('nativeKeyboard', !draftSettings.nativeKeyboard);
                   }}
-                  className={`toggle-switch-btn relative w-[66px] h-7 rounded-full p-[3px] transition-colors duration-200 ease-in-out cursor-pointer shrink-0 flex items-center ${
+                  className={`toggle-switch-btn relative w-[66px] h-7 rounded-full p-[3px] transition-colors duration-200 ease-in-out cursor-default shrink-0 flex items-center ${
                     draftSettings.nativeKeyboard ? 'bg-[#fd932f]' : 'bg-[#E4E4E7] dark:bg-[#3F3F46]'
                   }`}
                 >
@@ -1314,14 +1344,14 @@ export const Settings: React.FC<SettingsProps> = ({
             <div 
               id="setting-experimental-immersive-search"
               onClick={() => updateDraft('immersiveSearch', !draftSettings.immersiveSearch)}
-              className="group p-3.5 sm:p-4 rounded-[20px] flex items-center justify-between gap-4 cursor-pointer hover:bg-white/5 transition-colors"
+              className="group p-3.5 sm:p-4 rounded-[20px] flex items-center justify-between gap-4 cursor-default hover:bg-white/5 transition-colors"
             >
               <div>
                 <div className="font-semibold text-white text-sm">
                   Immersive search experience
                 </div>
                 <div className="text-xs text-[#9CA3AF] mt-1 leading-normal">
-                  Search UI that looks immersive
+                  Search UI that looks immersive.
                 </div>
               </div>
 
@@ -1334,7 +1364,7 @@ export const Settings: React.FC<SettingsProps> = ({
                   e.stopPropagation();
                   updateDraft('immersiveSearch', !draftSettings.immersiveSearch);
                 }}
-                className={`toggle-switch-btn relative w-[66px] h-7 rounded-full p-[3px] transition-colors duration-200 ease-in-out cursor-pointer shrink-0 flex items-center ${
+                className={`toggle-switch-btn relative w-[66px] h-7 rounded-full p-[3px] transition-colors duration-200 ease-in-out cursor-default shrink-0 flex items-center ${
                   draftSettings.immersiveSearch ? 'bg-[#fd932f]' : 'bg-[#E4E4E7] dark:bg-[#3F3F46]'
                 }`}
               >
@@ -1369,7 +1399,7 @@ export const Settings: React.FC<SettingsProps> = ({
                   <span>Customize keybinds</span>
                 </h2>
                 <p className="text-xs text-[#9CA3AF] mt-1 leading-relaxed">
-                  Thiết lập phím tắt nhanh để điều hướng ứng dụng (hệ thống tự động bảo vệ tránh xung đột với phím tắt của trình duyệt)
+                  Thiết lập phím tắt nhanh để điều hướng ứng dụng (hệ thống tự động bảo vệ tránh xung đột với phím tắt của trình duyệt).
                 </p>
               </div>
             </div>
@@ -1384,7 +1414,7 @@ export const Settings: React.FC<SettingsProps> = ({
                 setKeybindError(null);
               }}
               title="Đặt lại tất cả phím tắt về mặc định"
-              className="px-3 py-1.5 rounded-full text-xs font-semibold text-[#A1A1AA] hover:text-white bg-white/5 hover:bg-white/10 transition-colors flex items-center gap-1.5 shrink-0 cursor-pointer"
+              className="px-3 py-1.5 rounded-full text-xs font-semibold text-[#A1A1AA] hover:text-white bg-white/5 hover:bg-white/10 transition-colors flex items-center gap-1.5 shrink-0 cursor-default"
             >
               <RotateCcw className="w-3.5 h-3.5" />
               <span className="hidden sm:inline">Mặc định</span>
@@ -1484,7 +1514,7 @@ export const Settings: React.FC<SettingsProps> = ({
                             onBlur={() => {
                               setEditingKeybindId(null);
                             }}
-                            className="px-3 py-1.5 text-xs rounded-xl bg-[#fd932f]/20 border-2 border-[#fd932f] text-white font-mono animate-pulse text-center w-36 cursor-pointer outline-none select-none"
+                            className="px-3 py-1.5 text-xs rounded-xl bg-[#fd932f]/20 border-2 border-[#fd932f] text-white font-mono animate-pulse text-center w-36 cursor-default outline-none select-none"
                           />
                           <button
                             type="button"
@@ -1507,7 +1537,7 @@ export const Settings: React.FC<SettingsProps> = ({
                               setEditingKeybindId(def.id);
                               setKeybindError(null);
                             }}
-                            className="px-3 py-1.5 rounded-xl bg-[#1F1E24] hover:bg-[#34333C] border border-white/10 hover:border-[#fd932f]/60 text-white font-mono text-xs font-bold transition-all shadow-inner active:scale-95 cursor-pointer"
+                            className="px-3 py-1.5 rounded-xl bg-[#1F1E24] hover:bg-[#34333C] border border-white/10 hover:border-[#fd932f]/60 text-white font-mono text-xs font-bold transition-all shadow-inner active:scale-95 cursor-default"
                             title="Nhấp để thay đổi phím tắt"
                           >
                             {currentKey}
@@ -1524,7 +1554,7 @@ export const Settings: React.FC<SettingsProps> = ({
                                 updateDraft('customKeybinds', updated);
                                 setKeybindError(null);
                               }}
-                              className="p-1.5 rounded-lg text-[#9CA3AF] hover:text-white bg-white/5 hover:bg-white/10 transition-colors cursor-pointer"
+                              className="p-1.5 rounded-lg text-[#9CA3AF] hover:text-white bg-white/5 hover:bg-white/10 transition-colors cursor-default"
                               title="Khôi phục mặc định"
                             >
                               <RotateCcw className="w-3.5 h-3.5" />
@@ -1571,7 +1601,7 @@ export const Settings: React.FC<SettingsProps> = ({
                 Khác
               </h2>
               <p className="text-xs text-[#9CA3AF] mt-1 leading-relaxed">
-                Thông tin phiên bản, nhật ký cập nhật và các tiện ích bổ sung
+                Thông tin phiên bản, nhật ký cập nhật và các tiện ích bổ sung.
               </p>
             </div>
           </div>
@@ -1595,7 +1625,7 @@ export const Settings: React.FC<SettingsProps> = ({
                   href="https://test-vplay.vercel.app"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="px-5 py-2 rounded-full font-bold text-white bg-[#fd932f] hover:bg-[#e68428] active:scale-[0.96] transition-all text-xs sm:text-sm cursor-pointer flex items-center justify-center shrink-0 shadow-md tracking-tight text-center select-none"
+                  className="px-5 py-2 rounded-full font-bold text-white bg-[#fd932f] hover:bg-[#e68428] active:scale-[0.96] transition-all text-xs sm:text-sm cursor-default flex items-center justify-center shrink-0 shadow-md tracking-tight text-center select-none"
                 >
                   Switch
                 </a>
@@ -1619,7 +1649,7 @@ export const Settings: React.FC<SettingsProps> = ({
                   id="btn-changelogs-read"
                   type="button"
                   onClick={() => setIsWelcomeModalOpen(true)}
-                  className="px-5 py-2 rounded-full font-bold text-white bg-[#fd932f] hover:bg-[#e68428] active:scale-[0.96] transition-all text-xs sm:text-sm cursor-pointer flex items-center justify-center shrink-0 shadow-md tracking-tight text-center"
+                  className="px-5 py-2 rounded-full font-bold text-white bg-[#fd932f] hover:bg-[#e68428] active:scale-[0.96] transition-all text-xs sm:text-sm cursor-default flex items-center justify-center shrink-0 shadow-md tracking-tight text-center"
                 >
                   Read
                 </button>

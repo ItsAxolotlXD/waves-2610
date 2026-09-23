@@ -86,7 +86,7 @@ export const AddStreamModal: React.FC<AddStreamModalProps> = ({
               </div>
               <button
                 onClick={onClose}
-                className="w-7 h-7 rounded-full bg-[#27121d] flex items-center justify-center text-[#9CA3AF] hover:text-white cursor-pointer"
+                className="w-7 h-7 rounded-full bg-[#27121d] flex items-center justify-center text-[#9CA3AF] hover:text-white cursor-default"
               >
                 <X className="w-3.5 h-3.5" />
               </button>
@@ -132,7 +132,7 @@ export const AddStreamModal: React.FC<AddStreamModalProps> = ({
                       key={q}
                       type="button"
                       onClick={() => setStreamQuality(q)}
-                      className={`flex-1 py-2 rounded-xl text-xs font-bold transition-all cursor-pointer ${
+                      className={`flex-1 py-2 rounded-xl text-xs font-bold transition-all cursor-default ${
                         streamQuality === q
                           ? 'bg-[#fd932f] text-white shadow-md'
                           : 'bg-[#27121d] text-[#8E8E93] hover:text-white border border-white/10'
@@ -148,7 +148,7 @@ export const AddStreamModal: React.FC<AddStreamModalProps> = ({
                 <button
                   type="submit"
                   id="btn-add-stream-submit"
-                  className="w-full py-2.5 sm:py-3 rounded-full bg-[#fd932f] hover:bg-[#e68428] active:scale-[0.98] text-white text-xs sm:text-sm font-bold flex items-center justify-center gap-2 transition-all shadow-md cursor-pointer"
+                  className="w-full py-2.5 sm:py-3 rounded-full bg-[#fd932f] hover:bg-[#e68428] active:scale-[0.98] text-white text-xs sm:text-sm font-bold flex items-center justify-center gap-2 transition-all shadow-md cursor-default"
                 >
                   <Play className="w-4 h-4 fill-current" />
                   <span>Thêm & Phát luồng ngay</span>

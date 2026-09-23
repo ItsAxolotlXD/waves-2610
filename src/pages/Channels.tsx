@@ -71,7 +71,7 @@ export const Channels: React.FC<ChannelsProps> = ({
             <button
               key={grp}
               onClick={() => setSelectedGroup(grp)}
-              className={`px-4 py-2 rounded-full text-xs font-semibold whitespace-nowrap transition-all cursor-pointer ${
+              className={`px-4 py-2 rounded-full text-xs font-semibold whitespace-nowrap transition-all cursor-default ${
                 selectedGroup === grp
                   ? 'bg-[#DF37EE] text-white shadow-md'
                   : 'bg-[#141416] text-[#A1A1AA] hover:text-white border border-[#2D2D35]'

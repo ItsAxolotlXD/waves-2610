@@ -282,7 +282,7 @@ export const FloatingSearchBar: React.FC<FloatingSearchBarProps> = ({
         isArticlePage && searchQuery.trim()
           ? 'w-[92vw] max-w-[340px] sm:max-w-[400px] md:max-w-[440px]'
           : 'w-[84vw] max-w-[280px] sm:max-w-[320px] md:max-w-[340px]'
-      } h-[44px] sm:h-[46px] px-3 sm:px-3.5 rounded-full cursor-text shadow-[0_8px_32px_rgba(0,0,0,0.35)] pointer-events-auto border border-white/20 ${
+      } h-[44px] sm:h-[46px] px-3 sm:px-3.5 rounded-full cursor-text shadow-[0_8px_32px_rgba(0,0,0,0.35)] pointer-events-auto border border-white/10 ${
         isFocused || isListening
           ? 'ring-2 ring-white/25 shadow-[0_10px_36px_rgba(0,0,0,0.45)]'
           : 'hover:shadow-[0_9px_34px_rgba(0,0,0,0.40)]'
@@ -302,7 +302,7 @@ export const FloatingSearchBar: React.FC<FloatingSearchBarProps> = ({
             inputRef.current?.focus();
           }
         }}
-        className="flex items-center justify-center shrink-0 pr-2 cursor-pointer transition-opacity"
+        className="flex items-center justify-center shrink-0 pr-2 cursor-default transition-opacity"
         title={isArticlePage ? 'Từ tiếp theo (Enter)' : (isHome ? 'Mở Spotlight Search (⌘K)' : 'Tìm kiếm')}
       >
         <img
@@ -352,7 +352,7 @@ export const FloatingSearchBar: React.FC<FloatingSearchBarProps> = ({
                     e.stopPropagation();
                     handlePrevMatch();
                   }}
-                  className="p-1 text-white/70 hover:text-white hover:bg-white/20 rounded-full transition-colors cursor-pointer"
+                  className="p-1 text-white/70 hover:text-white hover:bg-white/20 rounded-full transition-colors cursor-default"
                   title="Từ trước (Shift+Enter)"
                   aria-label="Từ trước"
                 >
@@ -365,7 +365,7 @@ export const FloatingSearchBar: React.FC<FloatingSearchBarProps> = ({
                     e.stopPropagation();
                     handleNextMatch();
                   }}
-                  className="p-1 text-white/70 hover:text-white hover:bg-white/20 rounded-full transition-colors cursor-pointer"
+                  className="p-1 text-white/70 hover:text-white hover:bg-white/20 rounded-full transition-colors cursor-default"
                   title="Từ tiếp theo (Enter)"
                   aria-label="Từ tiếp theo"
                 >
@@ -390,7 +390,7 @@ export const FloatingSearchBar: React.FC<FloatingSearchBarProps> = ({
                 setCurrentMatchIndex(0);
                 inputRef.current?.focus();
               }}
-              className="p-1 rounded-full text-white/70 hover:text-white hover:bg-white/15 transition-colors cursor-pointer"
+              className="p-1 rounded-full text-white/70 hover:text-white hover:bg-white/15 transition-colors cursor-default"
               title="Xóa từ khóa tìm kiếm"
             >
               <X className="w-4 h-4" />
@@ -405,7 +405,7 @@ export const FloatingSearchBar: React.FC<FloatingSearchBarProps> = ({
               e.stopPropagation();
               toggleListening();
             }}
-            className={`p-1.5 rounded-full transition-all cursor-pointer flex items-center justify-center ${
+            className={`p-1.5 rounded-full transition-all cursor-default flex items-center justify-center ${
               isListening
                 ? 'bg-red-500/30 ring-2 ring-red-500/50 scale-105'
                 : 'hover:bg-white/15'
@@ -434,7 +434,7 @@ export const FloatingSearchBar: React.FC<FloatingSearchBarProps> = ({
                 e.stopPropagation();
                 onClose();
               }}
-              className="p-1.5 rounded-full text-white/70 hover:text-white hover:bg-white/15 transition-colors cursor-pointer flex items-center justify-center"
+              className="p-1.5 rounded-full text-white/70 hover:text-white hover:bg-white/15 transition-colors cursor-default flex items-center justify-center"
               title="Đóng tìm kiếm (Esc)"
               aria-label="Đóng tìm kiếm"
             >

@@ -76,7 +76,7 @@ export const WelcomeModal: React.FC<WelcomeModalProps> = ({
                 type="button"
                 id="btn-welcome-close-icon"
                 onClick={onClose}
-                className="w-8 h-8 rounded-full bg-white/5 hover:bg-white/10 text-[#9CA3AF] hover:text-white flex items-center justify-center transition-colors cursor-pointer"
+                className="w-8 h-8 rounded-full bg-white/5 hover:bg-white/10 text-[#9CA3AF] hover:text-white flex items-center justify-center transition-colors cursor-default"
                 title="Đóng"
               >
                 <X className="w-4 h-4" />
@@ -88,7 +88,7 @@ export const WelcomeModal: React.FC<WelcomeModalProps> = ({
               id="welcome-modal-title"
               className="text-xl sm:text-[23px] font-bold text-white tracking-tight mb-2.5 font-sans leading-tight"
             >
-              Welcome to Vplay 26.10.0 - Build 26W1001a
+              Welcome to Vplay 26.10.0 - Build 26W1002a
             </h1>
 
             {/* Description & Changelogs */}
@@ -132,7 +132,7 @@ export const WelcomeModal: React.FC<WelcomeModalProps> = ({
                 type="button"
                 id="btn-welcome-close"
                 onClick={onClose}
-                className="w-full py-2.5 sm:py-3 px-5 rounded-full font-bold text-white bg-[#fd932f] hover:bg-[#e68428] active:scale-[0.98] transition-all text-sm sm:text-base cursor-pointer flex items-center justify-center shadow-md tracking-tight text-center"
+                className="w-full py-2.5 sm:py-3 px-5 rounded-full font-bold text-white bg-[#fd932f] hover:bg-[#e68428] active:scale-[0.98] transition-all text-sm sm:text-base cursor-default flex items-center justify-center shadow-md tracking-tight text-center"
               >
                 Close
               </button>

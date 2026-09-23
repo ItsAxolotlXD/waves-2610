@@ -93,7 +93,7 @@ export const TopBar: React.FC<TopBarProps> = ({
             id="btn-topbar-brand"
             type="button"
             onClick={() => navigate('/')}
-            className="cursor-pointer flex items-center justify-center p-0 border-0 bg-transparent hover:opacity-85 active:scale-95 transition-opacity shrink-0 select-none outline-none focus:outline-none"
+            className="cursor-default flex items-center justify-center p-0 border-0 bg-transparent hover:opacity-85 active:scale-95 transition-opacity shrink-0 select-none outline-none focus:outline-none"
             title="Trang chủ (Vplay)"
           >
             {!logoError ? (
@@ -116,7 +116,7 @@ export const TopBar: React.FC<TopBarProps> = ({
               id="btn-topbar-nav-tv"
               type="button"
               onClick={() => navigate('/live-tv')}
-              className={`group relative flex items-center gap-2 px-4 h-10 rounded-full text-xs sm:text-[13.5px] font-medium transition-colors cursor-pointer whitespace-nowrap outline-none select-none hover:bg-white/10 ${
+              className={`group relative flex items-center gap-2 px-4 h-10 rounded-full text-xs sm:text-[13.5px] font-medium transition-colors cursor-default whitespace-nowrap outline-none select-none hover:bg-white/10 ${
                 currentRoute === '/live-tv' || currentRoute === '/channels'
                   ? 'text-white font-semibold'
                   : 'text-[#D1D5DB] hover:text-white'
@@ -153,7 +153,7 @@ export const TopBar: React.FC<TopBarProps> = ({
               id="btn-topbar-nav-news"
               type="button"
               onClick={() => navigate('/news')}
-              className={`group relative flex items-center gap-2 px-4 h-10 rounded-full text-xs sm:text-[13.5px] font-medium transition-colors cursor-pointer whitespace-nowrap outline-none select-none hover:bg-white/10 ${
+              className={`group relative flex items-center gap-2 px-4 h-10 rounded-full text-xs sm:text-[13.5px] font-medium transition-colors cursor-default whitespace-nowrap outline-none select-none hover:bg-white/10 ${
                 currentRoute === '/news' || currentRoute.startsWith('/article')
                   ? 'text-white font-semibold'
                   : 'text-[#D1D5DB] hover:text-white'
@@ -187,7 +187,7 @@ export const TopBar: React.FC<TopBarProps> = ({
             <button
               id="btn-mobile-menu-toggle"
               onClick={onOpenMobileMenu}
-              className="w-9 h-9 flex items-center justify-center text-[#18181B] dark:text-white bg-transparent border-0 shadow-none hover:bg-transparent transition-opacity hover:opacity-80 active:opacity-60 cursor-pointer p-0"
+              className="w-9 h-9 flex items-center justify-center text-[#18181B] dark:text-white bg-transparent border-0 shadow-none hover:bg-transparent transition-opacity hover:opacity-80 active:opacity-60 cursor-default p-0"
               aria-label="Mở menu điều hướng"
             >
               <Menu className="w-6 h-6" />
@@ -198,7 +198,7 @@ export const TopBar: React.FC<TopBarProps> = ({
               id="btn-mobile-brand-logo"
               type="button"
               onClick={() => navigate('/')}
-              className="cursor-pointer flex items-center justify-center p-0 border-0 bg-transparent hover:opacity-85 active:scale-95 transition-opacity shrink-0 outline-none"
+              className="cursor-default flex items-center justify-center p-0 border-0 bg-transparent hover:opacity-85 active:scale-95 transition-opacity shrink-0 outline-none"
               title="Trang chủ (Vplay)"
             >
               {!logoError ? (
@@ -226,7 +226,7 @@ export const TopBar: React.FC<TopBarProps> = ({
         <button
           id="btn-top-search"
           onClick={onOpenSearch}
-          className="w-10 h-10 rounded-full flex items-center justify-center text-[#D1D5DB] hover:text-white hover:bg-white/10 transition-all drop-shadow-sm cursor-pointer"
+          className="w-10 h-10 rounded-full flex items-center justify-center text-[#D1D5DB] hover:text-white hover:bg-white/10 transition-all drop-shadow-sm cursor-default"
           title="Spotlight Search (⌘K)"
         >
           <Search className="w-5.5 h-5.5 object-contain topbar-search-icon" strokeWidth={1.6} />
@@ -254,7 +254,7 @@ export const TopBar: React.FC<TopBarProps> = ({
           <button
             id="btn-top-settings-gear"
             onClick={handleSettingsClick}
-            className={`group w-10 h-10 rounded-full flex items-center justify-center transition-colors drop-shadow-sm cursor-pointer ${
+            className={`group w-10 h-10 rounded-full flex items-center justify-center transition-colors drop-shadow-sm cursor-default ${
               currentRoute === '/settings'
                 ? 'bg-white/15'
                 : 'hover:bg-white/10'
@@ -279,7 +279,7 @@ export const TopBar: React.FC<TopBarProps> = ({
           <button
             id="btn-top-notifications"
             onClick={onOpenNotifications}
-            className="w-9 h-9 rounded-full flex items-center justify-center text-[#18181B] dark:text-[#D1D5DB] dark:hover:text-white transition-all relative drop-shadow-sm cursor-pointer"
+            className="w-9 h-9 rounded-full flex items-center justify-center text-[#18181B] dark:text-[#D1D5DB] dark:hover:text-white transition-all relative drop-shadow-sm cursor-default"
             title="Thông báo cộng đồng"
           >
             <Bell className="w-5 h-5" />
@@ -294,7 +294,7 @@ export const TopBar: React.FC<TopBarProps> = ({
               id="btn-top-settings-apply-checkbox"
               type="button"
               onClick={handleApplySettings}
-              className={`w-9 h-9 rounded-full flex items-center justify-center shrink-0 cursor-pointer select-none transition-all text-white bg-[#fd932f] ${
+              className={`w-9 h-9 rounded-full flex items-center justify-center shrink-0 cursor-default select-none transition-all text-white bg-[#fd932f] ${
                 hasChanges 
                   ? 'ring-2 ring-[#fd932f] ring-offset-2 ring-offset-[#141416] animate-pulse shadow-[0_0_14px_rgba(253,147,47,0.7)]' 
                   : 'shadow-[0_2px_10px_rgba(253,147,47,0.35)] hover:scale-105 active:scale-95'

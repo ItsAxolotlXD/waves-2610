@@ -58,7 +58,7 @@ export const HelpModal: React.FC<HelpModalProps> = ({ isOpen, onClose }) => {
               </div>
               <button
                 onClick={onClose}
-                className="w-7 h-7 rounded-full bg-[#27121d] flex items-center justify-center text-[#9CA3AF] hover:text-white cursor-pointer"
+                className="w-7 h-7 rounded-full bg-[#27121d] flex items-center justify-center text-[#9CA3AF] hover:text-white cursor-default"
               >
                 <X className="w-3.5 h-3.5" />
               </button>
@@ -96,7 +96,7 @@ export const HelpModal: React.FC<HelpModalProps> = ({ isOpen, onClose }) => {
               <button
                 type="button"
                 onClick={onClose}
-                className="w-full py-2.5 sm:py-3 rounded-full bg-[#fd932f] text-white font-bold text-xs sm:text-sm hover:bg-[#e68428] transition-all cursor-pointer shadow-md"
+                className="w-full py-2.5 sm:py-3 rounded-full bg-[#fd932f] text-white font-bold text-xs sm:text-sm hover:bg-[#e68428] transition-all cursor-default shadow-md"
               >
                 Đã hiểu
               </button>

@@ -78,7 +78,7 @@ export const DiscordWelcomeModal: React.FC<DiscordWelcomeModalProps> = ({
                 type="button"
                 id="btn-discord-join"
                 onClick={handleJoin}
-                className="w-full h-11 sm:h-12 px-5 rounded-full font-bold text-white bg-[#5865F2] hover:bg-[#4752C4] active:scale-[0.98] transition-all text-sm sm:text-base cursor-pointer flex items-center justify-center shadow-md tracking-tight text-center"
+                className="w-full h-11 sm:h-12 px-5 rounded-full font-bold text-white bg-[#5865F2] hover:bg-[#4752C4] active:scale-[0.98] transition-all text-sm sm:text-base cursor-default flex items-center justify-center shadow-md tracking-tight text-center"
               >
                 Join Waves on Discord
               </button>
@@ -88,7 +88,7 @@ export const DiscordWelcomeModal: React.FC<DiscordWelcomeModalProps> = ({
                 type="button"
                 id="btn-discord-close"
                 onClick={onClose}
-                className="w-full h-11 sm:h-12 px-5 rounded-full font-bold text-white bg-[#fd932f] hover:bg-[#e68428] active:scale-[0.98] transition-all text-sm sm:text-base cursor-pointer flex items-center justify-center shadow-md tracking-tight text-center"
+                className="w-full h-11 sm:h-12 px-5 rounded-full font-bold text-white bg-[#fd932f] hover:bg-[#e68428] active:scale-[0.98] transition-all text-sm sm:text-base cursor-default flex items-center justify-center shadow-md tracking-tight text-center"
               >
                 Close
               </button>

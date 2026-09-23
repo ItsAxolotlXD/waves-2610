@@ -221,7 +221,7 @@ export const SpotlightModal: React.FC<SpotlightModalProps> = ({
                     id="btn-spotlight-back-to-search"
                     type="button"
                     onClick={() => setViewMode('search')}
-                    className="z-10 flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-semibold text-[#8E8E93] hover:text-white hover:bg-white/10 dark:hover:bg-white/15 transition-all cursor-pointer group"
+                    className="z-10 flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-semibold text-[#8E8E93] hover:text-white hover:bg-white/10 dark:hover:bg-white/15 transition-all cursor-default group"
                   >
                     <ChevronLeft className="w-4 h-4 group-hover:-translate-x-0.5 transition-transform" />
                     <span>Quay lại</span>
@@ -239,7 +239,7 @@ export const SpotlightModal: React.FC<SpotlightModalProps> = ({
                     id="btn-spotlight-close-settings"
                     type="button"
                     onClick={onClose}
-                    className="z-10 w-7 h-7 rounded-full flex items-center justify-center text-[#8E8E93] hover:text-white hover:bg-white/10 dark:hover:bg-white/15 transition-colors cursor-pointer"
+                    className="z-10 w-7 h-7 rounded-full flex items-center justify-center text-[#8E8E93] hover:text-white hover:bg-white/10 dark:hover:bg-white/15 transition-colors cursor-default"
                     title="Đóng"
                   >
                     <X className="w-4 h-4" />
@@ -257,7 +257,7 @@ export const SpotlightModal: React.FC<SpotlightModalProps> = ({
                   <div 
                     id="setting-spotlight-categories"
                     onClick={() => updateSetting('searchCategories', !settings.searchCategories)}
-                    className="group p-3.5 rounded-[18px] bg-[#28272E] flex items-center justify-between gap-3.5 cursor-pointer hover:bg-[#313038] transition-colors"
+                    className="group p-3.5 rounded-[18px] bg-[#28272E] flex items-center justify-between gap-3.5 cursor-default hover:bg-[#313038] transition-colors"
                   >
                     <div className="min-w-0 flex-1">
                       <div className="font-semibold text-white text-[13.5px]">
@@ -277,7 +277,7 @@ export const SpotlightModal: React.FC<SpotlightModalProps> = ({
                         e.stopPropagation();
                         updateSetting('searchCategories', !settings.searchCategories);
                       }}
-                      className={`toggle-switch-btn relative w-[62px] h-7 rounded-full p-[3px] transition-colors duration-200 ease-in-out cursor-pointer shrink-0 flex items-center ${
+                      className={`toggle-switch-btn relative w-[62px] h-7 rounded-full p-[3px] transition-colors duration-200 ease-in-out cursor-default shrink-0 flex items-center ${
                         settings.searchCategories ? 'bg-[#fd932f]' : 'bg-[#E4E4E7] dark:bg-[#3F3F46]'
                       }`}
                     >
@@ -289,7 +289,7 @@ export const SpotlightModal: React.FC<SpotlightModalProps> = ({
                   <div 
                     id="setting-spotlight-news"
                     onClick={() => updateSetting('searchNews', !settings.searchNews)}
-                    className="group p-3.5 rounded-[18px] bg-[#28272E] flex items-center justify-between gap-3.5 cursor-pointer hover:bg-[#313038] transition-colors"
+                    className="group p-3.5 rounded-[18px] bg-[#28272E] flex items-center justify-between gap-3.5 cursor-default hover:bg-[#313038] transition-colors"
                   >
                     <div className="min-w-0 flex-1">
                       <div className="font-semibold text-white text-[13.5px]">
@@ -309,7 +309,7 @@ export const SpotlightModal: React.FC<SpotlightModalProps> = ({
                         e.stopPropagation();
                         updateSetting('searchNews', !settings.searchNews);
                       }}
-                      className={`toggle-switch-btn relative w-[62px] h-7 rounded-full p-[3px] transition-colors duration-200 ease-in-out cursor-pointer shrink-0 flex items-center ${
+                      className={`toggle-switch-btn relative w-[62px] h-7 rounded-full p-[3px] transition-colors duration-200 ease-in-out cursor-default shrink-0 flex items-center ${
                         settings.searchNews ? 'bg-[#fd932f]' : 'bg-[#E4E4E7] dark:bg-[#3F3F46]'
                       }`}
                     >
@@ -323,7 +323,7 @@ export const SpotlightModal: React.FC<SpotlightModalProps> = ({
                     <div 
                       id="setting-spotlight-tv"
                       onClick={() => updateSetting('searchTv', !settings.searchTv)}
-                      className="group flex items-center justify-between gap-3.5 cursor-pointer"
+                      className="group flex items-center justify-between gap-3.5 cursor-default"
                     >
                       <div className="min-w-0 flex-1">
                         <div className="font-semibold text-white text-[13.5px]">
@@ -343,7 +343,7 @@ export const SpotlightModal: React.FC<SpotlightModalProps> = ({
                           e.stopPropagation();
                           updateSetting('searchTv', !settings.searchTv);
                         }}
-                        className={`toggle-switch-btn relative w-[62px] h-7 rounded-full p-[3px] transition-colors duration-200 ease-in-out cursor-pointer shrink-0 flex items-center ${
+                        className={`toggle-switch-btn relative w-[62px] h-7 rounded-full p-[3px] transition-colors duration-200 ease-in-out cursor-default shrink-0 flex items-center ${
                           settings.searchTv ? 'bg-[#fd932f]' : 'bg-[#E4E4E7] dark:bg-[#3F3F46]'
                         }`}
                       >
@@ -358,7 +358,7 @@ export const SpotlightModal: React.FC<SpotlightModalProps> = ({
                     <div 
                       id="setting-spotlight-channel-number"
                       onClick={() => updateSetting('searchChannelNumber', !settings.searchChannelNumber)}
-                      className="group flex items-center justify-between gap-3.5 cursor-pointer"
+                      className="group flex items-center justify-between gap-3.5 cursor-default"
                     >
                       <div className="min-w-0 flex-1">
                         <div className="flex items-center gap-2">
@@ -383,7 +383,7 @@ export const SpotlightModal: React.FC<SpotlightModalProps> = ({
                           e.stopPropagation();
                           updateSetting('searchChannelNumber', !settings.searchChannelNumber);
                         }}
-                        className={`toggle-switch-btn relative w-[62px] h-7 rounded-full p-[3px] transition-colors duration-200 ease-in-out cursor-pointer shrink-0 flex items-center ${
+                        className={`toggle-switch-btn relative w-[62px] h-7 rounded-full p-[3px] transition-colors duration-200 ease-in-out cursor-default shrink-0 flex items-center ${
                           settings.searchChannelNumber ? 'bg-[#fd932f]' : 'bg-[#E4E4E7] dark:bg-[#3F3F46]'
                         }`}
                       >
@@ -396,7 +396,7 @@ export const SpotlightModal: React.FC<SpotlightModalProps> = ({
                   <div 
                     id="setting-spotlight-settings"
                     onClick={() => updateSetting('searchSettings', !settings.searchSettings)}
-                    className="group p-3.5 rounded-[18px] bg-[#28272E] flex items-center justify-between gap-3.5 cursor-pointer hover:bg-[#313038] transition-colors"
+                    className="group p-3.5 rounded-[18px] bg-[#28272E] flex items-center justify-between gap-3.5 cursor-default hover:bg-[#313038] transition-colors"
                   >
                     <div className="min-w-0 flex-1">
                       <div className="font-semibold text-white text-[13.5px]">
@@ -416,7 +416,7 @@ export const SpotlightModal: React.FC<SpotlightModalProps> = ({
                         e.stopPropagation();
                         updateSetting('searchSettings', !settings.searchSettings);
                       }}
-                      className={`toggle-switch-btn relative w-[62px] h-7 rounded-full p-[3px] transition-colors duration-200 ease-in-out cursor-pointer shrink-0 flex items-center ${
+                      className={`toggle-switch-btn relative w-[62px] h-7 rounded-full p-[3px] transition-colors duration-200 ease-in-out cursor-default shrink-0 flex items-center ${
                         settings.searchSettings ? 'bg-[#fd932f]' : 'bg-[#E4E4E7] dark:bg-[#3F3F46]'
                       }`}
                     >
@@ -489,7 +489,7 @@ export const SpotlightModal: React.FC<SpotlightModalProps> = ({
                             setQuery('');
                             inputRef.current?.focus();
                           }}
-                          className="p-1 rounded-full text-[#8E8E93] hover:text-white transition-colors cursor-pointer"
+                          className="p-1 rounded-full text-[#8E8E93] hover:text-white transition-colors cursor-default"
                           title="Xóa tìm kiếm"
                         >
                           <X className="w-4 h-4" />
@@ -512,7 +512,7 @@ export const SpotlightModal: React.FC<SpotlightModalProps> = ({
                             e.stopPropagation();
                             toggleListening();
                           }}
-                          className={`w-7 h-7 rounded-full transition-all cursor-pointer flex items-center justify-center shrink-0 ${
+                          className={`w-7 h-7 rounded-full transition-all cursor-default flex items-center justify-center shrink-0 ${
                             isListening
                               ? 'bg-[#fd932f] shadow-[0_0_14px_rgba(253,147,47,0.8)] scale-105 animate-pulse'
                               : 'hover:bg-white/10 dark:hover:bg-white/15'
@@ -542,7 +542,7 @@ export const SpotlightModal: React.FC<SpotlightModalProps> = ({
                         e.stopPropagation();
                         setViewMode('settings');
                       }}
-                      className="w-7 h-7 rounded-full flex items-center justify-center text-[#8E8E93] hover:text-white hover:bg-white/10 dark:hover:bg-white/15 active:scale-95 transition-all cursor-pointer shrink-0"
+                      className="w-7 h-7 rounded-full flex items-center justify-center text-[#8E8E93] hover:text-white hover:bg-white/10 dark:hover:bg-white/15 active:scale-95 transition-all cursor-default shrink-0"
                       title="Cài đặt tìm kiếm"
                       aria-label="Cài đặt tìm kiếm"
                     >
@@ -575,7 +575,7 @@ export const SpotlightModal: React.FC<SpotlightModalProps> = ({
                               navigate(`/live-tv?channel=${ch.slug}`);
                               onClose();
                             }}
-                            className="flex items-center justify-between p-2.5 rounded-[14px] bg-[#22222A] hover:bg-[#2C2C36] cursor-pointer transition-colors group"
+                            className="flex items-center justify-between p-2.5 rounded-[14px] bg-[#22222A] hover:bg-[#2C2C36] cursor-default transition-colors group"
                           >
                             <div className="flex items-center gap-2.5 min-w-0">
                               <div className="w-8 h-8 rounded-lg bg-[#141418] border border-[#34343E] flex items-center justify-center text-xs font-bold text-white shrink-0 p-1 overflow-hidden">
@@ -623,7 +623,7 @@ export const SpotlightModal: React.FC<SpotlightModalProps> = ({
                                 navigate(item.route);
                                 onClose();
                               }}
-                              className="flex items-center gap-2.5 p-2 rounded-[14px] bg-[#22222A] hover:bg-[#2C2C36] cursor-pointer transition-colors"
+                              className="flex items-center gap-2.5 p-2 rounded-[14px] bg-[#22222A] hover:bg-[#2C2C36] cursor-default transition-colors"
                             >
                               <div className="w-7 h-7 rounded-lg bg-[#2E2E38] flex items-center justify-center shrink-0">
                                 <IconComponent className="w-4 h-4 text-white" />
@@ -649,7 +649,7 @@ export const SpotlightModal: React.FC<SpotlightModalProps> = ({
                               navigate(`/news/${n.slug}`);
                               onClose();
                             }}
-                            className="flex items-center gap-2.5 p-2 rounded-[14px] bg-[#22222A] hover:bg-[#2C2C36] cursor-pointer transition-colors"
+                            className="flex items-center gap-2.5 p-2 rounded-[14px] bg-[#22222A] hover:bg-[#2C2C36] cursor-default transition-colors"
                           >
                             <div className="w-10 h-7 rounded bg-[#141418] overflow-hidden shrink-0">
                               <img src={n.coverImage} alt={n.title} className="w-full h-full object-cover" />
@@ -674,7 +674,7 @@ export const SpotlightModal: React.FC<SpotlightModalProps> = ({
                               navigate('/settings');
                               onClose();
                             }}
-                            className="flex items-center gap-2.5 p-2 rounded-[14px] bg-[#22222A] hover:bg-[#2C2C36] cursor-pointer transition-colors"
+                            className="flex items-center gap-2.5 p-2 rounded-[14px] bg-[#22222A] hover:bg-[#2C2C36] cursor-default transition-colors"
                           >
                             <div className="w-7 h-7 rounded-lg bg-[#2E2E38] flex items-center justify-center shrink-0">
                               <SettingsIcon className="w-4 h-4 text-[#FF4D4D]" />

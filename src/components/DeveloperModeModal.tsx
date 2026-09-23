@@ -145,7 +145,7 @@ export const DeveloperModeModal: React.FC<DeveloperModeModalProps> = ({
                 <button
                   type="button"
                   onClick={() => setShowPassword(!showPassword)}
-                  className="absolute right-3.5 text-white/40 hover:text-white transition-colors cursor-pointer p-1"
+                  className="absolute right-3.5 text-white/40 hover:text-white transition-colors cursor-default p-1"
                   title={showPassword ? 'Ẩn mật khẩu' : 'Hiện mật khẩu'}
                   aria-label={showPassword ? 'Ẩn mật khẩu' : 'Hiện mật khẩu'}
                 >
@@ -168,7 +168,7 @@ export const DeveloperModeModal: React.FC<DeveloperModeModalProps> = ({
                 type="button"
                 id="btn-devmode-activate"
                 onClick={handleActivate}
-                className="w-full py-2.5 sm:py-3 px-5 rounded-full font-bold text-white bg-[#fd932f] hover:bg-[#e68428] active:scale-[0.98] transition-all text-sm sm:text-base cursor-pointer flex items-center justify-center shadow-md tracking-tight text-center"
+                className="w-full py-2.5 sm:py-3 px-5 rounded-full font-bold text-white bg-[#fd932f] hover:bg-[#e68428] active:scale-[0.98] transition-all text-sm sm:text-base cursor-default flex items-center justify-center shadow-md tracking-tight text-center"
               >
                 Kích hoạt
               </button>
@@ -178,7 +178,7 @@ export const DeveloperModeModal: React.FC<DeveloperModeModalProps> = ({
                 type="button"
                 id="btn-devmode-close"
                 onClick={onClose}
-                className="w-full py-2.5 sm:py-3 px-5 rounded-full font-bold text-white bg-[#fd932f] hover:bg-[#e68428] active:scale-[0.98] transition-all text-sm sm:text-base cursor-pointer flex items-center justify-center shadow-md tracking-tight text-center"
+                className="w-full py-2.5 sm:py-3 px-5 rounded-full font-bold text-white bg-[#fd932f] hover:bg-[#e68428] active:scale-[0.98] transition-all text-sm sm:text-base cursor-default flex items-center justify-center shadow-md tracking-tight text-center"
               >
                 Close
               </button>

@@ -128,7 +128,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
           {/* Brand Logo (Dark mode logo vs Light mode logo) */}
           <div 
             onClick={() => handleNavClick('/')} 
-            className="cursor-pointer flex items-center justify-center p-0 hover:opacity-85 transition-opacity"
+            className="cursor-default flex items-center justify-center p-0 hover:opacity-85 transition-opacity"
             title="Vplay"
           >
             {!logoError ? (
@@ -160,7 +160,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
           <button 
             id="btn-mobile-sidebar-close"
             onClick={onCloseMobile}
-            className="w-8 h-8 rounded-full flex items-center justify-center text-[#A1A1AA] hover:text-white transition-all cursor-pointer"
+            className="w-8 h-8 rounded-full flex items-center justify-center text-[#A1A1AA] hover:text-white transition-all cursor-default"
             title="Đóng menu"
           >
             <X className="w-4.5 h-4.5" />
@@ -169,7 +169,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
           <button 
             id="btn-sidebar-collapse"
             onClick={onToggleCollapse}
-            className="w-8 h-8 rounded-full flex items-center justify-center text-[#A1A1AA] hover:text-white transition-all cursor-pointer"
+            className="w-8 h-8 rounded-full flex items-center justify-center text-[#A1A1AA] hover:text-white transition-all cursor-default"
             title="Thu gọn menu"
           >
             <ChevronLeft className="w-4.5 h-4.5" />
@@ -182,7 +182,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
         <button
           id={isMobile ? 'btn-mobile-spotlight-search' : 'btn-spotlight-search'}
           onClick={handleSpotlightClick}
-          className="w-full h-[46px] flex items-center justify-center px-4 rounded-full spotlight-bubble-box spotlight-input-container text-sm text-[#C4C4CC] hover:text-white transition-all group cursor-pointer"
+          className="w-full h-[46px] flex items-center justify-center px-4 rounded-full spotlight-bubble-box spotlight-input-container text-sm text-[#C4C4CC] hover:text-white transition-all group cursor-default"
         >
           <div className="flex items-center justify-center gap-2.5 min-w-0">
             <div className="w-[18px] h-[18px] min-w-[18px] min-h-[18px] max-w-[18px] max-h-[18px] flex items-center justify-center shrink-0">
@@ -208,7 +208,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
           id={isMobile ? 'mobile-nav-item-home' : 'nav-item-home'}
           onClick={() => handleNavClick('/')}
           title="Home"
-          className={`w-full flex items-center gap-3.5 px-4 py-3 rounded-[14px] transition-all duration-200 cursor-pointer ${
+          className={`w-full flex items-center gap-3.5 px-4 py-3 rounded-[14px] transition-all duration-200 cursor-default ${
             isActive('/') && currentRoute === '/'
               ? 'bg-[#fd932f] text-white font-bold shadow-md shadow-[#fd932f]/20'
               : 'text-[#D1D5DB] hover:text-white hover:bg-white/10'
@@ -234,7 +234,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
             id={isMobile ? 'mobile-nav-item-live-tv' : 'nav-item-live-tv'}
             onClick={() => handleNavClick('/live-tv')}
             title="Truyền hình"
-            className={`w-full flex items-center justify-between px-4 py-3 rounded-[14px] transition-all cursor-pointer ${
+            className={`w-full flex items-center justify-between px-4 py-3 rounded-[14px] transition-all cursor-default ${
               isActive('/live-tv')
                 ? 'bg-[#fd932f] text-white font-bold shadow-md shadow-[#fd932f]/20'
                 : 'text-[#D1D5DB] hover:text-white hover:bg-white/10'
@@ -279,7 +279,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
                     handleNavClick(`/live-tv?channel=${ch.slug}`);
                     if (onSelectChannel) onSelectChannel(ch);
                   }}
-                  className="w-full flex items-center justify-between px-3 py-2 rounded-[12px] text-xs text-[#A1A1AA] hover:text-white hover:bg-white/10 transition-colors cursor-pointer"
+                  className="w-full flex items-center justify-between px-3 py-2 rounded-[12px] text-xs text-[#A1A1AA] hover:text-white hover:bg-white/10 transition-colors cursor-default"
                 >
                   <span className="truncate">{`${String(ch.channelNumber || 1).padStart(3, '0')} | ${ch.shortName || ch.name}`}</span>
                   <span className="px-1.5 py-0.2 text-[9px] bg-[#E6005A]/20 text-[#FF4D8B] border border-[#E6005A]/40 rounded-full font-bold">
@@ -289,7 +289,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
               ))}
               <button
                 onClick={() => handleNavClick('/live-tv')}
-                className="w-full text-left px-3 py-1.5 text-[11px] text-[#E6005A] hover:underline font-medium cursor-pointer"
+                className="w-full text-left px-3 py-1.5 text-[11px] text-[#E6005A] hover:underline font-medium cursor-default"
               >
                 + Xem tất cả kênh
               </button>
@@ -303,7 +303,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
             id={isMobile ? 'mobile-nav-item-test' : 'nav-item-test'}
             onClick={() => handleNavClick('/test')}
             title="Test"
-            className={`w-full flex items-center gap-3.5 px-4 py-3 rounded-[14px] transition-all cursor-pointer ${
+            className={`w-full flex items-center gap-3.5 px-4 py-3 rounded-[14px] transition-all cursor-default ${
               isActive('/test')
                 ? 'bg-[#fd932f] text-white font-bold shadow-md shadow-[#fd932f]/20'
                 : 'text-[#D1D5DB] hover:text-white hover:bg-white/10'
@@ -319,7 +319,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
           id={isMobile ? 'mobile-nav-item-news' : 'nav-item-news'}
           onClick={() => handleNavClick('/news')}
           title="News"
-          className={`w-full flex items-center gap-3.5 px-4 py-3 rounded-[14px] transition-all cursor-pointer ${
+          className={`w-full flex items-center gap-3.5 px-4 py-3 rounded-[14px] transition-all cursor-default ${
             isActive('/news')
               ? 'bg-[#fd932f] text-white font-bold shadow-md shadow-[#fd932f]/20'
               : 'text-[#D1D5DB] hover:text-white hover:bg-white/10'
@@ -340,7 +340,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
             id={isMobile ? 'mobile-nav-item-favorites' : 'nav-item-favorites'}
             onClick={() => handleNavClick('/favorites')}
             title="Favorites"
-            className={`w-full flex items-center justify-between px-4 py-3 rounded-[14px] transition-all cursor-pointer ${
+            className={`w-full flex items-center justify-between px-4 py-3 rounded-[14px] transition-all cursor-default ${
               isActive('/favorites')
                 ? 'bg-[#fd932f] text-white font-bold shadow-md shadow-[#fd932f]/20'
                 : 'text-[#D1D5DB] hover:text-white hover:bg-white/10'
@@ -375,7 +375,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
                       handleNavClick(`/live-tv?channel=${ch.slug}`);
                       if (onSelectChannel) onSelectChannel(ch);
                     }}
-                    className="w-full flex items-center justify-between px-3 py-2 rounded-[12px] text-xs text-[#A1A1AA] hover:text-white hover:bg-white/10 transition-colors group cursor-pointer"
+                    className="w-full flex items-center justify-between px-3 py-2 rounded-[12px] text-xs text-[#A1A1AA] hover:text-white hover:bg-white/10 transition-colors group cursor-default"
                   >
                     <span className="truncate">{`${String(ch.channelNumber || 1).padStart(3, '0')} | ${ch.shortName || ch.name}`}</span>
                     <span className="px-2 py-0.5 text-[9px] bg-[#3E3E48] text-[#E0E0E6] group-hover:bg-[#E6005A] group-hover:text-white rounded-full font-semibold transition-colors">
@@ -398,7 +398,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
             id={isMobile ? 'mobile-nav-item-help' : 'nav-item-help'}
             onClick={() => setIsHelpExpanded(!isHelpExpanded)}
             title="Help"
-            className="w-full flex items-center justify-between px-4 py-3 rounded-[14px] text-[#D1D5DB] hover:text-white hover:bg-white/10 transition-all cursor-pointer"
+            className="w-full flex items-center justify-between px-4 py-3 rounded-[14px] text-[#D1D5DB] hover:text-white hover:bg-white/10 transition-all cursor-default"
           >
             <div className="flex items-center gap-3.5 truncate">
               <BookOpen className="w-5 h-5 shrink-0" />
@@ -425,7 +425,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
           id={isMobile ? 'mobile-nav-item-discord' : 'nav-item-discord'}
           onClick={() => setIsDiscordModalOpen(true)}
           title="Join now"
-          className="w-full flex items-center justify-between px-4 py-3 rounded-[14px] text-[#D1D5DB] hover:text-white hover:bg-white/10 border border-transparent transition-all group cursor-pointer text-left"
+          className="w-full flex items-center justify-between px-4 py-3 rounded-[14px] text-[#D1D5DB] hover:text-white hover:bg-white/10 border border-transparent transition-all group cursor-default text-left"
         >
           <div className="flex items-center gap-3.5 truncate">
             <svg className="w-5 h-5 fill-current text-white shrink-0" viewBox="0 0 24 24">
@@ -440,7 +440,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
           id={isMobile ? 'mobile-nav-item-settings' : 'nav-item-settings'}
           onClick={handleSettingsNavClick}
           title="Cài đặt"
-          className={`group w-full flex items-center gap-3.5 px-4 py-3 rounded-[14px] transition-all cursor-pointer ${
+          className={`group w-full flex items-center gap-3.5 px-4 py-3 rounded-[14px] transition-all cursor-default ${
             isActive('/settings')
               ? 'bg-[#fd932f] text-white font-bold shadow-md shadow-[#fd932f]/20'
               : 'text-[#D1D5DB] hover:text-white hover:bg-white/10'
@@ -489,7 +489,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
                   id="btn-sidebar-expand-logo"
                   type="button"
                   onClick={onToggleCollapse} 
-                  className="cursor-pointer flex items-center justify-center p-1 rounded-2xl hover:scale-110 active:scale-95 transition-transform duration-200 outline-none"
+                  className="cursor-default flex items-center justify-center p-1 rounded-2xl hover:scale-110 active:scale-95 transition-transform duration-200 outline-none"
                   title="Mở rộng thanh bên"
                 >
                   {!logoError ? (
@@ -512,7 +512,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
                   id="btn-spotlight-search-mini"
                   onClick={handleSpotlightClick}
                   title="Spotlight Search (⌘K)"
-                  className="w-11 h-11 rounded-full spotlight-bubble-box flex items-center justify-center text-[#A1A1AA] hover:text-white transition-all cursor-pointer shadow-md hover:ring-1 hover:ring-white/40 shrink-0"
+                  className="w-11 h-11 rounded-full spotlight-bubble-box flex items-center justify-center text-[#A1A1AA] hover:text-white transition-all cursor-default shadow-md hover:ring-1 hover:ring-white/40 shrink-0"
                 >
                   <div className="w-[18px] h-[18px] min-w-[18px] min-h-[18px] max-w-[18px] max-h-[18px] flex items-center justify-center shrink-0">
                     <img
@@ -531,7 +531,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
                 <button
                   onClick={() => handleNavClick('/')}
                   title="Home"
-                  className={`w-11 h-11 rounded-[14px] flex items-center justify-center p-0 shrink-0 transition-all cursor-pointer ${
+                  className={`w-11 h-11 rounded-[14px] flex items-center justify-center p-0 shrink-0 transition-all cursor-default ${
                     isActive('/') && currentRoute === '/' ? 'bg-[#fd932f] text-white font-bold shadow-md shadow-[#fd932f]/20' : 'text-[#D1D5DB] hover:text-white hover:bg-white/10'
                   }`}
                 >
@@ -552,7 +552,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
                 <button
                   onClick={() => handleNavClick('/live-tv')}
                   title="Truyền hình"
-                  className={`w-11 h-11 rounded-[14px] flex items-center justify-center p-0 shrink-0 transition-all cursor-pointer ${
+                  className={`w-11 h-11 rounded-[14px] flex items-center justify-center p-0 shrink-0 transition-all cursor-default ${
                     isActive('/live-tv') ? 'bg-[#fd932f] text-white font-bold shadow-md shadow-[#fd932f]/20' : 'text-[#D1D5DB] hover:text-white hover:bg-white/10'
                   }`}
                 >
@@ -574,7 +574,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
                   <button
                     onClick={() => handleNavClick('/test')}
                     title="Test"
-                    className={`w-11 h-11 rounded-[14px] flex items-center justify-center p-0 shrink-0 transition-all cursor-pointer ${
+                    className={`w-11 h-11 rounded-[14px] flex items-center justify-center p-0 shrink-0 transition-all cursor-default ${
                       isActive('/test') ? 'bg-[#fd932f] text-white font-bold shadow-md shadow-[#fd932f]/20' : 'text-[#D1D5DB] hover:text-white hover:bg-white/10'
                     }`}
                   >
@@ -586,7 +586,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
                 <button
                   onClick={() => handleNavClick('/news')}
                   title="News"
-                  className={`w-11 h-11 rounded-[14px] flex items-center justify-center p-0 shrink-0 transition-all cursor-pointer ${
+                  className={`w-11 h-11 rounded-[14px] flex items-center justify-center p-0 shrink-0 transition-all cursor-default ${
                     isActive('/news') ? 'bg-[#fd932f] text-white font-bold shadow-md shadow-[#fd932f]/20' : 'text-[#D1D5DB] hover:text-white hover:bg-white/10'
                   }`}
                 >
@@ -602,7 +602,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
                 <button
                   onClick={() => handleNavClick('/favorites')}
                   title="Favorites"
-                  className={`w-11 h-11 rounded-[14px] flex items-center justify-center p-0 shrink-0 transition-all cursor-pointer ${
+                  className={`w-11 h-11 rounded-[14px] flex items-center justify-center p-0 shrink-0 transition-all cursor-default ${
                     isActive('/favorites') ? 'bg-[#fd932f] text-white font-bold shadow-md shadow-[#fd932f]/20' : 'text-[#D1D5DB] hover:text-white hover:bg-white/10'
                   }`}
                 >
@@ -613,7 +613,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
                 <button
                   onClick={() => handleNavClick('/about')}
                   title="Help"
-                  className="w-11 h-11 rounded-[14px] flex items-center justify-center p-0 shrink-0 text-[#D1D5DB] hover:text-white hover:bg-white/10 transition-all cursor-pointer"
+                  className="w-11 h-11 rounded-[14px] flex items-center justify-center p-0 shrink-0 text-[#D1D5DB] hover:text-white hover:bg-white/10 transition-all cursor-default"
                 >
                   <BookOpen className="w-5 h-5 shrink-0" />
                 </button>
@@ -622,7 +622,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
                 <button
                   onClick={() => setIsDiscordModalOpen(true)}
                   title="Join now"
-                  className="w-11 h-11 rounded-[14px] flex items-center justify-center p-0 shrink-0 text-[#D1D5DB] hover:text-white hover:bg-white/10 transition-all cursor-pointer"
+                  className="w-11 h-11 rounded-[14px] flex items-center justify-center p-0 shrink-0 text-[#D1D5DB] hover:text-white hover:bg-white/10 transition-all cursor-default"
                 >
                   <svg className="w-5 h-5 fill-current text-white shrink-0" viewBox="0 0 24 24">
                     <path d="M20.317 4.37a19.791 19.791 0 0 0-4.885-1.515.074.074 0 0 0-.079.037c-.21.375-.444.864-.608 1.25a18.27 18.27 0 0 0-5.487 0 12.64 12.64 0 0 0-.617-1.25.077.077 0 0 0-.079-.037A19.736 19.736 0 0 0 3.677 4.37a.07.07 0 0 0-.032.027C.533 9.046-.32 13.58.099 18.057a.082.082 0 0 0 .031.057 19.9 19.9 0 0 0 5.993 3.03.078.078 0 0 0 .084-.028c.462-.63.874-1.295 1.226-1.994.021-.041.001-.09-.041-.106a13.107 13.107 0 0 1-1.872-.892.077.077 0 0 1-.008-.128 10.2 10.2 0 0 0 .372-.292.074.074 0 0 1 .077-.01c3.929 1.793 8.18 1.793 12.061 0a.074.074 0 0 1 .078.01c.12.098.246.198.373.292a.077.077 0 0 1-.006.127 12.299 12.299 0 0 1-1.873.893.077.077 0 0 0-.041.107c.36.698.772 1.362 1.225 1.993a.076.076 0 0 0 .084.028 19.839 19.839 0 0 0 6.002-3.03.078.078 0 0 0 .032-.054c.5-5.177-.838-9.674-3.549-13.66a.061.061 0 0 0-.031-.028zM8.02 15.33c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.956-2.419 2.157-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.956 2.418-2.157 2.418zm7.975 0c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.955-2.419 2.157-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.946 2.418-2.157 2.418z"/>
@@ -638,7 +638,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
                 <button
                   onClick={handleSettingsNavClick}
                   title="Cài đặt"
-                  className={`group w-11 h-11 rounded-[14px] flex items-center justify-center p-0 shrink-0 transition-all cursor-pointer ${
+                  className={`group w-11 h-11 rounded-[14px] flex items-center justify-center p-0 shrink-0 transition-all cursor-default ${
                     isActive('/settings') ? 'bg-[#fd932f] text-white font-bold shadow-md shadow-[#fd932f]/20' : 'text-[#D1D5DB] hover:text-white hover:bg-white/10'
                   }`}
                 >

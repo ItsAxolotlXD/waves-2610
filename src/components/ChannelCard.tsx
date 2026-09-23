@@ -22,7 +22,7 @@ export const ChannelCard: React.FC<ChannelCardProps> = ({
     <div
       id={`channel-card-${channel.id}`}
       onClick={() => onSelect(channel)}
-      className={`group relative rounded-[28px] bg-[#353535] transition-none overflow-hidden cursor-pointer ${
+      className={`group relative rounded-[28px] bg-[#353535] transition-none overflow-hidden cursor-default ${
         isActive
           ? 'is-selected border-[#FFFFFF] bg-[#353535]'
           : 'hover:bg-[#3d3d3d]'

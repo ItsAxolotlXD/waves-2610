@@ -275,7 +275,7 @@ export const TextToSpeechPlayer: React.FC<TextToSpeechPlayerProps> = ({
               <button
                 type="button"
                 onClick={() => setIsMinimized(!isMinimized)}
-                className="w-7 h-7 rounded-lg hover:bg-white/10 flex items-center justify-center text-white/70 hover:text-white transition-colors cursor-pointer"
+                className="w-7 h-7 rounded-lg hover:bg-white/10 flex items-center justify-center text-white/70 hover:text-white transition-colors cursor-default"
                 title={isMinimized ? "Mở rộng" : "Thu nhỏ"}
               >
                 {isMinimized ? <Maximize2 className="w-3.5 h-3.5" /> : <Minimize2 className="w-3.5 h-3.5" />}
@@ -286,7 +286,7 @@ export const TextToSpeechPlayer: React.FC<TextToSpeechPlayerProps> = ({
                   handleStop();
                   onClose();
                 }}
-                className="w-7 h-7 rounded-lg hover:bg-white/10 flex items-center justify-center text-white/70 hover:text-white transition-colors cursor-pointer"
+                className="w-7 h-7 rounded-lg hover:bg-white/10 flex items-center justify-center text-white/70 hover:text-white transition-colors cursor-default"
                 title="Đóng trình phát"
               >
                 <X className="w-4 h-4" />
@@ -331,7 +331,7 @@ export const TextToSpeechPlayer: React.FC<TextToSpeechPlayerProps> = ({
                   <button
                     type="button"
                     onClick={() => setVoiceDropdownOpen(!voiceDropdownOpen)}
-                    className="flex items-center gap-1.5 px-2.5 py-1.5 rounded-xl bg-white/5 hover:bg-white/10 border border-white/10 text-[11px] font-medium text-white/80 cursor-pointer transition-all max-w-[130px]"
+                    className="flex items-center gap-1.5 px-2.5 py-1.5 rounded-xl bg-white/5 hover:bg-white/10 border border-white/10 text-[11px] font-medium text-white/80 cursor-default transition-all max-w-[130px]"
                     title="Chọn giọng đọc"
                   >
                     <span className="truncate">
@@ -373,7 +373,7 @@ export const TextToSpeechPlayer: React.FC<TextToSpeechPlayerProps> = ({
                     type="button"
                     onClick={handlePrev}
                     disabled={currentIndex <= 0}
-                    className="w-8 h-8 rounded-full bg-white/5 hover:bg-white/15 disabled:opacity-30 disabled:pointer-events-none flex items-center justify-center text-white cursor-pointer transition-all"
+                    className="w-8 h-8 rounded-full bg-white/5 hover:bg-white/15 disabled:opacity-30 disabled:pointer-events-none flex items-center justify-center text-white cursor-default transition-all"
                     title="Đoạn trước"
                   >
                     <SkipBack className="w-4 h-4" />
@@ -382,7 +382,7 @@ export const TextToSpeechPlayer: React.FC<TextToSpeechPlayerProps> = ({
                   <button
                     type="button"
                     onClick={isPlaying ? handlePause : handlePlay}
-                    className="w-11 h-11 rounded-full bg-[#fd932f] hover:bg-[#e68428] active:scale-95 flex items-center justify-center text-white shadow-lg shadow-[#fd932f]/40 cursor-pointer transition-all"
+                    className="w-11 h-11 rounded-full bg-[#fd932f] hover:bg-[#e68428] active:scale-95 flex items-center justify-center text-white shadow-lg shadow-[#fd932f]/40 cursor-default transition-all"
                     title={isPlaying ? "Tạm dừng" : "Phát âm thanh"}
                   >
                     {isPlaying ? (
@@ -396,7 +396,7 @@ export const TextToSpeechPlayer: React.FC<TextToSpeechPlayerProps> = ({
                     type="button"
                     onClick={handleNext}
                     disabled={currentIndex >= chunks.length - 1}
-                    className="w-8 h-8 rounded-full bg-white/5 hover:bg-white/15 disabled:opacity-30 disabled:pointer-events-none flex items-center justify-center text-white cursor-pointer transition-all"
+                    className="w-8 h-8 rounded-full bg-white/5 hover:bg-white/15 disabled:opacity-30 disabled:pointer-events-none flex items-center justify-center text-white cursor-default transition-all"
                     title="Đoạn tiếp theo"
                   >
                     <SkipForward className="w-4 h-4" />
@@ -405,7 +405,7 @@ export const TextToSpeechPlayer: React.FC<TextToSpeechPlayerProps> = ({
                   <button
                     type="button"
                     onClick={handleStop}
-                    className="w-8 h-8 rounded-full bg-white/5 hover:bg-white/15 flex items-center justify-center text-white/70 hover:text-white cursor-pointer transition-all"
+                    className="w-8 h-8 rounded-full bg-white/5 hover:bg-white/15 flex items-center justify-center text-white/70 hover:text-white cursor-default transition-all"
                     title="Dừng phát"
                   >
                     <Square className="w-3.5 h-3.5 fill-current" />
@@ -417,7 +417,7 @@ export const TextToSpeechPlayer: React.FC<TextToSpeechPlayerProps> = ({
                   <button
                     type="button"
                     onClick={handleSpeedChange}
-                    className="px-2 py-1 rounded-xl bg-white/5 hover:bg-white/10 border border-white/10 text-[11px] font-mono font-bold text-white cursor-pointer transition-all flex items-center gap-1"
+                    className="px-2 py-1 rounded-xl bg-white/5 hover:bg-white/10 border border-white/10 text-[11px] font-mono font-bold text-white cursor-default transition-all flex items-center gap-1"
                     title="Tốc độ đọc"
                   >
                     <Gauge className="w-3 h-3 text-[#FF4D8B]" />
@@ -427,7 +427,7 @@ export const TextToSpeechPlayer: React.FC<TextToSpeechPlayerProps> = ({
                   <button
                     type="button"
                     onClick={() => setIsMuted(!isMuted)}
-                    className="w-8 h-8 rounded-xl bg-white/5 hover:bg-white/10 border border-white/10 flex items-center justify-center text-white/80 hover:text-white cursor-pointer transition-all"
+                    className="w-8 h-8 rounded-xl bg-white/5 hover:bg-white/10 border border-white/10 flex items-center justify-center text-white/80 hover:text-white cursor-default transition-all"
                     title={isMuted ? "Bật âm" : "Tắt âm"}
                   >
                     {isMuted ? <VolumeX className="w-4 h-4" /> : <Volume2 className="w-4 h-4" />}
@@ -447,14 +447,14 @@ export const TextToSpeechPlayer: React.FC<TextToSpeechPlayerProps> = ({
                 <button
                   type="button"
                   onClick={isPlaying ? handlePause : handlePlay}
-                  className="w-8 h-8 rounded-full bg-[#fd932f] flex items-center justify-center text-white cursor-pointer shadow-md"
+                  className="w-8 h-8 rounded-full bg-[#fd932f] flex items-center justify-center text-white cursor-default shadow-md"
                 >
                   {isPlaying ? <Pause className="w-4 h-4 fill-current" /> : <Play className="w-4 h-4 fill-current ml-0.5" />}
                 </button>
                 <button
                   type="button"
                   onClick={handleNext}
-                  className="w-7 h-7 rounded-full bg-white/10 flex items-center justify-center text-white cursor-pointer"
+                  className="w-7 h-7 rounded-full bg-white/10 flex items-center justify-center text-white cursor-default"
                 >
                   <SkipForward className="w-3.5 h-3.5" />
                 </button>

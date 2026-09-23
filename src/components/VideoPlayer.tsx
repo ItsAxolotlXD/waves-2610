@@ -285,7 +285,7 @@ export const VideoPlayer: React.FC<VideoPlayerProps> = ({
                 objectFit: 'contain'
               }
         }
-        className={`h-full bg-black cursor-pointer ${
+        className={`h-full bg-black cursor-default ${
           aspectRatio === '4:3' ? 'rounded-none' : 'rounded-xl sm:rounded-2xl'
         } transition-all duration-200`}
         onClick={() => {
@@ -335,7 +335,7 @@ export const VideoPlayer: React.FC<VideoPlayerProps> = ({
               e.stopPropagation();
               handleToggleAspectRatio();
             }}
-            className={`glass-player-btn h-7 px-2 sm:h-8.5 sm:px-2.5 rounded-full flex items-center gap-1 cursor-pointer transition-all duration-200 text-white select-none ${
+            className={`glass-player-btn h-7 px-2 sm:h-8.5 sm:px-2.5 rounded-full flex items-center gap-1 cursor-default transition-all duration-200 text-white select-none ${
               aspectRatio === '4:3' ? 'border-[#fd932f] text-[#fd932f]' : ''
             }`}
             title={`Tỉ lệ luồng: ${aspectRatio} (Bấm để chuyển sang ${aspectRatio === '16:9' ? '4:3 Squish' : '16:9'})`}
@@ -354,7 +354,7 @@ export const VideoPlayer: React.FC<VideoPlayerProps> = ({
               toggleFavoriteChannel(channel.id);
               resetControlsTimeout();
             }}
-            className={`w-7 h-7 sm:w-8.5 sm:h-8.5 rounded-full flex items-center justify-center cursor-pointer transition-all duration-200 ${
+            className={`w-7 h-7 sm:w-8.5 sm:h-8.5 rounded-full flex items-center justify-center cursor-default transition-all duration-200 ${
               isFav
                 ? 'video-player-fav-active text-white'
                 : 'glass-player-btn text-white hover:text-red-400'
@@ -370,7 +370,7 @@ export const VideoPlayer: React.FC<VideoPlayerProps> = ({
             id="video-player-pip-btn"
             type="button"
             onClick={handlePiP}
-            className="glass-player-btn hidden sm:flex w-8 h-8 sm:w-8.5 sm:h-8.5 rounded-full items-center justify-center cursor-pointer"
+            className="glass-player-btn hidden sm:flex w-8 h-8 sm:w-8.5 sm:h-8.5 rounded-full items-center justify-center cursor-default"
             title="Thu nhỏ Picture-in-Picture"
             aria-label="Thu nhỏ PiP"
           >
@@ -382,7 +382,7 @@ export const VideoPlayer: React.FC<VideoPlayerProps> = ({
             id="video-player-fullscreen-btn"
             type="button"
             onClick={handleFullscreenToggle}
-            className="glass-player-btn w-7 h-7 sm:w-8.5 sm:h-8.5 rounded-full flex items-center justify-center cursor-pointer"
+            className="glass-player-btn w-7 h-7 sm:w-8.5 sm:h-8.5 rounded-full flex items-center justify-center cursor-default"
             title="Toàn màn hình"
             aria-label="Toàn màn hình"
           >
@@ -397,7 +397,7 @@ export const VideoPlayer: React.FC<VideoPlayerProps> = ({
             {/* Volume Track */}
             <div
               onClick={handleVolumeSliderClick}
-              className="w-10 sm:w-16 md:w-20 h-1 sm:h-1.5 bg-white/35 hover:bg-white/45 rounded-full relative cursor-pointer overflow-hidden transition-colors"
+              className="w-10 sm:w-16 md:w-20 h-1 sm:h-1.5 bg-white/35 hover:bg-white/45 rounded-full relative cursor-default overflow-hidden transition-colors"
               title={`Âm lượng: ${Math.round((isMuted ? 0 : volume) * 100)}%`}
             >
               <div
@@ -415,7 +415,7 @@ export const VideoPlayer: React.FC<VideoPlayerProps> = ({
                 toggleMute();
                 resetControlsTimeout();
               }}
-              className="text-white hover:text-white/80 active:scale-90 transition-all cursor-pointer flex items-center justify-center"
+              className="text-white hover:text-white/80 active:scale-90 transition-all cursor-default flex items-center justify-center"
               title={isMuted ? 'Bật tiếng' : 'Tắt tiếng'}
               aria-label={isMuted ? 'Bật tiếng' : 'Tắt tiếng'}
             >
@@ -454,7 +454,7 @@ export const VideoPlayer: React.FC<VideoPlayerProps> = ({
               id="video-player-retry-btn"
               type="button"
               onClick={retry}
-              className="video-player-accent-btn flex items-center gap-1.5 sm:gap-2 px-4 sm:px-6 py-1.5 sm:py-2.5 rounded-full text-white text-[11px] sm:text-xs font-bold transition-all shadow-lg cursor-pointer"
+              className="video-player-accent-btn flex items-center gap-1.5 sm:gap-2 px-4 sm:px-6 py-1.5 sm:py-2.5 rounded-full text-white text-[11px] sm:text-xs font-bold transition-all shadow-lg cursor-default"
             >
               <RotateCcw className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
               <span>Thử lại</span>
@@ -465,7 +465,7 @@ export const VideoPlayer: React.FC<VideoPlayerProps> = ({
                 id="video-player-custom-stream-btn"
                 type="button"
                 onClick={onOpenCustomStreamModal}
-                className="video-player-glass-btn flex items-center gap-1.5 sm:gap-2 px-3.5 sm:px-5 py-1.5 sm:py-2.5 rounded-full text-white text-[11px] sm:text-xs font-medium transition-colors cursor-pointer"
+                className="video-player-glass-btn flex items-center gap-1.5 sm:gap-2 px-3.5 sm:px-5 py-1.5 sm:py-2.5 rounded-full text-white text-[11px] sm:text-xs font-medium transition-colors cursor-default"
               >
                 <Sparkles className="w-3.5 h-3.5 text-[#fd932f]" />
                 <span>Dán URL M3U8</span>
@@ -486,7 +486,7 @@ export const VideoPlayer: React.FC<VideoPlayerProps> = ({
           id="video-player-rewind-btn"
           type="button"
           onClick={handleRewind10}
-          className="glass-player-center-seek pointer-events-auto w-8 h-8 sm:w-11 sm:h-11 md:w-12 md:h-12 rounded-full flex items-center justify-center cursor-pointer group shadow-lg"
+          className="glass-player-center-seek pointer-events-auto w-8 h-8 sm:w-11 sm:h-11 md:w-12 md:h-12 rounded-full flex items-center justify-center cursor-default group shadow-lg"
           title="Lùi 10 giây"
           aria-label="Lùi 10 giây"
         >
@@ -525,7 +525,7 @@ export const VideoPlayer: React.FC<VideoPlayerProps> = ({
             togglePlay();
             resetControlsTimeout();
           }}
-          className="glass-player-center-play pointer-events-auto w-10 h-10 sm:w-14 sm:h-14 md:w-16 md:h-16 rounded-full flex items-center justify-center cursor-pointer group shadow-xl"
+          className="glass-player-center-play pointer-events-auto w-10 h-10 sm:w-14 sm:h-14 md:w-16 md:h-16 rounded-full flex items-center justify-center cursor-default group shadow-xl"
           title={isPlaying ? 'Tạm dừng' : 'Phát'}
           aria-label={isPlaying ? 'Tạm dừng' : 'Phát'}
         >
@@ -544,7 +544,7 @@ export const VideoPlayer: React.FC<VideoPlayerProps> = ({
           id="video-player-forward-btn"
           type="button"
           onClick={handleForward10}
-          className="glass-player-center-seek pointer-events-auto w-8 h-8 sm:w-11 sm:h-11 md:w-12 md:h-12 rounded-full flex items-center justify-center cursor-pointer group shadow-lg"
+          className="glass-player-center-seek pointer-events-auto w-8 h-8 sm:w-11 sm:h-11 md:w-12 md:h-12 rounded-full flex items-center justify-center cursor-default group shadow-lg"
           title="Tua tới 10 giây"
           aria-label="Tua tới 10 giây"
         >
@@ -593,7 +593,7 @@ export const VideoPlayer: React.FC<VideoPlayerProps> = ({
           {/* Horizontal Scrubber Track */}
           <div
             onClick={handleScrubberClick}
-            className="relative flex-1 h-1 sm:h-1.5 bg-white/35 hover:bg-white/45 rounded-full cursor-pointer overflow-hidden group/bar transition-colors"
+            className="relative flex-1 h-1 sm:h-1.5 bg-white/35 hover:bg-white/45 rounded-full cursor-default overflow-hidden group/bar transition-colors"
           >
             <div
               className="h-full bg-white rounded-full transition-all duration-75 shadow-sm"

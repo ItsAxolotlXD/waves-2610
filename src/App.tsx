@@ -31,7 +31,7 @@ import { useSettings } from './hooks/useSettings';
 import { useKeyboardShortcuts } from './hooks/useKeyboardShortcuts';
 
 export default function App() {
-  const { settings, hasChanges } = useSettings();
+  const { settings, draftSettings, hasChanges } = useSettings();
 
   // Tooltip & navigation block for unsaved settings
   const [showUnsavedTooltip, setShowUnsavedTooltip] = useState(false);
@@ -571,8 +571,8 @@ export default function App() {
             ? 'p-0 max-w-none pt-1 sm:pt-2' 
             : 'px-4 sm:px-6 md:px-8 py-5 max-w-7xl'
         } ${
-          settings.floatingSearchBar &&
-          (settings.navigationMode === 'topbar' || settings.navigationMode === 'sidebar')
+          ((settings.floatingSearchBar || (currentRoute === '/settings' && draftSettings.floatingSearchBar)) &&
+          ((settings.navigationMode === 'topbar' || settings.navigationMode === 'sidebar') || currentRoute === '/settings'))
             ? 'pb-24 sm:pb-28'
             : ''
         }`}>
@@ -612,10 +612,10 @@ export default function App() {
         />
       )}
 
-      {/* Floating Search Bar (shown when enabled and navigationMode is topbar or sidebar) */}
-      {settings.floatingSearchBar &&
-        (settings.navigationMode === 'topbar' || settings.navigationMode === 'sidebar') &&
-        currentRoute !== '/search' && (
+      {/* Floating Search Bar (shown when enabled and navigationMode is topbar or sidebar, or when on /settings) */}
+      {((settings.floatingSearchBar || (currentRoute === '/settings' && draftSettings.floatingSearchBar)) &&
+        ((settings.navigationMode === 'topbar' || settings.navigationMode === 'sidebar') || currentRoute === '/settings') &&
+        currentRoute !== '/search') && (
           <FloatingSearchBar
             currentRoute={currentRoute}
             searchQuery={currentTabSearchQuery}

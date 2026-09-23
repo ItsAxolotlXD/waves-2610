@@ -78,7 +78,7 @@ export const Article: React.FC<ArticleProps> = ({ slug, navigate, fontSize = 16 
       {/* Back Button */}
       <button
         onClick={() => navigate('/news')}
-        className="flex items-center gap-2 text-xs font-bold text-[#6B7280] dark:text-[#A1A1AA] hover:text-[#111827] dark:hover:text-white transition-colors cursor-pointer"
+        className="flex items-center gap-2 text-xs font-bold text-[#6B7280] dark:text-[#A1A1AA] hover:text-[#111827] dark:hover:text-white transition-colors cursor-default"
       >
         <ArrowLeft className="w-4 h-4" />
         <span>Quay lại News Feed</span>
@@ -127,7 +127,7 @@ export const Article: React.FC<ArticleProps> = ({ slug, navigate, fontSize = 16 
 
             <button
               type="submit"
-              className="w-full py-3 px-6 rounded-full bg-[#E50914] text-white text-xs sm:text-sm font-bold shadow-md hover:bg-[#CC0812] hover:shadow-red-500/25 active:scale-[0.98] transition-all cursor-pointer flex items-center justify-center gap-2"
+              className="w-full py-3 px-6 rounded-full bg-[#E50914] text-white text-xs sm:text-sm font-bold shadow-md hover:bg-[#CC0812] hover:shadow-red-500/25 active:scale-[0.98] transition-all cursor-default flex items-center justify-center gap-2"
             >
               <Unlock className="w-4 h-4" />
               <span>Mở khóa bài viết</span>
@@ -169,7 +169,7 @@ export const Article: React.FC<ArticleProps> = ({ slug, navigate, fontSize = 16 
           <div className="flex items-center justify-end gap-2 p-3 sm:p-4 rounded-[20px] bg-white dark:bg-[#1E1E22] border border-[#E5E7EB] dark:border-[#2D2D35] shadow-xs">
             <button
               onClick={() => toggleBookmarkNews(article.slug)}
-              className={`flex items-center gap-1.5 px-4 py-2 rounded-full border text-xs font-bold transition-all cursor-pointer ${
+              className={`flex items-center gap-1.5 px-4 py-2 rounded-full border text-xs font-bold transition-all cursor-default ${
                 bookmarked
                   ? 'bg-[#E50914] border-[#E50914] text-white shadow-xs'
                   : 'bg-[#F3F4F6] dark:bg-[#27121d] border-[#E5E7EB] dark:border-white/10 text-[#4B5563] dark:text-[#D1D5DB] hover:text-[#111827] dark:hover:text-white'
@@ -181,7 +181,7 @@ export const Article: React.FC<ArticleProps> = ({ slug, navigate, fontSize = 16 
 
             <button
               onClick={handleShare}
-              className="flex items-center gap-1.5 px-4 py-2 rounded-full bg-[#F3F4F6] dark:bg-[#27121d] hover:bg-[#E5E7EB] dark:hover:bg-[#331726] border border-[#E5E7EB] dark:border-white/10 text-xs font-semibold text-[#4B5563] dark:text-[#D1D5DB] hover:text-[#111827] dark:hover:text-white transition-colors cursor-pointer"
+              className="flex items-center gap-1.5 px-4 py-2 rounded-full bg-[#F3F4F6] dark:bg-[#27121d] hover:bg-[#E5E7EB] dark:hover:bg-[#331726] border border-[#E5E7EB] dark:border-white/10 text-xs font-semibold text-[#4B5563] dark:text-[#D1D5DB] hover:text-[#111827] dark:hover:text-white transition-colors cursor-default"
             >
               {copied ? <CheckCircle2 className="w-3.5 h-3.5 text-emerald-500" /> : <Share2 className="w-3.5 h-3.5" />}
               <span>{copied ? 'Đã chép link' : 'Chia sẻ'}</span>
@@ -194,7 +194,7 @@ export const Article: React.FC<ArticleProps> = ({ slug, navigate, fontSize = 16 
               setLightboxImage(article.coverImage);
               setLightboxZoom(1);
             }}
-            className="group relative rounded-[24px] sm:rounded-[28px] overflow-hidden bg-black/5 dark:bg-[#1E1E22] border border-[#E5E7EB] dark:border-[#2D2D35] aspect-video sm:aspect-[21/9] shadow-md cursor-pointer"
+            className="group relative rounded-[24px] sm:rounded-[28px] overflow-hidden bg-black/5 dark:bg-[#1E1E22] border border-[#E5E7EB] dark:border-[#2D2D35] aspect-video sm:aspect-[21/9] shadow-md cursor-default"
             title="Nhấp để xem kích thước đầy đủ"
           >
             <img
@@ -230,7 +230,7 @@ export const Article: React.FC<ArticleProps> = ({ slug, navigate, fontSize = 16 
                   return (
                     <figure 
                       key={idx} 
-                      className="my-8 rounded-[24px] overflow-hidden border border-[#E5E7EB] dark:border-[#2D2D35] bg-[#0C0D12] shadow-xl group relative cursor-pointer"
+                      className="my-8 rounded-[24px] overflow-hidden border border-[#E5E7EB] dark:border-[#2D2D35] bg-[#0C0D12] shadow-xl group relative cursor-default"
                       onClick={() => {
                         setLightboxImage(imgUrl);
                         setLightboxZoom(1);
@@ -361,7 +361,7 @@ export const Article: React.FC<ArticleProps> = ({ slug, navigate, fontSize = 16 
             <button
               type="button"
               onClick={() => setLightboxZoom((prev) => Math.min(3, prev + 0.25))}
-              className="p-1.5 rounded-full hover:bg-white/15 text-white transition-colors cursor-pointer"
+              className="p-1.5 rounded-full hover:bg-white/15 text-white transition-colors cursor-default"
               title="Phóng to"
             >
               <ZoomIn className="w-4 h-4" />
@@ -372,7 +372,7 @@ export const Article: React.FC<ArticleProps> = ({ slug, navigate, fontSize = 16 
             <button
               type="button"
               onClick={() => setLightboxZoom((prev) => Math.max(0.5, prev - 0.25))}
-              className="p-1.5 rounded-full hover:bg-white/15 text-white transition-colors cursor-pointer"
+              className="p-1.5 rounded-full hover:bg-white/15 text-white transition-colors cursor-default"
               title="Thu nhỏ"
             >
               <ZoomOut className="w-4 h-4" />
@@ -380,7 +380,7 @@ export const Article: React.FC<ArticleProps> = ({ slug, navigate, fontSize = 16 
             <button
               type="button"
               onClick={() => setLightboxZoom(1)}
-              className="p-1.5 rounded-full hover:bg-white/15 text-white/80 hover:text-white transition-colors cursor-pointer"
+              className="p-1.5 rounded-full hover:bg-white/15 text-white/80 hover:text-white transition-colors cursor-default"
               title="Đặt lại kích thước"
             >
               <RotateCcw className="w-4 h-4" />
@@ -389,7 +389,7 @@ export const Article: React.FC<ArticleProps> = ({ slug, navigate, fontSize = 16 
             <button
               type="button"
               onClick={() => setLightboxImage(null)}
-              className="p-1.5 rounded-full hover:bg-red-500/80 text-white transition-colors cursor-pointer"
+              className="p-1.5 rounded-full hover:bg-red-500/80 text-white transition-colors cursor-default"
               title="Đóng (ESC)"
             >
               <X className="w-4 h-4" />
