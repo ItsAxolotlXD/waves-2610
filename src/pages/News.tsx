@@ -155,7 +155,7 @@ export const News: React.FC<NewsProps> = ({ navigate, searchQuery, onSearchChang
             <button
               type="button"
               onClick={() => onSearchChange('')}
-              className="px-4 py-1.5 rounded-full text-xs font-semibold bg-[#E6005A] text-white hover:bg-[#E6005A]/90 transition-colors cursor-pointer"
+              className="px-4 py-1.5 rounded-full text-xs font-semibold bg-[#fd932f] text-white hover:bg-[#e68428] transition-colors cursor-pointer"
             >
               Xóa tìm kiếm
             </button>

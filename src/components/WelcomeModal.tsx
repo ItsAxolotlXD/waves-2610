@@ -132,7 +132,7 @@ export const WelcomeModal: React.FC<WelcomeModalProps> = ({
                 type="button"
                 id="btn-welcome-close"
                 onClick={onClose}
-                className="w-full py-2.5 sm:py-3 px-5 rounded-full font-bold text-white bg-[#E6005A] hover:bg-[#FF267A] active:scale-[0.98] transition-all text-sm sm:text-base cursor-pointer flex items-center justify-center shadow-md tracking-tight text-center"
+                className="w-full py-2.5 sm:py-3 px-5 rounded-full font-bold text-white bg-[#fd932f] hover:bg-[#e68428] active:scale-[0.98] transition-all text-sm sm:text-base cursor-pointer flex items-center justify-center shadow-md tracking-tight text-center"
               >
                 Close
               </button>

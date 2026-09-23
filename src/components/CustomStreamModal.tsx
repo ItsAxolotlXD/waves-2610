@@ -168,7 +168,7 @@ export const CustomStreamModal: React.FC<CustomStreamModalProps> = ({
                 onClick={() => setActiveTab('single')}
                 className={`flex-1 py-2 rounded-full text-xs font-bold transition-all cursor-pointer ${
                   activeTab === 'single'
-                    ? 'bg-[#E6005A] text-white shadow-md'
+                    ? 'bg-[#fd932f] text-white shadow-md'
                     : 'text-[#9CA3AF] hover:text-white'
                 }`}
               >
@@ -179,7 +179,7 @@ export const CustomStreamModal: React.FC<CustomStreamModalProps> = ({
                 onClick={() => setActiveTab('playlist')}
                 className={`flex-1 py-2 rounded-full text-xs font-bold transition-all cursor-pointer ${
                   activeTab === 'playlist'
-                    ? 'bg-[#E6005A] text-white shadow-md'
+                    ? 'bg-[#fd932f] text-white shadow-md'
                     : 'text-[#9CA3AF] hover:text-white'
                 }`}
               >
@@ -250,7 +250,7 @@ export const CustomStreamModal: React.FC<CustomStreamModalProps> = ({
                   <div className="pt-2">
                     <button
                       type="submit"
-                      className="w-full py-4 rounded-full bg-[#E6005A] text-white text-base font-bold flex items-center justify-center gap-2 hover:bg-[#FF267A] active:scale-[0.98] transition-all shadow-md cursor-pointer"
+                      className="w-full py-4 rounded-full bg-[#fd932f] text-white text-base font-bold flex items-center justify-center gap-2 hover:bg-[#e68428] active:scale-[0.98] transition-all shadow-md cursor-pointer"
                     >
                       <Play className="w-4 h-4 fill-current ml-0.5" />
                       <span>Phát Ngay Trên Player</span>
@@ -291,7 +291,7 @@ export const CustomStreamModal: React.FC<CustomStreamModalProps> = ({
                   <button
                     type="button"
                     onClick={handleImportM3U}
-                    className="w-full py-4 rounded-full bg-[#E6005A] text-white text-base font-bold flex items-center justify-center gap-2 hover:bg-[#FF267A] active:scale-[0.98] transition-all shadow-md cursor-pointer"
+                    className="w-full py-4 rounded-full bg-[#fd932f] text-white text-base font-bold flex items-center justify-center gap-2 hover:bg-[#e68428] active:scale-[0.98] transition-all shadow-md cursor-pointer"
                   >
                     <Upload className="w-4 h-4" />
                     <span>Nhập Toàn Bộ Kênh Vào Danh Sách</span>

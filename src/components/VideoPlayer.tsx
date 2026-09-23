@@ -255,11 +255,13 @@ export const VideoPlayer: React.FC<VideoPlayerProps> = ({
         if (!isSpinnerVisible && !error) resetControlsTimeout();
       }}
       onMouseLeave={() => isPlaying && setShowControls(false)}
-      className={`relative w-full rounded-xl sm:rounded-2xl overflow-hidden bg-black shadow-2xl transition-all duration-300 select-none ${
+      className={`relative w-full ${
+        aspectRatio === '4:3' ? 'rounded-none' : 'rounded-xl sm:rounded-2xl'
+      } overflow-hidden bg-black shadow-2xl transition-all duration-300 select-none ${
         isTheaterMode ? 'aspect-[21/9] max-h-[75vh]' : 'aspect-video'
       } ${(!canShowControls && isPlaying) || isSpinnerVisible ? 'cursor-none' : ''}`}
       style={{
-        WebkitMaskImage: '-webkit-radial-gradient(white, black)'
+        WebkitMaskImage: aspectRatio === '4:3' ? 'none' : '-webkit-radial-gradient(white, black)'
       }}
     >
       {/* Video Element */}
@@ -274,7 +276,8 @@ export const VideoPlayer: React.FC<VideoPlayerProps> = ({
                 height: '100%',
                 objectFit: 'fill',
                 margin: '0 auto',
-                display: 'block'
+                display: 'block',
+                borderRadius: '0px'
               }
             : {
                 width: '100%',
@@ -282,7 +285,9 @@ export const VideoPlayer: React.FC<VideoPlayerProps> = ({
                 objectFit: 'contain'
               }
         }
-        className="h-full bg-black cursor-pointer rounded-xl sm:rounded-2xl transition-all duration-200"
+        className={`h-full bg-black cursor-pointer ${
+          aspectRatio === '4:3' ? 'rounded-none' : 'rounded-xl sm:rounded-2xl'
+        } transition-all duration-200`}
         onClick={() => {
           if (!isSpinnerVisible && !error) togglePlay();
         }}
@@ -298,7 +303,7 @@ export const VideoPlayer: React.FC<VideoPlayerProps> = ({
             transition={{ duration: 0.18 }}
             className="absolute top-14 sm:top-18 left-1/2 -translate-x-1/2 z-30 pointer-events-none px-3.5 py-1.5 rounded-full bg-black/80 backdrop-blur-md border border-white/20 text-white font-mono text-xs sm:text-sm font-semibold shadow-2xl flex items-center gap-2"
           >
-            <Ratio className="w-4 h-4 text-[#E6005A]" />
+            <Ratio className="w-4 h-4 text-[#fd932f]" />
             <span>{aspectRatioToast}</span>
           </motion.div>
         )}
@@ -331,7 +336,7 @@ export const VideoPlayer: React.FC<VideoPlayerProps> = ({
               handleToggleAspectRatio();
             }}
             className={`glass-player-btn h-7 px-2 sm:h-8.5 sm:px-2.5 rounded-full flex items-center gap-1 cursor-pointer transition-all duration-200 text-white select-none ${
-              aspectRatio === '4:3' ? 'border-[#E6005A] text-[#E6005A]' : ''
+              aspectRatio === '4:3' ? 'border-[#fd932f] text-[#fd932f]' : ''
             }`}
             title={`Tỉ lệ luồng: ${aspectRatio} (Bấm để chuyển sang ${aspectRatio === '16:9' ? '4:3 Squish' : '16:9'})`}
             aria-label={`Tỉ lệ luồng ${aspectRatio}`}
@@ -462,7 +467,7 @@ export const VideoPlayer: React.FC<VideoPlayerProps> = ({
                 onClick={onOpenCustomStreamModal}
                 className="video-player-glass-btn flex items-center gap-1.5 sm:gap-2 px-3.5 sm:px-5 py-1.5 sm:py-2.5 rounded-full text-white text-[11px] sm:text-xs font-medium transition-colors cursor-pointer"
               >
-                <Sparkles className="w-3.5 h-3.5 text-[#E6005A]" />
+                <Sparkles className="w-3.5 h-3.5 text-[#fd932f]" />
                 <span>Dán URL M3U8</span>
               </button>
             )}

@@ -69,9 +69,17 @@ export const BottomDock: React.FC<BottomDockProps> = ({
   useEffect(() => {
     if (!isSearchOpen) return;
     const handleClickOutside = (e: MouseEvent | TouchEvent) => {
-      if (searchContainerRef.current && !searchContainerRef.current.contains(e.target as Node)) {
-        setIsSearchOpen(false);
+      const target = e.target as HTMLElement | null;
+      if (!target) return;
+      if (
+        searchContainerRef.current?.contains(target) ||
+        target.closest('#vplay-native-keyboard') ||
+        target.closest('#floating-search-bar-pill') ||
+        target.closest('#btn-floaty-search-trigger')
+      ) {
+        return;
       }
+      setIsSearchOpen(false);
     };
     const timer = setTimeout(() => {
       document.addEventListener('mousedown', handleClickOutside);
@@ -155,18 +163,18 @@ export const BottomDock: React.FC<BottomDockProps> = ({
       }}
       className={`fixed ${isKeyboardOpen ? '' : 'bottom-5'} left-1/2 -translate-x-1/2 z-40 select-none flex items-center justify-center pointer-events-auto`}
     >
-      <AnimatePresence mode="wait" initial={false}>
-        {!isSearchOpen ? (
-          <motion.div
-            key="floaty-bar-group"
-            initial={{ opacity: 0, scale: 0.95 }}
-            animate={{ opacity: 1, scale: 1 }}
-            exit={{ opacity: 0, scale: 0.95 }}
-            transition={{ duration: 0.22, ease: [0.22, 1, 0.36, 1] }}
-            className="flex items-center gap-2 sm:gap-2.5"
-          >
-            {/* Floaty Bar Navigation */}
-            <nav className="floaty-bar select-none" aria-label="Floaty bar">
+      <div className="flex items-center justify-center gap-2 sm:gap-2.5">
+        <AnimatePresence initial={false}>
+          {!isSearchOpen && (
+            <motion.nav
+              key="floaty-bar-nav"
+              initial={{ opacity: 0, scale: 0.9, width: 0, filter: 'blur(4px)' }}
+              animate={{ opacity: 1, scale: 1, width: 'auto', filter: 'blur(0px)' }}
+              exit={{ opacity: 0, scale: 0.9, width: 0, filter: 'blur(4px)' }}
+              transition={{ duration: 0.28, ease: [0.22, 1, 0.36, 1] }}
+              className="floaty-bar select-none overflow-hidden"
+              aria-label="Floaty bar"
+            >
               <div 
                 onTouchStart={handleTouchStart}
                 onTouchEnd={handleTouchEnd}
@@ -326,10 +334,15 @@ export const BottomDock: React.FC<BottomDockProps> = ({
                   <ChevronRight className="w-4 h-4 sm:w-[18px] sm:h-[18px]" />
                 </button>
               </div>
-            </nav>
+            </motion.nav>
+          )}
+        </AnimatePresence>
 
-            {/* Separate search button placed outside beside the floaty bar */}
+        {/* Morphing Search Button / Floating Search Bar Pill */}
+        <AnimatePresence initial={false}>
+          {!isSearchOpen ? (
             <motion.button
+              key="btn-floaty-search-trigger"
               layoutId="floaty-search-morph"
               id="btn-floaty-search-trigger"
               type="button"
@@ -338,22 +351,20 @@ export const BottomDock: React.FC<BottomDockProps> = ({
               aria-label="Mở thanh tìm kiếm"
               transition={{
                 type: 'spring',
-                stiffness: 420,
-                damping: 34,
-                mass: 0.8
+                stiffness: 400,
+                damping: 32,
+                mass: 0.6
               }}
               style={{
                 backgroundColor: 'rgba(255, 255, 255, 0.20)',
                 backdropFilter: 'blur(20px)',
                 WebkitBackdropFilter: 'blur(20px)',
               }}
-              className={`group h-[44px] w-[44px] sm:h-[46px] sm:w-[46px] rounded-full flex items-center justify-center cursor-pointer shadow-[0_8px_32px_rgba(0,0,0,0.35)] select-none shrink-0 text-white pointer-events-auto border border-white/20 ${
+              className={`group h-[44px] w-[44px] sm:h-[46px] sm:w-[46px] rounded-full flex items-center justify-center cursor-pointer shadow-[0_8px_32px_rgba(0,0,0,0.35)] select-none shrink-0 text-white pointer-events-auto border border-white/20 transition-[background-color,border-color,box-shadow] ${
                 searchQuery?.trim()
                   ? 'ring-2 ring-white/25 shadow-[0_10px_36px_rgba(0,0,0,0.45)]'
                   : 'hover:bg-white/25 hover:shadow-[0_9px_34px_rgba(0,0,0,0.40)]'
               }`}
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
             >
               <img
                 src={SF_SEARCH_ICON_URL}
@@ -365,33 +376,25 @@ export const BottomDock: React.FC<BottomDockProps> = ({
                 }}
               />
               {searchQuery?.trim() && (
-                <span className="absolute top-2 right-2 w-2 h-2 rounded-full bg-[#E6005A] ring-2 ring-black/40" />
+                <span className="absolute top-2 right-2 w-2 h-2 rounded-full bg-[#fd932f] ring-2 ring-black/40" />
               )}
             </motion.button>
-          </motion.div>
-        ) : (
-          <motion.div
-            key="floaty-search-wrapper"
-            ref={searchContainerRef}
-            initial={{ opacity: 0, scale: 0.95 }}
-            animate={{ opacity: 1, scale: 1 }}
-            exit={{ opacity: 0, scale: 0.95 }}
-            transition={{ duration: 0.22, ease: [0.22, 1, 0.36, 1] }}
-            className="w-auto flex items-center justify-center"
-          >
+          ) : (
             <FloatingSearchBar
+              key="floaty-search-active"
+              containerRef={searchContainerRef}
               currentRoute={currentRoute}
               searchQuery={searchQuery || ''}
               onSearchChange={onSearchChange || (() => {})}
               onOpenSpotlight={onOpenSpotlight}
               onClose={() => setIsSearchOpen(false)}
               layoutId="floaty-search-morph"
-              autoFocus
+              autoFocus={false}
               embedded
             />
-          </motion.div>
-        )}
-      </AnimatePresence>
+          )}
+        </AnimatePresence>
+      </div>
     </div>
   );
 };

@@ -34,11 +34,11 @@ interface SpotlightModalProps {
 }
 
 const CATEGORY_ITEMS = [
-  { id: 'cat-home', title: 'Trang chủ (Home)', route: '/', icon: Home, color: '#E6005A' },
-  { id: 'cat-livetv', title: 'Truyền hình (Live TV)', route: '/live-tv', icon: Tv, color: '#E6005A' },
+  { id: 'cat-home', title: 'Trang chủ (Home)', route: '/', icon: Home, color: '#fd932f' },
+  { id: 'cat-livetv', title: 'Truyền hình (Live TV)', route: '/live-tv', icon: Tv, color: '#fd932f' },
   { id: 'cat-news', title: 'Tin tức & Thông báo (News)', route: '/news', icon: Megaphone, color: '#FF4D8B' },
-  { id: 'cat-fav', title: 'Kênh yêu thích (Favorites)', route: '/favorites', icon: Heart, color: '#E6005A' },
-  { id: 'cat-settings', title: 'Cài đặt hệ thống (Settings)', route: '/settings', icon: SettingsIcon, color: '#E6005A' },
+  { id: 'cat-fav', title: 'Kênh yêu thích (Favorites)', route: '/favorites', icon: Heart, color: '#fd932f' },
+  { id: 'cat-settings', title: 'Cài đặt hệ thống (Settings)', route: '/settings', icon: SettingsIcon, color: '#fd932f' },
 ];
 
 const SETTINGS_SHORTCUTS = [
@@ -229,7 +229,7 @@ export const SpotlightModal: React.FC<SpotlightModalProps> = ({
 
                   {/* Perfectly Centered Title */}
                   <div className="absolute inset-0 flex items-center justify-center gap-2 pointer-events-none">
-                    <div className="w-6 h-6 rounded-full bg-[#E6005A]/15 flex items-center justify-center text-[#E6005A]">
+                    <div className="w-6 h-6 rounded-full bg-[#fd932f]/15 flex items-center justify-center text-[#fd932f]">
                       <SlidersHorizontal className="w-3.5 h-3.5" />
                     </div>
                     <span className="text-sm font-bold text-white tracking-wide">Cài đặt tìm kiếm</span>
@@ -278,7 +278,7 @@ export const SpotlightModal: React.FC<SpotlightModalProps> = ({
                         updateSetting('searchCategories', !settings.searchCategories);
                       }}
                       className={`toggle-switch-btn relative w-[62px] h-7 rounded-full p-[3px] transition-colors duration-200 ease-in-out cursor-pointer shrink-0 flex items-center ${
-                        settings.searchCategories ? 'bg-[#E6005A]' : 'bg-[#E4E4E7] dark:bg-[#3F3F46]'
+                        settings.searchCategories ? 'bg-[#fd932f]' : 'bg-[#E4E4E7] dark:bg-[#3F3F46]'
                       }`}
                     >
                       <span className="toggle-switch-thumb block w-[30px] h-[22px] rounded-full bg-white border border-black/10 dark:border-white/10 shadow-md pointer-events-none" />
@@ -310,7 +310,7 @@ export const SpotlightModal: React.FC<SpotlightModalProps> = ({
                         updateSetting('searchNews', !settings.searchNews);
                       }}
                       className={`toggle-switch-btn relative w-[62px] h-7 rounded-full p-[3px] transition-colors duration-200 ease-in-out cursor-pointer shrink-0 flex items-center ${
-                        settings.searchNews ? 'bg-[#E6005A]' : 'bg-[#E4E4E7] dark:bg-[#3F3F46]'
+                        settings.searchNews ? 'bg-[#fd932f]' : 'bg-[#E4E4E7] dark:bg-[#3F3F46]'
                       }`}
                     >
                       <span className="toggle-switch-thumb block w-[30px] h-[22px] rounded-full bg-white border border-black/10 dark:border-white/10 shadow-md pointer-events-none" />
@@ -344,7 +344,7 @@ export const SpotlightModal: React.FC<SpotlightModalProps> = ({
                           updateSetting('searchTv', !settings.searchTv);
                         }}
                         className={`toggle-switch-btn relative w-[62px] h-7 rounded-full p-[3px] transition-colors duration-200 ease-in-out cursor-pointer shrink-0 flex items-center ${
-                          settings.searchTv ? 'bg-[#E6005A]' : 'bg-[#E4E4E7] dark:bg-[#3F3F46]'
+                          settings.searchTv ? 'bg-[#fd932f]' : 'bg-[#E4E4E7] dark:bg-[#3F3F46]'
                         }`}
                       >
                         <span className="toggle-switch-thumb block w-[30px] h-[22px] rounded-full bg-white border border-black/10 dark:border-white/10 shadow-md pointer-events-none" />
@@ -365,7 +365,7 @@ export const SpotlightModal: React.FC<SpotlightModalProps> = ({
                           <span className="font-semibold text-white text-[13.5px]">
                             Tìm kênh theo số hiệu kênh
                           </span>
-                          <span className="px-1.5 py-0.5 rounded-md text-[10px] font-bold bg-[#E6005A]/20 text-[#E6005A] tracking-wider shrink-0">
+                          <span className="px-1.5 py-0.5 rounded-md text-[10px] font-bold bg-[#fd932f]/20 text-[#fd932f] tracking-wider shrink-0">
                             CH #
                           </span>
                         </div>
@@ -384,7 +384,7 @@ export const SpotlightModal: React.FC<SpotlightModalProps> = ({
                           updateSetting('searchChannelNumber', !settings.searchChannelNumber);
                         }}
                         className={`toggle-switch-btn relative w-[62px] h-7 rounded-full p-[3px] transition-colors duration-200 ease-in-out cursor-pointer shrink-0 flex items-center ${
-                          settings.searchChannelNumber ? 'bg-[#E6005A]' : 'bg-[#E4E4E7] dark:bg-[#3F3F46]'
+                          settings.searchChannelNumber ? 'bg-[#fd932f]' : 'bg-[#E4E4E7] dark:bg-[#3F3F46]'
                         }`}
                       >
                         <span className="toggle-switch-thumb block w-[30px] h-[22px] rounded-full bg-white border border-black/10 dark:border-white/10 shadow-md pointer-events-none" />
@@ -417,7 +417,7 @@ export const SpotlightModal: React.FC<SpotlightModalProps> = ({
                         updateSetting('searchSettings', !settings.searchSettings);
                       }}
                       className={`toggle-switch-btn relative w-[62px] h-7 rounded-full p-[3px] transition-colors duration-200 ease-in-out cursor-pointer shrink-0 flex items-center ${
-                        settings.searchSettings ? 'bg-[#E6005A]' : 'bg-[#E4E4E7] dark:bg-[#3F3F46]'
+                        settings.searchSettings ? 'bg-[#fd932f]' : 'bg-[#E4E4E7] dark:bg-[#3F3F46]'
                       }`}
                     >
                       <span className="toggle-switch-thumb block w-[30px] h-[22px] rounded-full bg-white border border-black/10 dark:border-white/10 shadow-md pointer-events-none" />
@@ -514,7 +514,7 @@ export const SpotlightModal: React.FC<SpotlightModalProps> = ({
                           }}
                           className={`w-7 h-7 rounded-full transition-all cursor-pointer flex items-center justify-center shrink-0 ${
                             isListening
-                              ? 'bg-[#E6005A] shadow-[0_0_14px_rgba(230,0,90,0.8)] scale-105 animate-pulse'
+                              ? 'bg-[#fd932f] shadow-[0_0_14px_rgba(253,147,47,0.8)] scale-105 animate-pulse'
                               : 'hover:bg-white/10 dark:hover:bg-white/15'
                           }`}
                           title={isListening ? "Dừng nghe giọng nói" : "Tìm kiếm bằng giọng nói"}
@@ -563,7 +563,7 @@ export const SpotlightModal: React.FC<SpotlightModalProps> = ({
                     {/* 1. Channels */}
                     {matchedChannels.length > 0 && (
                       <div className="space-y-1">
-                        <div className="px-2 py-1 text-[10px] font-bold uppercase tracking-wider text-[#E6005A] flex items-center gap-1.5">
+                        <div className="px-2 py-1 text-[10px] font-bold uppercase tracking-wider text-[#fd932f] flex items-center gap-1.5">
                           <Tv className="w-3 h-3" />
                           <span>Kênh truyền hình ({matchedChannels.length})</span>
                         </div>
@@ -590,7 +590,7 @@ export const SpotlightModal: React.FC<SpotlightModalProps> = ({
                               </div>
                               <div className="min-w-0 flex-1">
                                 <div className="flex items-center gap-1.5">
-                                  <span className="text-xs font-bold text-white group-hover:text-[#E6005A] truncate">
+                                  <span className="text-xs font-bold text-white group-hover:text-[#fd932f] truncate">
                                     {`${String(ch.channelNumber || 1).padStart(3, '0')} | ${ch.name}`}
                                   </span>
                                 </div>
@@ -599,7 +599,7 @@ export const SpotlightModal: React.FC<SpotlightModalProps> = ({
                                 </div>
                               </div>
                             </div>
-                            <div className="w-7 h-7 rounded-full bg-[#2F2F3A] group-hover:bg-[#E6005A] flex items-center justify-center text-white shrink-0 transition-colors">
+                            <div className="w-7 h-7 rounded-full bg-[#2F2F3A] group-hover:bg-[#fd932f] flex items-center justify-center text-white shrink-0 transition-colors">
                               <Play className="w-3 h-3 fill-current ml-0.5" />
                             </div>
                           </div>

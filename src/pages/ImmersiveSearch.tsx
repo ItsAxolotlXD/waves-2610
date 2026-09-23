@@ -290,7 +290,7 @@ export const ImmersiveSearch: React.FC<ImmersiveSearchProps> = ({
                   onClick={() => setActiveTab('all')}
                   className={`px-3.5 py-1.5 rounded-full text-xs font-semibold transition-all cursor-pointer ${
                     activeTab === 'all'
-                      ? 'bg-[#E6005A] text-white shadow-md'
+                      ? 'bg-[#fd932f] text-white shadow-md'
                       : 'text-[#8A798C] hover:text-white'
                   }`}
                 >
@@ -301,7 +301,7 @@ export const ImmersiveSearch: React.FC<ImmersiveSearchProps> = ({
                   onClick={() => setActiveTab('channels')}
                   className={`px-3.5 py-1.5 rounded-full text-xs font-semibold transition-all cursor-pointer ${
                     activeTab === 'channels'
-                      ? 'bg-[#E6005A] text-white shadow-md'
+                      ? 'bg-[#fd932f] text-white shadow-md'
                       : 'text-[#8A798C] hover:text-white'
                   }`}
                 >
@@ -312,7 +312,7 @@ export const ImmersiveSearch: React.FC<ImmersiveSearchProps> = ({
                   onClick={() => setActiveTab('news')}
                   className={`px-3.5 py-1.5 rounded-full text-xs font-semibold transition-all cursor-pointer ${
                     activeTab === 'news'
-                      ? 'bg-[#E6005A] text-white shadow-md'
+                      ? 'bg-[#fd932f] text-white shadow-md'
                       : 'text-[#8A798C] hover:text-white'
                   }`}
                 >
@@ -372,7 +372,7 @@ export const ImmersiveSearch: React.FC<ImmersiveSearchProps> = ({
                             {ch.category}
                           </span>
 
-                          <div className="mt-2.5 w-full flex items-center justify-center gap-1.5 py-1 px-2.5 rounded-full bg-[#E6005A]/10 group-hover:bg-[#E6005A] text-[11px] font-semibold text-[#FF4D8B] group-hover:text-white transition-all">
+                          <div className="mt-2.5 w-full flex items-center justify-center gap-1.5 py-1 px-2.5 rounded-full bg-[#fd932f]/10 group-hover:bg-[#fd932f] text-[11px] font-semibold text-[#fd932f] group-hover:text-white transition-all">
                             <Play className="w-3 h-3 fill-current" />
                             <span>Xem trực tiếp</span>
                           </div>

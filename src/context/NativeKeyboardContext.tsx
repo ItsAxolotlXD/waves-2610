@@ -67,8 +67,8 @@ export const NativeKeyboardProvider: React.FC<{ children: React.ReactNode }> = (
     } catch {}
   }, []);
   
-  // Dynamic iOS on-screen keyboard height (approx 290px, or 336px with dedicated number row)
-  const keyboardHeight = settings.keyboardNumberRow ? 336 : 290;
+  // Dynamic iOS on-screen keyboard height (approx 325px, or 372px with dedicated number row)
+  const keyboardHeight = settings.keyboardNumberRow ? 372 : 325;
 
   const isNativeKeyboardEnabled = Boolean(settings.nativeKeyboard);
 

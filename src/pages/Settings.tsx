@@ -210,7 +210,7 @@ export const Settings: React.FC<SettingsProps> = ({
                     }}
                     className={`w-7 h-7 rounded-full transition-all cursor-pointer flex items-center justify-center shrink-0 ${
                       isListening
-                        ? 'bg-[#E6005A] shadow-[0_0_14px_rgba(230,0,90,0.8)] scale-105 animate-pulse'
+                        ? 'bg-[#fd932f] shadow-[0_0_14px_rgba(253,147,47,0.8)] scale-105 animate-pulse'
                         : 'hover:bg-white/10 dark:hover:bg-white/15'
                     }`}
                     title={isListening ? "Dừng nghe giọng nói" : "Tìm kiếm bằng giọng nói"}
@@ -277,7 +277,7 @@ export const Settings: React.FC<SettingsProps> = ({
             <div id="settings-compatible-spatial-glass" className="pt-3 mt-1 border-t border-white/10 flex items-center">
               <p className="text-base sm:text-lg font-bold tracking-tight text-white">
                 Compatible with{' '}
-                <span className="bg-gradient-to-r from-[#E6005A] via-[#FF4D97] to-[#FFFFFF] bg-clip-text text-transparent font-extrabold drop-shadow-[0_0_12px_rgba(230,0,90,0.35)]">
+                <span className="bg-gradient-to-r from-[#fd932f] via-[#FF4D97] to-[#FFFFFF] bg-clip-text text-transparent font-extrabold drop-shadow-[0_0_12px_rgba(253,147,47,0.35)]">
                   Spatial Glass.
                 </span>
               </p>
@@ -337,7 +337,7 @@ export const Settings: React.FC<SettingsProps> = ({
                     <div className="text-xs text-[#9CA3AF] mt-1 leading-normal">Chọn kiểu điều hướng chính của ứng dụng</div>
                   </div>
                   {draftSettings.navigationMode === 'topbar' && (
-                    <span className="inline-flex items-center text-[11px] font-medium text-[#E6005A] bg-[#E6005A]/10 px-2 py-0.5 rounded-full self-start sm:self-auto">
+                    <span className="inline-flex items-center text-[11px] font-medium text-[#fd932f] bg-[#fd932f]/10 px-2 py-0.5 rounded-full self-start sm:self-auto">
                       Progressive Blur Top Bar
                     </span>
                   )}
@@ -357,7 +357,7 @@ export const Settings: React.FC<SettingsProps> = ({
                         updateDraft('immersiveSidebar', false); 
                       }} 
                       className={`rounded-xl px-2 py-2.5 text-xs font-semibold transition-colors cursor-pointer text-center truncate ${
-                        draftSettings.navigationMode === value ? 'bg-[#E6005A] text-white' : 'text-[#9CA3AF] hover:text-white'
+                        draftSettings.navigationMode === value ? 'bg-[#fd932f] text-white' : 'text-[#9CA3AF] hover:text-white'
                       }`} 
                       aria-pressed={draftSettings.navigationMode === value}
                       title={label}
@@ -407,7 +407,7 @@ export const Settings: React.FC<SettingsProps> = ({
                     <div className="relative w-full h-2 rounded-full bg-[#383842] dark:bg-[#383842] overflow-visible pointer-events-none">
                       {/* Active Magenta Track */}
                       <div 
-                        className="absolute left-0 top-0 h-full rounded-full bg-[#E6005A] transition-all duration-150 ease-out"
+                        className="absolute left-0 top-0 h-full rounded-full bg-[#fd932f] transition-all duration-150 ease-out"
                         style={{ width: `${(draftSettings.fontScale / (FONT_SCALE_CONFIG.length - 1)) * 100}%` }}
                       />
                       
@@ -439,7 +439,7 @@ export const Settings: React.FC<SettingsProps> = ({
                           onClick={() => updateDraft('fontScale', idx)}
                           className={`cursor-pointer transition-colors py-1 ${alignClass} ${
                             isSelected
-                              ? 'text-[#E6005A] font-bold text-xs'
+                              ? 'text-[#fd932f] font-bold text-xs'
                               : 'text-[#6B7280] hover:text-[#9CA3AF]'
                           }`}
                         >
@@ -462,7 +462,7 @@ export const Settings: React.FC<SettingsProps> = ({
                       Tỉ lệ luồng truyền hình
                     </span>
                   </div>
-                  <span className="text-xs font-semibold text-[#E6005A] font-mono">
+                  <span className="text-xs font-semibold text-[#fd932f] font-mono">
                     {draftSettings.streamAspectRatio === '4:3' ? '4:3 (Squish)' : '16:9 (Chuẩn)'}
                   </span>
                 </div>
@@ -481,7 +481,7 @@ export const Settings: React.FC<SettingsProps> = ({
                       onClick={() => updateDraft('streamAspectRatio', value as '16:9' | '4:3')}
                       className={`h-10 rounded-xl font-medium text-xs sm:text-sm transition-all border cursor-pointer ${
                         draftSettings.streamAspectRatio === value
-                          ? 'bg-[#E6005A] text-white border-[#E6005A] shadow-[0_2px_10px_rgba(230,0,90,0.35)] font-semibold'
+                          ? 'bg-[#fd932f] text-white border-[#fd932f] shadow-[0_2px_10px_rgba(253,147,47,0.35)] font-semibold'
                           : 'bg-white/5 text-[#9CA3AF] hover:text-white border-white/10 hover:bg-white/10'
                       }`}
                       aria-pressed={draftSettings.streamAspectRatio === value}
@@ -510,7 +510,7 @@ export const Settings: React.FC<SettingsProps> = ({
                         type="button"
                         onClick={() => updateDraft('sidebarPosition', position)}
                         className={`px-3 py-1.5 rounded-full text-xs font-semibold transition-colors cursor-pointer ${
-                          draftSettings.sidebarPosition === position ? 'bg-[#E6005A] text-white' : 'text-[#9CA3AF] hover:text-white'
+                          draftSettings.sidebarPosition === position ? 'bg-[#fd932f] text-white' : 'text-[#9CA3AF] hover:text-white'
                         }`}
                       >
                         {position === 'left' ? 'Trái' : 'Phải'}
@@ -551,7 +551,7 @@ export const Settings: React.FC<SettingsProps> = ({
                   aria-checked={draftSettings.superDarkMode}
                   onClick={() => updateDraft('superDarkMode', !draftSettings.superDarkMode)}
                   className={`toggle-switch-btn relative w-[66px] h-7 rounded-full p-[3px] transition-colors duration-200 ease-in-out cursor-pointer shrink-0 flex items-center ${
-                    draftSettings.superDarkMode ? 'bg-[#E6005A]' : 'bg-[#E4E4E7] dark:bg-[#3F3F46]'
+                    draftSettings.superDarkMode ? 'bg-[#fd932f]' : 'bg-[#E4E4E7] dark:bg-[#3F3F46]'
                   }`}
                   title="Bật/Tắt Super Dark Mode"
                 >
@@ -585,7 +585,7 @@ export const Settings: React.FC<SettingsProps> = ({
                   aria-checked={draftSettings.floatingSearchBar}
                   onClick={() => updateDraft('floatingSearchBar', !draftSettings.floatingSearchBar)}
                   className={`toggle-switch-btn relative w-[66px] h-7 rounded-full p-[3px] transition-colors duration-200 ease-in-out cursor-pointer shrink-0 flex items-center ${
-                    draftSettings.floatingSearchBar ? 'bg-[#E6005A]' : 'bg-[#E4E4E7] dark:bg-[#3F3F46]'
+                    draftSettings.floatingSearchBar ? 'bg-[#fd932f]' : 'bg-[#E4E4E7] dark:bg-[#3F3F46]'
                   }`}
                   title="Bật/Tắt Floaty Search Box"
                 >
@@ -619,7 +619,7 @@ export const Settings: React.FC<SettingsProps> = ({
                   aria-checked={draftSettings.spatialGlass}
                   onClick={() => updateDraft('spatialGlass', !draftSettings.spatialGlass)}
                   className={`toggle-switch-btn relative w-[66px] h-7 rounded-full p-[3px] transition-colors duration-200 ease-in-out cursor-pointer shrink-0 flex items-center ${
-                    draftSettings.spatialGlass ? 'bg-[#E6005A]' : 'bg-[#E4E4E7] dark:bg-[#3F3F46]'
+                    draftSettings.spatialGlass ? 'bg-[#fd932f]' : 'bg-[#E4E4E7] dark:bg-[#3F3F46]'
                   }`}
                   title="Bật/Tắt Spatial Glass"
                 >
@@ -674,7 +674,7 @@ export const Settings: React.FC<SettingsProps> = ({
                   aria-checked={draftSettings.autoHideSidebar}
                   onClick={() => updateDraft('autoHideSidebar', !draftSettings.autoHideSidebar)}
                   className={`toggle-switch-btn relative w-[66px] h-7 rounded-full p-[3px] transition-colors duration-200 ease-in-out cursor-pointer shrink-0 flex items-center ${
-                    draftSettings.autoHideSidebar ? 'bg-[#E6005A]' : 'bg-[#E4E4E7] dark:bg-[#3F3F46]'
+                    draftSettings.autoHideSidebar ? 'bg-[#fd932f]' : 'bg-[#E4E4E7] dark:bg-[#3F3F46]'
                   }`}
                 >
                   <span
@@ -738,7 +738,7 @@ export const Settings: React.FC<SettingsProps> = ({
                     updateDraft('reduceAllMotion', !draftSettings.reduceAllMotion);
                   }}
                   className={`toggle-switch-btn relative w-[66px] h-7 rounded-full p-[3px] transition-colors duration-200 ease-in-out cursor-pointer shrink-0 flex items-center ${
-                    draftSettings.reduceAllMotion ? 'bg-[#E6005A]' : 'bg-[#E4E4E7] dark:bg-[#3F3F46]'
+                    draftSettings.reduceAllMotion ? 'bg-[#fd932f]' : 'bg-[#E4E4E7] dark:bg-[#3F3F46]'
                   }`}
                 >
                   <span className="toggle-switch-thumb block w-[32px] h-[22px] rounded-full bg-white border border-black/10 dark:border-white/10 shadow-md pointer-events-none" />
@@ -787,7 +787,7 @@ export const Settings: React.FC<SettingsProps> = ({
                       updateDraft('animateSidebar', !draftSettings.animateSidebar);
                     }}
                     className={`toggle-switch-btn relative w-[66px] h-7 rounded-full p-[3px] transition-colors duration-200 ease-in-out cursor-pointer shrink-0 flex items-center ${
-                      draftSettings.animateSidebar && !draftSettings.reduceAllMotion ? 'bg-[#E6005A]' : 'bg-[#E4E4E7] dark:bg-[#3F3F46]'
+                      draftSettings.animateSidebar && !draftSettings.reduceAllMotion ? 'bg-[#fd932f]' : 'bg-[#E4E4E7] dark:bg-[#3F3F46]'
                     }`}
                   >
                     <span className="toggle-switch-thumb block w-[32px] h-[22px] rounded-full bg-white border border-black/10 dark:border-white/10 shadow-md pointer-events-none" />
@@ -825,7 +825,7 @@ export const Settings: React.FC<SettingsProps> = ({
                       updateDraft('animateModals', !draftSettings.animateModals);
                     }}
                     className={`toggle-switch-btn relative w-[66px] h-7 rounded-full p-[3px] transition-colors duration-200 ease-in-out cursor-pointer shrink-0 flex items-center ${
-                      draftSettings.animateModals && !draftSettings.reduceAllMotion ? 'bg-[#E6005A]' : 'bg-[#E4E4E7] dark:bg-[#3F3F46]'
+                      draftSettings.animateModals && !draftSettings.reduceAllMotion ? 'bg-[#fd932f]' : 'bg-[#E4E4E7] dark:bg-[#3F3F46]'
                     }`}
                   >
                     <span className="toggle-switch-thumb block w-[32px] h-[22px] rounded-full bg-white border border-black/10 dark:border-white/10 shadow-md pointer-events-none" />
@@ -863,7 +863,7 @@ export const Settings: React.FC<SettingsProps> = ({
                       updateDraft('animatePageTransitions', !draftSettings.animatePageTransitions);
                     }}
                     className={`toggle-switch-btn relative w-[66px] h-7 rounded-full p-[3px] transition-colors duration-200 ease-in-out cursor-pointer shrink-0 flex items-center ${
-                      draftSettings.animatePageTransitions && !draftSettings.reduceAllMotion ? 'bg-[#E6005A]' : 'bg-[#E4E4E7] dark:bg-[#3F3F46]'
+                      draftSettings.animatePageTransitions && !draftSettings.reduceAllMotion ? 'bg-[#fd932f]' : 'bg-[#E4E4E7] dark:bg-[#3F3F46]'
                     }`}
                   >
                     <span className="toggle-switch-thumb block w-[32px] h-[22px] rounded-full bg-white border border-black/10 dark:border-white/10 shadow-md pointer-events-none" />
@@ -926,7 +926,7 @@ export const Settings: React.FC<SettingsProps> = ({
                     updateDraft('searchCategories', !draftSettings.searchCategories);
                   }}
                   className={`toggle-switch-btn relative w-[66px] h-7 rounded-full p-[3px] transition-colors duration-200 ease-in-out cursor-pointer shrink-0 flex items-center ${
-                    draftSettings.searchCategories ? 'bg-[#E6005A]' : 'bg-[#E4E4E7] dark:bg-[#3F3F46]'
+                    draftSettings.searchCategories ? 'bg-[#fd932f]' : 'bg-[#E4E4E7] dark:bg-[#3F3F46]'
                   }`}
                 >
                   <span className="toggle-switch-thumb block w-[32px] h-[22px] rounded-full bg-white border border-black/10 dark:border-white/10 shadow-md pointer-events-none" />
@@ -960,7 +960,7 @@ export const Settings: React.FC<SettingsProps> = ({
                     updateDraft('searchNews', !draftSettings.searchNews);
                   }}
                   className={`toggle-switch-btn relative w-[66px] h-7 rounded-full p-[3px] transition-colors duration-200 ease-in-out cursor-pointer shrink-0 flex items-center ${
-                    draftSettings.searchNews ? 'bg-[#E6005A]' : 'bg-[#E4E4E7] dark:bg-[#3F3F46]'
+                    draftSettings.searchNews ? 'bg-[#fd932f]' : 'bg-[#E4E4E7] dark:bg-[#3F3F46]'
                   }`}
                 >
                   <span className="toggle-switch-thumb block w-[32px] h-[22px] rounded-full bg-white border border-black/10 dark:border-white/10 shadow-md pointer-events-none" />
@@ -997,7 +997,7 @@ export const Settings: React.FC<SettingsProps> = ({
                         updateDraft('searchTv', !draftSettings.searchTv);
                       }}
                       className={`toggle-switch-btn relative w-[66px] h-7 rounded-full p-[3px] transition-colors duration-200 ease-in-out cursor-pointer shrink-0 flex items-center ${
-                        draftSettings.searchTv ? 'bg-[#E6005A]' : 'bg-[#E4E4E7] dark:bg-[#3F3F46]'
+                        draftSettings.searchTv ? 'bg-[#fd932f]' : 'bg-[#E4E4E7] dark:bg-[#3F3F46]'
                       }`}
                     >
                       <span className="toggle-switch-thumb block w-[32px] h-[22px] rounded-full bg-white border border-black/10 dark:border-white/10 shadow-md pointer-events-none" />
@@ -1020,7 +1020,7 @@ export const Settings: React.FC<SettingsProps> = ({
                         <span className="font-semibold text-white text-sm">
                           Tìm kênh theo số hiệu kênh
                         </span>
-                        <span className="px-1.5 py-0.5 rounded-md text-[10px] font-bold bg-[#E6005A]/20 text-[#E6005A] tracking-wider">
+                        <span className="px-1.5 py-0.5 rounded-md text-[10px] font-bold bg-[#fd932f]/20 text-[#fd932f] tracking-wider">
                           CH #
                         </span>
                       </div>
@@ -1039,7 +1039,7 @@ export const Settings: React.FC<SettingsProps> = ({
                         updateDraft('searchChannelNumber', !draftSettings.searchChannelNumber);
                       }}
                       className={`toggle-switch-btn relative w-[66px] h-7 rounded-full p-[3px] transition-colors duration-200 ease-in-out cursor-pointer shrink-0 flex items-center ${
-                        draftSettings.searchChannelNumber ? 'bg-[#E6005A]' : 'bg-[#E4E4E7] dark:bg-[#3F3F46]'
+                        draftSettings.searchChannelNumber ? 'bg-[#fd932f]' : 'bg-[#E4E4E7] dark:bg-[#3F3F46]'
                       }`}
                     >
                       <span className="toggle-switch-thumb block w-[32px] h-[22px] rounded-full bg-white border border-black/10 dark:border-white/10 shadow-md pointer-events-none" />
@@ -1075,7 +1075,7 @@ export const Settings: React.FC<SettingsProps> = ({
                     updateDraft('searchSettings', !draftSettings.searchSettings);
                   }}
                   className={`toggle-switch-btn relative w-[66px] h-7 rounded-full p-[3px] transition-colors duration-200 ease-in-out cursor-pointer shrink-0 flex items-center ${
-                    draftSettings.searchSettings ? 'bg-[#E6005A]' : 'bg-[#E4E4E7] dark:bg-[#3F3F46]'
+                    draftSettings.searchSettings ? 'bg-[#fd932f]' : 'bg-[#E4E4E7] dark:bg-[#3F3F46]'
                   }`}
                 >
                   <span className="toggle-switch-thumb block w-[32px] h-[22px] rounded-full bg-white border border-black/10 dark:border-white/10 shadow-md pointer-events-none" />
@@ -1146,7 +1146,7 @@ export const Settings: React.FC<SettingsProps> = ({
                     updateDraft('keyboardNumberRow', !draftSettings.keyboardNumberRow);
                   }}
                   className={`toggle-switch-btn relative w-[66px] h-7 rounded-full p-[3px] transition-colors duration-200 ease-in-out cursor-pointer shrink-0 flex items-center ${
-                    draftSettings.keyboardNumberRow ? 'bg-[#E6005A]' : 'bg-[#E4E4E7] dark:bg-[#3F3F46]'
+                    draftSettings.keyboardNumberRow ? 'bg-[#fd932f]' : 'bg-[#E4E4E7] dark:bg-[#3F3F46]'
                   }`}
                 >
                   <span className="toggle-switch-thumb block w-[32px] h-[22px] rounded-full bg-white border border-black/10 dark:border-white/10 shadow-md pointer-events-none" />
@@ -1185,7 +1185,7 @@ export const Settings: React.FC<SettingsProps> = ({
                     updateDraft('keyboardClipboard', !draftSettings.keyboardClipboard);
                   }}
                   className={`toggle-switch-btn relative w-[66px] h-7 rounded-full p-[3px] transition-colors duration-200 ease-in-out cursor-pointer shrink-0 flex items-center ${
-                    draftSettings.keyboardClipboard ? 'bg-[#E6005A]' : 'bg-[#E4E4E7] dark:bg-[#3F3F46]'
+                    draftSettings.keyboardClipboard ? 'bg-[#fd932f]' : 'bg-[#E4E4E7] dark:bg-[#3F3F46]'
                   }`}
                 >
                   <span className="toggle-switch-thumb block w-[32px] h-[22px] rounded-full bg-white border border-black/10 dark:border-white/10 shadow-md pointer-events-none" />
@@ -1225,7 +1225,7 @@ export const Settings: React.FC<SettingsProps> = ({
                     updateDraft('keyboardSoundEnabled', !draftSettings.keyboardSoundEnabled);
                   }}
                   className={`toggle-switch-btn relative w-[66px] h-7 rounded-full p-[3px] transition-colors duration-200 ease-in-out cursor-pointer shrink-0 flex items-center ${
-                    draftSettings.keyboardSoundEnabled ? 'bg-[#E6005A]' : 'bg-[#E4E4E7] dark:bg-[#3F3F46]'
+                    draftSettings.keyboardSoundEnabled ? 'bg-[#fd932f]' : 'bg-[#E4E4E7] dark:bg-[#3F3F46]'
                   }`}
                 >
                   <span className="toggle-switch-thumb block w-[32px] h-[22px] rounded-full bg-white border border-black/10 dark:border-white/10 shadow-md pointer-events-none" />
@@ -1258,7 +1258,7 @@ export const Settings: React.FC<SettingsProps> = ({
             <div>
               <h2 className="text-base font-bold text-white leading-tight flex items-center gap-2">
                 <span>Experimental Features</span>
-                <span className="px-2 py-0.5 text-[10px] font-extrabold uppercase tracking-wider rounded-full bg-[#E6005A]/20 text-[#FF4D8B] border border-[#E6005A]/30">
+                <span className="px-2 py-0.5 text-[10px] font-extrabold uppercase tracking-wider rounded-full bg-[#fd932f]/20 text-[#FF4D8B] border border-[#fd932f]/30">
                   Lab
                 </span>
               </h2>
@@ -1302,7 +1302,7 @@ export const Settings: React.FC<SettingsProps> = ({
                     updateDraft('nativeKeyboard', !draftSettings.nativeKeyboard);
                   }}
                   className={`toggle-switch-btn relative w-[66px] h-7 rounded-full p-[3px] transition-colors duration-200 ease-in-out cursor-pointer shrink-0 flex items-center ${
-                    draftSettings.nativeKeyboard ? 'bg-[#E6005A]' : 'bg-[#E4E4E7] dark:bg-[#3F3F46]'
+                    draftSettings.nativeKeyboard ? 'bg-[#fd932f]' : 'bg-[#E4E4E7] dark:bg-[#3F3F46]'
                   }`}
                 >
                   <span className="toggle-switch-thumb block w-[32px] h-[22px] rounded-full bg-white border border-black/10 dark:border-white/10 shadow-md pointer-events-none" />
@@ -1335,7 +1335,7 @@ export const Settings: React.FC<SettingsProps> = ({
                   updateDraft('immersiveSearch', !draftSettings.immersiveSearch);
                 }}
                 className={`toggle-switch-btn relative w-[66px] h-7 rounded-full p-[3px] transition-colors duration-200 ease-in-out cursor-pointer shrink-0 flex items-center ${
-                  draftSettings.immersiveSearch ? 'bg-[#E6005A]' : 'bg-[#E4E4E7] dark:bg-[#3F3F46]'
+                  draftSettings.immersiveSearch ? 'bg-[#fd932f]' : 'bg-[#E4E4E7] dark:bg-[#3F3F46]'
                 }`}
               >
                 <span className="toggle-switch-thumb block w-[32px] h-[22px] rounded-full bg-white border border-black/10 dark:border-white/10 shadow-md pointer-events-none" />
@@ -1419,7 +1419,7 @@ export const Settings: React.FC<SettingsProps> = ({
                       <div className="font-semibold text-white text-sm flex items-center gap-2">
                         <span>{def.label}</span>
                         {currentKey !== def.defaultKey && (
-                          <span className="text-[10px] px-2 py-0.5 rounded-full bg-[#E6005A]/20 text-[#FF4D8B] font-medium border border-[#E6005A]/30">
+                          <span className="text-[10px] px-2 py-0.5 rounded-full bg-[#fd932f]/20 text-[#FF4D8B] font-medium border border-[#fd932f]/30">
                             Đã đổi
                           </span>
                         )}
@@ -1484,7 +1484,7 @@ export const Settings: React.FC<SettingsProps> = ({
                             onBlur={() => {
                               setEditingKeybindId(null);
                             }}
-                            className="px-3 py-1.5 text-xs rounded-xl bg-[#E6005A]/20 border-2 border-[#E6005A] text-white font-mono animate-pulse text-center w-36 cursor-pointer outline-none select-none"
+                            className="px-3 py-1.5 text-xs rounded-xl bg-[#fd932f]/20 border-2 border-[#fd932f] text-white font-mono animate-pulse text-center w-36 cursor-pointer outline-none select-none"
                           />
                           <button
                             type="button"
@@ -1507,7 +1507,7 @@ export const Settings: React.FC<SettingsProps> = ({
                               setEditingKeybindId(def.id);
                               setKeybindError(null);
                             }}
-                            className="px-3 py-1.5 rounded-xl bg-[#1F1E24] hover:bg-[#34333C] border border-white/10 hover:border-[#E6005A]/60 text-white font-mono text-xs font-bold transition-all shadow-inner active:scale-95 cursor-pointer"
+                            className="px-3 py-1.5 rounded-xl bg-[#1F1E24] hover:bg-[#34333C] border border-white/10 hover:border-[#fd932f]/60 text-white font-mono text-xs font-bold transition-all shadow-inner active:scale-95 cursor-pointer"
                             title="Nhấp để thay đổi phím tắt"
                           >
                             {currentKey}
@@ -1537,7 +1537,7 @@ export const Settings: React.FC<SettingsProps> = ({
 
                   {/* Inline Error Message */}
                   {error && (
-                    <div className="flex items-start gap-1.5 text-xs text-[#FF4D8B] bg-[#E6005A]/10 border border-[#E6005A]/30 p-2 rounded-xl">
+                    <div className="flex items-start gap-1.5 text-xs text-[#FF4D8B] bg-[#fd932f]/10 border border-[#fd932f]/30 p-2 rounded-xl">
                       <AlertCircle className="w-3.5 h-3.5 shrink-0 mt-0.5" />
                       <span>{error}</span>
                     </div>
@@ -1595,7 +1595,7 @@ export const Settings: React.FC<SettingsProps> = ({
                   href="https://test-vplay.vercel.app"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="px-5 py-2 rounded-full font-bold text-white bg-[#E6005A] hover:bg-[#FF267A] active:scale-[0.96] transition-all text-xs sm:text-sm cursor-pointer flex items-center justify-center shrink-0 shadow-md tracking-tight text-center select-none"
+                  className="px-5 py-2 rounded-full font-bold text-white bg-[#fd932f] hover:bg-[#e68428] active:scale-[0.96] transition-all text-xs sm:text-sm cursor-pointer flex items-center justify-center shrink-0 shadow-md tracking-tight text-center select-none"
                 >
                   Switch
                 </a>
@@ -1619,7 +1619,7 @@ export const Settings: React.FC<SettingsProps> = ({
                   id="btn-changelogs-read"
                   type="button"
                   onClick={() => setIsWelcomeModalOpen(true)}
-                  className="px-5 py-2 rounded-full font-bold text-white bg-[#E6005A] hover:bg-[#FF267A] active:scale-[0.96] transition-all text-xs sm:text-sm cursor-pointer flex items-center justify-center shrink-0 shadow-md tracking-tight text-center"
+                  className="px-5 py-2 rounded-full font-bold text-white bg-[#fd932f] hover:bg-[#e68428] active:scale-[0.96] transition-all text-xs sm:text-sm cursor-pointer flex items-center justify-center shrink-0 shadow-md tracking-tight text-center"
                 >
                   Read
                 </button>
@@ -1642,9 +1642,9 @@ export const Settings: React.FC<SettingsProps> = ({
             initial={{ opacity: 0, y: 16, scale: 0.95 }}
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: 16, scale: 0.95 }}
-            className="fixed bottom-24 left-1/2 -translate-x-1/2 z-50 flex items-center gap-2.5 px-5 py-2.5 rounded-full bg-[#1E1D24] border border-[#E6005A]/60 text-white text-xs sm:text-sm font-semibold shadow-2xl backdrop-blur-md"
+            className="fixed bottom-24 left-1/2 -translate-x-1/2 z-50 flex items-center gap-2.5 px-5 py-2.5 rounded-full bg-[#1E1D24] border border-[#fd932f]/60 text-white text-xs sm:text-sm font-semibold shadow-2xl backdrop-blur-md"
           >
-            <div className="w-5 h-5 rounded-full bg-[#E6005A] flex items-center justify-center shrink-0">
+            <div className="w-5 h-5 rounded-full bg-[#fd932f] flex items-center justify-center shrink-0">
               <SfCheckmark className="w-3 h-3" />
             </div>
             <span>{toastMessage}</span>

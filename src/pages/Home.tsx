@@ -143,7 +143,7 @@ export const Home: React.FC<HomeProps> = ({
               <button
                 type="button"
                 onClick={() => onSearchChange('')}
-                className="px-3.5 py-1.5 rounded-full text-xs font-semibold bg-[#E6005A] text-white hover:bg-[#E6005A]/90 transition-colors cursor-pointer"
+                className="px-3.5 py-1.5 rounded-full text-xs font-semibold bg-[#fd932f] text-white hover:bg-[#e68428] transition-colors cursor-pointer"
               >
                 Xóa tìm kiếm
               </button>
@@ -285,7 +285,7 @@ export const Home: React.FC<HomeProps> = ({
               <button
                 type="button"
                 onClick={() => onSearchChange('')}
-                className="px-4 py-1.5 rounded-full text-xs font-semibold bg-[#E6005A] text-white hover:bg-[#E6005A]/90 transition-colors cursor-pointer"
+                className="px-4 py-1.5 rounded-full text-xs font-semibold bg-[#fd932f] text-white hover:bg-[#e68428] transition-colors cursor-pointer"
               >
                 Xóa tìm kiếm
               </button>
@@ -422,7 +422,7 @@ export const Home: React.FC<HomeProps> = ({
 
                   <button
                     type="button"
-                    className="shrink-0 flex items-center gap-1.5 px-4 py-2 rounded-full bg-[#E6005A] hover:bg-[#FF267A] text-white text-xs font-bold transition-all shadow-md group-hover:scale-105"
+                    className="shrink-0 flex items-center gap-1.5 px-4 py-2 rounded-full bg-[#fd932f] hover:bg-[#e68428] text-white text-xs font-bold transition-all shadow-md group-hover:scale-105"
                   >
                     <span>Đọc bài viết</span>
                     <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-0.5 transition-transform" />

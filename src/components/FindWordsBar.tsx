@@ -84,11 +84,11 @@ export const FindWordsBar: React.FC<FindWordsBarProps> = ({ isOpen, onClose }) =
 
     marks.forEach((m, idx) => {
       if (idx === index) {
-        m.classList.add('ring-2', 'ring-[#E6005A]', 'bg-[#FF4D8D]', 'text-white');
+        m.classList.add('ring-2', 'ring-[#fd932f]', 'bg-[#fd932f]', 'text-white');
         m.classList.remove('bg-amber-400', 'text-black');
         m.scrollIntoView({ behavior: 'smooth', block: 'center' });
       } else {
-        m.classList.remove('ring-2', 'ring-[#E6005A]', 'bg-[#FF4D8D]', 'text-white');
+        m.classList.remove('ring-2', 'ring-[#fd932f]', 'bg-[#fd932f]', 'text-white');
         m.classList.add('bg-amber-400', 'text-black');
       }
     });

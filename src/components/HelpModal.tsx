@@ -96,7 +96,7 @@ export const HelpModal: React.FC<HelpModalProps> = ({ isOpen, onClose }) => {
               <button
                 type="button"
                 onClick={onClose}
-                className="w-full py-2.5 sm:py-3 rounded-full bg-[#E6005A] text-white font-bold text-xs sm:text-sm hover:bg-[#FF267A] transition-all cursor-pointer shadow-md"
+                className="w-full py-2.5 sm:py-3 rounded-full bg-[#fd932f] text-white font-bold text-xs sm:text-sm hover:bg-[#e68428] transition-all cursor-pointer shadow-md"
               >
                 Đã hiểu
               </button>
