@@ -124,7 +124,7 @@ export const Settings: React.FC<SettingsProps> = ({
     <div className="max-w-2xl mx-auto space-y-6 pb-24 pt-2 select-none">
       {/* 1. Header */}
       <div className="space-y-2">
-        <h1 className="text-3xl font-extrabold text-white tracking-tight">
+        <h1 className="text-3xl font-bold text-white tracking-tight">
           Cài đặt
         </h1>
         <p className="text-xs sm:text-sm text-[#9CA3AF]">
@@ -280,7 +280,7 @@ export const Settings: React.FC<SettingsProps> = ({
             <div id="settings-compatible-spatial-glass" className="pt-3 mt-1 border-t border-white/10 flex items-center">
               <p className="text-base sm:text-lg font-bold tracking-tight text-white">
                 Compatible with{' '}
-                <span className="bg-gradient-to-r from-[#FF8A00] via-[#FF0A54] to-[#E6005A] bg-clip-text text-transparent font-extrabold drop-shadow-[0_0_12px_rgba(230,0,90,0.35)]">
+                <span className="bg-gradient-to-r from-[#FF8A00] via-[#FF0A54] to-[#E6005A] bg-clip-text text-transparent font-bold drop-shadow-[0_0_12px_rgba(230,0,90,0.35)]">
                   Spatial Glass.
                 </span>
               </p>
@@ -327,7 +327,7 @@ export const Settings: React.FC<SettingsProps> = ({
               className="p-3.5 sm:p-4 rounded-[20px] flex items-center justify-between gap-4 transition-colors hover:bg-white/5"
             >
               <div className="flex-1 min-w-0 pr-2">
-                <div className="font-semibold text-white text-sm">
+                <div className="font-bold text-white text-sm">
                   <span className="bg-gradient-to-r from-[#FF8A00] via-[#FF0A54] to-[#E6005A] bg-clip-text text-transparent font-bold">
                     Spatial Glass
                   </span>
@@ -364,7 +364,7 @@ export const Settings: React.FC<SettingsProps> = ({
             >
               <div className="flex items-center justify-between">
                 <div>
-                  <div className="font-semibold text-white text-sm">
+                  <div className="font-bold text-white text-sm">
                     Độ trong suốt (Opacity)
                   </div>
                   <div className="text-xs text-[#9CA3AF] mt-1 leading-normal">
@@ -422,7 +422,7 @@ export const Settings: React.FC<SettingsProps> = ({
             >
               <div className="flex items-center justify-between">
                 <div>
-                  <div className="font-semibold text-white text-sm">
+                  <div className="font-bold text-white text-sm">
                     Độ mờ (Blur)
                   </div>
                   <div className="text-xs text-[#9CA3AF] mt-1 leading-normal">
@@ -521,7 +521,7 @@ export const Settings: React.FC<SettingsProps> = ({
               <div className="p-3 sm:p-4 rounded-[20px] space-y-3">
                 <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-1">
                   <div>
-                    <div className="font-semibold text-white text-sm">Thanh điều hướng</div>
+                    <div className="font-bold text-white text-sm">Thanh điều hướng</div>
                     <div className="text-xs text-[#9CA3AF] mt-1 leading-normal">Lựa chọn kiểu điều hướng của ứng dụng.</div>
                   </div>
                   {draftSettings.navigationMode === 'topbar' && (
@@ -572,7 +572,7 @@ export const Settings: React.FC<SettingsProps> = ({
                   <div>
                     <div className="flex items-center gap-2">
                       <Type className="w-4.5 h-4.5 text-[#9CA3AF]" />
-                      <span className="font-semibold text-white text-sm">
+                      <span className="font-bold text-white text-sm">
                         Thu phóng giao diện
                       </span>
                     </div>
@@ -655,7 +655,7 @@ export const Settings: React.FC<SettingsProps> = ({
               >
                 <div className="flex items-center justify-between gap-4">
                   <div>
-                    <div className="font-semibold text-white text-sm">Vị trí thanh bên (Sidebar position)</div>
+                    <div className="font-bold text-white text-sm">Vị trí thanh bên (Sidebar position)</div>
                     <div className="text-xs text-[#9CA3AF] mt-1 leading-normal">Chọn vị trí hiển thị thanh bên trái hoặc phải.</div>
                   </div>
                   <div className="flex rounded-full bg-[#1E1D24] p-1 shrink-0" role="group" aria-label="Sidebar position">
@@ -684,7 +684,7 @@ export const Settings: React.FC<SettingsProps> = ({
               >
                 <div>
                   <div className="flex items-center gap-2">
-                    <span className="font-semibold text-white text-sm">
+                    <span className="font-bold text-white text-sm">
                       OLED Dark
                     </span>
                     {draftSettings.superDarkMode && (
@@ -724,7 +724,7 @@ export const Settings: React.FC<SettingsProps> = ({
                 className="p-3.5 sm:p-4 rounded-[20px] flex items-center justify-between gap-4 transition-colors hover:bg-white/5"
               >
                 <div>
-                  <div className="font-semibold text-white text-sm">
+                  <div className="font-bold text-white text-sm">
                     Thanh tìm kiếm nổi
                   </div>
                   <div className="text-xs text-[#9CA3AF] mt-1 leading-normal">
@@ -791,7 +791,7 @@ export const Settings: React.FC<SettingsProps> = ({
                 <div className="flex items-center justify-between">
                   <div className="flex items-center gap-2">
                     <Tv className="w-4.5 h-4.5 text-[#9CA3AF]" />
-                    <span className="font-semibold text-white text-sm">
+                    <span className="font-bold text-white text-sm">
                       Tỉ lệ khung hình
                     </span>
                   </div>
@@ -830,7 +830,7 @@ export const Settings: React.FC<SettingsProps> = ({
             {matchesSearch('Tự động ẩn Sidebar') && (
               <div className="p-3.5 sm:p-4 rounded-[20px] flex items-center justify-between gap-4 transition-colors hover:bg-white/5">
                 <div>
-                  <div className="font-semibold text-white text-sm">
+                  <div className="font-bold text-white text-sm">
                     Tự động ẩn Sidebar
                   </div>
                   <div className="text-xs text-[#9CA3AF] mt-1 leading-normal">
@@ -892,7 +892,7 @@ export const Settings: React.FC<SettingsProps> = ({
                 className="group p-3.5 sm:p-4 rounded-[20px] flex items-center justify-between gap-4 cursor-default hover:bg-white/5 transition-colors"
               >
                 <div>
-                  <div className="font-semibold text-white text-sm">
+                  <div className="font-bold text-white text-sm">
                     Reduce all animation
                   </div>
                   <div className="text-xs text-[#9CA3AF] mt-1 leading-normal">
@@ -941,7 +941,7 @@ export const Settings: React.FC<SettingsProps> = ({
                   className="group p-3.5 sm:p-4 rounded-[20px] flex items-center justify-between gap-4 cursor-default hover:bg-white/5 transition-colors"
                 >
                   <div>
-                    <div className="font-semibold text-white text-sm">
+                    <div className="font-bold text-white text-sm">
                       Sidebar
                     </div>
                     <div className="text-xs text-[#9CA3AF] mt-1 leading-normal">
@@ -979,7 +979,7 @@ export const Settings: React.FC<SettingsProps> = ({
                   className="group p-3.5 sm:p-4 rounded-[20px] flex items-center justify-between gap-4 cursor-default hover:bg-white/5 transition-colors"
                 >
                   <div>
-                    <div className="font-semibold text-white text-sm">
+                    <div className="font-bold text-white text-sm">
                       Hộp thoại (Modal dialog)
                     </div>
                     <div className="text-xs text-[#9CA3AF] mt-1 leading-normal">
@@ -1017,7 +1017,7 @@ export const Settings: React.FC<SettingsProps> = ({
                   className="group p-3.5 sm:p-4 rounded-[20px] flex items-center justify-between gap-4 cursor-default hover:bg-white/5 transition-colors"
                 >
                   <div>
-                    <div className="font-semibold text-white text-sm">
+                    <div className="font-bold text-white text-sm">
                       Chuyển trang
                     </div>
                     <div className="text-xs text-[#9CA3AF] mt-1 leading-normal">
@@ -1080,7 +1080,7 @@ export const Settings: React.FC<SettingsProps> = ({
                 className="group p-3.5 sm:p-4 rounded-[20px] flex items-center justify-between gap-4 cursor-default hover:bg-white/5 transition-colors"
               >
                 <div>
-                  <div className="font-semibold text-white text-sm">
+                  <div className="font-bold text-white text-sm">
                     Danh mục
                   </div>
                   <div className="text-xs text-[#9CA3AF] mt-1 leading-normal">
@@ -1114,7 +1114,7 @@ export const Settings: React.FC<SettingsProps> = ({
                 className="group p-3.5 sm:p-4 rounded-[20px] flex items-center justify-between gap-4 cursor-default hover:bg-white/5 transition-colors"
               >
                 <div>
-                  <div className="font-semibold text-white text-sm">
+                  <div className="font-bold text-white text-sm">
                     Tin tức
                   </div>
                   <div className="text-xs text-[#9CA3AF] mt-1 leading-normal">
@@ -1151,7 +1151,7 @@ export const Settings: React.FC<SettingsProps> = ({
                     className="group flex items-center justify-between gap-4 cursor-default"
                   >
                     <div>
-                      <div className="font-semibold text-white text-sm">
+                      <div className="font-bold text-white text-sm">
                         Truyền hình
                       </div>
                       <div className="text-xs text-[#9CA3AF] mt-1 leading-normal">
@@ -1189,7 +1189,7 @@ export const Settings: React.FC<SettingsProps> = ({
                   >
                     <div>
                       <div className="flex items-center gap-2">
-                        <span className="font-semibold text-white text-sm">
+                        <span className="font-bold text-white text-sm">
                           Tìm kênh theo số hiệu kênh
                         </span>
                         <span className="px-1.5 py-0.5 rounded-md text-[10px] font-bold bg-[#fd932f]/20 text-[#fd932f] tracking-wider">
@@ -1229,7 +1229,7 @@ export const Settings: React.FC<SettingsProps> = ({
                 className="group p-3.5 sm:p-4 rounded-[20px] flex items-center justify-between gap-4 cursor-default hover:bg-white/5 transition-colors"
               >
                 <div>
-                  <div className="font-semibold text-white text-sm">
+                  <div className="font-bold text-white text-sm">
                     Cài đặt
                   </div>
                   <div className="text-xs text-[#9CA3AF] mt-1 leading-normal">
@@ -1300,7 +1300,7 @@ export const Settings: React.FC<SettingsProps> = ({
                 className="group p-3.5 sm:p-4 rounded-[20px] flex items-center justify-between gap-4 cursor-default hover:bg-white/5 transition-colors"
               >
                 <div>
-                  <div className="font-semibold text-white text-sm">
+                  <div className="font-bold text-white text-sm">
                     Bàn phím số
                   </div>
                   <div className="text-xs text-[#9CA3AF] mt-1 leading-normal">
@@ -1339,7 +1339,7 @@ export const Settings: React.FC<SettingsProps> = ({
                 className="group p-3.5 sm:p-4 rounded-[20px] flex items-center justify-between gap-4 cursor-default hover:bg-white/5 transition-colors"
               >
                 <div>
-                  <div className="font-semibold text-white text-sm">
+                  <div className="font-bold text-white text-sm">
                     Clipboard
                   </div>
                   <div className="text-xs text-[#9CA3AF] mt-1 leading-normal">
@@ -1379,7 +1379,7 @@ export const Settings: React.FC<SettingsProps> = ({
                 className="group p-3.5 sm:p-4 rounded-[20px] flex items-center justify-between gap-4 cursor-default hover:bg-white/5 transition-colors"
               >
                 <div>
-                  <div className="font-semibold text-white text-sm">
+                  <div className="font-bold text-white text-sm">
                     Âm bàn phím
                   </div>
                   <div className="text-xs text-[#9CA3AF] mt-1 leading-normal">
@@ -1456,7 +1456,7 @@ export const Settings: React.FC<SettingsProps> = ({
                 className="group p-3.5 sm:p-4 rounded-[20px] flex items-center justify-between gap-4 cursor-default hover:bg-white/5 transition-colors"
               >
                 <div>
-                  <div className="font-semibold text-white text-sm">
+                  <div className="font-bold text-white text-sm">
                     Native keyboard
                   </div>
                   <div className="text-xs text-[#9CA3AF] mt-1 leading-normal">
@@ -1489,7 +1489,7 @@ export const Settings: React.FC<SettingsProps> = ({
               className="group p-3.5 sm:p-4 rounded-[20px] flex items-center justify-between gap-4 cursor-default hover:bg-white/5 transition-colors"
             >
               <div>
-                <div className="font-semibold text-white text-sm">
+                <div className="font-bold text-white text-sm">
                   Immersive search experience
                 </div>
                 <div className="text-xs text-[#9CA3AF] mt-1 leading-normal">
@@ -1588,7 +1588,7 @@ export const Settings: React.FC<SettingsProps> = ({
                 >
                   <div className="flex items-center justify-between gap-3">
                     <div className="min-w-0 flex-1">
-                      <div className="font-semibold text-white text-sm flex items-center gap-2">
+                      <div className="font-bold text-white text-sm flex items-center gap-2">
                         <span>{def.label}</span>
                         {currentKey !== def.defaultKey && (
                           <span className="text-[10px] px-2 py-0.5 rounded-full bg-[#fd932f]/20 text-[#FF4D8B] font-medium border border-[#fd932f]/30">
@@ -1753,7 +1753,7 @@ export const Settings: React.FC<SettingsProps> = ({
             {(matchesSearch('Test Vplay') || matchesSearch('Test') || matchesSearch('Khác') || matchesSearch('Vplay')) && (
               <div className="p-3.5 sm:p-4 rounded-[20px] flex items-center justify-between gap-4 transition-colors hover:bg-white/5">
                 <div>
-                  <div className="font-semibold text-white text-sm">
+                  <div className="font-bold text-white text-sm">
                     Test Vplay
                   </div>
                   <div className="text-xs text-[#9CA3AF] mt-1 leading-normal">
@@ -1778,7 +1778,7 @@ export const Settings: React.FC<SettingsProps> = ({
             {(matchesSearch('Changelogs') || matchesSearch('Khác') || matchesSearch('Nhật ký thay đổi') || matchesSearch('Cập nhật') || matchesSearch('Release Notes') || matchesSearch('Vplay')) && (
               <div className="p-3.5 sm:p-4 rounded-[20px] flex items-center justify-between gap-4 transition-colors hover:bg-white/5">
                 <div>
-                  <div className="font-semibold text-white text-sm">
+                  <div className="font-bold text-white text-sm">
                     Changelogs
                   </div>
                   <div className="text-xs text-[#9CA3AF] mt-1 leading-normal">

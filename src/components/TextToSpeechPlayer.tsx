@@ -265,7 +265,7 @@ export const TextToSpeechPlayer: React.FC<TextToSpeechPlayerProps> = ({
                     </span>
                   )}
                 </div>
-                <h4 className="text-xs font-semibold text-white/90 truncate max-w-[260px] sm:max-w-[320px]">
+                <h4 className="text-xs font-bold text-white/90 truncate max-w-[260px] sm:max-w-[320px]">
                   {article.title}
                 </h4>
               </div>

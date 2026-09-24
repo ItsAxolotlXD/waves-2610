@@ -38,7 +38,7 @@ export const News: React.FC<NewsProps> = ({ navigate, searchQuery, onSearchChang
     <div className="space-y-6 sm:space-y-8 pb-16">
       {/* Header */}
       <div>
-        <h1 className="text-2xl sm:text-3xl font-extrabold text-[#111827] dark:text-white tracking-tight">
+        <h1 className="text-2xl sm:text-3xl font-bold text-[#111827] dark:text-white tracking-tight">
           News Feed
         </h1>
         <p className="text-xs sm:text-sm text-[#4B5563] dark:text-[#9CA3AF] mt-1.5 leading-relaxed max-w-4xl">
@@ -95,7 +95,7 @@ export const News: React.FC<NewsProps> = ({ navigate, searchQuery, onSearchChang
                     {featured.publishedAt}
                   </span>
                 </div>
-                <h2 className="text-lg sm:text-xl md:text-2xl font-extrabold text-[#111827] dark:text-white mt-2 group-hover:text-[#E50914] transition-colors leading-snug">
+                <h2 className="text-lg sm:text-xl md:text-2xl font-bold text-[#111827] dark:text-white mt-2 group-hover:text-[#E50914] transition-colors leading-snug">
                   {featured.title}
                 </h2>
                 <p className="text-xs sm:text-sm text-[#4B5563] dark:text-[#9CA3AF] mt-2 leading-relaxed line-clamp-2">

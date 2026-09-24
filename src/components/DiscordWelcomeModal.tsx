@@ -30,7 +30,7 @@ export const DiscordWelcomeModal: React.FC<DiscordWelcomeModalProps> = ({
             exit={{ opacity: 0 }}
             transition={{ duration: 0.35, ease: [0.16, 1, 0.3, 1] }}
             onClick={onClose}
-            className="fixed inset-0 bg-black/80 backdrop-blur-md"
+            className="fixed inset-0 bg-black/10 backdrop-blur-md"
           />
 
           {/* 2. Dialog Modal Box */}
@@ -53,12 +53,12 @@ export const DiscordWelcomeModal: React.FC<DiscordWelcomeModalProps> = ({
                 ease: [0.25, 0.1, 0.25, 1]
               }
             }}
-            className="relative z-10 w-full max-w-[450px] bg-[#27282D] rounded-[28px] sm:rounded-[32px] p-6 sm:p-7 shadow-2xl select-none border border-white/10"
+            className="spatial-glass-modal relative z-10 w-full max-w-[450px] bg-white/30 rounded-[28px] sm:rounded-[32px] p-6 sm:p-7 shadow-2xl select-none border border-white/50 text-black"
           >
             {/* Title */}
             <h1
               id="discord-welcome-title"
-              className="text-xl sm:text-[23px] font-bold text-white tracking-tight mb-2.5 font-sans leading-tight"
+              className="text-xl sm:text-[23px] font-bold text-black tracking-tight mb-2.5 font-sans leading-tight"
             >
               Chào mừng bạn!
             </h1>
@@ -66,7 +66,7 @@ export const DiscordWelcomeModal: React.FC<DiscordWelcomeModalProps> = ({
             {/* Subtitle */}
             <p
               id="discord-welcome-subtitle"
-              className="text-xs sm:text-sm text-[#D1D5DB] leading-relaxed mb-5 font-normal"
+              className="text-xs sm:text-sm text-neutral-800 leading-relaxed mb-5 font-normal"
             >
               “Nhịp sóng lưu dấu thời đại” – nơi kết nối những tâm hồn từ khắp mọi miền Bắc – Trung – Nam, cùng gặp gỡ, sẻ chia và trò chuyện qua những câu chuyện của thời đại. Không chỉ là nơi hội tụ của những tiếng nói và góc nhìn đa dạng, đây còn là không gian lưu giữ những ký ức, khoảnh khắc và dấu ấn truyền thông – những mảnh ghép nhỏ góp phần tạo nên bức tranh lớn của một thời đã qua.
             </p>

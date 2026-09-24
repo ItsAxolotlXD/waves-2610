@@ -49,6 +49,24 @@
     font-family: 'Integer', 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif !important;
   }
 
+  /* Global typography: bold font for headers, headings, h1-h6, titles & big titles */
+  h1, h2, h3, h4, h5, h6,
+  header h1, header h2, header h3, header h4, header h5, header h6,
+  [role="heading"],
+  .title,
+  [class*="title"],
+  [id*="title"],
+  .heading,
+  [class*="heading"],
+  .big-title,
+  [class*="big-title"],
+  .header-title,
+  .section-title,
+  .modal-title,
+  .card-title {
+    font-weight: 700 !important;
+  }
+
   html {
     font-size: calc(16px * var(--waves-font-scale, 1));
   }
@@ -1093,7 +1111,17 @@ button[role="switch"],
 #btn-floaty-search-trigger,
 .floaty-bar__surface,
 #vplay-tools-dropdown-card,
-#native-keyboard-lang-menu {
+#native-keyboard-lang-menu,
+#welcome-modal-dialog,
+#discord-welcome-dialog,
+#under-construction-modal-dialog,
+#developer-mode-modal-dialog,
+#custom-stream-dialog,
+#help-modal-dialog,
+#news-summary-dialog,
+#spotlight-popup-card,
+#add-stream-dialog,
+.spatial-glass-modal {
   position: relative !important;
   box-sizing: border-box !important;
   border-left: 0 !important;
@@ -1186,7 +1214,17 @@ button[role="switch"]::after,
 #btn-floaty-search-trigger::after,
 .floaty-bar__surface::after,
 #vplay-tools-dropdown-card::after,
-#native-keyboard-lang-menu::after {
+#native-keyboard-lang-menu::after,
+#welcome-modal-dialog::after,
+#discord-welcome-dialog::after,
+#under-construction-modal-dialog::after,
+#developer-mode-modal-dialog::after,
+#custom-stream-dialog::after,
+#help-modal-dialog::after,
+#news-summary-dialog::after,
+#spotlight-popup-card::after,
+#add-stream-dialog::after,
+.spatial-glass-modal::after {
   content: "";
   position: absolute;
   inset: 0;
@@ -1200,24 +1238,26 @@ button[role="switch"]::after,
   background-image: none !important;
   -webkit-mask-image: linear-gradient(180deg, 
     #000000 0%, 
-    #000000 20%, 
-    rgba(0, 0, 0, 0.75) 30%, 
-    rgba(0, 0, 0, 0.30) 40%, 
-    transparent 50%, 
-    rgba(0, 0, 0, 0.30) 60%, 
-    rgba(0, 0, 0, 0.75) 70%, 
-    #000000 80%, 
+    rgba(0, 0, 0, 0.75) 4%, 
+    rgba(0, 0, 0, 0.35) 10%, 
+    rgba(0, 0, 0, 0.08) 18%, 
+    transparent 26%, 
+    transparent 74%, 
+    rgba(0, 0, 0, 0.08) 82%, 
+    rgba(0, 0, 0, 0.35) 90%, 
+    rgba(0, 0, 0, 0.75) 96%, 
     #000000 100%
   ) !important;
   mask-image: linear-gradient(180deg, 
     #000000 0%, 
-    #000000 20%, 
-    rgba(0, 0, 0, 0.75) 30%, 
-    rgba(0, 0, 0, 0.30) 40%, 
-    transparent 50%, 
-    rgba(0, 0, 0, 0.30) 60%, 
-    rgba(0, 0, 0, 0.75) 70%, 
-    #000000 80%, 
+    rgba(0, 0, 0, 0.75) 4%, 
+    rgba(0, 0, 0, 0.35) 10%, 
+    rgba(0, 0, 0, 0.08) 18%, 
+    transparent 26%, 
+    transparent 74%, 
+    rgba(0, 0, 0, 0.08) 82%, 
+    rgba(0, 0, 0, 0.35) 90%, 
+    rgba(0, 0, 0, 0.75) 96%, 
     #000000 100%
   ) !important;
   transition: opacity 0.2s ease, border-color 0.2s ease;
@@ -1298,8 +1338,6 @@ button[role="switch"]:hover::after,
 #btn-spotlight-search:hover::after,
 #btn-mobile-spotlight-search:hover::after,
 #btn-spotlight-search-mini:hover::after,
-#floating-search-bar-pill:hover::after,
-#btn-floaty-search-trigger:hover::after,
 .floaty-bar__surface:hover::after,
 #vplay-tools-dropdown-card:hover::after,
 #native-keyboard-lang-menu:hover::after {
@@ -1309,24 +1347,26 @@ button[role="switch"]:hover::after,
   background-image: none !important;
   -webkit-mask-image: linear-gradient(180deg, 
     #000000 0%, 
-    #000000 24%, 
-    rgba(0, 0, 0, 0.80) 34%, 
-    rgba(0, 0, 0, 0.35) 44%, 
-    transparent 50%, 
-    rgba(0, 0, 0, 0.35) 56%, 
-    rgba(0, 0, 0, 0.80) 66%, 
-    #000000 76%, 
+    rgba(0, 0, 0, 0.85) 5%, 
+    rgba(0, 0, 0, 0.45) 12%, 
+    rgba(0, 0, 0, 0.12) 20%, 
+    transparent 28%, 
+    transparent 72%, 
+    rgba(0, 0, 0, 0.12) 80%, 
+    rgba(0, 0, 0, 0.45) 88%, 
+    rgba(0, 0, 0, 0.85) 95%, 
     #000000 100%
   ) !important;
   mask-image: linear-gradient(180deg, 
     #000000 0%, 
-    #000000 24%, 
-    rgba(0, 0, 0, 0.80) 34%, 
-    rgba(0, 0, 0, 0.35) 44%, 
-    transparent 50%, 
-    rgba(0, 0, 0, 0.35) 56%, 
-    rgba(0, 0, 0, 0.80) 66%, 
-    #000000 76%, 
+    rgba(0, 0, 0, 0.85) 5%, 
+    rgba(0, 0, 0, 0.45) 12%, 
+    rgba(0, 0, 0, 0.12) 20%, 
+    transparent 28%, 
+    transparent 72%, 
+    rgba(0, 0, 0, 0.12) 80%, 
+    rgba(0, 0, 0, 0.45) 88%, 
+    rgba(0, 0, 0, 0.85) 95%, 
     #000000 100%
   ) !important;
 }
@@ -1967,23 +2007,22 @@ html.light-mode .immersive-search-input input {
   color: #111827 !important;
 }
 
-/* Floaty bar: translucent pill with backdrop blur matching the reference dock. */
-.floaty-bar {
-  isolation: isolate;
-}
-
+/* Floaty bar: translucent pill with backdrop blur matching the reference dock and floating search. */
 .floaty-bar__surface {
+  position: relative !important;
   min-width: 0 !important;
   width: auto !important;
   max-width: calc(100vw - 2rem) !important;
   justify-content: space-between;
   overflow: hidden;
   height: 44px !important;
-  background: rgba(255, 255, 255, 0.20) !important;
+  background-color: var(--spatial-glass-bg, rgba(255, 255, 255, 0.20)) !important;
+  background-image: none !important;
   box-shadow: 0 8px 32px rgba(0, 0, 0, 0.35) !important;
-  backdrop-filter: blur(20px) !important;
-  -webkit-backdrop-filter: blur(20px) !important;
-  border: 0.5px solid rgba(255, 255, 255, 0.14) !important;
+  backdrop-filter: blur(var(--spatial-glass-blur, 20px)) !important;
+  -webkit-backdrop-filter: blur(var(--spatial-glass-blur, 20px)) !important;
+  border: none !important;
+  box-sizing: border-box !important;
 }
 
 @media (min-width: 640px) {
@@ -2006,13 +2045,15 @@ html.light-mode .immersive-search-input input {
 }
 
 #btn-floaty-search-trigger {
+  position: relative !important;
   height: 44px !important;
   width: 44px !important;
-  background: rgba(255, 255, 255, 0.20) !important;
+  background-color: var(--spatial-glass-bg, rgba(255, 255, 255, 0.20)) !important;
+  background-image: none !important;
   box-shadow: 0 8px 32px rgba(0, 0, 0, 0.35) !important;
-  backdrop-filter: blur(20px) !important;
-  -webkit-backdrop-filter: blur(20px) !important;
-  border: 0.5px solid rgba(255, 255, 255, 0.14) !important;
+  backdrop-filter: blur(var(--spatial-glass-blur, 20px)) !important;
+  -webkit-backdrop-filter: blur(var(--spatial-glass-blur, 20px)) !important;
+  border: none !important;
   box-sizing: border-box !important;
 }
 
@@ -2024,22 +2065,84 @@ html.light-mode .immersive-search-input input {
 }
 
 #floating-search-bar-pill {
+  position: relative !important;
   height: 44px !important;
-  background: rgba(255, 255, 255, 0.20) !important;
+  background-color: var(--spatial-glass-bg, rgba(255, 255, 255, 0.20)) !important;
+  background-image: none !important;
   box-shadow: 0 8px 32px rgba(0, 0, 0, 0.35) !important;
-  backdrop-filter: blur(20px) !important;
-  -webkit-backdrop-filter: blur(20px) !important;
-  border: 0.5px solid rgba(255, 255, 255, 0.14) !important;
+  backdrop-filter: blur(var(--spatial-glass-blur, 20px)) !important;
+  -webkit-backdrop-filter: blur(var(--spatial-glass-blur, 20px)) !important;
+  border: none !important;
   box-sizing: border-box !important;
 }
 
-/* Thinner specular spatial glass border for floaty bar and floating search */
+/* Specular spatial glass border for floaty bar and floating search */
 #floating-search-bar-pill::after,
 #btn-floaty-search-trigger::after,
 .floaty-bar__surface::after {
-  border-top: 0.5px solid rgba(255, 255, 255, 0.28) !important;
-  border-bottom: 0.5px solid rgba(255, 255, 255, 0.28) !important;
-  background-size: 100% 0.5px, 100% 0.5px !important;
+  border: 1px solid rgba(255, 255, 255, 0.35) !important;
+  background: transparent !important;
+  background-image: none !important;
+}
+
+/* Floaty bar, float search bar & trigger button: style on hover is strictly identical to unhovered */
+#floating-search-bar-pill:hover,
+#btn-floaty-search-trigger:hover,
+.floaty-bar__surface:hover {
+  background: var(--spatial-glass-bg, rgba(255, 255, 255, 0.20)) !important;
+  background-color: var(--spatial-glass-bg, rgba(255, 255, 255, 0.20)) !important;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.35) !important;
+  border: none !important;
+  transform: none !important;
+  filter: none !important;
+}
+
+#floating-search-bar-pill:hover::after,
+#btn-floaty-search-trigger:hover::after,
+.floaty-bar__surface:hover::after {
+  border: 1px solid rgba(255, 255, 255, 0.35) !important;
+  background: transparent !important;
+  background-image: none !important;
+  box-shadow: none !important;
+  opacity: 1 !important;
+}
+
+html.light-mode #floating-search-bar-pill:hover,
+html.light-mode #btn-floaty-search-trigger:hover,
+html.light-mode .floaty-bar__surface:hover {
+  background: rgba(0, 0, 0, 0.06) !important;
+  background-color: rgba(0, 0, 0, 0.06) !important;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.15) !important;
+  border: none !important;
+  transform: none !important;
+  filter: none !important;
+}
+
+html.light-mode #floating-search-bar-pill:hover::after,
+html.light-mode #btn-floaty-search-trigger:hover::after,
+html.light-mode .floaty-bar__surface:hover::after {
+  border: 1px solid rgba(0, 0, 0, 0.18) !important;
+  background: transparent !important;
+  background-image: none !important;
+  box-shadow: none !important;
+}
+
+html.spatial-glass-dark-content #floating-search-bar-pill:hover,
+html.spatial-glass-dark-content #btn-floaty-search-trigger:hover,
+html.spatial-glass-dark-content .floaty-bar__surface:hover {
+  background: rgba(0, 0, 0, 0.06) !important;
+  background-color: rgba(0, 0, 0, 0.06) !important;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.15) !important;
+  border: none !important;
+  transform: none !important;
+}
+
+html.spatial-glass-dark-content #floating-search-bar-pill:hover::after,
+html.spatial-glass-dark-content #btn-floaty-search-trigger:hover::after,
+html.spatial-glass-dark-content .floaty-bar__surface:hover::after {
+  border: 1px solid rgba(0, 0, 0, 0.35) !important;
+  background: transparent !important;
+  background-image: none !important;
 }
 
 @media (min-width: 640px) {
@@ -2412,10 +2515,7 @@ html.light-mode [id^="test-channel-card-"]:not(.is-selected),
 html.light-mode #settings-search-container,
 html.light-mode #btn-spotlight-search,
 html.light-mode #btn-mobile-spotlight-search,
-html.light-mode #btn-spotlight-search-mini,
-html.light-mode #floating-search-bar-pill,
-html.light-mode #btn-floaty-search-trigger,
-html.light-mode .floaty-bar__surface {
+html.light-mode #btn-spotlight-search-mini {
   box-sizing: border-box !important;
   border: 3.5px solid transparent !important;
   background-image: 
@@ -2437,10 +2537,7 @@ html.light-mode [id^="test-channel-card-"]:not(.is-selected):hover,
 html.light-mode #settings-search-container:hover,
 html.light-mode #btn-spotlight-search:hover,
 html.light-mode #btn-mobile-spotlight-search:hover,
-html.light-mode #btn-spotlight-search-mini:hover,
-html.light-mode #floating-search-bar-pill:hover,
-html.light-mode #btn-floaty-search-trigger:hover,
-html.light-mode .floaty-bar__surface:hover {
+html.light-mode #btn-spotlight-search-mini:hover {
   box-sizing: border-box !important;
   border: 3.5px solid rgba(0, 0, 0, 0.15) !important;
   background-image: 
@@ -2462,7 +2559,17 @@ html.light-mode [id^="news-card-"]::after,
 html.light-mode .news-card-featured::after,
 html.light-mode #featured-news-card::after,
 html.light-mode #vplay-tools-dropdown-card::after,
-html.light-mode #native-keyboard-lang-menu::after {
+html.light-mode #native-keyboard-lang-menu::after,
+html.light-mode #welcome-modal-dialog::after,
+html.light-mode #discord-welcome-dialog::after,
+html.light-mode #under-construction-modal-dialog::after,
+html.light-mode #developer-mode-modal-dialog::after,
+html.light-mode #custom-stream-dialog::after,
+html.light-mode #help-modal-dialog::after,
+html.light-mode #news-summary-dialog::after,
+html.light-mode #spotlight-popup-card::after,
+html.light-mode #add-stream-dialog::after,
+html.light-mode .spatial-glass-modal::after {
   border: 1px solid rgba(0, 0, 0, 0.06) !important;
   border-top: 1px solid rgba(100, 116, 139, 0.32) !important;
   border-bottom: 1px solid rgba(100, 116, 139, 0.32) !important;
@@ -2521,43 +2628,57 @@ html.light-mode .spotlight-input-container svg {
   color: #6B7280 !important;
 }
 
-/* Light mode Spotlight results items */
-html.light-mode #spotlight-popup-card .bg-\[\#22222A\] {
-  background-color: #F3F4F6 !important;
+/* Spotlight popup card items (White 30% spatial glass modal styling) */
+#spotlight-popup-card .bg-\[\#22222A\] {
+  background-color: rgba(0, 0, 0, 0.05) !important;
 }
-html.light-mode #spotlight-popup-card .bg-\[\#22222A\]:hover {
-  background-color: #E5E7EB !important;
+#spotlight-popup-card .bg-\[\#22222A\]:hover {
+  background-color: rgba(0, 0, 0, 0.09) !important;
 }
-html.light-mode #spotlight-popup-card .bg-\[\#28272E\] {
-  background-color: #F4F4F5 !important;
-  border: 1px solid #E4E4E7 !important;
+#spotlight-popup-card .bg-\[\#28272E\] {
+  background-color: rgba(0, 0, 0, 0.05) !important;
+  border: 1px solid rgba(0, 0, 0, 0.08) !important;
 }
-html.light-mode #spotlight-popup-card .bg-\[\#28272E\]:hover {
-  background-color: #E4E4E7 !important;
+#spotlight-popup-card .bg-\[\#28272E\]:hover {
+  background-color: rgba(0, 0, 0, 0.08) !important;
 }
-html.light-mode #spotlight-popup-card .border-\[\#383742\] {
-  border-color: #E4E4E7 !important;
+#spotlight-popup-card .border-\[\#383742\] {
+  border-color: rgba(0, 0, 0, 0.10) !important;
 }
-html.light-mode #spotlight-popup-card .border-white\/10 {
-  border-color: rgba(0, 0, 0, 0.08) !important;
+#spotlight-popup-card .border-white\/10 {
+  border-color: rgba(0, 0, 0, 0.10) !important;
 }
-html.light-mode #spotlight-popup-card .text-\[\#9CA3AF\] {
-  color: #6B7280 !important;
+#spotlight-popup-card .text-\[\#9CA3AF\] {
+  color: #52525B !important;
 }
-html.light-mode #spotlight-popup-card .text-\[\#8E8E93\] {
+#spotlight-popup-card .text-\[\#8E8E93\] {
   color: #71717A !important;
 }
-html.light-mode #spotlight-popup-card .bg-\[\#141418\] {
-  background-color: #FFFFFF !important;
-  border-color: #E5E7EB !important;
+#spotlight-popup-card .bg-\[\#141418\] {
+  background-color: rgba(255, 255, 255, 0.8) !important;
+  border-color: rgba(0, 0, 0, 0.1) !important;
 }
-html.light-mode #spotlight-popup-card .bg-\[\#2E2E38\],
-html.light-mode #spotlight-popup-card .bg-\[\#2F2F3A\] {
-  background-color: #E5E7EB !important;
-  color: #374151 !important;
+#spotlight-popup-card .bg-\[\#2E2E38\],
+#spotlight-popup-card .bg-\[\#2F2F3A\] {
+  background-color: rgba(0, 0, 0, 0.08) !important;
+  color: #18181B !important;
 }
-html.light-mode #spotlight-popup-card .text-white {
-  color: #111827 !important;
+#spotlight-popup-card .text-white {
+  color: #000000 !important;
+}
+#spotlight-popup-card .spotlight-bubble-box {
+  background-color: rgba(255, 255, 255, 0.6) !important;
+  border: 1px solid rgba(0, 0, 0, 0.12) !important;
+}
+#spotlight-popup-card .spotlight-bubble-box input {
+  color: #000000 !important;
+}
+#spotlight-popup-card .spotlight-bubble-box input::placeholder {
+  color: #71717A !important;
+}
+#spotlight-popup-card .spotlight-bubble-box img {
+  filter: brightness(0) !important;
+  opacity: 0.8 !important;
 }
 
 /* Light mode category filter buttons */
@@ -2568,7 +2689,11 @@ html.light-mode .bg-\[\#1E1E22\].text-\[\#A1A1AA\] {
   border-color: #E5E7EB !important;
 }
 
-/* Modal Dialogs - Gray Background */
+/* ==========================================================================
+   Modal Popup Dialogs - Spatial Glass Adaptations (Dark & Light Mode)
+   Dynamic background opacity and blur adapting to --spatial-glass-opacity
+   and --spatial-glass-blur settings.
+   ========================================================================== */
 #welcome-modal-dialog,
 #discord-welcome-dialog,
 #under-construction-modal-dialog,
@@ -2577,12 +2702,39 @@ html.light-mode .bg-\[\#1E1E22\].text-\[\#A1A1AA\] {
 #help-modal-dialog,
 #news-summary-dialog,
 #spotlight-popup-card,
-#add-stream-dialog {
-  background-color: #27282D !important;
-  border-color: rgba(255, 255, 255, 0.10) !important;
+#add-stream-dialog,
+.spatial-glass-modal {
+  position: relative !important;
+  box-sizing: border-box !important;
+  background-color: rgba(255, 255, 255, 0.30) !important;
+  backdrop-filter: blur(var(--spatial-glass-blur, 24px)) saturate(160%) !important;
+  -webkit-backdrop-filter: blur(var(--spatial-glass-blur, 24px)) saturate(160%) !important;
+  color: #000000 !important;
+  border-left: 0 !important;
+  border-right: 0 !important;
+  border-left-width: 0 !important;
+  border-right-width: 0 !important;
+  border-top: 1px solid rgba(255, 255, 255, 0.60) !important;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.12) !important;
+  box-shadow: 0 24px 64px rgba(0, 0, 0, 0.20), inset 0 1px 1.5px 0 rgba(255, 255, 255, 0.8), inset 0 -1px 1px 0 rgba(255, 255, 255, 0.3) !important;
 }
 
-/* Light Mode Modal Dialog Overrides */
+/* Modal Backdrops with softened cinematic blur - 10% opacity */
+#welcome-modal-backdrop,
+#discord-welcome-backdrop,
+#under-construction-modal-backdrop,
+#developer-mode-modal-backdrop,
+#custom-stream-backdrop,
+#help-modal-backdrop,
+#news-summary-backdrop,
+#spotlight-modal-backdrop,
+#add-stream-backdrop {
+  background-color: rgba(0, 0, 0, 0.10) !important;
+  backdrop-filter: blur(10px) !important;
+  -webkit-backdrop-filter: blur(10px) !important;
+}
+
+/* Light Mode Modal Dialog Overrides with Spatial Glass */
 html.light-mode #discord-welcome-dialog,
 html.light-mode #welcome-modal-dialog,
 html.light-mode #under-construction-modal-dialog,
@@ -2591,10 +2743,72 @@ html.light-mode #custom-stream-dialog,
 html.light-mode #help-modal-dialog,
 html.light-mode #news-summary-dialog,
 html.light-mode #spotlight-popup-card,
-html.light-mode #add-stream-dialog {
-  background-color: #E5E7EB !important;
-  color: #111827 !important;
-  border-color: #D1D5DB !important;
+html.light-mode #add-stream-dialog,
+html.light-mode .spatial-glass-modal {
+  position: relative !important;
+  box-sizing: border-box !important;
+  background-color: rgba(255, 255, 255, 0.30) !important;
+  backdrop-filter: blur(var(--spatial-glass-blur, 24px)) saturate(160%) !important;
+  -webkit-backdrop-filter: blur(var(--spatial-glass-blur, 24px)) saturate(160%) !important;
+  color: #000000 !important;
+  border-left: 0 !important;
+  border-right: 0 !important;
+  border-left-width: 0 !important;
+  border-right-width: 0 !important;
+  border-top: 1px solid rgba(255, 255, 255, 0.95) !important;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.12) !important;
+  box-shadow: 0 25px 60px rgba(0, 0, 0, 0.16), inset 0 1px 2px 0 rgba(255, 255, 255, 0.95), inset 0 -1px 1px 0 rgba(255, 255, 255, 0.40) !important;
+}
+
+html.light-mode #welcome-modal-backdrop,
+html.light-mode #discord-welcome-backdrop,
+html.light-mode #under-construction-modal-backdrop,
+html.light-mode #developer-mode-modal-backdrop,
+html.light-mode #custom-stream-backdrop,
+html.light-mode #help-modal-backdrop,
+html.light-mode #news-summary-backdrop,
+html.light-mode #spotlight-modal-backdrop,
+html.light-mode #add-stream-backdrop {
+  background-color: rgba(0, 0, 0, 0.10) !important;
+  backdrop-filter: blur(10px) !important;
+  -webkit-backdrop-filter: blur(10px) !important;
+}
+
+/* Fallback when Spatial Glass is explicitly turned off */
+html.no-spatial-glass #welcome-modal-dialog,
+html.no-spatial-glass #discord-welcome-dialog,
+html.no-spatial-glass #welcome-modal-dialog,
+html.no-spatial-glass #under-construction-modal-dialog,
+html.no-spatial-glass #developer-mode-modal-dialog,
+html.no-spatial-glass #custom-stream-dialog,
+html.no-spatial-glass #help-modal-dialog,
+html.no-spatial-glass #news-summary-dialog,
+html.no-spatial-glass #spotlight-popup-card,
+html.no-spatial-glass #add-stream-dialog,
+html.no-spatial-glass .spatial-glass-modal {
+  background-color: #FFFFFF !important;
+  color: #000000 !important;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+  border: 1px solid rgba(0, 0, 0, 0.12) !important;
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.2) !important;
+}
+
+html.light-mode.no-spatial-glass #discord-welcome-dialog,
+html.light-mode.no-spatial-glass #welcome-modal-dialog,
+html.light-mode.no-spatial-glass #under-construction-modal-dialog,
+html.light-mode.no-spatial-glass #developer-mode-modal-dialog,
+html.light-mode.no-spatial-glass #custom-stream-dialog,
+html.light-mode.no-spatial-glass #help-modal-dialog,
+html.light-mode.no-spatial-glass #news-summary-dialog,
+html.light-mode.no-spatial-glass #spotlight-popup-card,
+html.light-mode.no-spatial-glass #add-stream-dialog,
+html.light-mode.no-spatial-glass .spatial-glass-modal {
+  background-color: #FFFFFF !important;
+  color: #000000 !important;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+  border: 1px solid #D1D5DB !important;
   box-shadow: 0 25px 60px rgba(0, 0, 0, 0.18) !important;
 }
 
@@ -2611,11 +2825,10 @@ html.light-mode #custom-stream-backdrop {
   background-color: rgba(0, 0, 0, 0.45) !important;
 }
 
-/* Custom Stream Modal in Light Mode */
-html.light-mode #custom-stream-dialog {
+/* Custom Stream Modal in Light Mode Content */
+html.light-mode.no-spatial-glass #custom-stream-dialog {
   background-color: #E5E7EB !important;
   border-color: #D1D5DB !important;
-  box-shadow: 0 25px 60px rgba(0, 0, 0, 0.18) !important;
 }
 
 html.light-mode #custom-stream-dialog h3 {
@@ -2658,8 +2871,8 @@ html.light-mode #custom-stream-dialog button.bg-\[\#28282E\]:hover {
 }
 
 /* Welcome Modal in Light Mode */
-html.light-mode #welcome-modal-dialog,
-html.light-mode #under-construction-modal-dialog {
+html.light-mode.no-spatial-glass #welcome-modal-dialog,
+html.light-mode.no-spatial-glass #under-construction-modal-dialog {
   background-color: #E5E7EB !important;
   color: #111827 !important;
   border-color: #D1D5DB !important;
@@ -3296,7 +3509,7 @@ html.light-mode #find-words-bar button.bg-\[\#28282E\]:hover {
 }
 
 /* Light Mode Help Modal Dialog */
-html.light-mode #help-modal-dialog {
+html.light-mode.no-spatial-glass #help-modal-dialog {
   background-color: #FFFFFF !important;
   border-color: #E2E8F0 !important;
   color: #111827 !important;
@@ -3338,7 +3551,7 @@ html.light-mode #help-modal-dialog button.bg-\[\#28282E\]:hover {
 }
 
 /* Light Mode News Summary Dialog */
-html.light-mode #news-summary-dialog {
+html.light-mode.no-spatial-glass #news-summary-dialog {
   background-color: #FFFFFF !important;
   border-color: #E2E8F0 !important;
   color: #111827 !important;
@@ -3778,7 +3991,7 @@ html.light-mode #about-community-card {
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05) !important;
 }
 
-/* Keep Floaty tabs transparent by default, and active/hovered tabs at pill background */
+/* Keep Floaty tabs transparent so the morphing active pill can slide smoothly */
 .floaty-bar .floaty-bar__item {
   background: transparent !important;
   background-color: transparent !important;
@@ -3789,59 +4002,25 @@ html.light-mode #about-community-card {
   border-radius: 9999px !important;
 }
 
-.floaty-bar .floaty-bar__item.is-active,
-.floaty-bar .floaty-bar__item.is-active:hover,
-.floaty-bar .floaty-bar__item.is-active:focus-visible,
-.floaty-bar .floaty-bar__item:hover,
-.floaty-bar #dock-home.is-active,
-.floaty-bar #dock-home:hover,
-.floaty-bar #dock-tv.is-active,
-.floaty-bar #dock-tv:hover,
-.floaty-bar #dock-test.is-active,
-.floaty-bar #dock-test:hover,
-.floaty-bar #dock-news.is-active,
-.floaty-bar #dock-news:hover,
-.floaty-bar #dock-search.is-active,
-.floaty-bar #dock-search:hover,
-.floaty-bar #dock-discord.is-active,
-.floaty-bar #dock-discord:hover,
-.floaty-bar #dock-help.is-active,
-.floaty-bar #dock-help:hover,
-.floaty-bar #dock-about.is-active,
-.floaty-bar #dock-about:hover,
-.floaty-bar #dock-settings.is-active,
-.floaty-bar #dock-settings:hover {
-  background: rgba(255, 255, 255, 0.2) !important;
-  background-color: rgba(255, 255, 255, 0.2) !important;
-  background-image: none !important;
-  border: 0 !important;
-  box-shadow: none !important;
+.floaty-bar-pill-indicator {
+  background: rgba(255, 255, 255, 0.20) !important;
+  background-color: rgba(255, 255, 255, 0.20) !important;
   border-radius: 9999px !important;
-  transform: none !important;
 }
 
-html.light-mode .floaty-bar .floaty-bar__item.is-active,
-html.light-mode .floaty-bar .floaty-bar__item:hover,
-html.light-mode .floaty-bar #dock-home.is-active,
-html.light-mode .floaty-bar #dock-home:hover,
-html.light-mode .floaty-bar #dock-tv.is-active,
-html.light-mode .floaty-bar #dock-tv:hover,
-html.light-mode .floaty-bar #dock-news.is-active,
-html.light-mode .floaty-bar #dock-news:hover,
-html.light-mode .floaty-bar #dock-search.is-active,
-html.light-mode .floaty-bar #dock-search:hover,
-html.light-mode .floaty-bar #dock-discord.is-active,
-html.light-mode .floaty-bar #dock-discord:hover,
-html.light-mode .floaty-bar #dock-help.is-active,
-html.light-mode .floaty-bar #dock-help:hover,
-html.light-mode .floaty-bar #dock-about.is-active,
-html.light-mode .floaty-bar #dock-about:hover,
-html.light-mode .floaty-bar #dock-settings.is-active,
-html.light-mode .floaty-bar #dock-settings:hover {
-  background: rgba(0, 0, 0, 0.1) !important;
-  background-color: rgba(0, 0, 0, 0.1) !important;
-  color: #111827 !important;
-  border-radius: 9999px !important;
+html.light-mode .floaty-bar-pill-indicator {
+  background: rgba(0, 0, 0, 0.10) !important;
+  background-color: rgba(0, 0, 0, 0.10) !important;
+}
+
+.floaty-bar .floaty-bar__item:hover:not(.is-active) {
+  background: rgba(255, 255, 255, 0.12) !important;
+  background-color: rgba(255, 255, 255, 0.12) !important;
+}
+
+html.light-mode .floaty-bar .floaty-bar__item:hover:not(.is-active) {
+  background: rgba(0, 0, 0, 0.06) !important;
+  background-color: rgba(0, 0, 0, 0.06) !important;
 }
 
 
@@ -3896,19 +4075,15 @@ html.light-mode .floaty-bar #dock-settings:hover {
    Driven by --spatial-glass-bg, --spatial-glass-opacity, and --spatial-glass-blur
    ========================================================================== */
 
-/* 1. Floaty Bar Surface */
-html:not(.no-spatial-glass) .floaty-bar__surface {
-  background-color: var(--spatial-glass-bg, rgba(255, 255, 255, 0.20)) !important;
-  backdrop-filter: blur(var(--spatial-glass-blur, 20px)) !important;
-  -webkit-backdrop-filter: blur(var(--spatial-glass-blur, 20px)) !important;
-}
-
-/* 2. Float Search Box */
+/* 1. Floaty Bar Surface, Float Search & Search Trigger */
+html:not(.no-spatial-glass) .floaty-bar__surface,
+html:not(.no-spatial-glass) #btn-floaty-search-trigger,
 html:not(.no-spatial-glass) #floating-search-bar-pill,
 html:not(.no-spatial-glass) #floating-search-bar-container [id^="floating-search-bar-pill"],
 html:not(.no-spatial-glass) #floating-search-bar-container .floating-search-pill,
 html:not(.no-spatial-glass) .floaty-search-box-pill {
   background-color: var(--spatial-glass-bg, rgba(255, 255, 255, 0.20)) !important;
+  background-image: none !important;
   backdrop-filter: blur(var(--spatial-glass-blur, 20px)) !important;
   -webkit-backdrop-filter: blur(var(--spatial-glass-blur, 20px)) !important;
 }

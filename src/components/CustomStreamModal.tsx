@@ -112,7 +112,7 @@ export const CustomStreamModal: React.FC<CustomStreamModalProps> = ({
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             transition={{ duration: shouldAnimate ? 0.35 : 0, ease: [0.16, 1, 0.3, 1] }}
-            className="fixed inset-0 bg-black/80 backdrop-blur-md"
+            className="fixed inset-0 bg-black/10 backdrop-blur-md"
             onClick={onClose}
           />
 
@@ -136,40 +136,40 @@ export const CustomStreamModal: React.FC<CustomStreamModalProps> = ({
                 ease: [0.25, 0.1, 0.25, 1]
               }
             } : { opacity: 0 }}
-            className="relative w-full max-w-[480px] bg-[#27282D] border border-white/10 rounded-[28px] shadow-2xl overflow-hidden z-10"
+            className="spatial-glass-modal relative w-full max-w-[480px] bg-white/30 border border-white/50 rounded-[28px] shadow-2xl overflow-hidden z-10 text-black"
           >
             {/* Header */}
-            <div className="flex items-center justify-between p-5 pb-3.5 border-b border-[#2C2C34]">
+            <div className="flex items-center justify-between p-5 pb-3.5 border-b border-black/10">
               <div className="flex items-center gap-2.5">
                 <div className="w-8 h-8 rounded-xl bg-[#E6005A]/20 text-[#E6005A] flex items-center justify-center border border-[#E6005A]/30">
                   <Radio className="w-4 h-4" />
                 </div>
                 <div>
-                  <h3 className="text-sm sm:text-base font-bold text-white">
+                  <h3 className="text-sm sm:text-base font-bold text-black">
                     Cấu hình Luồng M3U8 & Playlist
                   </h3>
-                  <p className="text-[11px] text-[#9CA3AF]">
+                  <p className="text-[11px] text-neutral-700">
                     Dán luồng HLS trực tiếp hoặc nhập playlist .m3u
                   </p>
                 </div>
               </div>
               <button
                 onClick={onClose}
-                className="w-7 h-7 rounded-full bg-[#27121d] flex items-center justify-center text-[#9CA3AF] hover:text-white cursor-default"
+                className="w-7 h-7 rounded-full bg-black/5 hover:bg-black/10 flex items-center justify-center text-neutral-700 hover:text-black cursor-default transition-colors"
               >
                 <X className="w-3.5 h-3.5" />
               </button>
             </div>
 
             {/* Tab Toggle */}
-            <div className="flex p-1 mx-5 mt-3.5 rounded-full bg-[#141318] border border-[#2D2D35]">
+            <div className="flex p-1 mx-5 mt-3.5 rounded-full bg-black/5 border border-black/10">
               <button
                 type="button"
                 onClick={() => setActiveTab('single')}
                 className={`flex-1 py-2 rounded-full text-xs font-bold transition-all cursor-default ${
                   activeTab === 'single'
                     ? 'bg-[#fd932f] text-white shadow-md'
-                    : 'text-[#9CA3AF] hover:text-white'
+                    : 'text-neutral-700 hover:text-black'
                 }`}
               >
                 1 Luồng Trực Tiếp (.m3u8)
@@ -180,7 +180,7 @@ export const CustomStreamModal: React.FC<CustomStreamModalProps> = ({
                 className={`flex-1 py-2 rounded-full text-xs font-bold transition-all cursor-default ${
                   activeTab === 'playlist'
                     ? 'bg-[#fd932f] text-white shadow-md'
-                    : 'text-[#9CA3AF] hover:text-white'
+                    : 'text-neutral-700 hover:text-black'
                 }`}
               >
                 Nhập Playlist (.m3u)
@@ -192,7 +192,7 @@ export const CustomStreamModal: React.FC<CustomStreamModalProps> = ({
               {activeTab === 'single' ? (
                 <form onSubmit={handlePlaySingle} className="space-y-4">
                   <div>
-                    <label className="block text-xs font-semibold text-[#D1D5DB] mb-1.5">
+                    <label className="block text-xs font-semibold text-neutral-800 mb-1.5">
                       Tên kênh / Tiêu đề
                     </label>
                     <input
@@ -200,12 +200,12 @@ export const CustomStreamModal: React.FC<CustomStreamModalProps> = ({
                       value={channelName}
                       onChange={(e) => setChannelName(e.target.value)}
                       placeholder="Ví dụ: VTV1 HD Nguồn Phụ"
-                      className="w-full px-4 py-3 rounded-full bg-[#141318] border border-[#2D2D36] text-white text-sm focus:outline-none focus:border-[#E6005A]"
+                      className="w-full px-4 py-3 rounded-full bg-white/60 border border-black/15 text-black placeholder:text-neutral-500 text-sm focus:outline-none focus:border-[#E6005A]"
                     />
                   </div>
 
                   <div>
-                    <label className="block text-xs font-semibold text-[#D1D5DB] mb-1.5">
+                    <label className="block text-xs font-semibold text-neutral-800 mb-1.5">
                       Đường dẫn HLS Stream URL (.m3u8) <span className="text-[#FF267A]">*</span>
                     </label>
                     <input
@@ -214,13 +214,13 @@ export const CustomStreamModal: React.FC<CustomStreamModalProps> = ({
                       value={streamUrl}
                       onChange={(e) => setStreamUrl(e.target.value)}
                       placeholder="https://example.com/live/channel.m3u8"
-                      className="w-full px-4 py-3 rounded-full bg-[#141318] border border-[#2D2D36] text-white text-sm focus:outline-none focus:border-[#E6005A]"
+                      className="w-full px-4 py-3 rounded-full bg-white/60 border border-black/15 text-black placeholder:text-neutral-500 text-sm focus:outline-none focus:border-[#E6005A]"
                     />
                   </div>
 
                   {/* Sample test streams buttons */}
                   <div>
-                    <span className="text-[11px] font-medium text-[#8E8E93] block mb-2">
+                    <span className="text-[11px] font-medium text-neutral-700 block mb-2">
                       Luồng thử nghiệm nhanh:
                     </span>
                     <div className="flex flex-wrap gap-2">
@@ -230,7 +230,7 @@ export const CustomStreamModal: React.FC<CustomStreamModalProps> = ({
                           setStreamUrl('https://test-streams.mux.dev/x36xhzz/x36xhzz.m3u8');
                           setChannelName('Mux HLS Test Multi-Rate');
                         }}
-                        className="px-3.5 py-1.5 rounded-full bg-[#27121d] text-[11px] text-[#C5C5CE] hover:text-white hover:bg-[#331726] border border-white/10 cursor-default"
+                        className="px-3.5 py-1.5 rounded-full bg-black/5 text-[11px] text-neutral-800 hover:text-black hover:bg-black/10 border border-black/10 cursor-default"
                       >
                         Mux HLS HD
                       </button>
@@ -240,7 +240,7 @@ export const CustomStreamModal: React.FC<CustomStreamModalProps> = ({
                           setStreamUrl('https://cph-p2p-msl.akamaized.net/hls/live/2000341/test/master.m3u8');
                           setChannelName('Akamai Live Master HLS');
                         }}
-                        className="px-3.5 py-1.5 rounded-full bg-[#27121d] text-[11px] text-[#C5C5CE] hover:text-white hover:bg-[#331726] border border-white/10 cursor-default"
+                        className="px-3.5 py-1.5 rounded-full bg-black/5 text-[11px] text-neutral-800 hover:text-black hover:bg-black/10 border border-black/10 cursor-default"
                       >
                         Akamai Live HD
                       </button>
@@ -261,7 +261,7 @@ export const CustomStreamModal: React.FC<CustomStreamModalProps> = ({
                 <div className="space-y-4">
                   <div>
                     <div className="flex items-center justify-between mb-1.5">
-                      <label className="text-xs font-semibold text-[#D1D5DB]">
+                      <label className="text-xs font-semibold text-neutral-800">
                         Dán nội dung Playlist định dạng #EXTM3U
                       </label>
                       <button
@@ -277,13 +277,13 @@ export const CustomStreamModal: React.FC<CustomStreamModalProps> = ({
                       value={playlistText}
                       onChange={(e) => setPlaylistText(e.target.value)}
                       placeholder={`#EXTM3U\n#EXTINF:-1 tvg-id="vtv1" tvg-name="VTV1 HD" group-title="VTV", VTV1 HD\nhttps://example.com/vtv1.m3u8`}
-                      className="w-full p-3.5 rounded-2xl bg-[#141318] border border-[#2D2D36] text-white text-xs font-mono focus:outline-none focus:border-[#E6005A] resize-none"
+                      className="w-full p-3.5 rounded-2xl bg-white/60 border border-black/15 text-black placeholder:text-neutral-500 text-xs font-mono focus:outline-none focus:border-[#E6005A] resize-none"
                     />
                   </div>
 
                   {parseStatus && (
-                    <div className="p-3 rounded-2xl bg-[#141318] border border-[#36363E] text-xs flex items-center gap-2 text-white">
-                      <CheckCircle2 className="w-4 h-4 text-emerald-400 shrink-0" />
+                    <div className="p-3 rounded-2xl bg-black/5 border border-black/10 text-xs flex items-center gap-2 text-black">
+                      <CheckCircle2 className="w-4 h-4 text-emerald-600 shrink-0" />
                       <span>{parseStatus}</span>
                     </div>
                   )}

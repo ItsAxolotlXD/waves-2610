@@ -46,7 +46,7 @@ export const Channels: React.FC<ChannelsProps> = ({
             <Tag className="w-4 h-4" />
             <span>Danh mục Hạ tầng Truyền hình</span>
           </div>
-          <h1 className="text-3xl font-extrabold text-white tracking-tight">
+          <h1 className="text-3xl font-bold text-white tracking-tight">
             Chuyên kênh Truyền hình Việt Nam
           </h1>
           <p className="text-xs sm:text-sm text-[#9CA3AF] mt-1">

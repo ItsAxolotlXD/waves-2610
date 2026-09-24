@@ -571,8 +571,9 @@ export default function App() {
             ? 'p-0 max-w-none pt-1 sm:pt-2' 
             : 'px-4 sm:px-6 md:px-8 py-5 max-w-7xl'
         } ${
-          ((settings.floatingSearchBar || (currentRoute === '/settings' && draftSettings.floatingSearchBar)) &&
-          ((settings.navigationMode === 'topbar' || settings.navigationMode === 'sidebar') || currentRoute === '/settings'))
+          ((settings.navigationMode === 'floaty' || settings.navigationMode === 'immersive_floaty') ||
+           ((settings.navigationMode === 'topbar' || settings.navigationMode === 'sidebar') && 
+            (settings.floatingSearchBar || (currentRoute === '/settings' && draftSettings.floatingSearchBar))))
             ? 'pb-24 sm:pb-28'
             : ''
         }`}>
@@ -612,9 +613,9 @@ export default function App() {
         />
       )}
 
-      {/* Floating Search Bar (shown when enabled and navigationMode is topbar or sidebar, or when on /settings) */}
-      {((settings.floatingSearchBar || (currentRoute === '/settings' && draftSettings.floatingSearchBar)) &&
-        ((settings.navigationMode === 'topbar' || settings.navigationMode === 'sidebar') || currentRoute === '/settings') &&
+      {/* Floating Search Bar (shown only when navigationMode is topbar or sidebar. In floaty navigation modes, BottomDock already provides the morphing search button) */}
+      {((settings.navigationMode === 'topbar' || settings.navigationMode === 'sidebar') &&
+        (settings.floatingSearchBar || (currentRoute === '/settings' && draftSettings.floatingSearchBar)) &&
         currentRoute !== '/search') && (
           <FloatingSearchBar
             currentRoute={currentRoute}

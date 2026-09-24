@@ -41,7 +41,7 @@ export const WelcomeModal: React.FC<WelcomeModalProps> = ({
             exit={{ opacity: 0 }}
             transition={{ duration: 0.35, ease: [0.16, 1, 0.3, 1] }}
             onClick={onClose}
-            className="fixed inset-0 bg-black/80 backdrop-blur-md"
+            className="fixed inset-0 bg-black/10 backdrop-blur-md"
           />
 
           {/* 2. Dialog Modal Box */}
@@ -64,19 +64,19 @@ export const WelcomeModal: React.FC<WelcomeModalProps> = ({
                 ease: [0.25, 0.1, 0.25, 1]
               }
             }}
-            className="relative z-10 w-full max-w-[450px] bg-[#27282D] rounded-[28px] sm:rounded-[32px] p-6 sm:p-7 shadow-2xl border border-white/10"
+            className="spatial-glass-modal relative z-10 w-full max-w-[450px] bg-white/30 rounded-[28px] sm:rounded-[32px] p-6 sm:p-7 shadow-2xl border border-white/50 text-black"
           >
             {/* Top Badge */}
             <div className="flex items-center justify-between mb-3">
               <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#E6005A]/15 border border-[#E6005A]/30 text-[#E6005A] text-xs font-bold uppercase tracking-wider">
                 <Sparkles className="w-3.5 h-3.5" />
-                <span>Release Notes</span>
+                <span>Cập nhật hệ thống</span>
               </div>
               <button
                 type="button"
                 id="btn-welcome-close-icon"
                 onClick={onClose}
-                className="w-8 h-8 rounded-full bg-white/5 hover:bg-white/10 text-[#9CA3AF] hover:text-white flex items-center justify-center transition-colors cursor-default"
+                className="w-8 h-8 rounded-full bg-black/5 hover:bg-black/10 text-neutral-700 hover:text-black flex items-center justify-center transition-colors cursor-default"
                 title="Đóng"
               >
                 <X className="w-4 h-4" />
@@ -86,43 +86,38 @@ export const WelcomeModal: React.FC<WelcomeModalProps> = ({
             {/* Title */}
             <h1
               id="welcome-modal-title"
-              className="text-xl sm:text-[23px] font-bold text-white tracking-tight mb-2.5 font-sans leading-tight"
+              className="text-xl sm:text-[22px] font-bold text-black tracking-tight mb-2 font-sans leading-tight"
             >
-              Welcome to Vplay 26.10.0 - Build 26W1002a
+              Cập nhật thành công
             </h1>
 
-            {/* Description & Changelogs */}
-            <div
+            {/* Description */}
+            <p
               id="welcome-modal-description"
-              className="text-xs sm:text-sm text-[#D1D5DB] leading-relaxed mb-5 font-normal space-y-2.5 max-h-[48vh] overflow-y-auto pr-1"
+              className="text-xs sm:text-sm text-neutral-800 leading-relaxed mb-4 font-normal"
             >
-              <p className="font-semibold text-white/95 text-xs sm:text-sm tracking-wide">
-                Changelogs:
-              </p>
-              <ul className="space-y-3.5 text-[#C4C4CC] text-xs sm:text-[13px] pl-1">
-                <li className="flex items-start gap-2.5">
-                  <span className="w-1.5 h-1.5 rounded-full bg-[#E6005A] mt-1.5 shrink-0" />
-                  <div>
-                    <span className="font-medium text-white">Đã thêm thanh tìm kiếm dưới màn hình (có thể bật tắt)</span>
-                    <div className="text-[12px] text-[#9CA3AF] mt-1.5 space-y-1 pl-1">
-                      <p className="flex items-start gap-1.5">
-                        <span className="text-[#E6005A] font-bold">›</span>
-                        <span>Thanh tìm kiếm dựa trên tab bạn đang truy cập</span>
-                      </p>
-                      <p className="flex items-start gap-1.5">
-                        <span className="text-[#E6005A] font-bold">›</span>
-                        <span>Nếu đang truy cập một bài viết, thanh tìm kiếm sẽ có khả năng tìm kiếm từ trong bài viết</span>
-                      </p>
-                    </div>
-                  </div>
-                </li>
-                <li className="flex items-start gap-2.5">
-                  <span className="w-1.5 h-1.5 rounded-full bg-[#E6005A] mt-1.5 shrink-0" />
-                  <div>
-                    <span className="font-medium text-white">Đã áp dụng hiệu ứng Spatial Glass lên các thẻ kênh, thẻ banner, thẻ article và một số khu vực khác</span>
-                  </div>
-                </li>
-              </ul>
+              Phiên bản VNRT Online của bạn đã được cập nhật thành công lên phiên bản mới nhất. Dưới đây là một số thông tin về phiên bản này
+            </p>
+
+            {/* Bảng Giới thiệu phiên bản (Từ settings) */}
+            <div className="p-4 sm:p-5 rounded-[20px] bg-black/5 border border-black/10 space-y-3.5 select-text mb-5">
+              <div className="flex items-center justify-between text-sm sm:text-[15px]">
+                <span className="font-medium text-black">Software Update</span>
+                <span className="font-semibold text-neutral-800">26.10.0</span>
+              </div>
+              <div className="flex items-center justify-between text-sm sm:text-[15px]">
+                <span className="font-medium text-black">Software Build</span>
+                <span className="font-semibold text-neutral-800">26W1002a</span>
+              </div>
+              {/* Dòng chữ to dưới Software Build: Compatible with Spatial Glass */}
+              <div id="settings-compatible-spatial-glass" className="pt-3 mt-1 border-t border-black/10 flex items-center">
+                <p className="text-base sm:text-lg font-bold tracking-tight text-black">
+                  Compatible with{' '}
+                  <span className="bg-gradient-to-r from-[#FF8A00] via-[#FF0A54] to-[#E6005A] bg-clip-text text-transparent font-bold drop-shadow-[0_0_12px_rgba(230,0,90,0.35)]">
+                    Spatial Glass.
+                  </span>
+                </p>
+              </div>
             </div>
 
             {/* Action Buttons */}
@@ -134,7 +129,7 @@ export const WelcomeModal: React.FC<WelcomeModalProps> = ({
                 onClick={onClose}
                 className="w-full py-2.5 sm:py-3 px-5 rounded-full font-bold text-white bg-[#fd932f] hover:bg-[#e68428] active:scale-[0.98] transition-all text-sm sm:text-base cursor-default flex items-center justify-center shadow-md tracking-tight text-center"
               >
-                Close
+                Đóng
               </button>
             </div>
           </motion.div>

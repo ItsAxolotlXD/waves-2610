@@ -160,82 +160,109 @@ export const BottomDock: React.FC<BottomDockProps> = ({
   ];
 
   return (
-    <div
-      id="bottom-dock-container"
-      style={{
-        fontFamily: "'Inter', 'Integer', system-ui, -apple-system, sans-serif",
-        bottom: isKeyboardOpen ? `${keyboardHeight + 12}px` : undefined,
-        transition: 'bottom 0.42s cubic-bezier(0.22, 1, 0.36, 1)',
-      }}
-      className={`fixed ${isKeyboardOpen ? '' : 'bottom-5'} left-1/2 -translate-x-1/2 z-40 select-none flex items-center justify-center pointer-events-auto`}
-    >
-      <div className="flex items-center justify-center gap-2 sm:gap-2.5">
-        <AnimatePresence initial={false}>
-          {!isSearchOpen && (
-            <motion.nav
-              key="floaty-bar-nav"
-              initial={{ opacity: 0, scale: 0.9, width: 0, filter: 'blur(4px)' }}
-              animate={{ opacity: 1, scale: 1, width: 'auto', filter: 'blur(0px)' }}
-              exit={{ opacity: 0, scale: 0.9, width: 0, filter: 'blur(4px)' }}
-              transition={{ duration: 0.28, ease: [0.22, 1, 0.36, 1] }}
-              className="floaty-bar select-none overflow-hidden"
-              aria-label="Floaty bar"
-            >
-              <div 
+    <>
+      {/* 1. Progressive Blur Layer at the bottom (matching float search box) */}
+      <div 
+        id="bottom-progressive-blur-dock" 
+        className="bottom-progressive-blur"
+        aria-hidden="true"
+      >
+        <div className="progressive-blur-layer layer-1" />
+        <div className="progressive-blur-layer layer-2" />
+        <div className="progressive-blur-layer layer-3" />
+        <div className="progressive-blur-layer layer-4" />
+        <div className="progressive-blur-layer layer-5" />
+        <div className="progressive-blur-layer layer-6" />
+        <div className="progressive-blur-gradient" />
+      </div>
+
+      {/* 2. Bottom Dock Container with Floaty Bar & Search Trigger */}
+      <div
+        id="bottom-dock-container"
+        style={{
+          fontFamily: "'Inter', 'Integer', system-ui, -apple-system, sans-serif",
+          bottom: isKeyboardOpen ? `${keyboardHeight + 12}px` : undefined,
+          transition: 'bottom 0.42s cubic-bezier(0.22, 1, 0.36, 1)',
+        }}
+        className={`fixed ${isKeyboardOpen ? '' : 'bottom-5'} left-1/2 -translate-x-1/2 z-40 select-none flex items-center justify-center pointer-events-auto`}
+      >
+        <motion.div
+          layout
+          transition={{
+            type: 'spring',
+            stiffness: 400,
+            damping: 32,
+            mass: 0.6
+          }}
+          className="flex items-center justify-center gap-2 sm:gap-2.5"
+        >
+          <AnimatePresence initial={false} mode="sync">
+            {!isSearchOpen && (
+              <motion.nav
+                key="floaty-bar-nav"
+                id="floaty-bar-surface"
+                layout
+                initial={{ opacity: 0, scale: 0.85, width: 0 }}
+                animate={{ opacity: 1, scale: 1, width: 'auto' }}
+                exit={{ opacity: 0, scale: 0.85, width: 0 }}
+                transition={{
+                  type: 'spring',
+                  stiffness: 400,
+                  damping: 32,
+                  mass: 0.6
+                }}
                 onTouchStart={handleTouchStart}
                 onTouchEnd={handleTouchEnd}
                 style={{
                   backgroundColor: 'var(--spatial-glass-bg, rgba(255, 255, 255, 0.20))',
-                  backdropFilter: 'blur(var(--spatial-glass-blur, 4px))',
-                  WebkitBackdropFilter: 'blur(var(--spatial-glass-blur, 4px))',
+                  backdropFilter: 'blur(var(--spatial-glass-blur, 20px))',
+                  WebkitBackdropFilter: 'blur(var(--spatial-glass-blur, 20px))',
+                  transformOrigin: 'right center',
                 }}
-                className={`floaty-bar__surface ${isImmersive ? 'floaty-bar__surface--immersive' : ''} h-[44px] sm:h-[46px] flex items-center gap-1 sm:gap-1.5 px-1.5 sm:px-2 rounded-full shadow-[0_8px_32px_rgba(0,0,0,0.35)] transition-all duration-300 pointer-events-auto ${
+                className={`floaty-bar floaty-bar__surface ${isImmersive ? 'floaty-bar__surface--immersive' : ''} h-[44px] sm:h-[46px] flex items-center gap-1 sm:gap-1.5 px-1.5 sm:px-2 rounded-full shadow-[0_8px_32px_rgba(0,0,0,0.35)] select-none pointer-events-auto overflow-hidden transition-[background-color,border-color,box-shadow] ${
                   isDarkContent ? 'border border-black/15 text-black' : 'border border-white/10 text-white'
                 }`}
+                aria-label="Floaty bar"
               >
-                <button
-                  type="button"
-                  aria-label="Trang dock trước"
-                  onClick={goToPrevPage}
-                  className={`floaty-bar__arrow size-8 sm:size-[34px] rounded-full flex items-center justify-center cursor-default transition-colors shrink-0 ${
-                    isDarkContent ? 'text-black/80 hover:text-black hover:bg-black/10' : 'text-white/80 hover:text-white hover:bg-white/10'
-                  }`}
-                >
-                  <ChevronLeft className="w-4 h-4 sm:w-[18px] sm:h-[18px]" />
-                </button>
+              <button
+                type="button"
+                aria-label="Trang dock trước"
+                onClick={goToPrevPage}
+                className={`floaty-bar__arrow size-8 sm:size-[34px] rounded-full flex items-center justify-center cursor-default transition-colors shrink-0 ${
+                  isDarkContent ? 'text-black/80 hover:text-black hover:bg-black/10' : 'text-white/80 hover:text-white hover:bg-white/10'
+                }`}
+              >
+                <ChevronLeft className="w-4 h-4 sm:w-[18px] sm:h-[18px]" />
+              </button>
 
-                <div className="floaty-bar__items w-auto max-w-[85vw] h-full relative overflow-hidden flex items-center justify-center transition-all duration-300">
-                  <AnimatePresence initial={false} custom={direction} mode="popLayout">
-                    <motion.div
-                      key={page}
-                      custom={direction}
-                      variants={{
-                        enter: (dir: number) => ({
-                          x: dir > 0 ? '100%' : '-100%',
-                          opacity: 0,
-                          filter: 'blur(3px)',
-                        }),
-                        center: {
-                          x: '0%',
-                          opacity: 1,
-                          filter: 'blur(0px)',
-                        },
-                        exit: (dir: number) => ({
-                          x: dir > 0 ? '-100%' : '100%',
-                          opacity: 0,
-                          filter: 'blur(3px)',
-                        }),
-                      }}
-                      initial="enter"
-                      animate="center"
-                      exit="exit"
-                      transition={{
-                        x: { duration: 0.8, ease: [0.22, 1, 0.36, 1] },
-                        opacity: { duration: 0.6, ease: 'easeInOut' },
-                        filter: { duration: 0.6, ease: 'easeInOut' },
-                      }}
-                      className="floaty-bar__page flex items-center justify-center gap-1 sm:gap-1.5 w-auto h-full shrink-0 px-0.5 sm:px-1"
-                    >
+              <div className="floaty-bar__items w-auto max-w-[85vw] h-full relative overflow-hidden flex items-center justify-center transition-all duration-300">
+                <AnimatePresence initial={false} custom={direction} mode="popLayout">
+                  <motion.div
+                    key={page}
+                    custom={direction}
+                    variants={{
+                      enter: (dir: number) => ({
+                        x: dir > 0 ? '100%' : '-100%',
+                        opacity: 0,
+                      }),
+                      center: {
+                        x: '0%',
+                        opacity: 1,
+                      },
+                      exit: (dir: number) => ({
+                        x: dir > 0 ? '-100%' : '100%',
+                        opacity: 0,
+                      }),
+                    }}
+                    initial="enter"
+                    animate="center"
+                    exit="exit"
+                    transition={{
+                      x: { duration: 0.35, ease: [0.22, 1, 0.36, 1] },
+                      opacity: { duration: 0.25, ease: 'easeInOut' },
+                    }}
+                    className="floaty-bar__page flex items-center justify-center gap-1 sm:gap-1.5 w-auto h-full shrink-0 px-0.5 sm:px-1"
+                  >
                       {pages[page].map((item) => {
                         const active = item.route ? isActive(item.route) : false;
                         const Icon = item.icon;
@@ -256,28 +283,44 @@ export const BottomDock: React.FC<BottomDockProps> = ({
                               onMouseLeave={() => setHoveredId(null)}
                               onClick={() => item.action ? item.action() : item.route && navigate(item.route)}
                               transition={{
-                                layout: { duration: 0.25, ease: [0.25, 1, 0.5, 1] }
+                                layout: { type: 'spring', stiffness: 450, damping: 35, mass: 0.6 }
                               }}
-                              className={`floaty-bar__item h-8 sm:h-[34px] rounded-full flex items-center justify-center cursor-default transition-colors duration-150 outline-none select-none shrink-0 ${
+                              className={`floaty-bar__item relative h-8 sm:h-[34px] rounded-full flex items-center justify-center cursor-default transition-colors duration-150 outline-none select-none shrink-0 ${
                                 isSelectedOrHovered
-                                  ? (isDarkContent ? 'is-active px-3 sm:px-3.5 bg-black/15 text-black shadow-sm' : 'is-active px-3 sm:px-3.5 bg-white/20 text-white shadow-sm')
+                                  ? (isDarkContent ? 'is-active px-3 sm:px-3.5 text-black' : 'is-active px-3 sm:px-3.5 text-white')
                                   : (isDarkContent ? 'px-2 sm:px-2.5 text-black/80 hover:text-black hover:bg-black/10' : 'px-2 sm:px-2.5 text-white/80 hover:text-white hover:bg-white/10')
                               }`}
                             >
-                              {item.image ? (
-                                <img
-                                  src={item.image}
-                                  alt={item.label}
-                                  referrerPolicy="no-referrer"
-                                  className={`size-4 sm:size-[18px] object-contain shrink-0 ${
-                                    isDarkContent ? 'brightness-0' : 'brightness-0 invert'
-                                  } ${
-                                    isSelectedOrHovered ? 'opacity-100' : 'opacity-75'
+                              {active && (
+                                <motion.div
+                                  layoutId="floaty-bar-active-pill"
+                                  transition={{
+                                    type: 'spring',
+                                    stiffness: 450,
+                                    damping: 35,
+                                    mass: 0.6
+                                  }}
+                                  className={`floaty-bar-pill-indicator absolute inset-0 rounded-full z-0 pointer-events-none ${
+                                    isDarkContent ? 'bg-black/15 shadow-sm' : 'bg-white/20 shadow-sm'
                                   }`}
                                 />
-                              ) : Icon ? (
-                                <Icon className="w-4 h-4 sm:w-[18px] sm:h-[18px] shrink-0" />
-                              ) : null}
+                              )}
+                              <span className="relative z-10 flex items-center justify-center">
+                                {item.image ? (
+                                  <img
+                                    src={item.image}
+                                    alt={item.label}
+                                    referrerPolicy="no-referrer"
+                                    className={`size-4 sm:size-[18px] object-contain shrink-0 ${
+                                      isDarkContent ? 'brightness-0' : 'brightness-0 invert'
+                                    } ${
+                                      isSelectedOrHovered ? 'opacity-100' : 'opacity-75'
+                                    }`}
+                                  />
+                                ) : Icon ? (
+                                  <Icon className="w-4 h-4 sm:w-[18px] sm:h-[18px] shrink-0" />
+                                ) : null}
+                              </span>
                             </motion.button>
                           );
                         }
@@ -293,15 +336,29 @@ export const BottomDock: React.FC<BottomDockProps> = ({
                             layout
                             onClick={() => item.action ? item.action() : item.route && navigate(item.route)}
                             transition={{
-                              layout: { duration: 0.28, ease: [0.25, 1, 0.5, 1] }
+                              layout: { type: 'spring', stiffness: 450, damping: 35, mass: 0.6 }
                             }}
                             className={`floaty-bar__item relative h-8 sm:h-[34px] rounded-full flex items-center justify-center cursor-default transition-colors duration-150 outline-none overflow-hidden select-none shrink-0 ${
                               isExpanded
-                                ? (isDarkContent ? 'is-active bg-black/15 text-black shadow-sm px-3 sm:px-3.5' : 'is-active bg-white/20 text-white shadow-sm px-3 sm:px-3.5')
+                                ? (isDarkContent ? 'is-active text-black px-3 sm:px-3.5' : 'is-active text-white px-3 sm:px-3.5')
                                 : (isDarkContent ? 'text-black/80 hover:text-black hover:bg-black/10 w-8 sm:w-[34px]' : 'text-white/80 hover:text-white hover:bg-white/10 w-8 sm:w-[34px]')
                             }`}
                           >
-                            <div className="flex items-center justify-center gap-1.5 whitespace-nowrap">
+                            {active && (
+                              <motion.div
+                                layoutId="floaty-bar-immersive-active-pill"
+                                transition={{
+                                  type: 'spring',
+                                  stiffness: 450,
+                                  damping: 35,
+                                  mass: 0.6
+                                }}
+                                className={`floaty-bar-pill-indicator absolute inset-0 rounded-full z-0 pointer-events-none ${
+                                  isDarkContent ? 'bg-black/15 shadow-sm' : 'bg-white/20 shadow-sm'
+                                }`}
+                              />
+                            )}
+                            <div className="relative z-10 flex items-center justify-center gap-1.5 whitespace-nowrap">
                               {item.image ? (
                                 <img
                                   src={item.image}
@@ -349,7 +406,6 @@ export const BottomDock: React.FC<BottomDockProps> = ({
                 >
                   <ChevronRight className="w-4 h-4 sm:w-[18px] sm:h-[18px]" />
                 </button>
-              </div>
             </motion.nav>
           )}
         </AnimatePresence>
@@ -373,15 +429,15 @@ export const BottomDock: React.FC<BottomDockProps> = ({
               }}
               style={{
                 backgroundColor: 'var(--spatial-glass-bg, rgba(255, 255, 255, 0.20))',
-                backdropFilter: 'blur(var(--spatial-glass-blur, 4px))',
-                WebkitBackdropFilter: 'blur(var(--spatial-glass-blur, 4px))',
+                backdropFilter: 'blur(var(--spatial-glass-blur, 20px))',
+                WebkitBackdropFilter: 'blur(var(--spatial-glass-blur, 20px))',
               }}
               className={`group h-[44px] w-[44px] sm:h-[46px] sm:w-[46px] rounded-full flex items-center justify-center cursor-default shadow-[0_8px_32px_rgba(0,0,0,0.35)] select-none shrink-0 pointer-events-auto transition-[background-color,border-color,box-shadow] ${
                 isDarkContent ? 'border border-black/15 text-black' : 'border border-white/10 text-white'
               } ${
                 searchQuery?.trim()
                   ? (isDarkContent ? 'ring-2 ring-black/20 shadow-[0_10px_36px_rgba(0,0,0,0.35)]' : 'ring-2 ring-white/25 shadow-[0_10px_36px_rgba(0,0,0,0.45)]')
-                  : (isDarkContent ? 'hover:bg-black/10 hover:shadow-[0_9px_34px_rgba(0,0,0,0.30)]' : 'hover:bg-white/25 hover:shadow-[0_9px_34px_rgba(0,0,0,0.40)]')
+                  : ''
               }`}
             >
               <img
@@ -389,7 +445,7 @@ export const BottomDock: React.FC<BottomDockProps> = ({
                 alt="Search"
                 className={`w-[18px] h-[18px] sm:w-[20px] sm:h-[20px] object-contain select-none pointer-events-none transition-opacity ${
                   isDarkContent ? 'brightness-0' : 'filter brightness-0 invert'
-                } opacity-85 group-hover:opacity-100`}
+                } opacity-85`}
                 referrerPolicy="no-referrer"
                 onError={(e) => {
                   (e.target as HTMLImageElement).src = '/icons/sf-magnifyingglass.png';
@@ -414,9 +470,10 @@ export const BottomDock: React.FC<BottomDockProps> = ({
             />
           )}
         </AnimatePresence>
-      </div>
+      </motion.div>
     </div>
-  );
+  </>
+);
 };
 
 export { BottomDock as FloatyBar };

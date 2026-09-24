@@ -92,7 +92,7 @@ export const Article: React.FC<ArticleProps> = ({ slug, navigate, fontSize = 16 
           </div>
 
           <div className="max-w-md mx-auto space-y-2">
-            <h2 className="text-xl sm:text-2xl font-black text-[#111827] dark:text-white">
+            <h2 className="text-xl sm:text-2xl font-bold text-[#111827] dark:text-white">
               Bài viết được bảo vệ bằng mật mã
             </h2>
             <p className="text-xs sm:text-sm text-[#6B7280] dark:text-[#9CA3AF] leading-relaxed">
@@ -154,13 +154,13 @@ export const Article: React.FC<ArticleProps> = ({ slug, navigate, fontSize = 16 
           </div>
 
           {/* Main Title */}
-          <h1 className="text-2xl sm:text-3xl md:text-4xl font-black text-[#111827] dark:text-white tracking-tight leading-tight">
+          <h1 className="text-2xl sm:text-3xl md:text-4xl font-bold text-[#111827] dark:text-white tracking-tight leading-tight">
             {article.title}
           </h1>
 
           {/* Subtitle */}
           {article.subtitle && (
-            <p className="text-base sm:text-lg md:text-xl font-semibold text-[#E50914] dark:text-[#FF4D8B]">
+            <p className="text-base sm:text-lg md:text-xl font-bold text-[#E50914] dark:text-[#FF4D8B]">
               {article.subtitle}
             </p>
           )}
@@ -265,7 +265,7 @@ export const Article: React.FC<ArticleProps> = ({ slug, navigate, fontSize = 16 
                   return (
                     <h2 
                       key={idx}
-                      className="text-lg sm:text-xl md:text-2xl font-black text-[#111827] dark:text-white pt-8 pb-3 border-b border-[#E5E7EB] dark:border-[#2D2D35] flex items-center gap-3 tracking-tight"
+                      className="text-lg sm:text-xl md:text-2xl font-bold text-[#111827] dark:text-white pt-8 pb-3 border-b border-[#E5E7EB] dark:border-[#2D2D35] flex items-center gap-3 tracking-tight"
                     >
                       <span className="w-2.5 h-6 bg-gradient-to-b from-[#E50914] to-[#B80710] rounded-full inline-block shrink-0 shadow-sm" />
                       <span>{paragraph}</span>
@@ -298,7 +298,7 @@ export const Article: React.FC<ArticleProps> = ({ slug, navigate, fontSize = 16 
                         <Award className="w-6 h-6 text-[#E50914] dark:text-[#FF4D8B]" />
                       </div>
                       <div>
-                        <p className="text-lg sm:text-xl font-extrabold text-[#E50914] dark:text-[#FF4D8B]">
+                        <p className="text-lg sm:text-xl font-bold text-[#E50914] dark:text-[#FF4D8B]">
                           {paragraph}
                         </p>
                         <p className="text-xs sm:text-sm text-[#6B7280] dark:text-[#9CA3AF] mt-0.5">

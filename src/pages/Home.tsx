@@ -123,7 +123,7 @@ export const Home: React.FC<HomeProps> = ({
                 {totalMatches} kết quả trong toàn bộ ứng dụng
               </span>
             </div>
-            <h1 className="text-2xl sm:text-3xl font-extrabold text-white tracking-tight mt-1">
+            <h1 className="text-2xl sm:text-3xl font-bold text-white tracking-tight mt-1">
               Kết quả cho "{searchQuery}"
             </h1>
           </div>
@@ -298,6 +298,30 @@ export const Home: React.FC<HomeProps> = ({
 
   return (
     <div className="space-y-4 sm:space-y-6 pb-16">
+      {/* Dải màu vàng thông báo trên đầu trang chủ: The next chapter of Vplay */}
+      <div className="px-4 sm:px-6 md:px-8 max-w-7xl mx-auto pt-1 sm:pt-2">
+        <div
+          id="home-announcement-banner"
+          className="relative w-full rounded-2xl bg-[#FACC15] text-[#1C1917] px-4 py-3 sm:py-3.5 sm:px-5 flex items-center justify-between gap-3 shadow-lg shadow-amber-500/10 border border-amber-300/40 select-none overflow-hidden"
+        >
+          {/* Subtle ambient light shape */}
+          <div 
+            aria-hidden="true" 
+            className="absolute -right-6 -top-6 w-32 h-32 rounded-full bg-white/30 blur-xl pointer-events-none" 
+          />
+          <div className="flex items-center gap-3 min-w-0 flex-1">
+            <div className="w-8 h-8 rounded-xl bg-black/10 flex items-center justify-center shrink-0 text-black">
+              <Megaphone className="w-4 h-4 text-black" />
+            </div>
+            <div className="text-xs sm:text-sm text-[#1C1917] leading-relaxed font-normal min-w-0">
+              <span className="font-bold text-black">The next chapter of Vplay</span>
+              <span className="mx-1.5 font-bold opacity-60">-</span>
+              <span>Nền tảng Vplay sẽ chính thức đổi tên thành VNRT Online kể từ 16 tháng 10 năm 2026.</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
       {/* 1. 3D Coverflow Hero Banner */}
       <HeroCarousel
         navigate={navigate}
@@ -392,7 +416,7 @@ export const Home: React.FC<HomeProps> = ({
                     <span>{featuredArticle.publishedAt}</span>
                   </div>
 
-                  <h3 className="text-lg sm:text-xl lg:text-2xl font-black text-white group-hover:text-[#FF4D8B] transition-colors leading-snug tracking-tight">
+                  <h3 className="text-lg sm:text-xl lg:text-2xl font-bold text-white group-hover:text-[#FF4D8B] transition-colors leading-snug tracking-tight">
                     {featuredArticle.title}
                   </h3>
 
@@ -437,7 +461,7 @@ export const Home: React.FC<HomeProps> = ({
         <section id="home-about-section" className="space-y-8 pt-4 border-t border-[#26262E]">
           {/* Hero Intro */}
           <div className="text-center space-y-4 pt-2">
-            <h2 className="text-2xl sm:text-3xl md:text-4xl font-black text-white tracking-tight">
+            <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-white tracking-tight">
               Vplay -{' '}
               <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#FF2020] via-[#FF3366] to-[#E6005A]">
                 Gói trọn Việt Nam trong tầm mắt bạn

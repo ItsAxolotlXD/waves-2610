@@ -47,10 +47,10 @@ export const IntroducingSpatialGlass: React.FC = () => {
 
       {/* 3. Main Headline: Introducing <gradient cam sáng - đỏ magenta>: Spatial Glass. */}
       <div className="relative z-10 px-4 max-w-4xl mx-auto flex flex-col items-center">
-        <h2 className="text-3xl sm:text-5xl md:text-6xl lg:text-7xl font-black tracking-tight leading-tight sm:leading-none flex flex-wrap items-center justify-center gap-x-3 sm:gap-x-5 gap-y-1.5">
+        <h2 className="text-3xl sm:text-5xl md:text-6xl lg:text-7xl font-bold tracking-tight leading-tight sm:leading-none flex flex-wrap items-center justify-center gap-x-3 sm:gap-x-5 gap-y-1.5">
           {/* Word: Introducing */}
           <span
-            className="text-white tracking-tight"
+            className="text-white font-bold tracking-tight"
             style={{
               textShadow: '0 0 16px rgba(255, 255, 255, 0.4), 0 0 30px rgba(255, 255, 255, 0.2)',
             }}
@@ -63,14 +63,14 @@ export const IntroducingSpatialGlass: React.FC = () => {
             {/* Underlying static glow shadow */}
             <span
               aria-hidden="true"
-              className="absolute inset-0 select-none pointer-events-none blur-xl opacity-60 font-black text-[#FF0A54]"
+              className="absolute inset-0 select-none pointer-events-none blur-xl opacity-60 font-bold text-[#FF0A54]"
             >
               Spatial Glass.
             </span>
 
             {/* Foreground Static Gradient Text (Cam sáng - Đỏ Magenta) */}
             <span
-              className="relative font-black tracking-tight bg-gradient-to-r from-[#FF8A00] via-[#FF0A54] to-[#E6005A] bg-clip-text text-transparent"
+              className="relative font-bold tracking-tight bg-gradient-to-r from-[#FF8A00] via-[#FF0A54] to-[#E6005A] bg-clip-text text-transparent"
               style={{
                 filter: 'drop-shadow(0 0 14px rgba(230, 0, 90, 0.45))',
               }}

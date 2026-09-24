@@ -181,12 +181,12 @@ export const SpotlightModal: React.FC<SpotlightModalProps> = ({
         >
           {/* 1. Backdrop */}
           <motion.div 
-            id="spotlight-backdrop"
+            id="spotlight-modal-backdrop"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             transition={{ duration: shouldAnimateModal ? 0.32 : 0, ease: [0.16, 1, 0.3, 1] }}
-            className="fixed inset-0 bg-black/70 backdrop-blur-xs"
+            className="fixed inset-0 bg-black/10 backdrop-blur-md"
             onClick={onClose}
           />
 
@@ -210,7 +210,7 @@ export const SpotlightModal: React.FC<SpotlightModalProps> = ({
                 ease: [0.25, 0.1, 0.25, 1]
               }
             } : { opacity: 0 }}
-            className="relative w-full max-w-[400px] sm:max-w-[460px] bg-[#27282D] border border-white/10 rounded-[28px] p-4 sm:p-5 shadow-2xl overflow-hidden z-10 my-auto max-h-[calc(100vh-32px)] flex flex-col"
+            className="spatial-glass-modal relative w-full max-w-[400px] sm:max-w-[460px] bg-white/30 border border-white/50 rounded-[28px] p-4 sm:p-5 shadow-2xl overflow-hidden z-10 my-auto max-h-[calc(100vh-32px)] flex flex-col text-black"
           >
             {viewMode === 'settings' ? (
               /* View 2: Search Settings Menu (Without navigating to Settings tab) */

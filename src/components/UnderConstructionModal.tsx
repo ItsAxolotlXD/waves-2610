@@ -41,7 +41,7 @@ export const UnderConstructionModal: React.FC<UnderConstructionModalProps> = ({
             exit={{ opacity: 0 }}
             transition={{ duration: 0.35, ease: [0.16, 1, 0.3, 1] }}
             onClick={onClose}
-            className="fixed inset-0 bg-black/80 backdrop-blur-md"
+            className="fixed inset-0 bg-black/10 backdrop-blur-md"
           />
 
           {/* 2. Dialog Modal Box */}
@@ -64,12 +64,12 @@ export const UnderConstructionModal: React.FC<UnderConstructionModalProps> = ({
                 ease: [0.25, 0.1, 0.25, 1]
               }
             }}
-            className="relative z-10 w-full max-w-[420px] sm:max-w-[440px] bg-[#27282D] rounded-[28px] sm:rounded-[32px] p-6 sm:p-7 shadow-2xl border border-white/10"
+            className="spatial-glass-modal relative z-10 w-full max-w-[420px] sm:max-w-[440px] bg-white/30 rounded-[28px] sm:rounded-[32px] p-6 sm:p-7 shadow-2xl border border-white/50 text-black"
           >
             {/* Title */}
             <h1
               id="under-construction-modal-title"
-              className="text-xl sm:text-[23px] font-bold text-white tracking-tight mb-2.5 font-sans leading-tight"
+              className="text-xl sm:text-[23px] font-bold text-black tracking-tight mb-2.5 font-sans leading-tight"
             >
               Under construction
             </h1>
@@ -77,7 +77,7 @@ export const UnderConstructionModal: React.FC<UnderConstructionModalProps> = ({
             {/* Description */}
             <p
               id="under-construction-modal-description"
-              className="text-xs sm:text-sm text-[#D1D5DB] leading-relaxed mb-5 font-normal"
+              className="text-xs sm:text-sm text-neutral-800 leading-relaxed mb-5 font-normal"
             >
               This feature will come in the near future updates. Stay tuned!
             </p>

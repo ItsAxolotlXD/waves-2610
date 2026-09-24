@@ -11,7 +11,7 @@ export const About: React.FC = () => {
           <span>Về Vplay</span>
         </div>
 
-        <h1 className="text-3xl sm:text-4xl md:text-5xl font-black text-[#111827] dark:text-white tracking-tight">
+        <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold text-[#111827] dark:text-white tracking-tight">
           Vplay -{' '}
           <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#FF2020] via-[#FF3366] to-[#E6005A]">
             Gói trọn Việt Nam trong tầm mắt bạn

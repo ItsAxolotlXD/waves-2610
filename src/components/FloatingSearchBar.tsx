@@ -283,8 +283,8 @@ export const FloatingSearchBar: React.FC<FloatingSearchBarProps> = ({
       }}
       style={{
         backgroundColor: 'var(--spatial-glass-bg, rgba(255, 255, 255, 0.20))',
-        backdropFilter: 'blur(var(--spatial-glass-blur, 4px))',
-        WebkitBackdropFilter: 'blur(var(--spatial-glass-blur, 4px))',
+        backdropFilter: 'blur(var(--spatial-glass-blur, 20px))',
+        WebkitBackdropFilter: 'blur(var(--spatial-glass-blur, 20px))',
       }}
       className={`group relative flex items-center overflow-hidden ${
         isArticlePage && searchQuery.trim()
@@ -295,7 +295,7 @@ export const FloatingSearchBar: React.FC<FloatingSearchBarProps> = ({
       } ${
         isFocused || isListening
           ? (isDarkContent ? 'ring-2 ring-black/20 shadow-[0_10px_36px_rgba(0,0,0,0.35)]' : 'ring-2 ring-white/25 shadow-[0_10px_36px_rgba(0,0,0,0.45)]')
-          : (isDarkContent ? 'hover:shadow-[0_9px_34px_rgba(0,0,0,0.30)]' : 'hover:shadow-[0_9px_34px_rgba(0,0,0,0.40)]')
+          : ''
       }`}
     >
       {/* SF Symbol Search Icon */}

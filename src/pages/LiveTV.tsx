@@ -57,7 +57,7 @@ export const LiveTV: React.FC<LiveTVProps> = ({
       {/* Top Banner / Channel Title */}
       <div>
         <div className="flex items-center gap-2">
-          <h1 className="text-lg sm:text-2xl md:text-3xl font-extrabold text-[#111827] dark:text-white tracking-tight flex items-center gap-2">
+          <h1 className="text-lg sm:text-2xl md:text-3xl font-bold text-[#111827] dark:text-white tracking-tight flex items-center gap-2">
             <span>{`${String(currentChannel.channelNumber || 1).padStart(3, '0')} | ${currentChannel.name}`}</span>
           </h1>
         </div>

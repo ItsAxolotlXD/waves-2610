@@ -112,7 +112,7 @@ export const TestChannels: React.FC<TestChannelsProps> = ({
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
         <div>
           <div className="flex items-center gap-2 flex-wrap">
-            <h1 className="text-lg sm:text-2xl md:text-3xl font-extrabold text-[#111827] dark:text-white tracking-tight flex items-center gap-2">
+            <h1 className="text-lg sm:text-2xl md:text-3xl font-bold text-[#111827] dark:text-white tracking-tight flex items-center gap-2">
               <span>{`${String(effectiveCurrentChannel.channelNumber || 1).padStart(3, '0')} | ${effectiveCurrentChannel.name}`}</span>
             </h1>
             <span className="px-2 py-0.5 text-[10px] sm:text-xs font-bold rounded-full bg-amber-500/20 text-amber-300 border border-amber-500/40 flex items-center gap-1">

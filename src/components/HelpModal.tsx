@@ -30,12 +30,13 @@ export const HelpModal: React.FC<HelpModalProps> = ({ isOpen, onClose }) => {
       {isOpen && (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
           <motion.div
+            id="help-modal-backdrop"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             transition={{ duration: shouldAnimate ? 0.3 : 0 }}
             onClick={onClose}
-            className="fixed inset-0 bg-black/80 backdrop-blur-md"
+            className="fixed inset-0 bg-black/10 backdrop-blur-md"
           />
 
           <motion.div
@@ -44,21 +45,21 @@ export const HelpModal: React.FC<HelpModalProps> = ({ isOpen, onClose }) => {
             animate={{ opacity: 1, scale: 1 }}
             exit={shouldAnimate ? { opacity: 0, scale: 1.05 } : { opacity: 0 }}
             transition={{ duration: shouldAnimate ? 0.35 : 0, ease: [0.16, 1, 0.3, 1] }}
-            className="relative w-full max-w-[450px] bg-[#27282D] border border-white/10 rounded-[26px] p-5 sm:p-6 shadow-2xl z-10 text-white"
+            className="spatial-glass-modal relative w-full max-w-[450px] bg-white/30 border border-white/50 rounded-[26px] p-5 sm:p-6 shadow-2xl z-10 text-black"
           >
-            <div className="flex items-center justify-between pb-3.5 border-b border-[#2C2C34]">
+            <div className="flex items-center justify-between pb-3.5 border-b border-black/10">
               <div className="flex items-center gap-2.5">
                 <div className="w-9 h-9 rounded-2xl bg-[#E6005A]/20 text-[#E6005A] flex items-center justify-center border border-[#E6005A]/30">
                   <HelpCircle className="w-4.5 h-4.5" />
                 </div>
                 <div>
-                  <h3 className="text-base font-bold">Trợ giúp & Hướng dẫn Vplay</h3>
-                  <p className="text-[11px] text-[#9CA3AF]">Phím tắt và mẹo sử dụng nền tảng</p>
+                  <h3 className="text-base font-bold text-black">Trợ giúp & Hướng dẫn Vplay</h3>
+                  <p className="text-[11px] text-neutral-700">Phím tắt và mẹo sử dụng nền tảng</p>
                 </div>
               </div>
               <button
                 onClick={onClose}
-                className="w-7 h-7 rounded-full bg-[#27121d] flex items-center justify-center text-[#9CA3AF] hover:text-white cursor-default"
+                className="w-7 h-7 rounded-full bg-black/5 hover:bg-black/10 flex items-center justify-center text-neutral-700 hover:text-black cursor-default transition-colors"
               >
                 <X className="w-3.5 h-3.5" />
               </button>
@@ -74,10 +75,10 @@ export const HelpModal: React.FC<HelpModalProps> = ({ isOpen, onClose }) => {
                   {shortcuts.map((sc, i) => (
                     <div
                       key={i}
-                      className="flex items-center justify-between p-2 rounded-xl bg-[#141318] border border-[#2D2D35] text-xs"
+                      className="flex items-center justify-between p-2 rounded-xl bg-black/5 border border-black/10 text-xs"
                     >
-                      <span className="text-[#D1D5DB] text-[11.5px]">{sc.desc}</span>
-                      <kbd className="px-1.5 py-0.5 rounded-md bg-[#24242B] border border-[#3E3E48] font-mono text-[10px] text-[#FF4D8D]">
+                      <span className="text-black text-[11.5px] font-medium">{sc.desc}</span>
+                      <kbd className="px-1.5 py-0.5 rounded-md bg-black/10 border border-black/15 font-mono text-[10px] text-[#E6005A]">
                         {sc.key}
                       </kbd>
                     </div>
@@ -85,8 +86,8 @@ export const HelpModal: React.FC<HelpModalProps> = ({ isOpen, onClose }) => {
                 </div>
               </div>
 
-              <div className="p-3 rounded-2xl bg-[#141318] border border-[#2D2D35] text-[11px] text-[#9CA3AF] space-y-1 leading-relaxed">
-                <p className="font-semibold text-white">💡 Mẹo phát luồng:</p>
+              <div className="p-3 rounded-2xl bg-black/5 border border-black/10 text-[11px] text-neutral-800 space-y-1 leading-relaxed">
+                <p className="font-semibold text-black">💡 Mẹo phát luồng:</p>
                 <p>• Dùng menu Tools trên thanh công cụ để nhập luồng M3U8 tùy chỉnh hoặc xuất danh sách kênh của bạn.</p>
                 <p>• Trong trang tin tức, công cụ Tools hỗ trợ tóm tắt AI, tìm kiếm từ ngữ và xuất file Word .docx.</p>
               </div>

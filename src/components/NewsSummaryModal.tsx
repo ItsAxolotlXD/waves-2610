@@ -75,12 +75,13 @@ export const NewsSummaryModal: React.FC<NewsSummaryModalProps> = ({
       {isOpen && (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
           <motion.div
+            id="news-summary-backdrop"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             transition={{ duration: shouldAnimate ? 0.3 : 0 }}
             onClick={onClose}
-            className="fixed inset-0 bg-black/80 backdrop-blur-sm"
+            className="fixed inset-0 bg-black/10 backdrop-blur-md"
           />
 
           <motion.div
@@ -89,16 +90,16 @@ export const NewsSummaryModal: React.FC<NewsSummaryModalProps> = ({
             animate={{ opacity: 1, scale: 1 }}
             exit={shouldAnimate ? { opacity: 0, scale: 1.05 } : { opacity: 0 }}
             transition={{ duration: shouldAnimate ? 0.25 : 0, ease: [0.16, 1, 0.3, 1] }}
-            className="relative w-full max-w-[480px] bg-[#27282D] border border-white/10 rounded-[24px] p-5 sm:p-6 shadow-2xl z-10 text-white"
+            className="spatial-glass-modal relative w-full max-w-[480px] bg-white/30 border border-white/50 rounded-[24px] p-5 sm:p-6 shadow-2xl z-10 text-black"
           >
             {/* Header */}
-            <div className="flex items-center justify-between pb-3.5 border-b border-[#2C2C34]">
-              <h3 className="text-base sm:text-lg font-bold text-white">
+            <div className="flex items-center justify-between pb-3.5 border-b border-black/10">
+              <h3 className="text-base sm:text-lg font-bold text-black">
                 Tóm tắt bài viết
               </h3>
               <button
                 onClick={onClose}
-                className="w-7 h-7 rounded-full bg-[#27121d] flex items-center justify-center text-[#9CA3AF] hover:text-white cursor-default transition-colors"
+                className="w-7 h-7 rounded-full bg-black/5 hover:bg-black/10 flex items-center justify-center text-neutral-700 hover:text-black cursor-default transition-colors"
                 title="Đóng"
               >
                 <X className="w-3.5 h-3.5" />
@@ -108,29 +109,29 @@ export const NewsSummaryModal: React.FC<NewsSummaryModalProps> = ({
             {/* Loading 10-second State with spinning monochrome tools logo icon & "Crafting ideas..." */}
             {isLoading ? (
               <div className="py-12 px-4 flex flex-col items-center justify-center text-center space-y-5 my-2">
-                {/* Rotating Tools Logo Icon Container - No background, monochrome white */}
+                {/* Rotating Tools Logo Icon Container - Monochrome black */}
                 <div className="flex items-center justify-center py-2">
                   <img
                     src="https://static.wikia.nocookie.net/ep-deo/images/3/3c/Tools_menu.png/revision/latest?cb=20260905055712"
                     alt="Tools logo"
                     referrerPolicy="no-referrer"
-                    className="w-12 h-12 object-contain animate-spin brightness-0 invert"
+                    className="w-12 h-12 object-contain animate-spin brightness-0"
                     style={{ animationDuration: '2.5s' }}
                   />
                 </div>
 
                 {/* Animated Text */}
                 <div className="space-y-2">
-                  <h4 className="text-lg sm:text-xl font-bold tracking-wide text-white">
+                  <h4 className="text-lg sm:text-xl font-bold tracking-wide text-black">
                     Crafting ideas...
                   </h4>
-                  <p className="text-xs text-[#9CA3AF] max-w-[320px] leading-relaxed">
+                  <p className="text-xs text-neutral-700 max-w-[320px] leading-relaxed">
                     Đang phân tích và chắt lọc nội dung bài viết
                   </p>
                 </div>
 
                 {/* 10-second progress indicator */}
-                <div className="w-56 h-1.5 bg-white/10 rounded-full overflow-hidden mt-2 relative">
+                <div className="w-56 h-1.5 bg-black/10 rounded-full overflow-hidden mt-2 relative">
                   <motion.div
                     initial={{ width: '0%' }}
                     animate={{ width: '100%' }}
@@ -152,33 +153,33 @@ export const NewsSummaryModal: React.FC<NewsSummaryModalProps> = ({
                     <span className="text-[10px] font-bold uppercase tracking-wider text-[#FF4D8D]">
                       {article.category}
                     </span>
-                    <h4 className="text-base font-bold text-white mt-1 leading-snug">
+                    <h4 className="text-base font-bold text-black mt-1 leading-snug">
                       {article.title}
                     </h4>
                   </div>
 
                   {/* Core takeaway - no italic */}
-                  <div className="p-4 rounded-2xl bg-[#141318] border border-[#2D2D35] border-l-4 border-l-[#E6005A]">
-                    <p className="text-xs sm:text-sm font-medium text-[#E0E0E6] leading-relaxed">
+                  <div className="p-4 rounded-2xl bg-black/5 border border-black/10 border-l-4 border-l-[#E6005A]">
+                    <p className="text-xs sm:text-sm font-medium text-black leading-relaxed">
                       "{leadText}"
                     </p>
                   </div>
 
                   {/* Bullet points */}
                   <div>
-                    <h5 className="text-xs font-bold uppercase text-[#9CA3AF] mb-2 tracking-wider">
+                    <h5 className="text-xs font-bold uppercase text-neutral-700 mb-2 tracking-wider">
                       Các điểm mấu chốt:
                     </h5>
                     <div className="space-y-2">
                       {bulletPoints.map((bp, idx) => (
                         <div
                           key={idx}
-                          className="p-3 rounded-xl bg-[#141318] border border-[#26262E] text-xs text-[#D1D5DB] flex items-start gap-2.5"
+                          className="p-3 rounded-xl bg-black/5 border border-black/10 text-xs text-neutral-800 flex items-start gap-2.5"
                         >
                           <span className="w-5 h-5 rounded-full bg-[#E6005A]/15 text-[#E6005A] text-[10px] font-bold flex items-center justify-center shrink-0 mt-0.5">
                             {idx + 1}
                           </span>
-                          <p className="leading-relaxed">{bp}</p>
+                          <p className="leading-relaxed font-medium">{bp}</p>
                         </div>
                       ))}
                     </div>
@@ -186,13 +187,13 @@ export const NewsSummaryModal: React.FC<NewsSummaryModalProps> = ({
 
                   {/* Conclusion if provided - no italic */}
                   {article.summary?.conclusion && (
-                    <div className="p-3 rounded-xl bg-white/5 border border-[#26262E] text-xs text-[#D1D5DB] leading-relaxed">
+                    <div className="p-3 rounded-xl bg-black/5 border border-black/10 text-xs text-neutral-800 leading-relaxed font-medium">
                       {article.summary.conclusion}
                     </div>
                   )}
 
-                  <div className="flex items-center justify-between text-[11px] text-[#8E8E93] pt-2 border-t border-[#26262E]">
-                    <span>Chuyên mục: <strong className="text-white">{article.category}</strong></span>
+                  <div className="flex items-center justify-between text-[11px] text-neutral-700 pt-2 border-t border-black/10">
+                    <span>Chuyên mục: <strong className="text-black">{article.category}</strong></span>
                     <span>Ngày xuất bản: {article.publishedAt}</span>
                   </div>
                 </motion.div>
@@ -202,9 +203,9 @@ export const NewsSummaryModal: React.FC<NewsSummaryModalProps> = ({
                   <button
                     type="button"
                     onClick={handleCopySummary}
-                    className="flex-1 py-3 px-4 rounded-full bg-[#27121d] hover:bg-[#331726] border border-white/10 text-xs font-bold text-white flex items-center justify-center gap-2 transition-all cursor-default"
+                    className="flex-1 py-3 px-4 rounded-full bg-black/5 hover:bg-black/10 border border-black/10 text-xs font-bold text-black flex items-center justify-center gap-2 transition-all cursor-default"
                   >
-                    {copied ? <CheckCircle2 className="w-4 h-4 text-emerald-500" /> : <Copy className="w-4 h-4" />}
+                    {copied ? <CheckCircle2 className="w-4 h-4 text-emerald-600" /> : <Copy className="w-4 h-4" />}
                     <span>{copied ? 'Đã sao chép tóm tắt' : 'Sao chép tóm tắt'}</span>
                   </button>
 

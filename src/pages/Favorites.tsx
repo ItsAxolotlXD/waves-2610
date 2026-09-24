@@ -51,7 +51,7 @@ export const Favorites: React.FC<FavoritesProps> = ({
             <Heart className="w-4 h-4 fill-current" />
             <span>Nội dung đã lưu</span>
           </div>
-          <h1 className="text-3xl font-extrabold text-white tracking-tight">
+          <h1 className="text-3xl font-bold text-white tracking-tight">
             Kênh & Bài viết Yêu thích
           </h1>
           <p className="text-xs sm:text-sm text-[#9CA3AF] mt-1">
