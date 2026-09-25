@@ -53,7 +53,7 @@ export const DiscordWelcomeModal: React.FC<DiscordWelcomeModalProps> = ({
                 ease: [0.25, 0.1, 0.25, 1]
               }
             }}
-            className="spatial-glass-modal relative z-10 w-full max-w-[450px] bg-white/30 rounded-[28px] sm:rounded-[32px] p-6 sm:p-7 shadow-2xl select-none border border-white/50 text-black"
+            className="spatial-glass-modal relative z-10 w-full max-w-[450px] bg-white/70 rounded-[28px] sm:rounded-[32px] p-6 sm:p-7 shadow-2xl select-none border border-white/50 text-black"
           >
             {/* Title */}
             <h1

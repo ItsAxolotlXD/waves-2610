@@ -90,7 +90,7 @@ export const NewsSummaryModal: React.FC<NewsSummaryModalProps> = ({
             animate={{ opacity: 1, scale: 1 }}
             exit={shouldAnimate ? { opacity: 0, scale: 1.05 } : { opacity: 0 }}
             transition={{ duration: shouldAnimate ? 0.25 : 0, ease: [0.16, 1, 0.3, 1] }}
-            className="spatial-glass-modal relative w-full max-w-[480px] bg-white/30 border border-white/50 rounded-[24px] p-5 sm:p-6 shadow-2xl z-10 text-black"
+            className="spatial-glass-modal relative w-full max-w-[480px] bg-white/70 border border-white/50 rounded-[24px] p-5 sm:p-6 shadow-2xl z-10 text-black"
           >
             {/* Header */}
             <div className="flex items-center justify-between pb-3.5 border-b border-black/10">
@@ -99,10 +99,10 @@ export const NewsSummaryModal: React.FC<NewsSummaryModalProps> = ({
               </h3>
               <button
                 onClick={onClose}
-                className="w-7 h-7 rounded-full bg-black/5 hover:bg-black/10 flex items-center justify-center text-neutral-700 hover:text-black cursor-default transition-colors"
+                className="w-7 h-7 rounded-full bg-transparent hover:bg-transparent border-none flex items-center justify-center text-neutral-700 hover:text-black cursor-default transition-colors"
                 title="Đóng"
               >
-                <X className="w-3.5 h-3.5" />
+                <X className="w-4 h-4" />
               </button>
             </div>
 

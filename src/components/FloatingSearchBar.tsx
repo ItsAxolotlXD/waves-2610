@@ -275,6 +275,15 @@ export const FloatingSearchBar: React.FC<FloatingSearchBarProps> = ({
       layoutId={layoutId}
       id="floating-search-bar-pill"
       onClick={() => inputRef.current?.focus()}
+      whileHover={{
+        scale: 1.02,
+        transition: {
+          type: 'spring',
+          stiffness: 450,
+          damping: 16,
+          mass: 0.6
+        }
+      }}
       transition={{
         type: 'spring',
         stiffness: 400,

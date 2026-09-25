@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Menu, Bell, Search, Tv, Megaphone, Settings } from 'lucide-react';
+import { Menu, Search, Tv, Megaphone, Settings } from 'lucide-react';
 import { motion, AnimatePresence } from 'motion/react';
 import { useSettings } from '../hooks/useSettings';
 import { ToolsMenu } from './ToolsMenu';
@@ -274,40 +274,26 @@ export const TopBar: React.FC<TopBarProps> = ({
           </button>
         )}
 
-        {/* Standard Notifications button (when not in TopBar mode) */}
-        {!isTopBarMode && (
-          <button
-            id="btn-top-notifications"
-            onClick={onOpenNotifications}
-            className="w-9 h-9 rounded-full flex items-center justify-center text-[#18181B] dark:text-[#D1D5DB] dark:hover:text-white transition-all relative drop-shadow-sm cursor-default"
-            title="Thông báo cộng đồng"
-          >
-            <Bell className="w-5 h-5" />
-            <span className="absolute top-1.5 right-1.5 w-2 h-2 rounded-full bg-[#fd932f]" />
-          </button>
-        )}
-
-        {/* In Settings tab: Apply Settings Checkbox button */}
+        {/* In Settings tab: Save Button (Matches Switch & Read button style) */}
         {currentRoute === '/settings' ? (
           <div className="relative flex items-center justify-center ml-0.5">
             <button
               id="btn-top-settings-apply-checkbox"
               type="button"
               onClick={handleApplySettings}
-              className={`w-9 h-9 rounded-full flex items-center justify-center shrink-0 cursor-default select-none transition-all text-white bg-[#fd932f] ${
+              className={`px-5 py-2 rounded-full font-bold text-white bg-[#fd932f] hover:bg-[#e68428] active:scale-[0.96] transition-all text-xs sm:text-sm cursor-default flex items-center justify-center shrink-0 shadow-md tracking-tight text-center select-none ${
                 hasChanges 
-                  ? 'ring-2 ring-[#fd932f] ring-offset-2 ring-offset-[#141416] animate-pulse shadow-[0_0_14px_rgba(253,147,47,0.7)]' 
-                  : 'shadow-[0_2px_10px_rgba(253,147,47,0.35)] hover:scale-105 active:scale-95'
+                  ? 'shadow-[0_0_16px_rgba(253,147,47,0.7)] animate-pulse' 
+                  : ''
               } ${showUnsavedTooltip ? 'animate-shake' : ''}`}
-              data-checked="true"
               title={
                 hasChanges
-                  ? "Có thay đổi cài đặt chưa áp dụng. Bấm vào đây để áp dụng!"
-                  : "Tất cả cài đặt đã được áp dụng"
+                  ? "Có thay đổi cài đặt chưa lưu. Bấm vào đây để lưu!"
+                  : "Tất cả cài đặt đã được lưu"
               }
-              aria-label={hasChanges ? "Áp dụng cài đặt" : "Cài đặt đã áp dụng"}
+              aria-label={hasChanges ? "Lưu cài đặt" : "Cài đặt đã lưu"}
             >
-              <SfCheckmark className="w-[24px] h-[24px] text-white" strokeWidth={2.7} color="#FFFFFF" />
+              <span>Save</span>
             </button>
 
             {/* Unsaved Settings Warning Tooltip */}

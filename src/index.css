@@ -47,6 +47,7 @@
 
   *, *::before, *::after {
     font-family: 'Integer', 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif !important;
+    font-weight: 700 !important;
   }
 
   /* Global typography: bold font for headers, headings, h1-h6, titles & big titles */
@@ -745,48 +746,65 @@ button:hover > .settings-icon-hoverable,
   transform: rotate(180deg);
 }
 
-/* Settings TopBar Apply Checkbox Button: Always colored button (Pink Accent with Spatial Glass border & depth) */
+/* Settings TopBar Save Button: Exact style, color and spatial glass border as Switch & Read buttons (#fd932f) */
 #btn-top-settings-apply-checkbox {
-  background-color: #E6005A !important;
-  background-image: 
-    linear-gradient(#E6005A, #E6005A), 
-    linear-gradient(180deg, rgba(255, 255, 255, 0.85) 0%, rgba(255, 255, 255, 0.25) 35%, rgba(255, 255, 255, 0.25) 65%, rgba(255, 255, 255, 0.85) 100%) !important;
-  background-origin: padding-box, border-box !important;
-  background-clip: padding-box, border-box !important;
-  border: 1px solid transparent !important;
-  border-radius: 9999px !important;
-  box-shadow: inset 0 1px 1.5px 0 rgba(255, 255, 255, 0.45), inset 0 -1px 1.5px 0 rgba(255, 255, 255, 0.45), 0 3px 12px rgba(230, 0, 90, 0.40) !important;
+  position: relative !important;
+  overflow: hidden !important;
+  background-color: #fd932f !important;
+  background-image: none !important;
+  border: none !important;
+  box-shadow: inset 0 1px 1px 0 rgba(255, 255, 255, 0.3), inset 0 -1px 1px 0 rgba(255, 255, 255, 0.3), 0 3px 12px rgba(253, 147, 47, 0.38) !important;
+  color: #FFFFFF !important;
   transform: scale(1);
-  transition: transform 0.35s cubic-bezier(0.34, 1.65, 0.64, 1), box-shadow 0.25s ease !important;
+  transition: transform 0.38s cubic-bezier(0.34, 1.65, 0.64, 1), box-shadow 0.24s ease-out, background-color 0.18s ease-in-out !important;
+}
+
+#btn-top-settings-apply-checkbox::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  pointer-events: none;
+  border: 1px solid rgba(255, 255, 255, 0.20);
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.35) 0%, rgba(255, 255, 255, 0.08) 50%, rgba(255, 255, 255, 0.18) 100%);
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  padding: 1px;
+  box-sizing: border-box;
+  z-index: 2;
+  transition: opacity 0.3s ease, border-color 0.3s ease;
 }
 
 #btn-top-settings-apply-checkbox:hover {
-  background-image: 
-    linear-gradient(#FF1A75, #FF1A75), 
-    linear-gradient(180deg, rgba(255, 255, 255, 0.95) 0%, rgba(255, 255, 255, 0.35) 35%, rgba(255, 255, 255, 0.35) 65%, rgba(255, 255, 255, 0.95) 100%) !important;
-  box-shadow: inset 0 1px 1.5px 0 rgba(255, 255, 255, 0.55), inset 0 -1px 1.5px 0 rgba(255, 255, 255, 0.55), 0 4px 16px rgba(230, 0, 90, 0.55) !important;
-  transform: scale(1.10) !important;
+  background-color: #e68428 !important;
+  background-image: none !important;
+  box-shadow: inset 0 1px 1px 0 rgba(255, 255, 255, 0.4), inset 0 -1px 1px 0 rgba(255, 255, 255, 0.4), 0 5px 18px rgba(253, 147, 47, 0.48) !important;
+  transform: scale(1.05) !important;
+}
+
+#btn-top-settings-apply-checkbox:hover::after {
+  border-color: rgba(255, 255, 255, 0.35);
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.50) 0%, rgba(255, 255, 255, 0.15) 50%, rgba(255, 255, 255, 0.30) 100%);
 }
 
 #btn-top-settings-apply-checkbox:active {
-  transform: scale(0.92) !important;
+  background-color: #d8751c !important;
+  transform: scale(0.96) !important;
   transition: transform 0.1s ease-out !important;
 }
 
 html.light-mode #btn-top-settings-apply-checkbox {
-  background-color: #E6005A !important;
-  background-image: 
-    linear-gradient(#E6005A, #E6005A), 
-    linear-gradient(180deg, rgba(255, 255, 255, 0.85) 0%, rgba(255, 255, 255, 0.25) 35%, rgba(255, 255, 255, 0.25) 65%, rgba(255, 255, 255, 0.85) 100%) !important;
-  box-shadow: inset 0 1px 1.5px 0 rgba(255, 255, 255, 0.45), inset 0 -1px 1.5px 0 rgba(255, 255, 255, 0.45), 0 3px 12px rgba(230, 0, 90, 0.35) !important;
+  background-color: #fd932f !important;
+  background-image: none !important;
+  border: none !important;
+  color: #FFFFFF !important;
+  box-shadow: inset 0 1px 1px 0 rgba(255, 255, 255, 0.3), inset 0 -1px 1px 0 rgba(255, 255, 255, 0.3), 0 3px 12px rgba(253, 147, 47, 0.38) !important;
 }
 
 html.light-mode #btn-top-settings-apply-checkbox:hover {
-  background-image: 
-    linear-gradient(#FF1A75, #FF1A75), 
-    linear-gradient(180deg, rgba(255, 255, 255, 0.95) 0%, rgba(255, 255, 255, 0.35) 35%, rgba(255, 255, 255, 0.35) 65%, rgba(255, 255, 255, 0.95) 100%) !important;
-  box-shadow: inset 0 1px 1.5px 0 rgba(255, 255, 255, 0.55), inset 0 -1px 1.5px 0 rgba(255, 255, 255, 0.55), 0 4px 16px rgba(230, 0, 90, 0.45) !important;
-  transform: scale(1.10) !important;
+  background-color: #e68428 !important;
+  background-image: none !important;
 }
 
 /* Shake animation when user attempts to leave settings with unsaved changes */
@@ -2085,15 +2103,14 @@ html.light-mode .immersive-search-input input {
   background-image: none !important;
 }
 
-/* Floaty bar, float search bar & trigger button: style on hover is strictly identical to unhovered */
+/* Floaty bar, float search bar & trigger button: style on hover */
 #floating-search-bar-pill:hover,
 #btn-floaty-search-trigger:hover,
 .floaty-bar__surface:hover {
   background: var(--spatial-glass-bg, rgba(255, 255, 255, 0.20)) !important;
   background-color: var(--spatial-glass-bg, rgba(255, 255, 255, 0.20)) !important;
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.35) !important;
+  box-shadow: 0 12px 36px rgba(0, 0, 0, 0.40) !important;
   border: none !important;
-  transform: none !important;
   filter: none !important;
 }
 
@@ -2112,9 +2129,8 @@ html.light-mode #btn-floaty-search-trigger:hover,
 html.light-mode .floaty-bar__surface:hover {
   background: rgba(0, 0, 0, 0.06) !important;
   background-color: rgba(0, 0, 0, 0.06) !important;
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.15) !important;
+  box-shadow: 0 10px 32px rgba(0, 0, 0, 0.18) !important;
   border: none !important;
-  transform: none !important;
   filter: none !important;
 }
 
@@ -2132,9 +2148,8 @@ html.spatial-glass-dark-content #btn-floaty-search-trigger:hover,
 html.spatial-glass-dark-content .floaty-bar__surface:hover {
   background: rgba(0, 0, 0, 0.06) !important;
   background-color: rgba(0, 0, 0, 0.06) !important;
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.15) !important;
+  box-shadow: 0 10px 32px rgba(0, 0, 0, 0.18) !important;
   border: none !important;
-  transform: none !important;
 }
 
 html.spatial-glass-dark-content #floating-search-bar-pill:hover::after,
@@ -2159,6 +2174,34 @@ html.spatial-glass-dark-content .floaty-bar__surface:hover::after {
   color: rgba(255, 255, 255, 0.92) !important;
   transition: background-color 180ms ease, color 180ms ease !important;
   transform: none !important;
+}
+
+/* Floaty Bar (Tab View) Surface & Search Trigger Hover Bounce Zoom */
+.floaty-bar__surface {
+  transition: transform 0.32s cubic-bezier(0.34, 1.56, 0.64, 1), background-color 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease !important;
+}
+
+.floaty-bar__surface:hover {
+  transform: scale(1.05) !important;
+  box-shadow: 0 14px 40px rgba(0, 0, 0, 0.45) !important;
+}
+
+#btn-floaty-search-trigger {
+  transition: transform 0.32s cubic-bezier(0.34, 1.56, 0.64, 1), background-color 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease !important;
+}
+
+#btn-floaty-search-trigger:hover {
+  transform: scale(1.08) !important;
+  box-shadow: 0 14px 40px rgba(0, 0, 0, 0.45) !important;
+}
+
+#floating-search-bar-pill {
+  transition: transform 0.32s cubic-bezier(0.34, 1.56, 0.64, 1), background-color 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease !important;
+}
+
+#floating-search-bar-pill:hover {
+  transform: scale(1.03) !important;
+  box-shadow: 0 14px 40px rgba(0, 0, 0, 0.45) !important;
 }
 
 .floaty-bar__arrow {
@@ -2706,7 +2749,7 @@ html.light-mode .bg-\[\#1E1E22\].text-\[\#A1A1AA\] {
 .spatial-glass-modal {
   position: relative !important;
   box-sizing: border-box !important;
-  background-color: rgba(255, 255, 255, 0.30) !important;
+  background-color: rgba(255, 255, 255, 0.70) !important;
   backdrop-filter: blur(var(--spatial-glass-blur, 24px)) saturate(160%) !important;
   -webkit-backdrop-filter: blur(var(--spatial-glass-blur, 24px)) saturate(160%) !important;
   color: #000000 !important;
@@ -2747,7 +2790,7 @@ html.light-mode #add-stream-dialog,
 html.light-mode .spatial-glass-modal {
   position: relative !important;
   box-sizing: border-box !important;
-  background-color: rgba(255, 255, 255, 0.30) !important;
+  background-color: rgba(255, 255, 255, 0.70) !important;
   backdrop-filter: blur(var(--spatial-glass-blur, 24px)) saturate(160%) !important;
   -webkit-backdrop-filter: blur(var(--spatial-glass-blur, 24px)) saturate(160%) !important;
   color: #000000 !important;
@@ -2759,6 +2802,55 @@ html.light-mode .spatial-glass-modal {
   border-bottom: 1px solid rgba(0, 0, 0, 0.12) !important;
   box-shadow: 0 25px 60px rgba(0, 0, 0, 0.16), inset 0 1px 2px 0 rgba(255, 255, 255, 0.95), inset 0 -1px 1px 0 rgba(255, 255, 255, 0.40) !important;
 }
+
+/* Modal dialog close X buttons - strictly no background and no border */
+#welcome-modal-dialog button[title="Đóng"],
+#btn-welcome-close-icon,
+#help-modal-dialog button:has(svg.lucide-x),
+#news-summary-dialog button:has(svg.lucide-x),
+#spotlight-popup-card #btn-spotlight-close-settings,
+#custom-stream-dialog button:has(svg.lucide-x),
+#add-stream-dialog button:has(svg.lucide-x),
+.spatial-glass-modal button:has(svg.lucide-x):not(#btn-floating-search-clear) {
+  background: transparent !important;
+  background-color: transparent !important;
+  border: none !important;
+  border-width: 0 !important;
+  box-shadow: none !important;
+  outline: none !important;
+}
+
+/* Settings Grouped Categories: Matches inner category section cards, without border */
+.settings-ios-group {
+  background-color: rgba(255, 255, 255, 0.10) !important;
+  backdrop-filter: blur(16px) !important;
+  -webkit-backdrop-filter: blur(16px) !important;
+  border: none !important;
+  border-width: 0 !important;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2) !important;
+  border-radius: 30px !important;
+}
+
+html.light-mode .settings-ios-group {
+  background-color: #FFFFFF !important;
+  border: none !important;
+  border-width: 0 !important;
+  border-radius: 30px !important;
+  box-shadow: 0 4px 16px -2px rgba(0, 0, 0, 0.05) !important;
+}
+
+html.light-mode .settings-ios-group .text-white {
+  color: #111827 !important;
+}
+
+html.light-mode .settings-ios-group .divider-line {
+  background-color: #F1F5F9 !important;
+}
+
+html.light-mode .settings-ios-group > div:hover {
+  background-color: rgba(0, 0, 0, 0.03) !important;
+}
+
 
 html.light-mode #welcome-modal-backdrop,
 html.light-mode #discord-welcome-backdrop,

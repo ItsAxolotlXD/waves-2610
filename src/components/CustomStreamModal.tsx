@@ -136,7 +136,7 @@ export const CustomStreamModal: React.FC<CustomStreamModalProps> = ({
                 ease: [0.25, 0.1, 0.25, 1]
               }
             } : { opacity: 0 }}
-            className="spatial-glass-modal relative w-full max-w-[480px] bg-white/30 border border-white/50 rounded-[28px] shadow-2xl overflow-hidden z-10 text-black"
+            className="spatial-glass-modal relative w-full max-w-[480px] bg-white/70 border border-white/50 rounded-[28px] shadow-2xl overflow-hidden z-10 text-black"
           >
             {/* Header */}
             <div className="flex items-center justify-between p-5 pb-3.5 border-b border-black/10">
@@ -155,9 +155,9 @@ export const CustomStreamModal: React.FC<CustomStreamModalProps> = ({
               </div>
               <button
                 onClick={onClose}
-                className="w-7 h-7 rounded-full bg-black/5 hover:bg-black/10 flex items-center justify-center text-neutral-700 hover:text-black cursor-default transition-colors"
+                className="w-7 h-7 rounded-full bg-transparent hover:bg-transparent border-none flex items-center justify-center text-neutral-700 hover:text-black cursor-default transition-colors"
               >
-                <X className="w-3.5 h-3.5" />
+                <X className="w-4 h-4" />
               </button>
             </div>
 

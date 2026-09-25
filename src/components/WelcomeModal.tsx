@@ -64,22 +64,18 @@ export const WelcomeModal: React.FC<WelcomeModalProps> = ({
                 ease: [0.25, 0.1, 0.25, 1]
               }
             }}
-            className="spatial-glass-modal relative z-10 w-full max-w-[450px] bg-white/30 rounded-[28px] sm:rounded-[32px] p-6 sm:p-7 shadow-2xl border border-white/50 text-black"
+            className="spatial-glass-modal relative z-10 w-full max-w-[450px] bg-white/70 rounded-[28px] sm:rounded-[32px] p-6 sm:p-7 shadow-2xl border border-white/50 text-black"
           >
-            {/* Top Badge */}
-            <div className="flex items-center justify-between mb-3">
-              <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#E6005A]/15 border border-[#E6005A]/30 text-[#E6005A] text-xs font-bold uppercase tracking-wider">
-                <Sparkles className="w-3.5 h-3.5" />
-                <span>Cập nhật hệ thống</span>
-              </div>
+            {/* Top Close Button (Clean, no background, no border) */}
+            <div className="flex items-center justify-end mb-2">
               <button
                 type="button"
                 id="btn-welcome-close-icon"
                 onClick={onClose}
-                className="w-8 h-8 rounded-full bg-black/5 hover:bg-black/10 text-neutral-700 hover:text-black flex items-center justify-center transition-colors cursor-default"
+                className="w-8 h-8 rounded-full bg-transparent hover:bg-transparent border-none text-neutral-700 hover:text-black flex items-center justify-center transition-colors cursor-default"
                 title="Đóng"
               >
-                <X className="w-4 h-4" />
+                <X className="w-5 h-5" />
               </button>
             </div>
 
@@ -107,7 +103,7 @@ export const WelcomeModal: React.FC<WelcomeModalProps> = ({
               </div>
               <div className="flex items-center justify-between text-sm sm:text-[15px]">
                 <span className="font-medium text-black">Software Build</span>
-                <span className="font-semibold text-neutral-800">26W1002a</span>
+                <span className="font-semibold text-neutral-800">26W1004a</span>
               </div>
               {/* Dòng chữ to dưới Software Build: Compatible with Spatial Glass */}
               <div id="settings-compatible-spatial-glass" className="pt-3 mt-1 border-t border-black/10 flex items-center">

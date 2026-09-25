@@ -45,7 +45,7 @@ export const HelpModal: React.FC<HelpModalProps> = ({ isOpen, onClose }) => {
             animate={{ opacity: 1, scale: 1 }}
             exit={shouldAnimate ? { opacity: 0, scale: 1.05 } : { opacity: 0 }}
             transition={{ duration: shouldAnimate ? 0.35 : 0, ease: [0.16, 1, 0.3, 1] }}
-            className="spatial-glass-modal relative w-full max-w-[450px] bg-white/30 border border-white/50 rounded-[26px] p-5 sm:p-6 shadow-2xl z-10 text-black"
+            className="spatial-glass-modal relative w-full max-w-[450px] bg-white/70 border border-white/50 rounded-[26px] p-5 sm:p-6 shadow-2xl z-10 text-black"
           >
             <div className="flex items-center justify-between pb-3.5 border-b border-black/10">
               <div className="flex items-center gap-2.5">
@@ -59,9 +59,9 @@ export const HelpModal: React.FC<HelpModalProps> = ({ isOpen, onClose }) => {
               </div>
               <button
                 onClick={onClose}
-                className="w-7 h-7 rounded-full bg-black/5 hover:bg-black/10 flex items-center justify-center text-neutral-700 hover:text-black cursor-default transition-colors"
+                className="w-7 h-7 rounded-full bg-transparent hover:bg-transparent border-none flex items-center justify-center text-neutral-700 hover:text-black cursor-default transition-colors"
               >
-                <X className="w-3.5 h-3.5" />
+                <X className="w-4 h-4" />
               </button>
             </div>
 

@@ -210,7 +210,7 @@ export const SpotlightModal: React.FC<SpotlightModalProps> = ({
                 ease: [0.25, 0.1, 0.25, 1]
               }
             } : { opacity: 0 }}
-            className="spatial-glass-modal relative w-full max-w-[400px] sm:max-w-[460px] bg-white/30 border border-white/50 rounded-[28px] p-4 sm:p-5 shadow-2xl overflow-hidden z-10 my-auto max-h-[calc(100vh-32px)] flex flex-col text-black"
+            className="spatial-glass-modal relative w-full max-w-[400px] sm:max-w-[460px] bg-white/70 border border-white/50 rounded-[28px] p-4 sm:p-5 shadow-2xl overflow-hidden z-10 my-auto max-h-[calc(100vh-32px)] flex flex-col text-black"
           >
             {viewMode === 'settings' ? (
               /* View 2: Search Settings Menu (Without navigating to Settings tab) */
@@ -239,7 +239,7 @@ export const SpotlightModal: React.FC<SpotlightModalProps> = ({
                     id="btn-spotlight-close-settings"
                     type="button"
                     onClick={onClose}
-                    className="z-10 w-7 h-7 rounded-full flex items-center justify-center text-[#8E8E93] hover:text-white hover:bg-white/10 dark:hover:bg-white/15 transition-colors cursor-default"
+                    className="z-10 w-7 h-7 rounded-full bg-transparent hover:bg-transparent border-none flex items-center justify-center text-[#8E8E93] hover:text-black dark:hover:text-white transition-colors cursor-default"
                     title="Đóng"
                   >
                     <X className="w-4 h-4" />
