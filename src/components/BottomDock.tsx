@@ -1,7 +1,10 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { AnimatePresence, motion } from 'motion/react';
 import { 
+  Home,
+  Tv,
   Megaphone,
+  Settings as SettingsIcon
 } from 'lucide-react';
 import { useSettings } from '../hooks/useSettings';
 import { useNativeKeyboard } from '../context/NativeKeyboardContext';
@@ -13,14 +16,14 @@ interface BottomDockProps {
   onOpenSearch?: () => void;
   onOpenHelp?: () => void;
   onOpenDiscord?: () => void;
-  isImmersive?: boolean;
   searchQuery?: string;
   onSearchChange?: (query: string) => void;
   onOpenSpotlight?: () => void;
 }
 
-const HOME_ICON = 'https://static.wikia.nocookie.net/ep-deo/images/6/6e/New_hom.png/revision/latest?cb=20260722124341';
-const TV_ICON = 'https://vtvgo-next-assets.vtvdigital.vn/prod/images/menu/20260905/2026090508/b467d7552a-tv-1.webp';
+const HOME_ICON = 'https://static.wikia.nocookie.net/ep-deo/images/e/ee/Icons8-home-64.png/revision/latest?cb=20260925115253';
+const WATCH_ICON = 'https://static.wikia.nocookie.net/ep-deo/images/7/78/Icons8-apps-90.png/revision/latest?cb=20260925115254';
+const NEWS_ICON = 'https://static.wikia.nocookie.net/ep-deo/images/f/f2/Icons8-megaphone-64.png/revision/latest?cb=20260925115252';
 const SETTINGS_ICON = 'https://static.wikia.nocookie.net/ftv/images/9/97/Settungs.png/revision/latest?cb=20260411085024&path-prefix=vi';
 const SF_SEARCH_ICON_URL = 'https://github.com/andrewtavis/sf-symbols-online/blob/master/glyphs/magnifyingglass.png?raw=true';
 
@@ -29,20 +32,19 @@ interface TabItem {
   label: string;
   route: string;
   image?: string;
-  icon?: any;
+  icon: React.ComponentType<{ className?: string; style?: React.CSSProperties }>;
 }
 
 const DOCK_TABS: TabItem[] = [
-  { id: 'dock-home', label: 'Home', route: '/', image: HOME_ICON },
-  { id: 'dock-tv', label: 'TV', route: '/live-tv', image: TV_ICON },
-  { id: 'dock-news', label: 'News', route: '/news', icon: Megaphone },
-  { id: 'dock-settings', label: 'Settings', route: '/settings', image: SETTINGS_ICON },
+  { id: 'dock-home', label: 'Home', route: '/', image: HOME_ICON, icon: Home },
+  { id: 'dock-tv', label: 'Watch', route: '/live-tv', image: WATCH_ICON, icon: Tv },
+  { id: 'dock-news', label: 'News', route: '/news', image: NEWS_ICON, icon: Megaphone },
+  { id: 'dock-settings', label: 'Settings', route: '/settings', image: SETTINGS_ICON, icon: SettingsIcon },
 ];
 
 export const BottomDock: React.FC<BottomDockProps> = ({ 
   currentRoute, 
   navigate, 
-  isImmersive = false,
   searchQuery = '',
   onSearchChange,
   onOpenSpotlight
@@ -52,11 +54,13 @@ export const BottomDock: React.FC<BottomDockProps> = ({
     ? draftSettings.spatialGlassOpacity
     : (settings.spatialGlassOpacity ?? 20);
   const isSpatialGlassActive = (draftSettings?.spatialGlass ?? settings.spatialGlass) !== false;
+  const isLightMode = settings.theme === 'light';
   const isDarkContent = isSpatialGlassActive && currentOpacity > 40;
 
   const [hoveredId, setHoveredId] = useState<string | null>(null);
   const [gesturingTabId, setGesturingTabId] = useState<string | null>(null);
   const [isSearchOpen, setIsSearchOpen] = useState(false);
+  const [imageErrors, setImageErrors] = useState<Record<string, boolean>>({});
   const searchContainerRef = useRef<HTMLDivElement>(null);
   const tabRefs = useRef<Record<string, HTMLButtonElement | null>>({});
   const isGesturingRef = useRef(false);
@@ -180,8 +184,67 @@ export const BottomDock: React.FC<BottomDockProps> = ({
     setGesturingTabId(null);
   };
 
+  const renderTabIcon = (item: TabItem, active: boolean, isSelectedOrHovered: boolean) => {
+    const Icon = item.icon;
+    const hasImage = !!item.image && !imageErrors[item.id];
+
+    if (active) {
+      if (hasImage) {
+        return (
+          <div
+            className="w-[28px] h-[28px] sm:w-[32px] sm:h-[32px] shrink-0 transition-transform duration-200"
+            style={{
+              maskImage: `url(${item.image})`,
+              WebkitMaskImage: `url(${item.image})`,
+              maskSize: 'contain',
+              WebkitMaskSize: 'contain',
+              maskRepeat: 'no-repeat',
+              WebkitMaskRepeat: 'no-repeat',
+              maskPosition: 'center',
+              WebkitMaskPosition: 'center',
+              backgroundColor: '#FF3D00',
+            }}
+          />
+        );
+      }
+      return (
+        <Icon
+          className="w-[28px] h-[28px] sm:w-[32px] sm:h-[32px] shrink-0 text-[#FF3D00] stroke-[#FF3D00] transition-all duration-200"
+        />
+      );
+    }
+
+    // Inactive: monochrome white, or monochrome black if opacity > 40% (isDarkContent)
+    if (hasImage) {
+      return (
+        <img
+          src={item.image}
+          alt={item.label}
+          referrerPolicy="no-referrer"
+          onError={() => setImageErrors((prev) => ({ ...prev, [item.id]: true }))}
+          className={`w-[28px] h-[28px] sm:w-[32px] sm:h-[32px] object-contain shrink-0 transition-all duration-150 ${
+            isDarkContent
+              ? 'brightness-0'
+              : 'filter brightness-0 invert'
+          } ${isSelectedOrHovered ? 'opacity-100' : 'opacity-75'}`}
+        />
+      );
+    }
+
+    return (
+      <Icon
+        className={`w-[28px] h-[28px] sm:w-[32px] sm:h-[32px] shrink-0 transition-all duration-150 ${
+          isDarkContent
+            ? 'text-black stroke-black'
+            : 'text-white stroke-white'
+        } ${isSelectedOrHovered ? 'opacity-100' : 'opacity-75'}`}
+      />
+    );
+  };
+
   return (
     <>
+
       {/* 1. Progressive Blur Layer at the bottom */}
       <div 
         id="bottom-progressive-blur-dock" 
@@ -227,11 +290,11 @@ export const BottomDock: React.FC<BottomDockProps> = ({
                 animate={{ opacity: 1, scale: 1, width: 'auto' }}
                 exit={{ opacity: 0, scale: 0.85, width: 0 }}
                 whileHover={{
-                  scale: 1.05,
+                  scale: 1.055,
                   transition: {
                     type: 'spring',
                     stiffness: 450,
-                    damping: 15,
+                    damping: 18,
                     mass: 0.6
                   }
                 }}
@@ -252,8 +315,8 @@ export const BottomDock: React.FC<BottomDockProps> = ({
                   WebkitBackdropFilter: 'blur(var(--spatial-glass-blur, 20px))',
                   transformOrigin: 'right center',
                 }}
-                className={`floaty-bar floaty-bar__surface ${isImmersive ? 'floaty-bar__surface--immersive' : ''} h-[44px] sm:h-[46px] flex items-center gap-1 sm:gap-1.5 px-2 sm:px-2.5 rounded-full shadow-[0_8px_32px_rgba(0,0,0,0.35)] select-none pointer-events-auto overflow-hidden transition-[background-color,border-color,box-shadow] ${
-                  isDarkContent ? 'border border-black/15 text-black' : 'border border-white/10 text-white'
+                className={`floaty-bar floaty-bar__surface h-[64px] sm:h-[70px] flex items-center gap-1 sm:gap-1.5 px-2 sm:px-2.5 rounded-full shadow-[0_8px_32px_rgba(0,0,0,0.35)] select-none pointer-events-auto overflow-hidden transition-[background-color,border-color,box-shadow,filter] ${
+                  isDarkContent || isLightMode ? 'border border-black/15 text-black' : 'border border-white/10 text-white'
                 }`}
                 aria-label="Tab View"
               >
@@ -263,69 +326,8 @@ export const BottomDock: React.FC<BottomDockProps> = ({
                 >
                   {DOCK_TABS.map((item) => {
                     const active = currentActiveId === item.id;
-                    const Icon = item.icon;
                     const isHovered = hoveredId === item.id;
-
-                    if (!isImmersive) {
-                      // Standard Floaty bar: 4 tabs strictly icon only with adaptive active pill
-                      const isSelectedOrHovered = active || isHovered;
-
-                      return (
-                        <motion.button
-                          key={item.id}
-                          ref={(el) => { tabRefs.current[item.id] = el; }}
-                          id={item.id}
-                          type="button"
-                          title={item.label}
-                          layout
-                          onMouseEnter={() => setHoveredId(item.id)}
-                          onMouseLeave={() => setHoveredId(null)}
-                          onClick={() => navigate(item.route)}
-                          transition={{
-                            layout: { type: 'spring', stiffness: 480, damping: 35, mass: 0.6 }
-                          }}
-                          className={`floaty-bar__item relative h-8 sm:h-[34px] rounded-full flex items-center justify-center cursor-default transition-colors duration-150 outline-none select-none shrink-0 ${
-                            isSelectedOrHovered
-                              ? (isDarkContent ? 'is-active px-3 sm:px-3.5 text-black' : 'is-active px-3 sm:px-3.5 text-white')
-                              : (isDarkContent ? 'px-2 sm:px-2.5 text-black/80 hover:text-black hover:bg-black/10' : 'px-2 sm:px-2.5 text-white/80 hover:text-white hover:bg-white/10')
-                          }`}
-                        >
-                          {active && (
-                            <motion.div
-                              layoutId="floaty-bar-active-pill"
-                              transition={{
-                                type: 'spring',
-                                stiffness: 480,
-                                damping: 34,
-                                mass: 0.5
-                              }}
-                              className={`floaty-bar-pill-indicator absolute inset-0 rounded-full z-0 pointer-events-none ${
-                                isDarkContent ? 'bg-black/15 shadow-sm' : 'bg-white/20 shadow-sm'
-                              }`}
-                            />
-                          )}
-                          <span className="relative z-10 flex items-center justify-center">
-                            {item.image ? (
-                              <img
-                                src={item.image}
-                                alt={item.label}
-                                referrerPolicy="no-referrer"
-                                className={`size-4 sm:size-[18px] object-contain shrink-0 ${
-                                  isDarkContent ? 'brightness-0' : 'brightness-0 invert'
-                                } ${
-                                  isSelectedOrHovered ? 'opacity-100' : 'opacity-75'
-                                }`}
-                              />
-                            ) : Icon ? (
-                              <Icon className="w-4 h-4 sm:w-[18px] sm:h-[18px] shrink-0" />
-                            ) : null}
-                          </span>
-                        </motion.button>
-                      );
-                    }
-
-                    // Immersive Floaty bar: Active tab expands smoothly showing label
-                    const isExpanded = active;
+                    const isSelectedOrHovered = active || isHovered;
 
                     return (
                       <motion.button
@@ -333,15 +335,20 @@ export const BottomDock: React.FC<BottomDockProps> = ({
                         ref={(el) => { tabRefs.current[item.id] = el; }}
                         id={item.id}
                         type="button"
+                        title={item.label}
                         layout
+                        onMouseEnter={() => setHoveredId(item.id)}
+                        onMouseLeave={() => setHoveredId(null)}
                         onClick={() => navigate(item.route)}
                         transition={{
                           layout: { type: 'spring', stiffness: 480, damping: 35, mass: 0.6 }
                         }}
-                        className={`floaty-bar__item relative h-8 sm:h-[34px] rounded-full flex items-center justify-center cursor-default transition-colors duration-150 outline-none overflow-hidden select-none shrink-0 ${
-                          isExpanded
-                            ? (isDarkContent ? 'is-active text-black px-3 sm:px-3.5' : 'is-active text-white px-3 sm:px-3.5')
-                            : (isDarkContent ? 'text-black/80 hover:text-black hover:bg-black/10 w-8 sm:w-[34px]' : 'text-white/80 hover:text-white hover:bg-white/10 w-8 sm:w-[34px]')
+                        className={`floaty-bar__item relative h-[54px] sm:h-[60px] min-w-[62px] sm:min-w-[70px] px-2.5 sm:px-3.5 rounded-full flex flex-col items-center justify-center cursor-default transition-all duration-150 outline-none select-none shrink-0 ${
+                          active
+                            ? 'is-active text-[#FF3D00]'
+                            : isSelectedOrHovered
+                              ? (isDarkContent ? 'text-black' : 'text-white')
+                              : (isDarkContent ? 'text-black/75 hover:text-black hover:bg-black/5' : 'text-white/75 hover:text-white hover:bg-white/10')
                         }`}
                       >
                         {active && (
@@ -353,40 +360,22 @@ export const BottomDock: React.FC<BottomDockProps> = ({
                               damping: 34,
                               mass: 0.5
                             }}
-                            className={`floaty-bar-pill-indicator absolute inset-0 rounded-full z-0 pointer-events-none ${
-                              isDarkContent ? 'bg-black/15 shadow-sm' : 'bg-white/20 shadow-sm'
-                            }`}
+                            className="floaty-bar-pill-indicator absolute inset-0 rounded-full z-0 pointer-events-none bg-[#FF3D00]/15 shadow-sm border border-[#FF3D00]/25"
                           />
                         )}
-                        <div className="relative z-10 flex items-center justify-center gap-1.5 whitespace-nowrap">
-                          {item.image ? (
-                            <img
-                              src={item.image}
-                              alt={item.label}
-                              referrerPolicy="no-referrer"
-                              className={`size-4 sm:size-[18px] object-contain shrink-0 ${
-                                isDarkContent ? 'brightness-0' : 'brightness-0 invert'
-                              } ${
-                                isExpanded ? 'opacity-100' : 'opacity-75'
-                              }`}
-                            />
-                          ) : Icon ? (
-                            <Icon className="w-4 h-4 sm:w-[18px] sm:h-[18px] shrink-0" />
-                          ) : null}
-
-                          <AnimatePresence>
-                            {isExpanded && (
-                              <motion.span
-                                initial={{ opacity: 0, width: 0 }}
-                                animate={{ opacity: 1, width: 'auto' }}
-                                exit={{ opacity: 0, width: 0 }}
-                                transition={{ duration: 0.2, ease: 'easeOut' }}
-                                className={`text-xs font-bold ${isDarkContent ? 'text-black' : 'text-white'} tracking-tight whitespace-nowrap overflow-hidden pl-0.5`}
-                              >
-                                {item.label}
-                              </motion.span>
-                            )}
-                          </AnimatePresence>
+                        <div className="relative z-10 flex flex-col items-center justify-center">
+                          {renderTabIcon(item, active, isSelectedOrHovered)}
+                          <span
+                            className={`text-[10px] sm:text-[11px] font-semibold leading-tight tracking-tight transition-colors duration-150 select-none mt-0.5 ${
+                              active
+                                ? 'font-bold text-[#FF3D00]'
+                                : isDarkContent
+                                  ? 'text-black/75 group-hover:text-black'
+                                  : 'text-white/75 group-hover:text-white'
+                            }`}
+                          >
+                            {item.label}
+                          </span>
                         </div>
                       </motion.button>
                     );
@@ -428,19 +417,19 @@ export const BottomDock: React.FC<BottomDockProps> = ({
                   backdropFilter: 'blur(var(--spatial-glass-blur, 20px))',
                   WebkitBackdropFilter: 'blur(var(--spatial-glass-blur, 20px))',
                 }}
-                className={`group h-[44px] w-[44px] sm:h-[46px] sm:w-[46px] rounded-full flex items-center justify-center cursor-default shadow-[0_8px_32px_rgba(0,0,0,0.35)] select-none shrink-0 pointer-events-auto transition-[background-color,border-color,box-shadow] ${
-                  isDarkContent ? 'border border-black/15 text-black' : 'border border-white/10 text-white'
+                className={`group h-[64px] w-[64px] sm:h-[70px] sm:w-[70px] rounded-full flex items-center justify-center cursor-default shadow-[0_8px_32px_rgba(0,0,0,0.35)] select-none shrink-0 pointer-events-auto transition-[background-color,border-color,box-shadow,filter] ${
+                  isDarkContent || isLightMode ? 'border border-black/15 text-black' : 'border border-white/10 text-white'
                 } ${
                   searchQuery?.trim()
-                    ? (isDarkContent ? 'ring-2 ring-black/20 shadow-[0_10px_36px_rgba(0,0,0,0.35)]' : 'ring-2 ring-white/25 shadow-[0_10px_36px_rgba(0,0,0,0.45)]')
+                    ? (isDarkContent || isLightMode ? 'ring-2 ring-black/20 shadow-[0_10px_36px_rgba(0,0,0,0.35)]' : 'ring-2 ring-white/25 shadow-[0_10px_36px_rgba(0,0,0,0.45)]')
                     : ''
                 }`}
               >
                 <img
                   src={SF_SEARCH_ICON_URL}
                   alt="Search"
-                  className={`w-[18px] h-[18px] sm:w-[20px] sm:h-[20px] object-contain select-none pointer-events-none transition-opacity ${
-                    isDarkContent ? 'brightness-0' : 'filter brightness-0 invert'
+                  className={`w-[26px] h-[26px] sm:w-[28px] sm:h-[28px] object-contain select-none pointer-events-none transition-opacity ${
+                    isDarkContent || isLightMode ? 'brightness-0' : 'filter brightness-0 invert'
                   } opacity-85`}
                   referrerPolicy="no-referrer"
                   onError={(e) => {
@@ -448,7 +437,7 @@ export const BottomDock: React.FC<BottomDockProps> = ({
                   }}
                 />
                 {searchQuery?.trim() && (
-                  <span className="absolute top-2 right-2 w-2 h-2 rounded-full bg-[#fd932f] ring-2 ring-black/40" />
+                  <span className="absolute top-2.5 right-2.5 w-2 h-2 rounded-full bg-[#fd932f] ring-2 ring-black/40" />
                 )}
               </motion.button>
             ) : (

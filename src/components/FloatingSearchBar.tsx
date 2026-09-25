@@ -297,9 +297,9 @@ export const FloatingSearchBar: React.FC<FloatingSearchBarProps> = ({
       }}
       className={`group relative flex items-center overflow-hidden ${
         isArticlePage && searchQuery.trim()
-          ? 'w-[92vw] max-w-[340px] sm:max-w-[400px] md:max-w-[440px]'
-          : 'w-[84vw] max-w-[280px] sm:max-w-[320px] md:max-w-[340px]'
-      } h-[44px] sm:h-[46px] px-3 sm:px-3.5 rounded-full cursor-text shadow-[0_8px_32px_rgba(0,0,0,0.35)] pointer-events-auto ${
+          ? 'w-[94vw] max-w-[380px] sm:max-w-[440px] md:max-w-[480px]'
+          : 'w-[88vw] max-w-[320px] sm:max-w-[360px] md:max-w-[400px]'
+      } h-[64px] sm:h-[70px] px-3.5 sm:px-4 rounded-full cursor-text shadow-[0_8px_32px_rgba(0,0,0,0.35)] pointer-events-auto ${
         isDarkContent ? 'border border-black/15 text-black' : 'border border-white/10 text-white'
       } ${
         isFocused || isListening
@@ -321,13 +321,13 @@ export const FloatingSearchBar: React.FC<FloatingSearchBarProps> = ({
             inputRef.current?.focus();
           }
         }}
-        className="flex items-center justify-center shrink-0 pr-2 cursor-default transition-opacity"
+        className="flex items-center justify-center shrink-0 pr-2.5 cursor-default transition-opacity"
         title={isArticlePage ? 'Từ tiếp theo (Enter)' : (isHome ? 'Mở Spotlight Search (⌘K)' : 'Tìm kiếm')}
       >
         <img
           src={SF_SEARCH_ICON_URL}
           alt="Search"
-          className={`w-[18px] h-[18px] sm:w-[20px] sm:h-[20px] object-contain select-none pointer-events-none transition-opacity ${
+          className={`w-[20px] h-[20px] sm:w-[22px] sm:h-[22px] object-contain select-none pointer-events-none transition-opacity ${
             isDarkContent ? 'brightness-0' : 'filter brightness-0 invert'
           } opacity-85 group-hover:opacity-100`}
           referrerPolicy="no-referrer"
@@ -355,7 +355,7 @@ export const FloatingSearchBar: React.FC<FloatingSearchBarProps> = ({
           onBlur={() => setIsFocused(false)}
           onKeyDown={handleKeyDown}
           placeholder={isListening ? 'Đang lắng nghe...' : getTabPlaceholder(currentRoute)}
-          className={`w-full bg-transparent text-[13px] sm:text-[14px] font-medium focus:outline-none truncate ${
+          className={`w-full bg-transparent text-[14px] sm:text-[15px] font-medium focus:outline-none truncate ${
             isDarkContent
               ? 'text-black placeholder:text-black/60 caret-black'
               : 'text-white placeholder:text-white/70 caret-white'
@@ -456,7 +456,7 @@ export const FloatingSearchBar: React.FC<FloatingSearchBarProps> = ({
             <img
               src={SF_MIC_ICON_URL}
               alt="Mic"
-              className={`w-[18px] h-[18px] sm:w-[20px] sm:h-[20px] object-contain select-none pointer-events-none transition-opacity ${
+              className={`w-[20px] h-[20px] sm:w-[22px] sm:h-[22px] object-contain select-none pointer-events-none transition-opacity ${
                 isDarkContent ? 'brightness-0' : 'filter brightness-0 invert'
               } ${
                 isListening ? 'opacity-100' : 'opacity-85 hover:opacity-100'

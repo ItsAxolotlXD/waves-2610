@@ -44,7 +44,7 @@ const APP_PAGES = [
 const SETTINGS_SHORTCUTS = [
   { id: 'set-floating-search', title: 'Cài đặt: Floating Search Bar', desc: 'Bật/tắt thanh tìm kiếm nổi ở dưới màn hình', route: '/settings', keywords: 'floating search bar thanh tìm kiếm nổi dưới đáy' },
   { id: 'set-font', title: 'Cài đặt: Tỷ lệ cỡ chữ ứng dụng', desc: 'Điều chỉnh cỡ chữ từ 80% đến 125%', route: '/settings', keywords: 'cỡ chữ font chữ zoom tỷ lệ giao diện' },
-  { id: 'set-nav', title: 'Cài đặt: Kiểu thanh điều hướng (Navigation Mode)', desc: 'Chuyển đổi giữa Topbar, Sidebar, Tab View, Immersive', route: '/settings', keywords: 'navigation mode topbar sidebar floaty tab view immersive thanh điều hướng' },
+  { id: 'set-nav', title: 'Cài đặt: Kiểu thanh điều hướng (Navigation Mode)', desc: 'Chuyển đổi giữa Topbar, Sidebar, Tab View', route: '/settings', keywords: 'navigation mode topbar sidebar floaty tab view thanh điều hướng' },
   { id: 'set-autohide', title: 'Cài đặt: Tự động ẩn Sidebar', desc: 'Tự động thu gọn thanh bên khi xem nội dung', route: '/settings', keywords: 'tự động ẩn sidebar collapse' },
   { id: 'set-motion', title: 'Cài đặt: Hiệu ứng chuyển động (Motion & Movements)', desc: 'Giảm hoạt ảnh hoặc chuyển trang mượt mà', route: '/settings', keywords: 'motion movements hiệu ứng animation reduce all animation chuyển trang' },
   { id: 'set-keybinds', title: 'Cài đặt: Phím tắt tùy chỉnh (Keybinds)', desc: 'Cấu hình phím tắt cho mọi thao tác', route: '/settings', keywords: 'phím tắt customize keybinds shortcut keyboard alt' },

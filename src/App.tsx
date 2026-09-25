@@ -251,7 +251,7 @@ export default function App() {
 
   // Open search handler (respects navigation mode and immersive search experiment)
   const handleOpenSearch = useCallback(() => {
-    if (settings.navigationMode === 'floaty' || settings.navigationMode === 'immersive_floaty') {
+    if (settings.navigationMode === 'floaty') {
       window.dispatchEvent(new CustomEvent('vplay:open-floaty-search'));
     } else if (settings.immersiveSearch) {
       if (currentRoute !== '/search') {
@@ -571,10 +571,10 @@ export default function App() {
             ? 'p-0 max-w-none pt-1 sm:pt-2' 
             : 'px-4 sm:px-6 md:px-8 py-5 max-w-7xl'
         } ${
-          ((settings.navigationMode === 'floaty' || settings.navigationMode === 'immersive_floaty') ||
+          (settings.navigationMode === 'floaty' ||
            ((settings.navigationMode === 'topbar' || settings.navigationMode === 'sidebar') && 
             (settings.floatingSearchBar || (currentRoute === '/settings' && draftSettings.floatingSearchBar))))
-            ? 'pb-24 sm:pb-28'
+            ? 'pb-28 sm:pb-32'
             : ''
         }`}>
           {!settings.reduceAllMotion && settings.animatePageTransitions ? (
@@ -598,15 +598,14 @@ export default function App() {
         </main>
       </div>
 
-      {/* Floaty bar navigation (Standard or Immersive) */}
-      {(settings.navigationMode === 'floaty' || settings.navigationMode === 'immersive_floaty') && (
+      {/* Floaty bar navigation (Tab View) */}
+      {settings.navigationMode === 'floaty' && (
         <BottomDock
           currentRoute={currentRoute}
           navigate={navigate}
           onOpenSearch={handleOpenSearch}
           onOpenHelp={() => setIsHelpModalOpen(true)}
           onOpenDiscord={() => setIsWelcomeModalOpen(true)}
-          isImmersive={settings.navigationMode === 'immersive_floaty'}
           searchQuery={currentTabSearchQuery}
           onSearchChange={handleTabSearchChange}
           onOpenSpotlight={() => setIsSpotlightOpen(true)}

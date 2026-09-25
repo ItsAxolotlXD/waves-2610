@@ -4,7 +4,7 @@ import { DEFAULT_KEYBINDS } from '../utils/keybinds';
 import { keyboardSound } from '../utils/keyboardSound';
 
 export interface SystemSettings {
-  theme: 'dark';
+  theme: 'dark' | 'light';
   superDarkMode: boolean;
   spatialGlass: boolean;
   spatialGlassVersion?: number;
@@ -32,7 +32,7 @@ export interface SystemSettings {
   keyboardSoundEnabled: boolean;
   immersiveSidebar: boolean;
   sidebarPosition: 'left' | 'right';
-  navigationMode: 'sidebar' | 'topbar' | 'floaty' | 'immersive_floaty';
+  navigationMode: 'sidebar' | 'topbar' | 'floaty';
   navModeVersion?: number;
   floatingSearchBar: boolean;
   floatingSearchBarVersion?: number;
@@ -41,15 +41,15 @@ export interface SystemSettings {
   customKeybinds: CustomKeybinds;
 }
 
-export const getDefaultNavigationMode = (): 'sidebar' | 'topbar' | 'floaty' | 'immersive_floaty' => {
+export const getDefaultNavigationMode = (): 'sidebar' | 'topbar' | 'floaty' => {
   if (typeof window !== 'undefined' && window.innerWidth < 768) {
-    return 'immersive_floaty';
+    return 'floaty';
   }
   return 'topbar';
 };
 
 export const DEFAULT_SETTINGS: SystemSettings = {
-  theme: 'dark',
+  theme: 'dark', // Ban đêm là mặc định
   superDarkMode: false,
   spatialGlass: true,
   spatialGlassVersion: 3,
@@ -116,19 +116,21 @@ export const getStoredSettings = (): SystemSettings => {
         }
       }
       let navigationMode = parsed.navigationMode;
-      if (navigationMode === 'immersive') {
-        navigationMode = 'immersive_floaty';
+      if (navigationMode === 'immersive' || navigationMode === 'immersive_floaty') {
+        navigationMode = 'floaty';
       }
-      // Migrate old default 'sidebar' or unversioned nav mode to new platform defaults (topbar desktop / immersive_floaty mobile)
+      // Migrate old default 'sidebar' or unversioned nav mode to new platform defaults (topbar desktop / floaty mobile)
       if (!navigationMode || (parsed.navModeVersion !== 2 && navigationMode === 'sidebar')) {
         navigationMode = getDefaultNavigationMode();
       }
       const immersiveSearch = parsed.immersiveSearchVersion === 2
         ? parsed.immersiveSearch
         : true;
+      const theme = parsed.theme === 'light' ? 'light' : 'dark';
       return { 
         ...DEFAULT_SETTINGS, 
         ...parsed,
+        theme,
         immersiveSearch,
         immersiveSearchVersion: 2,
         navigationMode: navigationMode || DEFAULT_SETTINGS.navigationMode,
@@ -159,7 +161,6 @@ export const getStoredSettings = (): SystemSettings => {
         },
         fontScale,
         fontScaleVersion: 2,
-        theme: 'dark'
       };
     }
   } catch {}
@@ -170,9 +171,16 @@ export const getStoredSettings = (): SystemSettings => {
 export const applySystemSettings = (settings: SystemSettings) => {
   if (typeof document === 'undefined') return;
 
-  // App is strictly dark mode only
-  document.documentElement.classList.remove('light-mode');
-  document.documentElement.classList.add('dark');
+  // App Theme Mode (Ban ngày / Ban đêm - Ban đêm là mặc định)
+  if (settings.theme === 'light') {
+    document.documentElement.classList.add('light-mode');
+    document.documentElement.classList.remove('dark');
+    document.body?.classList.add('light-mode');
+  } else {
+    document.documentElement.classList.remove('light-mode');
+    document.documentElement.classList.add('dark');
+    document.body?.classList.remove('light-mode');
+  }
   document.documentElement.dataset.immersiveSidebar = String(settings.immersiveSidebar);
   document.documentElement.dataset.sidebarPosition = settings.sidebarPosition;
 

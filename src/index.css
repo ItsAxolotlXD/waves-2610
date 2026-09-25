@@ -22,13 +22,7 @@
   src: url('https://fonts.gstatic.com/s/googlesans/v58/4UabrENHsxJlGDuGo1OIlLV154t3CwZ-Pw.woff2') format('woff2');
 }
 
-@font-face {
-  font-family: 'Integer';
-  font-style: normal;
-  font-weight: 100 900;
-  font-display: swap;
-  src: local('Integer'), local('Inter'), url('https://fonts.gstatic.com/s/inter/v18/UcC73FwrK3iLTeHuS_fvQtMwCp50KnMa1ZL7W0Q5nw.woff2') format('woff2');
-}
+@import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap');
 
 @layer base {
   :root {
@@ -45,9 +39,40 @@
     --spatial-glass-blur: 4px;
   }
 
-  *, *::before, *::after {
-    font-family: 'Integer', 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif !important;
+  html, body, *, *::before, *::after {
+    font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  }
+
+  /* Global typography: bold font for headers, headings, h1-h6, titles & big titles */
+  .font-bold, strong, b,
+  h1, h2, h3, h4, h5, h6,
+  header h1, header h2, header h3, header h4, header h5, header h6,
+  [role="heading"],
+  .title,
+  [class*="title"],
+  [id*="title"],
+  .heading,
+  [class*="heading"],
+  .big-title,
+  [class*="big-title"],
+  .header-title,
+  .section-title,
+  .modal-title,
+  .card-title {
+    font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif !important;
     font-weight: 700 !important;
+  }
+
+  .font-extrabold {
+    font-weight: 800 !important;
+  }
+
+  .font-black {
+    font-weight: 900 !important;
+  }
+
+  .font-semibold {
+    font-weight: 600 !important;
   }
 
   /* Global typography: bold font for headers, headings, h1-h6, titles & big titles */
@@ -218,6 +243,8 @@ html.light-mode #settings-section-interface,
 html.light-mode #settings-section-accessibility,
 html.light-mode #settings-section-motion,
 html.light-mode #settings-section-search,
+html.light-mode #settings-section-keyboard,
+html.light-mode #settings-section-keybinds,
 html.light-mode #settings-section-experimental,
 html.light-mode #settings-section-other {
   background-color: #FFFFFF !important;
@@ -230,6 +257,8 @@ html.light-mode #settings-section-interface .text-white,
 html.light-mode #settings-section-accessibility .text-white,
 html.light-mode #settings-section-motion .text-white,
 html.light-mode #settings-section-search .text-white,
+html.light-mode #settings-section-keyboard .text-white,
+html.light-mode #settings-section-keybinds .text-white,
 html.light-mode #settings-section-experimental .text-white,
 html.light-mode #settings-section-other .text-white {
   color: #111827 !important;
@@ -239,6 +268,8 @@ html.light-mode #settings-section-interface .bg-\[\#28272E\],
 html.light-mode #settings-section-accessibility .bg-\[\#28272E\],
 html.light-mode #settings-section-motion .bg-\[\#28272E\],
 html.light-mode #settings-section-search .bg-\[\#28272E\],
+html.light-mode #settings-section-keyboard .bg-\[\#28272E\],
+html.light-mode #settings-section-keybinds .bg-\[\#28272E\],
 html.light-mode #settings-section-experimental .bg-\[\#28272E\],
 html.light-mode #settings-section-other .bg-\[\#28272E\] {
   background-color: #F8FAFC !important;
@@ -2043,29 +2074,20 @@ html.light-mode .immersive-search-input input {
   box-sizing: border-box !important;
 }
 
+.floaty-bar__surface {
+  height: 64px !important;
+}
+
 @media (min-width: 640px) {
   .floaty-bar__surface {
-    height: 46px !important;
-  }
-}
-
-.floaty-bar__surface--immersive {
-  min-width: 0 !important;
-  width: auto !important;
-  max-width: calc(100vw - 2rem) !important;
-  height: 44px !important;
-}
-
-@media (min-width: 640px) {
-  .floaty-bar__surface--immersive {
-    height: 46px !important;
+    height: 70px !important;
   }
 }
 
 #btn-floaty-search-trigger {
   position: relative !important;
-  height: 44px !important;
-  width: 44px !important;
+  height: 64px !important;
+  width: 64px !important;
   background-color: var(--spatial-glass-bg, rgba(255, 255, 255, 0.20)) !important;
   background-image: none !important;
   box-shadow: 0 8px 32px rgba(0, 0, 0, 0.35) !important;
@@ -2077,14 +2099,14 @@ html.light-mode .immersive-search-input input {
 
 @media (min-width: 640px) {
   #btn-floaty-search-trigger {
-    height: 46px !important;
-    width: 46px !important;
+    height: 70px !important;
+    width: 70px !important;
   }
 }
 
 #floating-search-bar-pill {
   position: relative !important;
-  height: 44px !important;
+  height: 64px !important;
   background-color: var(--spatial-glass-bg, rgba(255, 255, 255, 0.20)) !important;
   background-image: none !important;
   box-shadow: 0 8px 32px rgba(0, 0, 0, 0.35) !important;
@@ -2104,9 +2126,20 @@ html.light-mode .immersive-search-input input {
 }
 
 /* Floaty bar, float search bar & trigger button: style on hover */
-#floating-search-bar-pill:hover,
-#btn-floaty-search-trigger:hover,
 .floaty-bar__surface:hover {
+  background-color: rgba(255, 255, 255, 0.28) !important;
+  box-shadow: 0 12px 42px rgba(0, 0, 0, 0.42), 0 0 24px rgba(255, 255, 255, 0.15) !important;
+  filter: brightness(1.14) !important;
+}
+
+html.light-mode .floaty-bar__surface:hover {
+  background-color: rgba(255, 255, 255, 0.50) !important;
+  box-shadow: 0 12px 36px rgba(0, 0, 0, 0.18) !important;
+  filter: brightness(1.08) !important;
+}
+
+#floating-search-bar-pill:hover,
+#btn-floaty-search-trigger:hover {
   background: var(--spatial-glass-bg, rgba(255, 255, 255, 0.20)) !important;
   background-color: var(--spatial-glass-bg, rgba(255, 255, 255, 0.20)) !important;
   box-shadow: 0 12px 36px rgba(0, 0, 0, 0.40) !important;
@@ -2162,7 +2195,7 @@ html.spatial-glass-dark-content .floaty-bar__surface:hover::after {
 
 @media (min-width: 640px) {
   #floating-search-bar-pill {
-    height: 46px !important;
+    height: 64px !important;
   }
 }
 
@@ -2205,14 +2238,14 @@ html.spatial-glass-dark-content .floaty-bar__surface:hover::after {
 }
 
 .floaty-bar__arrow {
-  width: 32px !important;
-  height: 32px !important;
+  width: 38px !important;
+  height: 38px !important;
 }
 
 @media (min-width: 640px) {
   .floaty-bar__arrow {
-    width: 34px !important;
-    height: 34px !important;
+    width: 42px !important;
+    height: 42px !important;
   }
 }
 
@@ -4095,14 +4128,18 @@ html.light-mode #about-community-card {
 }
 
 .floaty-bar-pill-indicator {
-  background: rgba(255, 255, 255, 0.20) !important;
-  background-color: rgba(255, 255, 255, 0.20) !important;
+  background: rgba(255, 61, 0, 0.16) !important;
+  background-color: rgba(255, 61, 0, 0.16) !important;
   border-radius: 9999px !important;
+  box-shadow: 0 2px 10px rgba(255, 61, 0, 0.20) !important;
+  border: 1px solid rgba(255, 61, 0, 0.25) !important;
 }
 
 html.light-mode .floaty-bar-pill-indicator {
-  background: rgba(0, 0, 0, 0.10) !important;
-  background-color: rgba(0, 0, 0, 0.10) !important;
+  background: rgba(255, 61, 0, 0.14) !important;
+  background-color: rgba(255, 61, 0, 0.14) !important;
+  box-shadow: 0 2px 10px rgba(255, 61, 0, 0.15) !important;
+  border: 1px solid rgba(255, 61, 0, 0.20) !important;
 }
 
 .floaty-bar .floaty-bar__item:hover:not(.is-active) {
@@ -4151,6 +4188,7 @@ html.light-mode .floaty-bar .floaty-bar__item:hover:not(.is-active) {
 #settings-section-accessibility,
 #settings-section-motion,
 #settings-section-search,
+#settings-section-keyboard,
 #settings-section-experimental,
 #settings-section-keybinds,
 #settings-section-other {
@@ -4236,29 +4274,51 @@ html.spatial-glass-dark-content .floaty-search-box-pill {
 }
 
 html.spatial-glass-dark-content .floaty-bar__arrow,
-html.spatial-glass-dark-content .floaty-bar__item,
-html.spatial-glass-dark-content .floaty-bar__item button,
-html.spatial-glass-dark-content #btn-floaty-search-trigger {
-  color: #000000 !important;
-}
-
-html.spatial-glass-dark-content .floaty-bar__item.is-active,
-html.spatial-glass-dark-content .floaty-bar__item.bg-white\/20 {
-  background-color: rgba(0, 0, 0, 0.12) !important;
+html.spatial-glass-dark-content .floaty-bar__item:not(.is-active),
+html.spatial-glass-dark-content .floaty-bar__item:not(.is-active) button,
+html.spatial-glass-dark-content #btn-floaty-search-trigger,
+html.light-mode .floaty-bar__item:not(.is-active),
+html.light-mode .floaty-bar__item:not(.is-active) button {
   color: #000000 !important;
 }
 
 html.spatial-glass-dark-content .floaty-bar__arrow svg,
-html.spatial-glass-dark-content .floaty-bar__item svg,
-html.spatial-glass-dark-content #btn-floaty-search-trigger svg {
+html.spatial-glass-dark-content .floaty-bar__item:not(.is-active) svg,
+html.spatial-glass-dark-content #btn-floaty-search-trigger svg,
+html.light-mode .floaty-bar__item:not(.is-active) svg {
   stroke: #000000 !important;
 }
 
-/* Invert image icons back to black by removing invert */
-html.spatial-glass-dark-content .floaty-bar__item img,
+/* Invert image icons back to black only for inactive tabs or trigger */
+html.spatial-glass-dark-content .floaty-bar__item:not(.is-active) img,
 html.spatial-glass-dark-content #btn-floaty-search-trigger img,
-html.spatial-glass-dark-content #floating-search-bar-container img {
+html.spatial-glass-dark-content #floating-search-bar-container img,
+html.light-mode .floaty-bar__item:not(.is-active) img {
   filter: brightness(0) !important;
+}
+
+/* Active tab: solid red-orange (no gradient) icon and text */
+.floaty-bar__item.is-active,
+html.spatial-glass-dark-content .floaty-bar__item.is-active,
+html.light-mode .floaty-bar__item.is-active {
+  color: #FF3D00 !important;
+}
+
+.floaty-bar__item.is-active span,
+html.spatial-glass-dark-content .floaty-bar__item.is-active span,
+html.light-mode .floaty-bar__item.is-active span {
+  color: #FF3D00 !important;
+}
+
+.floaty-bar__item.is-active div[style*="background-color"] {
+  background-color: #FF3D00 !important;
+}
+
+.floaty-bar__item.is-active svg,
+html.spatial-glass-dark-content .floaty-bar__item.is-active svg,
+html.light-mode .floaty-bar__item.is-active svg {
+  stroke: #FF3D00 !important;
+  color: #FF3D00 !important;
 }
 
 html.spatial-glass-dark-content #floating-search-input {

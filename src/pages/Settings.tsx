@@ -18,7 +18,9 @@ import {
   Tv,
   Box,
   ChevronRight,
-  ChevronLeft
+  ChevronLeft,
+  Sun,
+  Moon
 } from 'lucide-react';
 import { motion, AnimatePresence } from 'motion/react';
 import { useSettings, FONT_SCALE_CONFIG, SystemSettings } from '../hooks/useSettings';
@@ -51,7 +53,7 @@ const SETTINGS_GROUP_1: SettingsCategoryItem[] = [
     title: 'Giới thiệu',
     subtitle: 'Phiên bản, bản dựng, nhật ký thay đổi và bản thử nghiệm',
     icon: Info,
-    badgeColor: 'bg-gradient-to-b from-[#34C759] to-[#248A3D]',
+    badgeColor: 'bg-gradient-to-b from-[#007AFF] to-[#005bb5]',
     keywords: ['phiên bản', 'update', 'build', '26.10.0', '26w1004a', 'software', 'giới thiệu', 'compatible', 'spatial glass', 'test vplay', 'changelogs', 'nhật ký thay đổi', 'cập nhật'],
   },
   {
@@ -59,24 +61,24 @@ const SETTINGS_GROUP_1: SettingsCategoryItem[] = [
     title: 'Spatial Glass',
     subtitle: 'Hiệu ứng kính mờ, độ trong suốt và độ nhòe thị giác',
     icon: Box,
-    badgeColor: 'bg-gradient-to-b from-[#AF52DE] to-[#7329A3]',
+    badgeColor: 'bg-gradient-to-b from-[#FF3B30] to-[#C92A2A]',
     keywords: ['spatial', 'glass', 'kính', 'opacity', 'trong suốt', 'blur', 'mờ', 'nhòe', 'liquid glass'],
   },
   {
     id: 'interface',
     title: 'Giao diện',
-    subtitle: 'Thanh điều hướng, cỡ chữ, siêu chế độ tối và ô tìm kiếm',
+    subtitle: 'Thanh điều hướng, chế độ ứng dụng, cỡ chữ và ô tìm kiếm',
     icon: Palette,
-    badgeColor: 'bg-gradient-to-b from-[#FF2D55] to-[#B31A37]',
-    keywords: ['giao diện', 'navigation', 'thanh điều hướng', 'sidebar', 'topbar', 'floaty', 'cỡ chữ', 'font', 'thu phóng', 'super dark', 'tối', 'floating search'],
+    badgeColor: 'bg-gradient-to-b from-[#34C759] to-[#28CD41]',
+    keywords: ['giao diện', 'navigation', 'thanh điều hướng', 'sidebar', 'topbar', 'floaty', 'tab view', 'chế độ ứng dụng', 'ban ngày', 'ban đêm', 'light mode', 'dark mode', 'chế độ sáng', 'cỡ chữ', 'font', 'thu phóng', 'super dark', 'tối', 'floating search'],
   },
   {
     id: 'accessibility',
     title: 'Trợ năng',
-    subtitle: 'Tỷ lệ khung hình, tự động ẩn thanh bên và hiệu ứng chuyển động',
+    subtitle: 'Nội dung tìm kiếm, bàn phím và tổ hợp phím',
     icon: Key,
-    badgeColor: 'bg-gradient-to-b from-[#FFCC00] to-[#B38600]',
-    keywords: ['trợ năng', 'accessibility', 'tỉ lệ', '16:9', '4:3', 'auto hide', 'chuyển động', 'motion', 'animation', 'reduce motion', 'giảm chuyển động'],
+    badgeColor: 'bg-gradient-to-b from-[#FF9500] to-[#C96F00]',
+    keywords: ['trợ năng', 'accessibility', 'tìm kiếm', 'nội dung tìm kiếm', 'search', 'spotlight', 'bàn phím', 'keyboard', 'clipboard', 'sound', 'âm thanh', 'tổ hợp phím', 'phím tắt', 'keybinds', 'shortcut'],
   },
 ];
 
@@ -84,17 +86,17 @@ const SETTINGS_GROUP_2: SettingsCategoryItem[] = [
   {
     id: 'tools',
     title: 'Công cụ',
-    subtitle: 'Spotlight Search, bàn phím ảo và tùy chỉnh phím tắt',
+    subtitle: 'Tỷ lệ khung hình, tự động ẩn thanh bên và hiệu ứng chuyển động',
     icon: Wrench,
-    badgeColor: 'bg-gradient-to-b from-[#FF9500] to-[#B36200]',
-    keywords: ['công cụ', 'tìm kiếm', 'search', 'spotlight', 'bàn phím', 'keyboard', 'clipboard', 'sound', 'âm thanh', 'phím tắt', 'keybinds', 'shortcut'],
+    badgeColor: 'bg-gradient-to-b from-[#8E8E93] to-[#636366]',
+    keywords: ['công cụ', 'tools', 'tỉ lệ', '16:9', '4:3', 'auto hide', 'chuyển động', 'motion', 'animation', 'reduce motion', 'giảm chuyển động'],
   },
   {
     id: 'experimental',
     title: 'Thử nghiệm',
     subtitle: 'Các tính năng phòng thí nghiệm và thử nghiệm mới',
     icon: FlaskConical,
-    badgeColor: 'bg-gradient-to-b from-[#30D158] to-[#1C7D36]',
+    badgeColor: 'bg-gradient-to-b from-[#8E8E93] to-[#636366]',
     keywords: ['thử nghiệm', 'experimental', 'lab', 'native keyboard', 'immersive search'],
   },
 ];
@@ -145,6 +147,17 @@ export const Settings: React.FC<SettingsProps> = ({
       } else {
         document.documentElement.classList.remove('super-dark');
         document.body?.classList.remove('super-dark');
+      }
+    }
+    if (key === 'theme') {
+      if (value === 'light') {
+        document.documentElement.classList.add('light-mode');
+        document.documentElement.classList.remove('dark');
+        document.body?.classList.add('light-mode');
+      } else {
+        document.documentElement.classList.remove('light-mode');
+        document.documentElement.classList.add('dark');
+        document.body?.classList.remove('light-mode');
       }
     }
     if (key === 'disableShinyOutline') {
@@ -674,7 +687,47 @@ export const Settings: React.FC<SettingsProps> = ({
                 className="p-5 sm:p-6 rounded-[30px] bg-white/10 backdrop-blur-md shadow-xl space-y-4 border-none"
               >
                 <div className="space-y-4">
-                  {/* 1. Thanh điều hướng */}
+                  {/* 1. Chế độ ứng dụng (Ban ngày / Ban đêm) */}
+                  <div
+                    id="setting-theme-mode"
+                    className="p-3.5 sm:p-4 rounded-[20px] space-y-3"
+                  >
+                    <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-1">
+                      <div>
+                        <div className="font-bold text-white text-sm">Chế độ ứng dụng</div>
+                        <div className="text-xs text-[#9CA3AF] mt-1 leading-normal">
+                          Lựa chọn hiển thị giao diện Ban ngày (Light mode) hoặc Ban đêm (Dark mode). Ban đêm là mặc định.
+                        </div>
+                      </div>
+                      <span className="inline-flex items-center text-[11px] font-medium text-[#fd932f] bg-[#fd932f]/10 px-2 py-0.5 rounded-full self-start sm:self-auto">
+                        {(draftSettings.theme || 'dark') === 'dark' ? 'Mặc định: Ban đêm' : 'Đang bật: Ban ngày'}
+                      </span>
+                    </div>
+                    <div className="grid grid-cols-2 gap-2 rounded-full bg-[#18181b]/80 border border-white/10 p-1.5 backdrop-blur-md max-w-sm" role="group" aria-label="Chế độ ứng dụng">
+                      {([
+                        ['light', 'Ban ngày', Sun],
+                        ['dark', 'Ban đêm', Moon],
+                      ] as const).map(([val, label, IconComponent]) => (
+                        <button
+                          key={val}
+                          type="button"
+                          id={`theme-btn-${val}`}
+                          onClick={() => updateDraft('theme', val)}
+                          className={`flex items-center justify-center gap-2 rounded-full px-4 py-2 text-xs font-semibold transition-all cursor-default ${
+                            (draftSettings.theme || 'dark') === val
+                              ? 'bg-gradient-to-r from-[#FF3B30] to-[#FF9500] text-white shadow-[0_2px_10px_rgba(255,59,48,0.35)]'
+                              : 'text-[#9CA3AF] hover:text-white hover:bg-white/5'
+                          }`}
+                          aria-pressed={(draftSettings.theme || 'dark') === val}
+                        >
+                          <IconComponent className="w-4 h-4" />
+                          <span>{label}</span>
+                        </button>
+                      ))}
+                    </div>
+                  </div>
+
+                  {/* 2. Thanh điều hướng */}
                   <div className="p-3.5 sm:p-4 rounded-[20px] space-y-3">
                     <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-1">
                       <div>
@@ -687,12 +740,11 @@ export const Settings: React.FC<SettingsProps> = ({
                         </span>
                       )}
                     </div>
-                    <div className="grid grid-cols-2 sm:grid-cols-4 gap-1.5 rounded-full bg-[#18181b]/80 border border-white/10 p-1.5 backdrop-blur-md" role="group" aria-label="Thanh điều hướng">
+                    <div className="grid grid-cols-3 gap-1.5 rounded-full bg-[#18181b]/80 border border-white/10 p-1.5 backdrop-blur-md" role="group" aria-label="Thanh điều hướng">
                       {([
                         ['sidebar', 'Sidebar'],
                         ['topbar', 'Top bar'],
                         ['floaty', 'Tab View'],
-                        ['immersive_floaty', 'Immersive Floaty'],
                       ] as const).map(([value, label]) => (
                         <button 
                           key={value} 
@@ -885,8 +937,8 @@ export const Settings: React.FC<SettingsProps> = ({
               </section>
             )}
 
-            {/* SUBPAGE 4: TRỢ NĂNG (ĐÃ HỢP NHẤT CHUYỂN ĐỘNG / MOTION) */}
-            {activeCategory === 'accessibility' && (
+            {/* SUBPAGE: CÔNG CỤ (TỶ LỆ KHUNG HÌNH, TỰ ĐỘNG ẨN VÀ CHUYỂN ĐỘNG) */}
+            {activeCategory === 'tools' && (
               <div className="space-y-6">
                 {/* 4.1 Section Trợ năng */}
                 <section 
@@ -1121,14 +1173,20 @@ export const Settings: React.FC<SettingsProps> = ({
               </div>
             )}
 
-            {/* SUBPAGE 5: CÔNG CỤ (HỢP NHẤT TÌM KIẾM, BÀN PHÍM VÀ KEYBINDS) */}
-            {activeCategory === 'tools' && (
+            {/* SUBPAGE: TRỢ NĂNG (NỘI DUNG TÌM KIẾM, BÀN PHÍM VÀ TỔ HỢP PHÍM) */}
+            {activeCategory === 'accessibility' && (
               <div className="space-y-6">
-                {/* 5.1 Section Tìm kiếm */}
+                {/* Section 1: Nội dung Tìm kiếm */}
                 <section 
                   id="settings-section-search"
                   className="p-5 sm:p-6 rounded-[30px] bg-white/10 backdrop-blur-md shadow-xl space-y-4 border-none"
                 >
+                  <div className="px-3.5 sm:px-4 pt-0.5 pb-1">
+                    <div className="font-bold text-white text-[15px] sm:text-[16px] tracking-tight">
+                      Nội dung Tìm kiếm
+                    </div>
+                  </div>
+
                   <div className="space-y-3">
                     {/* Danh mục */}
                     <div 
@@ -1301,11 +1359,17 @@ export const Settings: React.FC<SettingsProps> = ({
                   </div>
                 </section>
 
-                {/* 5.2 Section Bàn phím */}
+                {/* Section 2: Bàn phím */}
                 <section 
                   id="settings-section-keyboard"
                   className="p-5 sm:p-6 rounded-[30px] bg-white/10 backdrop-blur-md shadow-xl space-y-4 border-none"
                 >
+                  <div className="px-3.5 sm:px-4 pt-0.5 pb-1">
+                    <div className="font-bold text-white text-[15px] sm:text-[16px] tracking-tight">
+                      Bàn phím
+                    </div>
+                  </div>
+
                   <div className="space-y-3">
                     {/* Bàn phím số */}
                     <div 
@@ -1405,12 +1469,15 @@ export const Settings: React.FC<SettingsProps> = ({
                   </div>
                 </section>
 
-                {/* 5.3 Section Customize keybinds */}
+                {/* Section 3: Tổ hợp phím */}
                 <section 
                   id="settings-section-keybinds"
                   className="p-5 sm:p-6 rounded-[30px] bg-white/10 backdrop-blur-md shadow-xl space-y-4 border-none"
                 >
-                  <div className="flex items-center justify-end pb-1">
+                  <div className="flex items-center justify-between px-3.5 sm:px-4 pt-0.5 pb-1">
+                    <div className="font-bold text-white text-[15px] sm:text-[16px] tracking-tight">
+                      Tổ hợp phím
+                    </div>
                     <button
                       type="button"
                       id="btn-reset-keybinds"
