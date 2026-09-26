@@ -42,6 +42,13 @@ const DOCK_TABS: TabItem[] = [
   { id: 'dock-settings', label: 'Settings', route: '/settings', image: SETTINGS_ICON, icon: SettingsIcon },
 ];
 
+const FAST_MORPH_SPRING = {
+  type: 'spring' as const,
+  stiffness: 580,
+  damping: 32,
+  mass: 0.35,
+};
+
 export const BottomDock: React.FC<BottomDockProps> = ({ 
   currentRoute, 
   navigate, 
@@ -189,6 +196,7 @@ export const BottomDock: React.FC<BottomDockProps> = ({
     const hasImage = !!item.image && !imageErrors[item.id];
 
     if (active) {
+      const activeColor = isLightMode ? '#000000' : '#FFFFFF';
       if (hasImage) {
         return (
           <div
@@ -202,14 +210,16 @@ export const BottomDock: React.FC<BottomDockProps> = ({
               WebkitMaskRepeat: 'no-repeat',
               maskPosition: 'center',
               WebkitMaskPosition: 'center',
-              backgroundColor: '#FF3D00',
+              backgroundColor: activeColor,
             }}
           />
         );
       }
       return (
         <Icon
-          className="w-[28px] h-[28px] sm:w-[32px] sm:h-[32px] shrink-0 text-[#FF3D00] stroke-[#FF3D00] transition-all duration-200"
+          className={`w-[28px] h-[28px] sm:w-[32px] sm:h-[32px] shrink-0 ${
+            isLightMode ? 'text-black stroke-black' : 'text-white stroke-white'
+          } transition-all duration-200`}
         />
       );
     }
@@ -272,12 +282,7 @@ export const BottomDock: React.FC<BottomDockProps> = ({
       >
         <motion.div
           layout
-          transition={{
-            type: 'spring',
-            stiffness: 400,
-            damping: 32,
-            mass: 0.6
-          }}
+          transition={FAST_MORPH_SPRING}
           className="flex items-center justify-center gap-2 sm:gap-2.5"
         >
           <AnimatePresence initial={false} mode="sync">
@@ -286,9 +291,20 @@ export const BottomDock: React.FC<BottomDockProps> = ({
                 key="floaty-bar-nav"
                 id="floaty-bar-surface"
                 layout
-                initial={{ opacity: 0, scale: 0.85, width: 0 }}
+                initial={{ opacity: 0, scale: 0.92, width: 0 }}
                 animate={{ opacity: 1, scale: 1, width: 'auto' }}
-                exit={{ opacity: 0, scale: 0.85, width: 0 }}
+                exit={{ 
+                  opacity: 0, 
+                  scale: 0.92, 
+                  width: 0,
+                  paddingLeft: 0,
+                  paddingRight: 0,
+                  transition: {
+                    opacity: { duration: 0.12 },
+                    width: FAST_MORPH_SPRING,
+                    scale: { duration: 0.14 }
+                  }
+                }}
                 whileHover={{
                   scale: 1.055,
                   transition: {
@@ -299,12 +315,7 @@ export const BottomDock: React.FC<BottomDockProps> = ({
                   }
                 }}
                 whileTap={{ scale: 0.98 }}
-                transition={{
-                  type: 'spring',
-                  stiffness: 400,
-                  damping: 32,
-                  mass: 0.6
-                }}
+                transition={FAST_MORPH_SPRING}
                 onTouchStart={handleTouchStart}
                 onTouchMove={handleTouchMove}
                 onTouchEnd={handleTouchEnd}
@@ -315,14 +326,14 @@ export const BottomDock: React.FC<BottomDockProps> = ({
                   WebkitBackdropFilter: 'blur(var(--spatial-glass-blur, 20px))',
                   transformOrigin: 'right center',
                 }}
-                className={`floaty-bar floaty-bar__surface h-[64px] sm:h-[70px] flex items-center gap-1 sm:gap-1.5 px-2 sm:px-2.5 rounded-full shadow-[0_8px_32px_rgba(0,0,0,0.35)] select-none pointer-events-auto overflow-hidden transition-[background-color,border-color,box-shadow,filter] ${
+                className={`floaty-bar floaty-bar__surface h-[64px] sm:h-[70px] flex items-center gap-1 sm:gap-1.5 px-2 sm:px-2.5 rounded-full shadow-[0_8px_32px_rgba(0,0,0,0.35)] select-none pointer-events-auto overflow-hidden hover:brightness-125 transition-[background-color,border-color,box-shadow,filter] ${
                   isDarkContent || isLightMode ? 'border border-black/15 text-black' : 'border border-white/10 text-white'
                 }`}
                 aria-label="Tab View"
               >
                 <div 
                   id="floaty-bar-tabs-container"
-                  className="floaty-bar__items w-auto h-full relative overflow-hidden flex items-center justify-center gap-1 sm:gap-1.5 px-0.5"
+                  className="floaty-bar__items w-auto h-full relative z-30 overflow-hidden flex items-center justify-center gap-1 sm:gap-1.5 px-0.5 shrink-0 whitespace-nowrap min-w-max"
                 >
                   {DOCK_TABS.map((item) => {
                     const active = currentActiveId === item.id;
@@ -345,10 +356,10 @@ export const BottomDock: React.FC<BottomDockProps> = ({
                         }}
                         className={`floaty-bar__item relative h-[54px] sm:h-[60px] min-w-[62px] sm:min-w-[70px] px-2.5 sm:px-3.5 rounded-full flex flex-col items-center justify-center cursor-default transition-all duration-150 outline-none select-none shrink-0 ${
                           active
-                            ? 'is-active text-[#FF3D00]'
+                            ? (isLightMode ? 'is-active text-black z-20' : 'is-active text-white z-20')
                             : isSelectedOrHovered
-                              ? (isDarkContent ? 'text-black' : 'text-white')
-                              : (isDarkContent ? 'text-black/75 hover:text-black hover:bg-black/5' : 'text-white/75 hover:text-white hover:bg-white/10')
+                              ? (isDarkContent ? 'text-black z-10' : 'text-white z-10')
+                              : (isDarkContent ? 'text-black/75 hover:text-black hover:bg-black/5 z-10' : 'text-white/75 hover:text-white hover:bg-white/10 z-10')
                         }`}
                       >
                         {active && (
@@ -356,11 +367,12 @@ export const BottomDock: React.FC<BottomDockProps> = ({
                             layoutId="floaty-bar-active-pill"
                             transition={{
                               type: 'spring',
-                              stiffness: 480,
-                              damping: 34,
-                              mass: 0.5
+                              stiffness: 380,
+                              damping: 20,
+                              mass: 0.55
                             }}
-                            className="floaty-bar-pill-indicator absolute inset-0 rounded-full z-0 pointer-events-none bg-[#FF3D00]/15 shadow-sm border border-[#FF3D00]/25"
+                            style={{ zIndex: 1 }}
+                            className="floaty-bar-pill-indicator absolute inset-0 rounded-full pointer-events-none bg-[#fd932f] shadow-[0_4px_14px_rgba(253,147,47,0.40)] border border-[#fd932f]"
                           />
                         )}
                         <div className="relative z-10 flex flex-col items-center justify-center">
@@ -368,7 +380,7 @@ export const BottomDock: React.FC<BottomDockProps> = ({
                           <span
                             className={`text-[10px] sm:text-[11px] font-semibold leading-tight tracking-tight transition-colors duration-150 select-none mt-0.5 ${
                               active
-                                ? 'font-bold text-[#FF3D00]'
+                                ? (isLightMode ? 'font-bold text-black' : 'font-bold text-white')
                                 : isDarkContent
                                   ? 'text-black/75 group-hover:text-black'
                                   : 'text-white/75 group-hover:text-white'
@@ -406,18 +418,13 @@ export const BottomDock: React.FC<BottomDockProps> = ({
                   }
                 }}
                 whileTap={{ scale: 0.94 }}
-                transition={{
-                  type: 'spring',
-                  stiffness: 400,
-                  damping: 32,
-                  mass: 0.6
-                }}
+                transition={FAST_MORPH_SPRING}
                 style={{
                   backgroundColor: 'var(--spatial-glass-bg, rgba(255, 255, 255, 0.20))',
                   backdropFilter: 'blur(var(--spatial-glass-blur, 20px))',
                   WebkitBackdropFilter: 'blur(var(--spatial-glass-blur, 20px))',
                 }}
-                className={`group h-[64px] w-[64px] sm:h-[70px] sm:w-[70px] rounded-full flex items-center justify-center cursor-default shadow-[0_8px_32px_rgba(0,0,0,0.35)] select-none shrink-0 pointer-events-auto transition-[background-color,border-color,box-shadow,filter] ${
+                className={`group h-[64px] w-[64px] sm:h-[70px] sm:w-[70px] rounded-full flex items-center justify-center cursor-default shadow-[0_8px_32px_rgba(0,0,0,0.35)] select-none shrink-0 pointer-events-auto hover:brightness-125 transition-[background-color,border-color,box-shadow,filter] ${
                   isDarkContent || isLightMode ? 'border border-black/15 text-black' : 'border border-white/10 text-white'
                 } ${
                   searchQuery?.trim()
@@ -428,9 +435,9 @@ export const BottomDock: React.FC<BottomDockProps> = ({
                 <img
                   src={SF_SEARCH_ICON_URL}
                   alt="Search"
-                  className={`w-[26px] h-[26px] sm:w-[28px] sm:h-[28px] object-contain select-none pointer-events-none transition-opacity ${
+                  className={`w-[30px] h-[30px] sm:w-[33px] sm:h-[33px] object-contain select-none pointer-events-none transition-opacity ${
                     isDarkContent || isLightMode ? 'brightness-0' : 'filter brightness-0 invert'
-                  } opacity-85`}
+                  } opacity-90`}
                   referrerPolicy="no-referrer"
                   onError={(e) => {
                     (e.target as HTMLImageElement).src = '/icons/sf-magnifyingglass.png';

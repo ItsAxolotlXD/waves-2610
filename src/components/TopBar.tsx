@@ -94,12 +94,12 @@ export const TopBar: React.FC<TopBarProps> = ({
             type="button"
             onClick={() => navigate('/')}
             className="cursor-default flex items-center justify-center p-0 border-0 bg-transparent hover:opacity-85 active:scale-95 transition-opacity shrink-0 select-none outline-none focus:outline-none"
-            title="Trang chủ (Vplay)"
+            title="Trang chủ (VNRT Online)"
           >
             {!logoError ? (
               <img 
                 src={LOGO_SRC}
-                alt="Vplay Logo" 
+                alt="VNRT Online Logo" 
                 referrerPolicy="no-referrer"
                 className="h-8 max-w-[125px] w-auto object-contain shrink-0 drop-shadow-sm"
                 onError={() => setLogoError(true)}
@@ -184,14 +184,17 @@ export const TopBar: React.FC<TopBarProps> = ({
         /* STANDARD MODE Left Side (Mobile Only Logo & Hamburger) */
         <>
           <div className="flex items-center gap-2.5 md:hidden pointer-events-auto relative z-10">
-            <button
-              id="btn-mobile-menu-toggle"
-              onClick={onOpenMobileMenu}
-              className="w-9 h-9 flex items-center justify-center text-[#18181B] dark:text-white bg-transparent border-0 shadow-none hover:bg-transparent transition-opacity hover:opacity-80 active:opacity-60 cursor-default p-0"
-              aria-label="Mở menu điều hướng"
-            >
-              <Menu className="w-6 h-6" />
-            </button>
+            {/* If navigationMode is 'floaty' (Tab View), hide hamburger icon on mobile header */}
+            {settings.navigationMode !== 'floaty' && (
+              <button
+                id="btn-mobile-menu-toggle"
+                onClick={onOpenMobileMenu}
+                className="w-9 h-9 flex items-center justify-center text-[#18181B] dark:text-white bg-transparent border-0 shadow-none hover:bg-transparent transition-opacity hover:opacity-80 active:opacity-60 cursor-default p-0"
+                aria-label="Mở menu điều hướng"
+              >
+                <Menu className="w-6 h-6" />
+              </button>
+            )}
 
             {/* Logo web mobile - không có viền, không có text, logo như ở sidebar */}
             <button 
@@ -199,12 +202,12 @@ export const TopBar: React.FC<TopBarProps> = ({
               type="button"
               onClick={() => navigate('/')}
               className="cursor-default flex items-center justify-center p-0 border-0 bg-transparent hover:opacity-85 active:scale-95 transition-opacity shrink-0 outline-none"
-              title="Trang chủ (Vplay)"
+              title="Trang chủ (VNRT Online)"
             >
               {!logoError ? (
                 <img 
                   src={LOGO_SRC}
-                  alt="Vplay Logo" 
+                  alt="VNRT Online Logo" 
                   referrerPolicy="no-referrer"
                   className="h-7.5 max-w-[120px] w-auto object-contain shrink-0 drop-shadow-sm"
                   onError={() => setLogoError(true)}

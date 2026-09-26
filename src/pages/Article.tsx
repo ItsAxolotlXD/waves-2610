@@ -230,7 +230,7 @@ export const Article: React.FC<ArticleProps> = ({ slug, navigate, fontSize = 16 
                   return (
                     <figure 
                       key={idx} 
-                      className="my-8 rounded-[24px] overflow-hidden border border-[#E5E7EB] dark:border-[#2D2D35] bg-[#0C0D12] shadow-xl group relative cursor-default"
+                      className="my-8 rounded-[24px] overflow-hidden border border-[#E5E7EB] dark:border-[#2D2D35] bg-[#F1F3F5] dark:bg-[#0C0D12] shadow-md dark:shadow-xl group relative cursor-default"
                       onClick={() => {
                         setLightboxImage(imgUrl);
                         setLightboxZoom(1);

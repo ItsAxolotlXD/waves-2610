@@ -43,7 +43,7 @@ const CATEGORY_ITEMS = [
 
 const SETTINGS_SHORTCUTS = [
   { id: 'set-font', title: 'Cài đặt: Tỷ lệ cỡ chữ ứng dụng', keyword: 'cỡ chữ font chữ zoom tỷ lệ' },
-  { id: 'set-autohide', title: 'Cài đặt: Tự động ẩn Sidebar', keyword: 'tự động ẩn sidebar collapse' },
+  { id: 'set-autohide', title: 'Cài đặt: Tự động ẩn Side View', keyword: 'tự động ẩn side view sidebar collapse' },
   { id: 'set-motion', title: 'Cài đặt: Motion and Movements / Hiệu ứng chuyển động', keyword: 'motion movements hiệu ứng animation reduce all animation chuyển trang' },
   { id: 'set-search', title: 'Cài đặt: Tùy chỉnh danh mục tìm kiếm', keyword: 'tìm kiếm search spotlight' },
   { id: 'set-keybinds', title: 'Cài đặt: Customize keybinds / Phím tắt tùy chỉnh', keyword: 'phím tắt customize keybinds shortcut keyboard alt 1 2 3 4 5' },
@@ -555,7 +555,7 @@ export const SpotlightModal: React.FC<SpotlightModalProps> = ({
                 {!query ? (
                   <div className="py-7 sm:py-9 px-3 text-center">
                     <p className="text-[13px] sm:text-sm text-[#8E8E93] leading-relaxed font-normal select-none max-w-[290px] mx-auto">
-                      Nhập từ khóa hoặc số kênh để tìm kiếm trong Vplay
+                      Nhập từ khóa hoặc số kênh để tìm kiếm trong VNRT Online
                     </p>
                   </div>
                 ) : (

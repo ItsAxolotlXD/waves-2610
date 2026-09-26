@@ -103,7 +103,7 @@ export const WelcomeModal: React.FC<WelcomeModalProps> = ({
               </div>
               <div className="flex items-center justify-between text-sm sm:text-[15px]">
                 <span className="font-medium text-black">Software Build</span>
-                <span className="font-semibold text-neutral-800">26W1004a</span>
+                <span className="font-semibold text-neutral-800">26V1005</span>
               </div>
               {/* Dòng chữ to dưới Software Build: Compatible with Spatial Glass */}
               <div id="settings-compatible-spatial-glass" className="pt-3 mt-1 border-t border-black/10 flex items-center">

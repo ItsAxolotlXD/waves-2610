@@ -49,11 +49,11 @@ export const getDefaultNavigationMode = (): 'sidebar' | 'topbar' | 'floaty' => {
 };
 
 export const DEFAULT_SETTINGS: SystemSettings = {
-  theme: 'dark', // Ban đêm là mặc định
+  theme: 'light', // Ban ngày (Light mode) là mặc định
   superDarkMode: false,
   spatialGlass: true,
   spatialGlassVersion: 3,
-  spatialGlassOpacity: 20, // 20%
+  spatialGlassOpacity: 43, // 43% mặc định cho Light mode
   spatialGlassBlur: 10, // 10%
   disableShinyOutline: false,
   dockToSidebar: true,
@@ -126,7 +126,7 @@ export const getStoredSettings = (): SystemSettings => {
       const immersiveSearch = parsed.immersiveSearchVersion === 2
         ? parsed.immersiveSearch
         : true;
-      const theme = parsed.theme === 'light' ? 'light' : 'dark';
+      const theme = parsed.theme === 'dark' ? 'dark' : 'light';
       return { 
         ...DEFAULT_SETTINGS, 
         ...parsed,
@@ -280,23 +280,45 @@ function getDraftSnapshot(): SystemSettings {
 
 export const updateDraftSetting = <K extends keyof SystemSettings>(key: K, value: SystemSettings[K]) => {
   draftSettingsStore = { ...draftSettingsStore, [key]: value };
-  if (typeof document !== 'undefined' && (key === 'spatialGlassOpacity' || key === 'spatialGlassBlur' || key === 'spatialGlass')) {
-    const isAct = key === 'spatialGlass' ? Boolean(value) : (draftSettingsStore.spatialGlass !== false);
-    const opacity = key === 'spatialGlassOpacity' ? Number(value) : (draftSettingsStore.spatialGlassOpacity ?? 20);
-    const blur = key === 'spatialGlassBlur' ? Number(value) : (draftSettingsStore.spatialGlassBlur ?? 10);
-    const isDarkContent = isAct && opacity > 40;
-    document.documentElement.classList.toggle('spatial-glass-dark-content', isDarkContent);
 
-    if (!isAct) {
-      document.documentElement.style.setProperty('--spatial-glass-opacity', '0');
-      document.documentElement.style.setProperty('--spatial-glass-bg', 'rgba(24, 24, 27, 0.85)');
-      document.documentElement.style.setProperty('--spatial-glass-blur', '0px');
-    } else {
-      const opacityVal = opacity / 100;
-      const blurPx = Math.round((blur / 100) * 40);
-      document.documentElement.style.setProperty('--spatial-glass-opacity', String(opacityVal));
-      document.documentElement.style.setProperty('--spatial-glass-bg', `rgba(255, 255, 255, ${opacityVal})`);
-      document.documentElement.style.setProperty('--spatial-glass-blur', `${blurPx}px`);
+  // Khi bật light mode, opacity của spatial glass tự động nhảy lên 43%
+  if (key === 'theme') {
+    if (value === 'light') {
+      draftSettingsStore.spatialGlassOpacity = 43;
+    }
+  }
+
+  if (typeof document !== 'undefined') {
+    if (key === 'theme') {
+      if (value === 'light') {
+        document.documentElement.classList.add('light-mode');
+        document.documentElement.classList.remove('dark');
+        document.body?.classList.add('light-mode');
+      } else {
+        document.documentElement.classList.remove('light-mode');
+        document.documentElement.classList.add('dark');
+        document.body?.classList.remove('light-mode');
+      }
+    }
+
+    if (key === 'spatialGlassOpacity' || key === 'spatialGlassBlur' || key === 'spatialGlass' || key === 'theme') {
+      const isAct = draftSettingsStore.spatialGlass !== false;
+      const opacity = draftSettingsStore.spatialGlassOpacity ?? 20;
+      const blur = draftSettingsStore.spatialGlassBlur ?? 10;
+      const isDarkContent = isAct && opacity > 40;
+      document.documentElement.classList.toggle('spatial-glass-dark-content', isDarkContent);
+
+      if (!isAct) {
+        document.documentElement.style.setProperty('--spatial-glass-opacity', '0');
+        document.documentElement.style.setProperty('--spatial-glass-bg', 'rgba(24, 24, 27, 0.85)');
+        document.documentElement.style.setProperty('--spatial-glass-blur', '0px');
+      } else {
+        const opacityVal = opacity / 100;
+        const blurPx = Math.round((blur / 100) * 40);
+        document.documentElement.style.setProperty('--spatial-glass-opacity', String(opacityVal));
+        document.documentElement.style.setProperty('--spatial-glass-bg', `rgba(255, 255, 255, ${opacityVal})`);
+        document.documentElement.style.setProperty('--spatial-glass-blur', `${blurPx}px`);
+      }
     }
   }
   notifyDraftListeners();
@@ -318,7 +340,11 @@ export const applyDraftSettings = () => {
 };
 
 export const updateGlobalSetting = <K extends keyof SystemSettings>(key: K, value: SystemSettings[K]) => {
-  settingsStore = { ...settingsStore, [key]: value, fontScaleVersion: 2, spatialGlassVersion: 3 };
+  let extraUpdates: Partial<SystemSettings> = {};
+  if (key === 'theme' && value === 'light') {
+    extraUpdates.spatialGlassOpacity = 43;
+  }
+  settingsStore = { ...settingsStore, [key]: value, ...extraUpdates, fontScaleVersion: 2, spatialGlassVersion: 3 };
   draftSettingsStore = { ...settingsStore };
   try {
     localStorage.setItem('waves_system_settings', JSON.stringify(settingsStore));

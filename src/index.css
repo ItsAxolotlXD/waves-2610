@@ -98,7 +98,7 @@
   }
 
   body {
-    background-color: #181818;
+    background-color: #121212;
     background-image: none;
     color: #F3F4F6;
     overflow-x: hidden;
@@ -107,8 +107,10 @@
 }
 
 /* Light Mode Global Overrides */
-html.light-mode body {
-  background-color: #E2E4EA !important;
+html.light-mode,
+html.light-mode body,
+html.light-mode #root {
+  background-color: #EDEDF2 !important;
   color: #111827 !important;
 }
 
@@ -239,6 +241,7 @@ html.light-mode .search-box-capsule input::placeholder {
   color: #6B7280 !important;
 }
 html.light-mode #settings-section-version,
+html.light-mode #settings-section-spatial-glass,
 html.light-mode #settings-section-interface,
 html.light-mode #settings-section-accessibility,
 html.light-mode #settings-section-motion,
@@ -252,7 +255,8 @@ html.light-mode #settings-section-other {
   border-width: 0 !important;
   box-shadow: 0 4px 16px -2px rgba(0, 0, 0, 0.05) !important;
 }
-html.light-mode #settings-section-version .text-white,
+html.light-mode #settings-section-version .text-white:not(#btn-test-vplay-switch):not(#btn-test-vplay-switch *):not(#btn-changelogs-read):not(#btn-changelogs-read *),
+html.light-mode #settings-section-spatial-glass .text-white,
 html.light-mode #settings-section-interface .text-white,
 html.light-mode #settings-section-accessibility .text-white,
 html.light-mode #settings-section-motion .text-white,
@@ -263,7 +267,68 @@ html.light-mode #settings-section-experimental .text-white,
 html.light-mode #settings-section-other .text-white {
   color: #111827 !important;
 }
+
+/* Switch & Read Buttons always have white text in both light and dark modes */
+#btn-test-vplay-switch,
+#btn-test-vplay-switch *,
+#btn-changelogs-read,
+#btn-changelogs-read *,
+html.light-mode #btn-test-vplay-switch,
+html.light-mode #btn-test-vplay-switch *,
+html.light-mode #btn-changelogs-read,
+html.light-mode #btn-changelogs-read * {
+  color: #FFFFFF !important;
+}
+
+/* Settings Slider Track: dark in dark mode, light in light mode */
+.settings-slider-track {
+  background-color: #383842;
+}
+html.light-mode .settings-slider-track {
+  background-color: #E4E4E7 !important;
+}
+
+/* Settings Segmented Control Tabs in Light Mode */
+html.light-mode .settings-segmented-group,
+html.light-mode #setting-theme-mode .grid,
+html.light-mode [id^="settings-section-"] .grid.rounded-full {
+  background-color: #ECECF0 !important;
+  border-color: rgba(0, 0, 0, 0.08) !important;
+}
+
+html.light-mode .settings-segmented-group button:not(.bg-\[\#fd932f\]):not([class*="bg-[#fd932f]"]),
+html.light-mode #setting-theme-mode .grid button:not(.bg-\[\#fd932f\]):not([class*="bg-[#fd932f]"]),
+html.light-mode [id^="settings-section-"] .grid.rounded-full button:not(.bg-\[\#fd932f\]):not([class*="bg-[#fd932f]"]) {
+  color: #4B5563 !important;
+}
+
+html.light-mode .settings-segmented-group button:not(.bg-\[\#fd932f\]):not([class*="bg-[#fd932f]"]):hover,
+html.light-mode #setting-theme-mode .grid button:not(.bg-\[\#fd932f\]):not([class*="bg-[#fd932f]"]):hover,
+html.light-mode [id^="settings-section-"] .grid.rounded-full button:not(.bg-\[\#fd932f\]):not([class*="bg-[#fd932f]"]):hover {
+  color: #111827 !important;
+  background-color: rgba(0, 0, 0, 0.05) !important;
+}
+
+html.light-mode .settings-segmented-group button.bg-\[\#fd932f\],
+html.light-mode .settings-segmented-group button[class*="bg-[#fd932f]"],
+html.light-mode #setting-theme-mode .grid button.bg-\[\#fd932f\],
+html.light-mode #setting-theme-mode .grid button[class*="bg-[#fd932f]"],
+html.light-mode [id^="settings-section-"] .grid.rounded-full button.bg-\[\#fd932f\],
+html.light-mode [id^="settings-section-"] .grid.rounded-full button[class*="bg-[#fd932f]"] {
+  background-color: #fd932f !important;
+  color: #FFFFFF !important;
+  box-shadow: 0 2px 8px rgba(253, 147, 47, 0.35) !important;
+}
+
+html.light-mode .settings-segmented-group button.bg-\[\#fd932f\] *,
+html.light-mode .settings-segmented-group button[class*="bg-[#fd932f]"] *,
+html.light-mode #setting-theme-mode .grid button.bg-\[\#fd932f\] *,
+html.light-mode #setting-theme-mode .grid button[class*="bg-[#fd932f]"] * {
+  color: #FFFFFF !important;
+}
+
 html.light-mode #settings-section-version .bg-\[\#28272E\],
+html.light-mode #settings-section-spatial-glass .bg-\[\#28272E\],
 html.light-mode #settings-section-interface .bg-\[\#28272E\],
 html.light-mode #settings-section-accessibility .bg-\[\#28272E\],
 html.light-mode #settings-section-motion .bg-\[\#28272E\],
@@ -282,12 +347,12 @@ html.light-mode #settings-section-search hr {
 
 /* Theme Surface Overrides in Dark Mode */
 html:not(.light-mode) body {
-  background-color: #181818 !important;
+  background-color: #121212 !important;
   background-image: none !important;
 }
 
 #fixed-app-background-solid {
-  background-color: #181818 !important;
+  background-color: #121212 !important;
   background-image: none !important;
 }
 
@@ -302,18 +367,22 @@ body.super-dark #fixed-app-background-solid {
   background: #000000 !important;
 }
 
+html.super-dark .to-\[\#121212\],
 html.super-dark .to-\[\#181818\] {
   --tw-gradient-to: #000000 var(--tw-gradient-to-position) !important;
 }
 
+html.super-dark .from-\[\#121212\]\/80,
 html.super-dark .from-\[\#181818\]\/80 {
   --tw-gradient-from: rgb(0 0 0 / 0.8) var(--tw-gradient-from-position) !important;
 }
 
+html.super-dark .from-\[\#121212\]\/85,
 html.super-dark .from-\[\#181818\]\/85 {
   --tw-gradient-from: rgb(0 0 0 / 0.85) var(--tw-gradient-from-position) !important;
 }
 
+html.super-dark .to-\[\#121212\]\/85,
 html.super-dark .to-\[\#181818\]\/85 {
   --tw-gradient-to: rgb(0 0 0 / 0.85) var(--tw-gradient-to-position) !important;
 }
@@ -326,7 +395,9 @@ html.super-dark .to-\[\#181818\]\/85 {
 }
 
 html.light-mode #fixed-app-background-solid {
-  display: none !important;
+  background-color: #EDEDF2 !important;
+  background-image: none !important;
+  display: block !important;
 }
 
 html:not(.light-mode) .bg-\[\#141416\],
@@ -2125,21 +2196,22 @@ html.light-mode .immersive-search-input input {
   background-image: none !important;
 }
 
-/* Floaty bar, float search bar & trigger button: style on hover */
-.floaty-bar__surface:hover {
-  background-color: rgba(255, 255, 255, 0.28) !important;
-  box-shadow: 0 12px 42px rgba(0, 0, 0, 0.42), 0 0 24px rgba(255, 255, 255, 0.15) !important;
-  filter: brightness(1.14) !important;
-}
-
-html.light-mode .floaty-bar__surface:hover {
-  background-color: rgba(255, 255, 255, 0.50) !important;
-  box-shadow: 0 12px 36px rgba(0, 0, 0, 0.18) !important;
-  filter: brightness(1.08) !important;
-}
-
-#floating-search-bar-pill:hover,
+/* Floaty bar (tab view bar) & search trigger button: become noticeably brighter on hover */
+.floaty-bar__surface:hover,
 #btn-floaty-search-trigger:hover {
+  background-color: rgba(255, 255, 255, 0.35) !important;
+  box-shadow: 0 14px 44px rgba(0, 0, 0, 0.45), 0 0 28px rgba(255, 255, 255, 0.25) !important;
+  filter: brightness(1.30) !important;
+}
+
+html.light-mode .floaty-bar__surface:hover,
+html.light-mode #btn-floaty-search-trigger:hover {
+  background-color: rgba(255, 255, 255, 0.75) !important;
+  box-shadow: 0 12px 36px rgba(0, 0, 0, 0.18), 0 0 24px rgba(255, 255, 255, 0.65) !important;
+  filter: brightness(1.15) !important;
+}
+
+#floating-search-bar-pill:hover {
   background: var(--spatial-glass-bg, rgba(255, 255, 255, 0.20)) !important;
   background-color: var(--spatial-glass-bg, rgba(255, 255, 255, 0.20)) !important;
   box-shadow: 0 12px 36px rgba(0, 0, 0, 0.40) !important;
@@ -2157,9 +2229,7 @@ html.light-mode .floaty-bar__surface:hover {
   opacity: 1 !important;
 }
 
-html.light-mode #floating-search-bar-pill:hover,
-html.light-mode #btn-floaty-search-trigger:hover,
-html.light-mode .floaty-bar__surface:hover {
+html.light-mode #floating-search-bar-pill:hover {
   background: rgba(0, 0, 0, 0.06) !important;
   background-color: rgba(0, 0, 0, 0.06) !important;
   box-shadow: 0 10px 32px rgba(0, 0, 0, 0.18) !important;
@@ -2176,9 +2246,14 @@ html.light-mode .floaty-bar__surface:hover::after {
   box-shadow: none !important;
 }
 
-html.spatial-glass-dark-content #floating-search-bar-pill:hover,
-html.spatial-glass-dark-content #btn-floaty-search-trigger:hover,
-html.spatial-glass-dark-content .floaty-bar__surface:hover {
+html.spatial-glass-dark-content .floaty-bar__surface:hover,
+html.spatial-glass-dark-content #btn-floaty-search-trigger:hover {
+  background-color: rgba(255, 255, 255, 0.55) !important;
+  box-shadow: 0 12px 36px rgba(0, 0, 0, 0.22), 0 0 22px rgba(255, 255, 255, 0.45) !important;
+  filter: brightness(1.20) !important;
+}
+
+html.spatial-glass-dark-content #floating-search-bar-pill:hover {
   background: rgba(0, 0, 0, 0.06) !important;
   background-color: rgba(0, 0, 0, 0.06) !important;
   box-shadow: 0 10px 32px rgba(0, 0, 0, 0.18) !important;
@@ -2209,31 +2284,28 @@ html.spatial-glass-dark-content .floaty-bar__surface:hover::after {
   transform: none !important;
 }
 
-/* Floaty Bar (Tab View) Surface & Search Trigger Hover Bounce Zoom */
+/* Floaty Bar (Tab View) Surface & Search Trigger Smooth Non-Conflicting Transitions */
 .floaty-bar__surface {
-  transition: transform 0.32s cubic-bezier(0.34, 1.56, 0.64, 1), background-color 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease !important;
+  transition: background-color 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease, filter 0.2s ease !important;
 }
 
 .floaty-bar__surface:hover {
-  transform: scale(1.05) !important;
   box-shadow: 0 14px 40px rgba(0, 0, 0, 0.45) !important;
 }
 
 #btn-floaty-search-trigger {
-  transition: transform 0.32s cubic-bezier(0.34, 1.56, 0.64, 1), background-color 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease !important;
+  transition: background-color 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease, filter 0.2s ease !important;
 }
 
 #btn-floaty-search-trigger:hover {
-  transform: scale(1.08) !important;
   box-shadow: 0 14px 40px rgba(0, 0, 0, 0.45) !important;
 }
 
 #floating-search-bar-pill {
-  transition: transform 0.32s cubic-bezier(0.34, 1.56, 0.64, 1), background-color 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease !important;
+  transition: background-color 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease, filter 0.2s ease !important;
 }
 
 #floating-search-bar-pill:hover {
-  transform: scale(1.03) !important;
   box-shadow: 0 14px 40px rgba(0, 0, 0, 0.45) !important;
 }
 
@@ -2582,49 +2654,77 @@ html.light-mode #btn-hero-watch-now svg {
   fill: #FFFFFF !important;
 }
 
-/* Recommended Channel Cards, Live TV Cards & Search Bars in Light Mode */
+/* Recommended Channel Cards, Live TV Cards & Channel Grid Cards in Light Mode:
+   User requirement: "khi ở light mode thì các ô kênh ko có viền"
+   Strictly no border, no outline, no pseudo-element border */
 html.light-mode [id^="recommended-channel-"],
 html.light-mode [id^="livetv-channel-card-"]:not(.is-selected),
 html.light-mode [id^="home-channel-card-"],
 html.light-mode [id^="channel-card-"]:not(.is-selected),
 html.light-mode [id^="test-channel-card-"]:not(.is-selected),
-html.light-mode #settings-search-container,
-html.light-mode #btn-spotlight-search,
-html.light-mode #btn-mobile-spotlight-search,
-html.light-mode #btn-spotlight-search-mini {
+html.light-mode .channel-card,
+html.light-mode [class*="channel-card"] {
   box-sizing: border-box !important;
-  border: 3.5px solid transparent !important;
-  background-image: 
-    linear-gradient(#FFFFFF, #FFFFFF), 
-    linear-gradient(180deg, rgba(100, 116, 139, 0.32) 0%, rgba(148, 163, 184, 0) 25%, rgba(148, 163, 184, 0) 75%, rgba(100, 116, 139, 0.32) 100%) !important;
-  background-origin: padding-box, border-box !important;
-  background-clip: padding-box, border-box !important;
-  box-shadow: inset 0 1px 1px 0 rgba(255, 255, 255, 0.75), inset 0 -1px 1px 0 rgba(255, 255, 255, 0.75), 0 0 0 1px rgba(0, 0, 0, 0.06), 0 0 14px rgba(0, 0, 0, 0.18), 0 3px 8px rgba(0, 0, 0, 0.12) !important;
+  border: none !important;
+  border-width: 0 !important;
+  outline: none !important;
+  background-image: none !important;
+  background-color: #FFFFFF !important;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04) !important;
   color: #374151 !important;
   transform: none !important;
-  transition: none !important;
+  transition: background-color 0.15s ease, box-shadow 0.15s ease !important;
+}
+
+html.light-mode [id^="recommended-channel-"]::after,
+html.light-mode [id^="livetv-channel-card-"]::after,
+html.light-mode [id^="home-channel-card-"]::after,
+html.light-mode [id^="channel-card-"]::after,
+html.light-mode [id^="test-channel-card-"]::after,
+html.light-mode .channel-card::after,
+html.light-mode [class*="channel-card"]::after {
+  display: none !important;
+  content: none !important;
+  border: none !important;
+  box-shadow: none !important;
 }
 
 html.light-mode [id^="recommended-channel-"]:hover,
 html.light-mode [id^="livetv-channel-card-"]:not(.is-selected):hover,
 html.light-mode [id^="home-channel-card-"]:hover,
 html.light-mode [id^="channel-card-"]:not(.is-selected):hover,
-html.light-mode [id^="test-channel-card-"]:not(.is-selected):hover,
+html.light-mode [id^="test-channel-card-"]:not(.is-selected):hover {
+  box-sizing: border-box !important;
+  border: none !important;
+  border-width: 0 !important;
+  outline: none !important;
+  background-image: none !important;
+  background-color: #F8F9FA !important;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.08) !important;
+  color: #111827 !important;
+  transform: none !important;
+}
+
+/* Spotlight and Settings Search in Light Mode */
+html.light-mode #settings-search-container,
+html.light-mode #btn-spotlight-search,
+html.light-mode #btn-mobile-spotlight-search,
+html.light-mode #btn-spotlight-search-mini {
+  box-sizing: border-box !important;
+  border: 1px solid rgba(0, 0, 0, 0.08) !important;
+  background-image: none !important;
+  background-color: #FFFFFF !important;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.05) !important;
+  color: #374151 !important;
+}
+
 html.light-mode #settings-search-container:hover,
 html.light-mode #btn-spotlight-search:hover,
 html.light-mode #btn-mobile-spotlight-search:hover,
 html.light-mode #btn-spotlight-search-mini:hover {
-  box-sizing: border-box !important;
-  border: 3.5px solid rgba(0, 0, 0, 0.15) !important;
-  background-image: 
-    linear-gradient(#FFFFFF, #FFFFFF), 
-    linear-gradient(180deg, rgba(71, 85, 105, 0.48) 0%, rgba(100, 116, 139, 0) 25%, rgba(100, 116, 139, 0) 75%, rgba(71, 85, 105, 0.48) 100%) !important;
-  background-origin: padding-box, border-box !important;
-  background-clip: padding-box, border-box !important;
-  box-shadow: inset 0 1px 1.5px 0 rgba(255, 255, 255, 0.85), inset 0 -1px 1.5px 0 rgba(255, 255, 255, 0.85), 0 0 0 1px rgba(0, 0, 0, 0.10), 0 0 20px rgba(0, 0, 0, 0.28), 0 6px 14px rgba(0, 0, 0, 0.16) !important;
+  border-color: rgba(0, 0, 0, 0.16) !important;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08) !important;
   color: #111827 !important;
-  transform: none !important;
-  transition: none !important;
 }
 
 /* News Cards & Hero Slides in Light Mode ::after border */
@@ -2876,6 +2976,21 @@ html.light-mode .settings-ios-group .text-white {
   color: #111827 !important;
 }
 
+/* Category icon badges must always retain pure white icons and 100% circular radius */
+.settings-category-badge,
+.settings-ios-group .settings-category-badge {
+  border-radius: 9999px !important;
+}
+
+.settings-category-badge svg,
+.settings-ios-group .settings-category-badge svg,
+html.light-mode .settings-ios-group .settings-category-badge svg,
+html.light-mode .settings-category-badge svg {
+  color: #FFFFFF !important;
+  stroke: #FFFFFF !important;
+  fill: none !important;
+}
+
 html.light-mode .settings-ios-group .divider-line {
   background-color: #F1F5F9 !important;
 }
@@ -3033,17 +3148,25 @@ html.light-mode .theme-segmented-box button:not(.bg-\[\#E6005A\]):hover {
   color: #111827 !important;
 }
 
-/* BottomDock in Light Mode */
+/* BottomDock & Floating Search Bar containers must remain completely transparent */
+#bottom-dock-container,
+#bottom-dock-container > div,
+#floating-search-bar-container,
+#floating-search-bar-container > div,
+.fixed.bottom-5 > div,
+.fixed.bottom-4 > div,
+html.light-mode #bottom-dock-container,
+html.light-mode #bottom-dock-container > div,
+html.light-mode #floating-search-bar-container,
+html.light-mode #floating-search-bar-container > div,
 html.light-mode .fixed.bottom-5 > div,
 html.light-mode .fixed.bottom-4 > div {
-  background-color: rgba(255, 255, 255, 0.96) !important;
-  border: 1px solid transparent !important;
-  background-image: 
-    linear-gradient(rgba(255, 255, 255, 0.96), rgba(255, 255, 255, 0.96)), 
-    linear-gradient(180deg, rgba(100, 116, 139, 0.45) 0%, rgba(148, 163, 184, 0) 25%, rgba(148, 163, 184, 0) 75%, rgba(100, 116, 139, 0.48) 100%) !important;
-  background-origin: padding-box, border-box !important;
-  background-clip: padding-box, border-box !important;
-  box-shadow: inset 0 1px 1.5px 0 rgba(255, 255, 255, 0.95), 0 0 0 1px rgba(0, 0, 0, 0.08), 0 0 24px rgba(0, 0, 0, 0.18), 0 10px 30px rgba(0, 0, 0, 0.18) !important;
+  background: transparent !important;
+  background-color: transparent !important;
+  background-image: none !important;
+  border: none !important;
+  box-shadow: none !important;
+  outline: none !important;
 }
 
 /* Settings Slider Capsule: No background as requested */
@@ -4093,27 +4216,115 @@ html.light-mode #under-construction-modal-description {
 }
 
 /* ==========================================================================
-   About Page Light Mode Adaptations
+   News Feed & Article Detail Light Mode Styles
    ========================================================================== */
-html.light-mode #about-disclaimer-card {
+html.light-mode .news-card,
+html.light-mode [id^="news-card-"],
+html.light-mode .news-card-featured,
+html.light-mode #featured-news-card,
+html.light-mode #home-news-horizontal-banner {
   background-color: #FFFFFF !important;
-  background-image: none !important;
-  border-color: #E2E8F0 !important;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05) !important;
+  color: #111827 !important;
+  border: 1px solid rgba(0, 0, 0, 0.08) !important;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.05) !important;
 }
 
-html.light-mode #about-disclaimer-title {
+html.light-mode .news-card:hover,
+html.light-mode [id^="news-card-"]:hover,
+html.light-mode .news-card-featured:hover,
+html.light-mode #featured-news-card:hover,
+html.light-mode #home-news-horizontal-banner:hover {
+  background-color: #FBFBFC !important;
+  border-color: rgba(0, 0, 0, 0.14) !important;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08) !important;
+}
+
+html.light-mode .news-card h3,
+html.light-mode [id^="news-card-"] h3,
+html.light-mode .news-card-featured h2,
+html.light-mode #featured-news-card h2,
+html.light-mode #home-news-horizontal-banner h3 {
   color: #111827 !important;
 }
 
-html.light-mode #about-disclaimer-text {
+html.light-mode .news-card p,
+html.light-mode [id^="news-card-"] p,
+html.light-mode .news-card-featured p,
+html.light-mode #featured-news-card p,
+html.light-mode #home-news-horizontal-banner p {
   color: #4B5563 !important;
 }
 
-html.light-mode #about-community-card {
+/* Article Detail Page in Light Mode */
+html.light-mode article.max-w-4xl h1 {
+  color: #111827 !important;
+}
+
+html.light-mode article.max-w-4xl .bg-white\/10,
+html.light-mode article.max-w-4xl .bg-\[\#1A1A1E\],
+html.light-mode article.max-w-4xl .bg-\[\#1E1E22\] {
   background-color: #FFFFFF !important;
-  border-color: #E2E8F0 !important;
+  border-color: #E5E7EB !important;
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05) !important;
+  color: #374151 !important;
+}
+
+html.light-mode article.max-w-4xl p {
+  color: #374151 !important;
+}
+
+html.light-mode article.max-w-4xl h2 {
+  color: #111827 !important;
+  border-bottom-color: #E5E7EB !important;
+}
+
+html.light-mode article.max-w-4xl figure {
+  background-color: #F8FAFC !important;
+  border-color: #E2E8F0 !important;
+}
+
+html.light-mode article.max-w-4xl figure figcaption {
+  color: #64748B !important;
+}
+
+/* Category Tabs on News Page in Light Mode */
+html.light-mode #news-category-tabs button:not(.bg-\[\#E50914\]):not([class*="bg-[#E50914]"]) {
+  background-color: #FFFFFF !important;
+  color: #4B5563 !important;
+  border: 1px solid #E5E7EB !important;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04) !important;
+}
+
+html.light-mode #news-category-tabs button:not(.bg-\[\#E50914\]):not([class*="bg-[#E50914]"]):hover {
+  background-color: #F3F4F6 !important;
+  color: #111827 !important;
+}
+
+/* About Section cards in Home in Light Mode */
+html.light-mode #home-about-section h2,
+html.light-mode #home-about-section h3 {
+  color: #111827 !important;
+}
+
+html.light-mode #home-about-section p {
+  color: #4B5563 !important;
+}
+
+html.light-mode #home-about-disclaimer-card,
+html.light-mode #home-about-community-card {
+  background-color: #FFFFFF !important;
+  border: 1px solid #E5E7EB !important;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.05) !important;
+}
+
+html.light-mode #home-about-disclaimer-card h3,
+html.light-mode #home-about-community-card h3 {
+  color: #111827 !important;
+}
+
+html.light-mode #home-about-disclaimer-card p,
+html.light-mode #home-about-community-card p {
+  color: #4B5563 !important;
 }
 
 /* Keep Floaty tabs transparent so the morphing active pill can slide smoothly */
@@ -4128,18 +4339,22 @@ html.light-mode #about-community-card {
 }
 
 .floaty-bar-pill-indicator {
-  background: rgba(255, 61, 0, 0.16) !important;
-  background-color: rgba(255, 61, 0, 0.16) !important;
+  background: #fd932f !important;
+  background-color: #fd932f !important;
+  background-image: none !important;
   border-radius: 9999px !important;
-  box-shadow: 0 2px 10px rgba(255, 61, 0, 0.20) !important;
-  border: 1px solid rgba(255, 61, 0, 0.25) !important;
+  box-shadow: 0 4px 16px rgba(253, 147, 47, 0.45) !important;
+  border: 1px solid #fd932f !important;
+  z-index: 5 !important;
 }
 
 html.light-mode .floaty-bar-pill-indicator {
-  background: rgba(255, 61, 0, 0.14) !important;
-  background-color: rgba(255, 61, 0, 0.14) !important;
-  box-shadow: 0 2px 10px rgba(255, 61, 0, 0.15) !important;
-  border: 1px solid rgba(255, 61, 0, 0.20) !important;
+  background: #fd932f !important;
+  background-color: #fd932f !important;
+  background-image: none !important;
+  box-shadow: 0 4px 16px rgba(253, 147, 47, 0.35) !important;
+  border: 1px solid #fd932f !important;
+  z-index: 5 !important;
 }
 
 .floaty-bar .floaty-bar__item:hover:not(.is-active) {
@@ -4297,28 +4512,49 @@ html.light-mode .floaty-bar__item:not(.is-active) img {
   filter: brightness(0) !important;
 }
 
-/* Active tab: solid red-orange (no gradient) icon and text */
+/* Active tab in Dark Mode: white icon and white text */
 .floaty-bar__item.is-active,
-html.spatial-glass-dark-content .floaty-bar__item.is-active,
-html.light-mode .floaty-bar__item.is-active {
-  color: #FF3D00 !important;
+html:not(.light-mode) .floaty-bar__item.is-active,
+html.spatial-glass-dark-content:not(.light-mode) .floaty-bar__item.is-active {
+  color: #FFFFFF !important;
+  z-index: 20 !important;
 }
 
 .floaty-bar__item.is-active span,
-html.spatial-glass-dark-content .floaty-bar__item.is-active span,
-html.light-mode .floaty-bar__item.is-active span {
-  color: #FF3D00 !important;
+html:not(.light-mode) .floaty-bar__item.is-active span,
+html.spatial-glass-dark-content:not(.light-mode) .floaty-bar__item.is-active span {
+  color: #FFFFFF !important;
 }
 
-.floaty-bar__item.is-active div[style*="background-color"] {
-  background-color: #FF3D00 !important;
+.floaty-bar__item.is-active div[style*="background-color"],
+html:not(.light-mode) .floaty-bar__item.is-active div[style*="background-color"] {
+  background-color: #FFFFFF !important;
 }
 
 .floaty-bar__item.is-active svg,
-html.spatial-glass-dark-content .floaty-bar__item.is-active svg,
+html:not(.light-mode) .floaty-bar__item.is-active svg,
+html.spatial-glass-dark-content:not(.light-mode) .floaty-bar__item.is-active svg {
+  stroke: #FFFFFF !important;
+  color: #FFFFFF !important;
+}
+
+/* Selected Tab in Light Mode: black icon and black text on orange pill */
+html.light-mode .floaty-bar__item.is-active {
+  color: #000000 !important;
+  z-index: 20 !important;
+}
+
+html.light-mode .floaty-bar__item.is-active span {
+  color: #000000 !important;
+}
+
+html.light-mode .floaty-bar__item.is-active div[style*="background-color"] {
+  background-color: #000000 !important;
+}
+
 html.light-mode .floaty-bar__item.is-active svg {
-  stroke: #FF3D00 !important;
-  color: #FF3D00 !important;
+  stroke: #000000 !important;
+  color: #000000 !important;
 }
 
 html.spatial-glass-dark-content #floating-search-input {

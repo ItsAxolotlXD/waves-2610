@@ -3,6 +3,7 @@ import { ChevronLeft, ChevronRight } from 'lucide-react';
 import { motion, AnimatePresence } from 'motion/react';
 import { HERO_SLIDES, DEFAULT_BANNER_PLACEHOLDER } from '../data/heroSlides';
 import { Channel } from '../types';
+import { useSettings } from '../hooks/useSettings';
 
 interface HeroCarouselProps {
   navigate?: (route: string) => void;
@@ -12,6 +13,8 @@ interface HeroCarouselProps {
 
 export const HeroCarousel: React.FC<HeroCarouselProps> = () => {
   const timerRef = useRef<NodeJS.Timeout | null>(null);
+  const { settings, draftSettings } = useSettings();
+  const isLightMode = (draftSettings?.theme ?? settings.theme) === 'light';
 
   // Danh sách slide gồm các banner chất lượng cao
   const allSlides = HERO_SLIDES;
@@ -191,10 +194,10 @@ export const HeroCarousel: React.FC<HeroCarouselProps> = () => {
           </AnimatePresence>
         </div>
 
-        {/* Lớp phủ chuyển sắc mượt mà hòa vào màu nền ứng dụng #181818 */}
-        <div className="absolute inset-0 bg-[#181818]/30" />
-        <div className="absolute inset-0 bg-gradient-to-b from-[#181818]/85 via-transparent to-[#181818]" />
-        <div className="absolute inset-0 bg-gradient-to-r from-[#181818]/90 via-transparent to-[#181818]/90" />
+        {/* Lớp phủ chuyển sắc mượt mà hòa vào màu nền ứng dụng #121212 (dark) hoặc #EDEDF2 (light) */}
+        <div className={`absolute inset-0 ${isLightMode ? 'bg-[#EDEDF2]/30' : 'bg-[#121212]/30'}`} />
+        <div className={`absolute inset-0 ${isLightMode ? 'bg-gradient-to-b from-[#EDEDF2]/85 via-transparent to-[#EDEDF2]' : 'bg-gradient-to-b from-[#121212]/85 via-transparent to-[#121212]'}`} />
+        <div className={`absolute inset-0 ${isLightMode ? 'bg-gradient-to-r from-[#EDEDF2]/90 via-transparent to-[#EDEDF2]/90' : 'bg-gradient-to-r from-[#121212]/90 via-transparent to-[#121212]/90'}`} />
       </div>
 
       {/* 3D Stage Container */}

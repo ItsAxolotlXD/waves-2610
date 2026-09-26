@@ -354,7 +354,7 @@ export const NativeKeyboard: React.FC = () => {
   return (
     <div
       id="vplay-native-keyboard"
-      aria-label="Vplay Native Keyboard"
+      aria-label="VNRT Online Native Keyboard"
       style={{
         height: `${keyboardHeight}px`,
         backgroundColor: 'rgba(255, 255, 255, 0.60)',
@@ -422,7 +422,7 @@ export const NativeKeyboard: React.FC = () => {
           <div className="absolute right-1 top-1/2 -translate-y-1/2 flex items-center gap-2">
             {!showEmojiPicker && (
               <span className="text-[11px] font-medium text-black truncate max-w-[100px] sm:max-w-[180px] select-none hidden xs:inline">
-                {activeInput?.placeholder || 'Vplay Keyboard'}
+                {activeInput?.placeholder || 'VNRT Online Keyboard'}
               </span>
             )}
 

@@ -228,8 +228,8 @@ export const ToolsMenu: React.FC<ToolsMenuProps> = ({
         disabled={!isRelevant}
         onClick={handleTriggerClick}
         className="w-10 h-10 rounded-full flex items-center justify-center text-[#18181B] dark:text-white transition-all drop-shadow-sm cursor-default relative group hover:bg-white/10"
-        title={isRelevant ? "Công cụ & Tiện ích Vplay (Tools)" : "Không có công cụ khả dụng"}
-        aria-label="Menu công cụ Vplay"
+        title={isRelevant ? "Công cụ & Tiện ích VNRT Online (Tools)" : "Không có công cụ khả dụng"}
+        aria-label="Menu công cụ VNRT Online"
         aria-expanded={isOpen}
       >
         <img

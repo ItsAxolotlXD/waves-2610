@@ -129,12 +129,12 @@ export const Sidebar: React.FC<SidebarProps> = ({
           <div 
             onClick={() => handleNavClick('/')} 
             className="cursor-default flex items-center justify-center p-0 hover:opacity-85 transition-opacity"
-            title="Vplay"
+            title="VNRT Online"
           >
             {!logoError ? (
               <img 
                 src="https://static.wikia.nocookie.net/ep-deo/images/e/ed/New_Vplay.png/revision/latest?cb=20260906031000"
-                alt="Vplay Logo" 
+                alt="VNRT Online Logo" 
                 referrerPolicy="no-referrer"
                 className="h-8 max-w-[125px] w-auto object-contain shrink-0"
                 onError={() => setLogoError(true)}
@@ -495,7 +495,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
                   {!logoError ? (
                     <img 
                       src="https://static.wikia.nocookie.net/ep-deo/images/e/ed/New_Vplay.png/revision/latest?cb=20260906031000" 
-                      alt="Vplay Logo - Mở rộng menu" 
+                      alt="VNRT Online Logo - Mở rộng menu" 
                       referrerPolicy="no-referrer"
                       className="w-8 h-8 object-contain shrink-0 drop-shadow-sm hover:drop-shadow-[0_0_8px_rgba(230,0,90,0.5)] transition-all"
                       onError={() => setLogoError(true)}

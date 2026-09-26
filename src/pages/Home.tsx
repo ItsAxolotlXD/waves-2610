@@ -44,8 +44,8 @@ const APP_PAGES = [
 const SETTINGS_SHORTCUTS = [
   { id: 'set-floating-search', title: 'Cài đặt: Floating Search Bar', desc: 'Bật/tắt thanh tìm kiếm nổi ở dưới màn hình', route: '/settings', keywords: 'floating search bar thanh tìm kiếm nổi dưới đáy' },
   { id: 'set-font', title: 'Cài đặt: Tỷ lệ cỡ chữ ứng dụng', desc: 'Điều chỉnh cỡ chữ từ 80% đến 125%', route: '/settings', keywords: 'cỡ chữ font chữ zoom tỷ lệ giao diện' },
-  { id: 'set-nav', title: 'Cài đặt: Kiểu thanh điều hướng (Navigation Mode)', desc: 'Chuyển đổi giữa Topbar, Sidebar, Tab View', route: '/settings', keywords: 'navigation mode topbar sidebar floaty tab view thanh điều hướng' },
-  { id: 'set-autohide', title: 'Cài đặt: Tự động ẩn Sidebar', desc: 'Tự động thu gọn thanh bên khi xem nội dung', route: '/settings', keywords: 'tự động ẩn sidebar collapse' },
+  { id: 'set-nav', title: 'Cài đặt: Kiểu thanh điều hướng (Navigation Mode)', desc: 'Chuyển đổi giữa Top View, Side View, Tab View', route: '/settings', keywords: 'navigation mode topbar sidebar top view side view floaty tab view thanh điều hướng' },
+  { id: 'set-autohide', title: 'Cài đặt: Tự động ẩn Side View', desc: 'Tự động thu gọn thanh bên khi xem nội dung', route: '/settings', keywords: 'tự động ẩn side view sidebar collapse' },
   { id: 'set-motion', title: 'Cài đặt: Hiệu ứng chuyển động (Motion & Movements)', desc: 'Giảm hoạt ảnh hoặc chuyển trang mượt mà', route: '/settings', keywords: 'motion movements hiệu ứng animation reduce all animation chuyển trang' },
   { id: 'set-keybinds', title: 'Cài đặt: Phím tắt tùy chỉnh (Keybinds)', desc: 'Cấu hình phím tắt cho mọi thao tác', route: '/settings', keywords: 'phím tắt customize keybinds shortcut keyboard alt' },
   { id: 'set-search-cats', title: 'Cài đặt: Tùy chỉnh danh mục tìm kiếm', desc: 'Lựa chọn nhóm kênh hiển thị trong tìm kiếm', route: '/settings', keywords: 'tìm kiếm search spotlight tùy chỉnh danh mục' },
@@ -375,7 +375,7 @@ export const Home: React.FC<HomeProps> = ({
                   navigate(`/news/${featuredArticle.slug}`);
                 }
               }}
-              className="group relative w-full overflow-hidden rounded-[24px] sm:rounded-[28px] border-0 bg-[#27121d] hover:bg-[#321726] transition-all duration-300 shadow-2xl cursor-pointer flex flex-col md:flex-row items-stretch select-none"
+              className="group relative w-full overflow-hidden rounded-[24px] sm:rounded-[28px] border-0 bg-white dark:bg-[#27121d] hover:bg-[#F9FAFB] dark:hover:bg-[#321726] transition-all duration-300 shadow-md dark:shadow-2xl cursor-pointer flex flex-col md:flex-row items-stretch select-none"
             >
               {/* Image banner side */}
               <div className="w-full md:w-[42%] lg:w-[40%] relative min-h-[200px] sm:min-h-[230px] md:min-h-[260px] overflow-hidden shrink-0">
@@ -408,37 +408,37 @@ export const Home: React.FC<HomeProps> = ({
               {/* Text info side */}
               <div className="flex-1 p-5 sm:p-6 md:p-7 flex flex-col justify-between gap-4">
                 <div className="space-y-2.5">
-                  <div className="flex items-center gap-3 text-xs text-[#9CA3AF]">
-                    <span className="font-bold text-[#FF4D8B] uppercase tracking-wider text-[11px]">
+                  <div className="flex items-center gap-3 text-xs text-[#6B7280] dark:text-[#9CA3AF]">
+                    <span className="font-bold text-[#E6005A] dark:text-[#FF4D8B] uppercase tracking-wider text-[11px]">
                       {featuredArticle.category}
                     </span>
                     <span>•</span>
                     <span>{featuredArticle.publishedAt}</span>
                   </div>
 
-                  <h3 className="text-lg sm:text-xl lg:text-2xl font-bold text-white group-hover:text-[#FF4D8B] transition-colors leading-snug tracking-tight">
+                  <h3 className="text-lg sm:text-xl lg:text-2xl font-bold text-[#111827] dark:text-white group-hover:text-[#E6005A] dark:group-hover:text-[#FF4D8B] transition-colors leading-snug tracking-tight">
                     {featuredArticle.title}
                   </h3>
 
-                  <p className="text-xs sm:text-sm text-[#D1D5DB] line-clamp-2 sm:line-clamp-3 leading-relaxed">
+                  <p className="text-xs sm:text-sm text-[#4B5563] dark:text-[#D1D5DB] line-clamp-2 sm:line-clamp-3 leading-relaxed">
                     {featuredArticle.excerpt}
                   </p>
                 </div>
 
                 {/* Author & Action footer */}
-                <div className="pt-3 border-t border-white/10 flex items-center justify-between gap-4">
+                <div className="pt-3 border-t border-[#E5E7EB] dark:border-white/10 flex items-center justify-between gap-4">
                   <div className="flex items-center gap-2.5 min-w-0">
                     <img
                       src={featuredArticle.author.avatar}
                       alt={featuredArticle.author.name}
                       referrerPolicy="no-referrer"
-                      className="w-7 h-7 rounded-full object-cover shrink-0 border border-white/20"
+                      className="w-7 h-7 rounded-full object-cover shrink-0 border border-black/10 dark:border-white/20"
                     />
                     <div className="truncate">
-                      <div className="text-xs font-bold text-white truncate">
+                      <div className="text-xs font-bold text-[#111827] dark:text-white truncate">
                         {featuredArticle.author.name}
                       </div>
-                      <div className="text-[10px] text-[#9CA3AF] truncate">
+                      <div className="text-[10px] text-[#6B7280] dark:text-[#9CA3AF] truncate">
                         {featuredArticle.author.role}
                       </div>
                     </div>
@@ -457,12 +457,12 @@ export const Home: React.FC<HomeProps> = ({
           </section>
         )}
 
-        {/* 4. Nội dung Giới thiệu Vplay (Chuyển toàn bộ nội dung từ Giới thiệu vào Home) */}
+        {/* 4. Nội dung Giới thiệu VNRT Online (Chuyển toàn bộ nội dung từ Giới thiệu vào Home) */}
         <section id="home-about-section" className="space-y-8 pt-4 border-t border-[#26262E]">
           {/* Hero Intro */}
           <div className="text-center space-y-4 pt-2">
             <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-white tracking-tight">
-              Vplay -{' '}
+              VNRT Online -{' '}
               <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#FF2020] via-[#FF3366] to-[#E6005A]">
                 Gói trọn Việt Nam trong tầm mắt bạn
               </span>
@@ -472,13 +472,13 @@ export const Home: React.FC<HomeProps> = ({
               <p className="flex items-start gap-2">
                 <span className="text-[#E6005A] font-bold select-none">•</span>
                 <span>
-                  Vplay là nền tảng xem truyền hình trực tuyến phi lợi nhuận cung cấp cho người dùng trải nghiệm xem chất lượng cao, đa dạng cánh sóng và hoàn toàn miễn phí.
+                  VNRT Online là nền tảng xem truyền hình trực tuyến phi lợi nhuận cung cấp cho người dùng trải nghiệm xem chất lượng cao, đa dạng cánh sóng và hoàn toàn miễn phí.
                 </span>
               </p>
               <p className="flex items-start gap-2">
                 <span className="text-[#E6005A] font-bold select-none">•</span>
                 <span>
-                  Ngoài ra Vplay còn giữ vai trò cập nhật toàn diện các thông tin về công nghệ phát thanh truyền hình, đồ họa nhận diện và văn hóa truyền thông Việt Nam, các thông báo của Waves nói chung và Vplay nói riêng.
+                  Ngoài ra VNRT Online còn giữ vai trò cập nhật toàn diện các thông tin về công nghệ phát thanh truyền hình, đồ họa nhận diện và văn hóa truyền thông Việt Nam, các thông báo của Waves nói chung và VNRT Online nói riêng.
                 </span>
               </p>
             </div>
@@ -496,7 +496,7 @@ export const Home: React.FC<HomeProps> = ({
               </h3>
             </div>
             <p id="about-disclaimer-text" className="text-xs sm:text-sm text-[#A1A1AA] leading-relaxed">
-              Tất cả logo, nhãn hiệu truyền hình, hình ảnh trường quay và luồng phát sóng thuộc quyền sở hữu trí tuệ của các Đài Truyền hình (Đài Truyền hình Việt Nam VTV, Đài Truyền hình TP.HCM HTV, Đài Truyền hình Kỹ thuật số VTC và các Đài PT-TH địa phương). Vplay phục vụ mục đích nghiên cứu, học thuật, hỗ trợ kỹ thuật và phi thương mại.
+              Tất cả logo, nhãn hiệu truyền hình, hình ảnh trường quay và luồng phát sóng thuộc quyền sở hữu trí tuệ của các Đài Truyền hình (Đài Truyền hình Việt Nam VTV, Đài Truyền hình TP.HCM HTV, Đài Truyền hình Kỹ thuật số VTC và các Đài PT-TH địa phương). VNRT Online phục vụ mục đích nghiên cứu, học thuật, hỗ trợ kỹ thuật và phi thương mại.
             </p>
           </div>
 

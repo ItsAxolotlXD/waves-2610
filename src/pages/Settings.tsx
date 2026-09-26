@@ -31,7 +31,6 @@ import { KEYBIND_DEFINITIONS, DEFAULT_KEYBINDS, eventToKeyString, validateKeybin
 import { KeybindAction } from '../types';
 
 export type SettingsCategoryId = 
-  | 'about' 
   | 'spatial-glass' 
   | 'interface' 
   | 'accessibility' 
@@ -49,19 +48,11 @@ interface SettingsCategoryItem {
 
 const SETTINGS_GROUP_1: SettingsCategoryItem[] = [
   {
-    id: 'about',
-    title: 'Giới thiệu',
-    subtitle: 'Phiên bản, bản dựng, nhật ký thay đổi và bản thử nghiệm',
-    icon: Info,
-    badgeColor: 'bg-gradient-to-b from-[#007AFF] to-[#005bb5]',
-    keywords: ['phiên bản', 'update', 'build', '26.10.0', '26w1004a', 'software', 'giới thiệu', 'compatible', 'spatial glass', 'test vplay', 'changelogs', 'nhật ký thay đổi', 'cập nhật'],
-  },
-  {
     id: 'spatial-glass',
     title: 'Spatial Glass',
     subtitle: 'Hiệu ứng kính mờ, độ trong suốt và độ nhòe thị giác',
     icon: Box,
-    badgeColor: 'bg-gradient-to-b from-[#FF3B30] to-[#C92A2A]',
+    badgeColor: 'bg-gradient-to-b from-[#34C759] to-[#248A3D]',
     keywords: ['spatial', 'glass', 'kính', 'opacity', 'trong suốt', 'blur', 'mờ', 'nhòe', 'liquid glass'],
   },
   {
@@ -69,8 +60,8 @@ const SETTINGS_GROUP_1: SettingsCategoryItem[] = [
     title: 'Giao diện',
     subtitle: 'Thanh điều hướng, chế độ ứng dụng, cỡ chữ và ô tìm kiếm',
     icon: Palette,
-    badgeColor: 'bg-gradient-to-b from-[#34C759] to-[#28CD41]',
-    keywords: ['giao diện', 'navigation', 'thanh điều hướng', 'sidebar', 'topbar', 'floaty', 'tab view', 'chế độ ứng dụng', 'ban ngày', 'ban đêm', 'light mode', 'dark mode', 'chế độ sáng', 'cỡ chữ', 'font', 'thu phóng', 'super dark', 'tối', 'floating search'],
+    badgeColor: 'bg-gradient-to-b from-[#007AFF] to-[#005bb5]',
+    keywords: ['giao diện', 'navigation', 'thanh điều hướng', 'sidebar', 'topbar', 'side view', 'top view', 'floaty', 'tab view', 'chế độ ứng dụng', 'ban ngày', 'ban đêm', 'light mode', 'dark mode', 'chế độ sáng', 'cỡ chữ', 'font', 'thu phóng', 'super dark', 'tối', 'floating search'],
   },
   {
     id: 'accessibility',
@@ -137,6 +128,8 @@ export const Settings: React.FC<SettingsProps> = ({
   const [editingKeybindId, setEditingKeybindId] = useState<KeybindAction | null>(null);
   const [keybindError, setKeybindError] = useState<{ id: KeybindAction; message: string } | null>(null);
   const inputRef = useRef<HTMLInputElement>(null);
+
+  const shouldAnimateMotion = !draftSettings.reduceAllMotion;
 
   const updateDraft = <K extends keyof SystemSettings>(key: K, value: SystemSettings[K]) => {
     updateDraftSetting(key, value);
@@ -230,7 +223,7 @@ export const Settings: React.FC<SettingsProps> = ({
             )}
           </div>
           <p className="text-xs sm:text-sm text-[#9CA3AF]">
-            Quản lý giao diện, trợ năng và tiện ích hệ thống.
+            Tùy chỉnh trải nghiệm VNRT Online theo cách của bạn.
           </p>
 
           {/* Search Header - Hidden when Floaty Search Box option is enabled */}
@@ -313,7 +306,7 @@ export const Settings: React.FC<SettingsProps> = ({
           )}
         </div>
       ) : (
-        /* Subpage Minimal Header: Back button + optional Save (no redundant title/description) */
+        /* Subpage Minimal Header: Back button (no redundant title/description) */
         <div className="flex items-center justify-between pb-3 border-b border-white/10">
           <button
             type="button"
@@ -324,29 +317,30 @@ export const Settings: React.FC<SettingsProps> = ({
             <ChevronLeft className="w-5 h-5 -ml-1" />
             <span>Cài đặt</span>
           </button>
-
-          {hasChanges && (
-            <button
-              type="button"
-              onClick={handleApplySettings}
-              className="px-5 py-2 rounded-full font-bold text-white bg-[#fd932f] hover:bg-[#e68428] active:scale-[0.96] transition-all text-xs sm:text-sm cursor-default flex items-center justify-center shrink-0 shadow-md tracking-tight text-center select-none"
-            >
-              <span>Save</span>
-            </button>
-          )}
         </div>
       )}
 
-      {/* 2. Main Page: Grouped Categories (Background identical to inner pages, no border) */}
-      {activeCategory === null ? (
-        <div className="space-y-5">
+      {/* 2. Main Page: Grouped Categories vs Subpages with horizontal slide animation */}
+      <AnimatePresence mode="wait" initial={false}>
+        {activeCategory === null ? (
+          <motion.div
+            key="settings-main-categories"
+            initial={{ opacity: 0, x: -60 }}
+            animate={{ opacity: 1, x: 0 }}
+            exit={{ opacity: 0, x: -60 }}
+            transition={{
+              duration: shouldAnimateMotion ? 0.28 : 0,
+              ease: [0.16, 1, 0.3, 1]
+            }}
+            className="space-y-3.5"
+          >
           {/* Quick Search Jump Results if user typed a search query */}
           {searchQuery.trim() && (
             <div className="p-4 rounded-[30px] bg-white/10 backdrop-blur-md shadow-xl space-y-2 border-none">
               <div className="text-xs font-bold text-[#8E8E93] uppercase tracking-wider px-1">
                 Kết quả tìm kiếm cho "{searchQuery}"
               </div>
-              <div className="grid grid-cols-1 gap-1.5">
+              <div className="grid grid-cols-1 gap-1">
                 {ALL_CATEGORIES.filter((cat) => 
                   matchesSearch(cat.title) || 
                   matchesSearch(cat.subtitle) || 
@@ -356,10 +350,10 @@ export const Settings: React.FC<SettingsProps> = ({
                     key={cat.id}
                     type="button"
                     onClick={() => setActiveCategory(cat.id)}
-                    className="flex items-center justify-between p-3 rounded-[20px] bg-white/5 hover:bg-white/10 text-left transition-colors cursor-default"
+                    className="flex items-center justify-between p-2.5 sm:p-3 rounded-[18px] bg-white/5 hover:bg-white/10 text-left transition-colors cursor-default"
                   >
                     <div className="flex items-center gap-3">
-                      <div className={`w-8 h-8 rounded-[9px] flex items-center justify-center shrink-0 shadow-sm ${cat.badgeColor}`}>
+                      <div className={`settings-category-badge w-8 h-8 rounded-full flex items-center justify-center shrink-0 shadow-sm ${cat.badgeColor}`}>
                         <cat.icon className="w-4 h-4 text-white" />
                       </div>
                       <div>
@@ -374,17 +368,17 @@ export const Settings: React.FC<SettingsProps> = ({
             </div>
           )}
 
-          {/* Group 1: Giới thiệu, Spatial Glass, Giao diện, Trợ năng */}
-          <div className="settings-ios-group rounded-[30px] bg-white/10 backdrop-blur-md shadow-xl overflow-hidden border-none">
+          {/* Group 1: Spatial Glass, Giao diện, Trợ năng */}
+          <div className="settings-ios-group rounded-[26px] bg-white/10 backdrop-blur-md shadow-xl overflow-hidden border-none">
             {SETTINGS_GROUP_1.map((item, idx) => (
               <React.Fragment key={item.id}>
                 <div
                   id={`settings-category-${item.id}`}
                   onClick={() => setActiveCategory(item.id)}
-                  className="group flex items-center px-4 py-3.5 sm:py-4 hover:bg-white/[0.06] active:bg-white/[0.1] transition-colors cursor-pointer select-none"
+                  className="group flex items-center px-4 py-2.5 sm:py-3 hover:bg-white/[0.06] active:bg-white/[0.1] transition-colors cursor-pointer select-none"
                 >
-                  {/* Icon Badge without outline */}
-                  <div className={`w-[34px] h-[34px] sm:w-[38px] sm:h-[38px] rounded-[10px] flex items-center justify-center shrink-0 shadow-sm ${item.badgeColor}`}>
+                  {/* Icon Badge without outline - 100% border radius */}
+                  <div className={`settings-category-badge w-[34px] h-[34px] sm:w-[38px] sm:h-[38px] rounded-full flex items-center justify-center shrink-0 shadow-sm ${item.badgeColor}`}>
                     <item.icon className="w-[18px] h-[18px] sm:w-[20px] sm:h-[20px] text-white" />
                   </div>
 
@@ -406,16 +400,16 @@ export const Settings: React.FC<SettingsProps> = ({
           </div>
 
           {/* Group 2: Công cụ, Thử nghiệm */}
-          <div className="settings-ios-group rounded-[30px] bg-white/10 backdrop-blur-md shadow-xl overflow-hidden border-none">
+          <div className="settings-ios-group rounded-[26px] bg-white/10 backdrop-blur-md shadow-xl overflow-hidden border-none">
             {SETTINGS_GROUP_2.map((item, idx) => (
               <React.Fragment key={item.id}>
                 <div
                   id={`settings-category-${item.id}`}
                   onClick={() => setActiveCategory(item.id)}
-                  className="group flex items-center px-4 py-3.5 sm:py-4 hover:bg-white/[0.06] active:bg-white/[0.1] transition-colors cursor-pointer select-none"
+                  className="group flex items-center px-4 py-2.5 sm:py-3 hover:bg-white/[0.06] active:bg-white/[0.1] transition-colors cursor-pointer select-none"
                 >
-                  {/* Icon Badge without outline */}
-                  <div className={`w-[34px] h-[34px] sm:w-[38px] sm:h-[38px] rounded-[10px] flex items-center justify-center shrink-0 shadow-sm ${item.badgeColor}`}>
+                  {/* Icon Badge without outline - 100% border radius */}
+                  <div className={`settings-category-badge w-[34px] h-[34px] sm:w-[38px] sm:h-[38px] rounded-full flex items-center justify-center shrink-0 shadow-sm ${item.badgeColor}`}>
                     <item.icon className="w-[18px] h-[18px] sm:w-[20px] sm:h-[20px] text-white" />
                   </div>
 
@@ -435,92 +429,92 @@ export const Settings: React.FC<SettingsProps> = ({
               </React.Fragment>
             ))}
           </div>
-        </div>
-      ) : (
-        /* 3. Subpage Content Views (Clean, direct controls without redundant titles/descriptions) */
-        <AnimatePresence mode="wait">
-          <motion.div
-            key={activeCategory}
-            initial={{ opacity: 0, x: 12 }}
-            animate={{ opacity: 1, x: 0 }}
-            exit={{ opacity: 0, x: -12 }}
-            transition={{ duration: 0.2 }}
-            className="space-y-6"
+
+          {/* Thông tin phần mềm & Giới thiệu (Chuyển xuống cuối trang Cài đặt) */}
+          <section 
+            id="settings-section-version"
+            className="p-4 sm:p-5 rounded-[26px] bg-white/10 backdrop-blur-md shadow-xl space-y-3.5 border-none select-none"
           >
-            {/* SUBPAGE 1: GIỚI THIỆU (BAO GỒM PHIÊN BẢN, TEST VPLAY VÀ CHANGELOGS) */}
-            {activeCategory === 'about' && (
-              <section 
-                id="settings-section-version"
-                className="p-5 sm:p-6 rounded-[30px] bg-white/10 backdrop-blur-md shadow-xl space-y-4 border-none"
-              >
-                <div className="p-4 sm:p-5 rounded-[20px] bg-white/5 space-y-3.5 select-text">
-                  <div className="flex items-center justify-between text-sm sm:text-[15px]">
-                    <span className="font-medium text-white">Software Update</span>
-                    <span className="font-semibold text-[#9CA3AF]">26.10.0</span>
+            <div className="p-3.5 sm:p-4 rounded-[18px] bg-white/5 space-y-3 select-text">
+              <div className="flex items-center justify-between text-xs sm:text-sm">
+                <span className="font-medium text-white">Software Update</span>
+                <span className="font-semibold text-[#9CA3AF]">26.10.0</span>
+              </div>
+              <div className="flex items-center justify-between text-xs sm:text-sm">
+                <span className="font-medium text-white">Software Build</span>
+                <span className="font-semibold text-[#9CA3AF]">26V1005</span>
+              </div>
+              {/* Compatible with Spatial Glass */}
+              <div id="settings-compatible-spatial-glass" className="pt-2.5 mt-1 border-t border-white/10 flex items-center">
+                <p className="text-sm sm:text-base font-bold tracking-tight text-white">
+                  Compatible with{' '}
+                  <span className="bg-gradient-to-r from-[#FF8A00] via-[#FF0A54] to-[#E6005A] bg-clip-text text-transparent font-bold drop-shadow-[0_0_12px_rgba(230,0,90,0.35)]">
+                    Spatial Glass.
+                  </span>
+                </p>
+              </div>
+            </div>
+
+            <div className="space-y-2 pt-0.5">
+              {/* Test Vplay Option Card */}
+              <div className="p-3 sm:p-3.5 rounded-[18px] flex items-center justify-between gap-3 transition-colors hover:bg-white/5">
+                <div>
+                  <div className="font-bold text-white text-xs sm:text-sm">
+                    Test VNRT Online
                   </div>
-                  <div className="flex items-center justify-between text-sm sm:text-[15px]">
-                    <span className="font-medium text-white">Software Build</span>
-                    <span className="font-semibold text-[#9CA3AF]">26W1004a</span>
+                  <div className="text-[11px] sm:text-xs text-[#9CA3AF] mt-0.5 leading-normal">
+                    Try our test builds of VNRT Online with new, early unreleased features.
                   </div>
-                  {/* Compatible with Spatial Glass */}
-                  <div id="settings-compatible-spatial-glass" className="pt-3 mt-1 border-t border-white/10 flex items-center">
-                    <p className="text-base sm:text-lg font-bold tracking-tight text-white">
-                      Compatible with{' '}
-                      <span className="bg-gradient-to-r from-[#FF8A00] via-[#FF0A54] to-[#E6005A] bg-clip-text text-transparent font-bold drop-shadow-[0_0_12px_rgba(230,0,90,0.35)]">
-                        Spatial Glass.
-                      </span>
-                    </p>
+                </div>
+
+                <a
+                  id="btn-test-vplay-switch"
+                  href="https://test-vplay.vercel.app"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="px-4 py-1.5 rounded-full font-bold text-white bg-[#fd932f] hover:bg-[#e68428] active:scale-[0.96] transition-all text-xs cursor-default flex items-center justify-center shrink-0 shadow-md tracking-tight text-center select-none"
+                >
+                  <span className="text-white font-bold">Switch</span>
+                </a>
+              </div>
+
+              {/* Changelogs Option Card */}
+              <div className="p-3 sm:p-3.5 rounded-[18px] flex items-center justify-between gap-3 transition-colors hover:bg-white/5">
+                <div>
+                  <div className="font-bold text-white text-xs sm:text-sm">
+                    Changelogs
+                  </div>
+                  <div className="text-[11px] sm:text-xs text-[#9CA3AF] mt-0.5 leading-normal">
+                    Danh sách những sự thay đổi trong bản cập nhật mới nhất của VNRT Online.
                   </div>
                 </div>
 
-                <div className="space-y-3 pt-1">
-                  {/* Test Vplay Option Card */}
-                  <div className="p-3.5 sm:p-4 rounded-[20px] flex items-center justify-between gap-4 transition-colors hover:bg-white/5">
-                    <div>
-                      <div className="font-bold text-white text-sm">
-                        Test Vplay
-                      </div>
-                      <div className="text-xs text-[#9CA3AF] mt-1 leading-normal">
-                        Try our test builds of Vplay with new, early unreleased features.
-                      </div>
-                    </div>
-
-                    <a
-                      id="btn-test-vplay-switch"
-                      href="https://test-vplay.vercel.app"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="px-5 py-2 rounded-full font-bold text-white bg-[#fd932f] hover:bg-[#e68428] active:scale-[0.96] transition-all text-xs sm:text-sm cursor-default flex items-center justify-center shrink-0 shadow-md tracking-tight text-center select-none"
-                    >
-                      Switch
-                    </a>
-                  </div>
-
-                  {/* Changelogs Option Card */}
-                  <div className="p-3.5 sm:p-4 rounded-[20px] flex items-center justify-between gap-4 transition-colors hover:bg-white/5">
-                    <div>
-                      <div className="font-bold text-white text-sm">
-                        Changelogs
-                      </div>
-                      <div className="text-xs text-[#9CA3AF] mt-1 leading-normal">
-                        Danh sách những sự thay đổi trong bản cập nhật mới nhất của Vplay.
-                      </div>
-                    </div>
-
-                    <button
-                      id="btn-changelogs-read"
-                      type="button"
-                      onClick={() => setIsWelcomeModalOpen(true)}
-                      className="px-5 py-2 rounded-full font-bold text-white bg-[#fd932f] hover:bg-[#e68428] active:scale-[0.96] transition-all text-xs sm:text-sm cursor-default flex items-center justify-center shrink-0 shadow-md tracking-tight text-center"
-                    >
-                      Read
-                    </button>
-                  </div>
-                </div>
-              </section>
-            )}
-
-            {/* SUBPAGE 2: SPATIAL GLASS */}
+                <button
+                  id="btn-changelogs-read"
+                  type="button"
+                  onClick={() => setIsWelcomeModalOpen(true)}
+                  className="px-4 py-1.5 rounded-full font-bold text-white bg-[#fd932f] hover:bg-[#e68428] active:scale-[0.96] transition-all text-xs cursor-default flex items-center justify-center shrink-0 shadow-md tracking-tight text-center"
+                >
+                  <span className="text-white font-bold">Read</span>
+                </button>
+              </div>
+            </div>
+          </section>
+        </motion.div>
+      ) : (
+        /* 3. Subpage Content Views (Smooth horizontal slide from right to left) */
+        <motion.div
+          key={activeCategory}
+          initial={{ opacity: 0, x: 80 }}
+          animate={{ opacity: 1, x: 0 }}
+          exit={{ opacity: 0, x: 80 }}
+          transition={{
+            duration: shouldAnimateMotion ? 0.32 : 0,
+            ease: [0.16, 1, 0.3, 1]
+          }}
+          className="space-y-6"
+        >
+            {/* SUBPAGE 1: SPATIAL GLASS */}
             {activeCategory === 'spatial-glass' && (
               <section 
                 id="settings-section-spatial-glass"
@@ -596,7 +590,7 @@ export const Settings: React.FC<SettingsProps> = ({
                           className="absolute left-1 right-1 top-0 bottom-0 opacity-0 cursor-default z-20"
                           aria-label="Độ trong suốt (Opacity)"
                         />
-                        <div className="relative w-full h-2 rounded-full bg-[#383842] overflow-visible pointer-events-none">
+                        <div className="settings-slider-track relative w-full h-2 rounded-full bg-[#E4E4E7] dark:bg-[#383842] overflow-visible pointer-events-none">
                           <div 
                             className="absolute left-0 top-0 h-full rounded-full bg-[#fd932f] transition-all duration-75 ease-out"
                             style={{ width: `${draftSettings.spatialGlassOpacity ?? 20}%` }}
@@ -654,7 +648,7 @@ export const Settings: React.FC<SettingsProps> = ({
                           className="absolute left-1 right-1 top-0 bottom-0 opacity-0 cursor-default z-20"
                           aria-label="Độ mờ (Blur)"
                         />
-                        <div className="relative w-full h-2 rounded-full bg-[#383842] overflow-visible pointer-events-none">
+                        <div className="settings-slider-track relative w-full h-2 rounded-full bg-[#E4E4E7] dark:bg-[#383842] overflow-visible pointer-events-none">
                           <div 
                             className="absolute left-0 top-0 h-full rounded-full bg-[#fd932f] transition-all duration-75 ease-out"
                             style={{ width: `${draftSettings.spatialGlassBlur ?? 10}%` }}
@@ -680,7 +674,7 @@ export const Settings: React.FC<SettingsProps> = ({
               </section>
             )}
 
-            {/* SUBPAGE 3: GIAO DIỆN */}
+            {/* SUBPAGE 2: GIAO DIỆN */}
             {activeCategory === 'interface' && (
               <section 
                 id="settings-section-interface"
@@ -692,18 +686,10 @@ export const Settings: React.FC<SettingsProps> = ({
                     id="setting-theme-mode"
                     className="p-3.5 sm:p-4 rounded-[20px] space-y-3"
                   >
-                    <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-1">
-                      <div>
-                        <div className="font-bold text-white text-sm">Chế độ ứng dụng</div>
-                        <div className="text-xs text-[#9CA3AF] mt-1 leading-normal">
-                          Lựa chọn hiển thị giao diện Ban ngày (Light mode) hoặc Ban đêm (Dark mode). Ban đêm là mặc định.
-                        </div>
-                      </div>
-                      <span className="inline-flex items-center text-[11px] font-medium text-[#fd932f] bg-[#fd932f]/10 px-2 py-0.5 rounded-full self-start sm:self-auto">
-                        {(draftSettings.theme || 'dark') === 'dark' ? 'Mặc định: Ban đêm' : 'Đang bật: Ban ngày'}
-                      </span>
+                    <div>
+                      <div className="font-bold text-white text-sm">Chế độ ứng dụng</div>
                     </div>
-                    <div className="grid grid-cols-2 gap-2 rounded-full bg-[#18181b]/80 border border-white/10 p-1.5 backdrop-blur-md max-w-sm" role="group" aria-label="Chế độ ứng dụng">
+                    <div className="settings-segmented-group grid grid-cols-2 gap-2 rounded-full bg-[#18181b]/80 border border-white/10 p-1.5 backdrop-blur-md max-w-sm" role="group" aria-label="Chế độ ứng dụng">
                       {([
                         ['light', 'Ban ngày', Sun],
                         ['dark', 'Ban đêm', Moon],
@@ -712,13 +698,20 @@ export const Settings: React.FC<SettingsProps> = ({
                           key={val}
                           type="button"
                           id={`theme-btn-${val}`}
-                          onClick={() => updateDraft('theme', val)}
+                          onClick={() => {
+                            updateDraft('theme', val);
+                            if (val === 'light') {
+                              updateDraft('spatialGlassOpacity', 43);
+                            } else if (draftSettings.spatialGlassOpacity === 43) {
+                              updateDraft('spatialGlassOpacity', 20);
+                            }
+                          }}
                           className={`flex items-center justify-center gap-2 rounded-full px-4 py-2 text-xs font-semibold transition-all cursor-default ${
-                            (draftSettings.theme || 'dark') === val
-                              ? 'bg-gradient-to-r from-[#FF3B30] to-[#FF9500] text-white shadow-[0_2px_10px_rgba(255,59,48,0.35)]'
+                            (draftSettings.theme || 'light') === val
+                              ? 'bg-[#fd932f] text-white shadow-[0_2px_10px_rgba(253,147,47,0.35)]'
                               : 'text-[#9CA3AF] hover:text-white hover:bg-white/5'
                           }`}
-                          aria-pressed={(draftSettings.theme || 'dark') === val}
+                          aria-pressed={(draftSettings.theme || 'light') === val}
                         >
                           <IconComponent className="w-4 h-4" />
                           <span>{label}</span>
@@ -736,14 +729,14 @@ export const Settings: React.FC<SettingsProps> = ({
                       </div>
                       {draftSettings.navigationMode === 'topbar' && (
                         <span className="inline-flex items-center text-[11px] font-medium text-[#fd932f] bg-[#fd932f]/10 px-2 py-0.5 rounded-full self-start sm:self-auto">
-                          Progressive Blur Top Bar
+                          Progressive Blur Top View
                         </span>
                       )}
                     </div>
-                    <div className="grid grid-cols-3 gap-1.5 rounded-full bg-[#18181b]/80 border border-white/10 p-1.5 backdrop-blur-md" role="group" aria-label="Thanh điều hướng">
+                    <div className="settings-segmented-group grid grid-cols-3 gap-1.5 rounded-full bg-[#18181b]/80 border border-white/10 p-1.5 backdrop-blur-md" role="group" aria-label="Thanh điều hướng">
                       {([
-                        ['sidebar', 'Sidebar'],
-                        ['topbar', 'Top bar'],
+                        ['sidebar', 'Side View'],
+                        ['topbar', 'Top View'],
                         ['floaty', 'Tab View'],
                       ] as const).map(([value, label]) => (
                         <button 
@@ -767,7 +760,7 @@ export const Settings: React.FC<SettingsProps> = ({
                     </div>
                     {draftSettings.navigationMode === 'topbar' && (
                       <p className="text-[12px] text-[#9CA3AF] leading-relaxed pt-1">
-                        Giao diện Top Bar sẽ đưa thanh điều khiển và điều hướng (Logo trang chủ, Truyền hình, News và các công cụ, icon cài đặt) lên thanh Progressive Blur trên cùng màn hình.
+                        Giao diện Top View sẽ đưa thanh điều khiển và điều hướng (Logo trang chủ, Truyền hình, News và các công cụ, icon cài đặt) lên thanh Progressive Blur trên cùng màn hình.
                       </p>
                     )}
                   </div>
@@ -801,7 +794,7 @@ export const Settings: React.FC<SettingsProps> = ({
                           className="absolute left-1 right-1 top-0 bottom-0 opacity-0 cursor-default z-20"
                           aria-label="Thu phóng giao diện"
                         />
-                        <div className="relative w-full h-2 rounded-full bg-[#383842] dark:bg-[#383842] overflow-visible pointer-events-none">
+                        <div className="settings-slider-track relative w-full h-2 rounded-full bg-[#E4E4E7] dark:bg-[#383842] overflow-visible pointer-events-none">
                           <div 
                             className="absolute left-0 top-0 h-full rounded-full bg-[#fd932f] transition-all duration-150 ease-out"
                             style={{ width: `${(draftSettings.fontScale / (FONT_SCALE_CONFIG.length - 1)) * 100}%` }}
@@ -844,7 +837,7 @@ export const Settings: React.FC<SettingsProps> = ({
                     </div>
                   </div>
 
-                  {/* 3. Vị trí thanh bên (nếu dùng chế độ Sidebar) */}
+                  {/* 3. Vị trí thanh bên (nếu dùng chế độ Side View) */}
                   {draftSettings.navigationMode === 'sidebar' && (
                     <div
                       id="setting-sidebar-position"
@@ -852,11 +845,11 @@ export const Settings: React.FC<SettingsProps> = ({
                     >
                       <div className="flex items-center justify-between gap-4">
                         <div>
-                          <div className="font-bold text-white text-sm">Vị trí thanh bên (Sidebar position)</div>
+                          <div className="font-bold text-white text-sm">Vị trí thanh bên (Side View position)</div>
                           <div className="text-xs text-[#9CA3AF] mt-1 leading-normal">Chọn vị trí hiển thị thanh bên trái hoặc phải.</div>
                         </div>
                       </div>
-                      <div className="grid grid-cols-2 gap-1.5 rounded-full bg-[#18181b]/80 border border-white/10 p-1.5 backdrop-blur-md">
+                      <div className="settings-segmented-group grid grid-cols-2 gap-1.5 rounded-full bg-[#18181b]/80 border border-white/10 p-1.5 backdrop-blur-md">
                         {[
                           ['left', 'Trái'],
                           ['right', 'Phải'],
@@ -962,7 +955,7 @@ export const Settings: React.FC<SettingsProps> = ({
                       <div className="text-xs text-[#9CA3AF] leading-relaxed">
                         Chuyển đổi tỉ lệ khung hình khi xem giữa 4:3 hoặc 16:9.
                       </div>
-                      <div className="grid grid-cols-2 gap-1.5 rounded-full bg-[#18181b]/80 border border-white/10 p-1.5 backdrop-blur-md pt-1">
+                      <div className="settings-segmented-group grid grid-cols-2 gap-1.5 rounded-full bg-[#18181b]/80 border border-white/10 p-1.5 backdrop-blur-md pt-1">
                         {[
                           { value: '16:9', label: '16:9 (chuẩn rộng)' },
                           { value: '4:3', label: '4.3 (chuẩn vuông)' },
@@ -985,11 +978,11 @@ export const Settings: React.FC<SettingsProps> = ({
                       </div>
                     </div>
 
-                    {/* Tự động ẩn Sidebar */}
+                    {/* Tự động ẩn Side View */}
                     <div className="p-3.5 sm:p-4 rounded-[20px] flex items-center justify-between gap-4 transition-colors hover:bg-white/5">
                       <div>
                         <div className="font-bold text-white text-sm">
-                          Tự động ẩn Sidebar
+                          Tự động ẩn Side View
                         </div>
                         <div className="text-xs text-[#9CA3AF] mt-1 leading-normal">
                           Tự động thu gọn thanh menu khi không di chuột vào.
@@ -1060,7 +1053,7 @@ export const Settings: React.FC<SettingsProps> = ({
                           : ''
                       }`}
                     >
-                      {/* Sidebar */}
+                      {/* Side View */}
                       <div 
                         id="setting-motion-sidebar"
                         onClick={() => {
@@ -1072,7 +1065,7 @@ export const Settings: React.FC<SettingsProps> = ({
                       >
                         <div>
                           <div className="font-bold text-white text-sm">
-                            Sidebar
+                            Side View
                           </div>
                           <div className="text-xs text-[#9CA3AF] mt-1 leading-normal">
                             Hiệu ứng mở rộng/thu gọn và trượt ngăn kéo menu bên.
@@ -1713,8 +1706,8 @@ export const Settings: React.FC<SettingsProps> = ({
               </section>
             )}
           </motion.div>
-        </AnimatePresence>
-      )}
+        )}
+      </AnimatePresence>
 
       {/* Welcome to Vplay / Changelogs Modal Dialog */}
       <WelcomeModal

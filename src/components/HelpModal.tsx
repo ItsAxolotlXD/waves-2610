@@ -53,7 +53,7 @@ export const HelpModal: React.FC<HelpModalProps> = ({ isOpen, onClose }) => {
                   <HelpCircle className="w-4.5 h-4.5" />
                 </div>
                 <div>
-                  <h3 className="text-base font-bold text-black">Trợ giúp & Hướng dẫn Vplay</h3>
+                  <h3 className="text-base font-bold text-black">Trợ giúp & Hướng dẫn VNRT Online</h3>
                   <p className="text-[11px] text-neutral-700">Phím tắt và mẹo sử dụng nền tảng</p>
                 </div>
               </div>

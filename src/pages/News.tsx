@@ -42,7 +42,7 @@ export const News: React.FC<NewsProps> = ({ navigate, searchQuery, onSearchChang
           News Feed
         </h1>
         <p className="text-xs sm:text-sm text-[#4B5563] dark:text-[#9CA3AF] mt-1.5 leading-relaxed max-w-4xl">
-          Cập nhật toàn diện các thông tin về công nghệ phát thanh truyền hình, đồ họa nhận diện và văn hóa truyền thông Việt Nam, các thông báo của Waves nói chung và Vplay nói riêng.
+          Cập nhật toàn diện các thông tin về công nghệ phát thanh truyền hình, đồ họa nhận diện và văn hóa truyền thông Việt Nam, các thông báo của Waves nói chung và VNRT Online nói riêng.
         </p>
       </div>
 

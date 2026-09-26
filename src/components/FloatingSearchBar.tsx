@@ -286,9 +286,9 @@ export const FloatingSearchBar: React.FC<FloatingSearchBarProps> = ({
       }}
       transition={{
         type: 'spring',
-        stiffness: 400,
+        stiffness: 580,
         damping: 32,
-        mass: 0.6
+        mass: 0.35
       }}
       style={{
         backgroundColor: 'var(--spatial-glass-bg, rgba(255, 255, 255, 0.20))',
@@ -321,13 +321,13 @@ export const FloatingSearchBar: React.FC<FloatingSearchBarProps> = ({
             inputRef.current?.focus();
           }
         }}
-        className="flex items-center justify-center shrink-0 pr-2.5 cursor-default transition-opacity"
+        className="flex items-center justify-center shrink-0 pr-3 cursor-default transition-opacity"
         title={isArticlePage ? 'Từ tiếp theo (Enter)' : (isHome ? 'Mở Spotlight Search (⌘K)' : 'Tìm kiếm')}
       >
         <img
           src={SF_SEARCH_ICON_URL}
           alt="Search"
-          className={`w-[20px] h-[20px] sm:w-[22px] sm:h-[22px] object-contain select-none pointer-events-none transition-opacity ${
+          className={`w-[24px] h-[24px] sm:w-[26px] sm:h-[26px] object-contain select-none pointer-events-none transition-opacity ${
             isDarkContent ? 'brightness-0' : 'filter brightness-0 invert'
           } opacity-85 group-hover:opacity-100`}
           referrerPolicy="no-referrer"
@@ -337,12 +337,12 @@ export const FloatingSearchBar: React.FC<FloatingSearchBarProps> = ({
         />
       </button>
 
-      {/* Input Field & Action Controls with smooth opacity transition */}
+      {/* Input Field & Action Controls with immediate smooth opacity transition */}
       <motion.div
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         exit={{ opacity: 0 }}
-        transition={{ duration: 0.18, ease: 'easeOut', delay: 0.05 }}
+        transition={{ duration: 0.12, ease: 'easeOut' }}
         className="flex-1 flex items-center min-w-0"
       >
         <input
@@ -414,7 +414,7 @@ export const FloatingSearchBar: React.FC<FloatingSearchBarProps> = ({
         )}
 
         {/* Right Actions: Clear Button & SF Symbol Mic & Close Button */}
-        <div className="flex items-center gap-1 shrink-0 pl-1">
+        <div className="flex items-center gap-1.5 shrink-0 pl-1">
           {searchQuery && (
             <button
               type="button"
@@ -427,14 +427,14 @@ export const FloatingSearchBar: React.FC<FloatingSearchBarProps> = ({
                 setCurrentMatchIndex(0);
                 inputRef.current?.focus();
               }}
-              className={`p-1 rounded-full transition-colors cursor-default ${
+              className={`p-1.5 rounded-full transition-colors cursor-default ${
                 isDarkContent
                   ? 'text-black/70 hover:text-black hover:bg-black/10'
                   : 'text-white/70 hover:text-white hover:bg-white/15'
               }`}
               title="Xóa từ khóa tìm kiếm"
             >
-              <X className="w-4 h-4" />
+              <X className="w-5 h-5 sm:w-[22px] sm:h-[22px]" />
             </button>
           )}
 
@@ -456,7 +456,7 @@ export const FloatingSearchBar: React.FC<FloatingSearchBarProps> = ({
             <img
               src={SF_MIC_ICON_URL}
               alt="Mic"
-              className={`w-[20px] h-[20px] sm:w-[22px] sm:h-[22px] object-contain select-none pointer-events-none transition-opacity ${
+              className={`w-[23px] h-[23px] sm:w-[25px] sm:h-[25px] object-contain select-none pointer-events-none transition-opacity ${
                 isDarkContent ? 'brightness-0' : 'filter brightness-0 invert'
               } ${
                 isListening ? 'opacity-100' : 'opacity-85 hover:opacity-100'
@@ -485,7 +485,7 @@ export const FloatingSearchBar: React.FC<FloatingSearchBarProps> = ({
               title="Đóng tìm kiếm (Esc)"
               aria-label="Đóng tìm kiếm"
             >
-              <X className="w-4 h-4" />
+              <X className="w-5 h-5 sm:w-[22px] sm:h-[22px]" />
             </button>
           )}
         </div>
