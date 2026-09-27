@@ -19,6 +19,7 @@ import {
 } from 'lucide-react';
 import { Channel, NewsArticle } from '../types';
 import { useFavorites } from '../hooks/useFavorites';
+import { useSettings } from '../hooks/useSettings';
 import { NEWS_DATA } from '../data/news';
 import { parseM3UPlaylist, downloadPlaylistFile } from '../utils/m3uParser';
 import { exportArticleToDocx } from '../utils/docxExport';
@@ -107,6 +108,36 @@ export const ToolsMenu: React.FC<ToolsMenuProps> = ({
   const { isChannelFavorite, toggleFavoriteChannel } = useFavorites();
   const isFav = currentChannel ? isChannelFavorite(currentChannel.id) : false;
 
+  const [hoveredItemId, setHoveredItemId] = useState<string | null>(null);
+
+  const { settings, draftSettings } = useSettings();
+  const currentOpacity = typeof draftSettings?.spatialGlassOpacity === 'number'
+    ? draftSettings.spatialGlassOpacity
+    : (settings.spatialGlassOpacity ?? 20);
+  const isSpatialGlassActive = (draftSettings?.spatialGlass ?? settings.spatialGlass) !== false;
+  const isLight = settings.theme === 'light';
+  const isDarkContent = isLight || (isSpatialGlassActive && currentOpacity > 40);
+
+  const renderHoverPill = (id: string) => {
+    if (hoveredItemId !== id) return null;
+    return (
+      <motion.div
+        layoutId="tools-menu-hover-pill"
+        transition={{
+          type: 'spring',
+          stiffness: 480,
+          damping: 30,
+          mass: 0.55
+        }}
+        className={`absolute inset-0 rounded-full pointer-events-none ${
+          isDarkContent
+            ? 'bg-black/[0.13] shadow-[0_2px_8px_rgba(0,0,0,0.06)]'
+            : 'bg-white/[0.22] shadow-[0_2px_12px_rgba(255,255,255,0.12)]'
+        }`}
+      />
+    );
+  };
+
   // Determine current active section & whether Tools is relevant for this page
   const isHome = currentRoute === '/' || currentRoute === '/home';
   const isNews = currentRoute.startsWith('/news');
@@ -135,7 +166,7 @@ export const ToolsMenu: React.FC<ToolsMenuProps> = ({
   })();
 
   const handleMouseEnter = () => {
-    if (!isRelevant) return;
+    if (!isRelevant || !showTrigger) return;
     if (closeTimeoutRef.current) {
       clearTimeout(closeTimeoutRef.current);
       closeTimeoutRef.current = null;
@@ -144,7 +175,7 @@ export const ToolsMenu: React.FC<ToolsMenuProps> = ({
   };
 
   const handleMouseLeave = () => {
-    if (!isRelevant) return;
+    if (!isRelevant || !showTrigger) return;
     closeTimeoutRef.current = setTimeout(() => {
       setIsOpen(false);
     }, 150);
@@ -232,8 +263,8 @@ export const ToolsMenu: React.FC<ToolsMenuProps> = ({
       className={`relative pointer-events-auto cursor-default ${
         !isRelevant ? 'opacity-30 pointer-events-none grayscale' : ''
       }`}
-      onMouseEnter={handleMouseEnter}
-      onMouseLeave={handleMouseLeave}
+      onMouseEnter={showTrigger ? handleMouseEnter : undefined}
+      onMouseLeave={showTrigger ? handleMouseLeave : undefined}
     >
       {/* Hidden M3U File Input */}
       <input
@@ -261,6 +292,9 @@ export const ToolsMenu: React.FC<ToolsMenuProps> = ({
             src="https://static.wikia.nocookie.net/ep-deo/images/3/3c/Tools_menu.png/revision/latest?cb=20260905055712"
             alt="Tools"
             referrerPolicy="no-referrer"
+            onError={(e) => {
+              (e.target as HTMLImageElement).src = '/icons/copilot.png';
+            }}
             onAnimationEnd={() => setIsClickSpinning(false)}
             className={`w-6 h-6 object-contain topbar-tools-icon transition-transform duration-700 ease-in-out ${
               isClickSpinning ? 'spin-click' : ''
@@ -274,121 +308,143 @@ export const ToolsMenu: React.FC<ToolsMenuProps> = ({
         {isOpen && isRelevant && (
           <motion.div
             id="vplay-tools-dropdown-card"
-            initial={{ opacity: 0, y: placement === 'bottom' ? 16 : -16, scale: 0.94 }}
+            initial={{ opacity: 0, y: placement === 'bottom' ? 12 : -12, scale: 0.95 }}
             animate={{ opacity: 1, y: 0, scale: 1 }}
-            exit={{ opacity: 0, y: placement === 'bottom' ? 12 : -12, scale: 0.95 }}
+            exit={{ opacity: 0, y: placement === 'bottom' ? 8 : -8, scale: 0.95 }}
             transition={{
               type: "spring",
               stiffness: 420,
-              damping: 20,
-              mass: 0.75
+              damping: 24,
+              mass: 0.7
             }}
-            className={`absolute right-0 ${
-              placement === 'bottom' ? 'bottom-full mb-3.5 origin-bottom-right' : 'mt-2 origin-top-right'
-            } w-72 max-w-[calc(100vw-32px)] rounded-[30px] p-3 z-50 select-none text-[#111827] dark:text-white cursor-default overflow-hidden ${
-              className || ''
-            }`}
+            style={{
+              backgroundColor: isSpatialGlassActive
+                ? 'var(--spatial-glass-bg, rgba(255, 255, 255, 0.20))'
+                : (isLight ? 'rgba(255, 255, 255, 0.92)' : 'rgba(30, 30, 36, 0.92)'),
+              backdropFilter: isSpatialGlassActive ? 'blur(var(--spatial-glass-blur, 20px))' : 'none',
+              WebkitBackdropFilter: isSpatialGlassActive ? 'blur(var(--spatial-glass-blur, 20px))' : 'none',
+            }}
+            className={`${
+              showTrigger
+                ? (placement === 'bottom' ? 'absolute right-0 bottom-full mb-3 origin-bottom-right' : 'absolute right-0 mt-2 origin-top-right')
+                : 'relative origin-bottom-right shadow-2xl'
+            } w-72 max-w-[calc(100vw-32px)] rounded-[30px] p-3 z-50 select-none cursor-default overflow-hidden border ${
+              isDarkContent ? 'border-black/15 text-[#111827]' : 'border-white/10 text-white'
+            } ${className || ''}`}
           >
             {/* Menu Items for HOME & OTHER PAGES */}
           {isOther && (
-            <div className="space-y-1">
+            <div className="space-y-1" onMouseLeave={() => setHoveredItemId(null)}>
               <button
                 id="tool-home-help"
                 type="button"
+                onMouseEnter={() => setHoveredItemId('tool-home-help')}
                 onClick={() => {
                   setIsOpen(false);
                   onOpenHelp();
                 }}
-                className="w-full flex items-center gap-3 px-3 py-2.5 rounded-xl hover:bg-[#F3F4F6] dark:hover:bg-[#2A2A32] text-sm font-medium transition-colors text-left cursor-default group"
+                className="relative w-full flex items-center gap-3 px-3.5 py-2.5 rounded-full text-sm font-medium transition-colors text-left cursor-default group"
               >
-                <div className="w-5 h-5 flex items-center justify-center text-[#18181B] dark:text-white shrink-0">
+                {renderHoverPill('tool-home-help')}
+                <div className="relative z-10 w-5 h-5 flex items-center justify-center text-[#18181B] dark:text-white shrink-0">
                   <BookOpen className="w-[18px] h-[18px]" />
                 </div>
-                <span className="text-[#1F2937] dark:text-[#E5E7EB]">Help</span>
+                <span className="relative z-10 text-[#1F2937] dark:text-[#E5E7EB]">Help</span>
               </button>
 
               <button
                 id="tool-home-discord"
                 type="button"
+                onMouseEnter={() => setHoveredItemId('tool-home-discord')}
                 onClick={() => {
                   setIsOpen(false);
                   onOpenDiscord();
                 }}
-                className="w-full flex items-center gap-3 px-3 py-2.5 rounded-xl hover:bg-[#F3F4F6] dark:hover:bg-[#2A2A32] text-sm font-medium transition-colors text-left cursor-default group"
+                className="relative w-full flex items-center gap-3 px-3.5 py-2.5 rounded-full text-sm font-medium transition-colors text-left cursor-default group"
               >
-                <div className="w-5 h-5 flex items-center justify-center text-[#18181B] dark:text-white shrink-0">
+                {renderHoverPill('tool-home-discord')}
+                <div className="relative z-10 w-5 h-5 flex items-center justify-center text-[#18181B] dark:text-white shrink-0">
                   <svg className="w-[18px] h-[18px] fill-current" viewBox="0 0 24 24">
                     <path d="M20.317 4.37a19.791 19.791 0 0 0-4.885-1.515.074.074 0 0 0-.079.037c-.21.375-.444.864-.608 1.25a18.27 18.27 0 0 0-5.487 0 12.64 12.64 0 0 0-.617-1.25.077.077 0 0 0-.079-.037A19.736 19.736 0 0 0 3.677 4.37a.07.07 0 0 0-.032.027C.533 9.046-.32 13.58.099 18.057a.082.082 0 0 0 .031.057 19.9 19.9 0 0 0 5.993 3.03.078.078 0 0 0 .084-.028c.462-.63.874-1.295 1.226-1.994.021-.041.001-.09-.041-.106a13.107 13.107 0 0 1-1.872-.892.077.077 0 0 1-.008-.128 10.2 10.2 0 0 0 .372-.292.074.074 0 0 1 .077-.01c3.929 1.793 8.18 1.793 12.061 0a.074.074 0 0 1 .078.01c.12.098.246.198.373.292a.077.077 0 0 1-.006.127 12.299 12.299 0 0 1-1.873.893.077.077 0 0 0-.041.107c.36.698.772 1.362 1.225 1.993a.076.076 0 0 0 .084.028 19.839 19.839 0 0 0 6.002-3.03.078.078 0 0 0 .032-.054c.5-5.177-.838-9.674-3.549-13.66a.061.061 0 0 0-.031-.028zM8.02 15.33c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.956-2.419 2.157-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.956 2.418-2.157 2.418zm7.975 0c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.955-2.419 2.157-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.946 2.418-2.157 2.418z"/>
                   </svg>
                 </div>
-                <span className="text-[#1F2937] dark:text-[#E5E7EB]">Join now</span>
+                <span className="relative z-10 text-[#1F2937] dark:text-[#E5E7EB]">Join now</span>
               </button>
 
               <button
                 id="tool-home-add-stream"
                 type="button"
+                onMouseEnter={() => setHoveredItemId('tool-home-add-stream')}
                 onClick={() => {
                   setIsOpen(false);
                   onOpenAddStream();
                 }}
-                className="w-full flex items-center gap-3 px-3 py-2.5 rounded-xl hover:bg-[#F3F4F6] dark:hover:bg-[#2A2A32] text-sm font-medium transition-colors text-left cursor-default group"
+                className="relative w-full flex items-center gap-3 px-3.5 py-2.5 rounded-full text-sm font-medium transition-colors text-left cursor-default group"
               >
-                <div className="w-5 h-5 flex items-center justify-center text-[#18181B] dark:text-white shrink-0">
+                {renderHoverPill('tool-home-add-stream')}
+                <div className="relative z-10 w-5 h-5 flex items-center justify-center text-[#18181B] dark:text-white shrink-0">
                   <PlusCircle className="w-[18px] h-[18px]" />
                 </div>
-                <span className="text-[#1F2937] dark:text-[#E5E7EB]">Thêm luồng mới</span>
+                <span className="relative z-10 text-[#1F2937] dark:text-[#E5E7EB]">Thêm luồng mới</span>
               </button>
 
               <button
                 id="tool-home-import-m3u"
                 type="button"
+                onMouseEnter={() => setHoveredItemId('tool-home-import-m3u')}
                 onClick={() => {
                   fileInputRef.current?.click();
                 }}
-                className="w-full flex items-center gap-3 px-3 py-2.5 rounded-xl hover:bg-[#F3F4F6] dark:hover:bg-[#2A2A32] text-sm font-medium transition-colors text-left cursor-default group"
+                className="relative w-full flex items-center gap-3 px-3.5 py-2.5 rounded-full text-sm font-medium transition-colors text-left cursor-default group"
               >
-                <div className="w-5 h-5 flex items-center justify-center text-[#18181B] dark:text-white shrink-0">
+                {renderHoverPill('tool-home-import-m3u')}
+                <div className="relative z-10 w-5 h-5 flex items-center justify-center text-[#18181B] dark:text-white shrink-0">
                   <UploadCloud className="w-[18px] h-[18px]" />
                 </div>
-                <span className="text-[#1F2937] dark:text-[#E5E7EB]">Nhập file m3u/m3u8</span>
+                <span className="relative z-10 text-[#1F2937] dark:text-[#E5E7EB]">Nhập file m3u/m3u8</span>
               </button>
 
               <button
                 id="tool-home-export-m3u"
                 type="button"
+                onMouseEnter={() => setHoveredItemId('tool-home-export-m3u')}
                 onClick={handleExportM3U8}
-                className="w-full flex items-center gap-3 px-3 py-2.5 rounded-xl hover:bg-[#F3F4F6] dark:hover:bg-[#2A2A32] text-sm font-medium transition-colors text-left cursor-default group"
+                className="relative w-full flex items-center gap-3 px-3.5 py-2.5 rounded-full text-sm font-medium transition-colors text-left cursor-default group"
               >
-                <div className="w-5 h-5 flex items-center justify-center text-[#18181B] dark:text-white shrink-0">
+                {renderHoverPill('tool-home-export-m3u')}
+                <div className="relative z-10 w-5 h-5 flex items-center justify-center text-[#18181B] dark:text-white shrink-0">
                   <DownloadCloud className="w-[18px] h-[18px]" />
                 </div>
-                <span className="text-[#1F2937] dark:text-[#E5E7EB]">Xuất file m3u/m3u8</span>
+                <span className="relative z-10 text-[#1F2937] dark:text-[#E5E7EB]">Xuất file m3u/m3u8</span>
               </button>
 
               <button
                 id="tool-home-text-to-speech"
                 type="button"
+                onMouseEnter={() => setHoveredItemId('tool-home-text-to-speech')}
                 onClick={() => {
                   setIsOpen(false);
                   onOpenTextToSpeech?.(NEWS_DATA[0]);
                 }}
-                className="w-full flex items-center gap-3 px-3 py-2.5 rounded-xl hover:bg-[#F3F4F6] dark:hover:bg-[#2A2A32] text-sm font-medium transition-colors text-left cursor-default group"
+                className="relative w-full flex items-center gap-3 px-3.5 py-2.5 rounded-full text-sm font-medium transition-colors text-left cursor-default group"
               >
-                <div className="w-5 h-5 flex items-center justify-center text-[#18181B] dark:text-white shrink-0">
+                {renderHoverPill('tool-home-text-to-speech')}
+                <div className="relative z-10 w-5 h-5 flex items-center justify-center text-[#18181B] dark:text-white shrink-0">
                   <Volume2 className="w-[18px] h-[18px]" />
                 </div>
-                <span className="text-[#1F2937] dark:text-[#E5E7EB]">Text to speech</span>
+                <span className="relative z-10 text-[#1F2937] dark:text-[#E5E7EB]">Text to speech</span>
               </button>
             </div>
           )}
 
           {/* Menu Items for NEWS */}
           {isNews && (
-            <div className="space-y-1">
+            <div className="space-y-1" onMouseLeave={() => setHoveredItemId(null)}>
               {/* 1. Summarize News */}
               <button
                 id="tool-news-summarize"
                 type="button"
+                onMouseEnter={() => setHoveredItemId('tool-news-summarize')}
                 disabled={isCurrentArticleLocked}
                 onClick={() => {
                   if (isCurrentArticleLocked) return;
@@ -396,17 +452,18 @@ export const ToolsMenu: React.FC<ToolsMenuProps> = ({
                   setIsOpen(false);
                   onOpenSummarize(currentNewsArticle);
                 }}
-                className={`w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium transition-colors text-left cursor-default group ${
+                className={`relative w-full flex items-center gap-3 px-3.5 py-2.5 rounded-full text-sm font-medium transition-colors text-left cursor-default group ${
                   isCurrentArticleLocked 
                     ? 'opacity-40 cursor-not-allowed hover:bg-transparent' 
-                    : 'hover:bg-[#F3F4F6] dark:hover:bg-[#2A2A32]'
+                    : ''
                 }`}
                 title={isCurrentArticleLocked ? 'Bài viết đang bị khóa, hãy mở khóa để tóm tắt' : 'Tóm tắt bài viết'}
               >
-                <div className="w-5 h-5 flex items-center justify-center text-[#18181B] dark:text-white shrink-0">
+                {!isCurrentArticleLocked && renderHoverPill('tool-news-summarize')}
+                <div className="relative z-10 w-5 h-5 flex items-center justify-center text-[#18181B] dark:text-white shrink-0">
                   <Sparkles className="w-[18px] h-[18px]" />
                 </div>
-                <span className="text-[#1F2937] dark:text-[#E5E7EB]">
+                <span className="relative z-10 text-[#1F2937] dark:text-[#E5E7EB]">
                   {isCurrentArticleLocked ? 'Summarize (Khóa)' : 'Summarize News'}
                 </span>
               </button>
@@ -415,23 +472,25 @@ export const ToolsMenu: React.FC<ToolsMenuProps> = ({
               <button
                 id="tool-news-text-to-speech"
                 type="button"
+                onMouseEnter={() => setHoveredItemId('tool-news-text-to-speech')}
                 disabled={isCurrentArticleLocked}
                 onClick={() => {
                   if (isCurrentArticleLocked) return;
                   setIsOpen(false);
                   onOpenTextToSpeech?.(currentNewsArticle);
                 }}
-                className={`w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium transition-colors text-left cursor-default group ${
+                className={`relative w-full flex items-center gap-3 px-3.5 py-2.5 rounded-full text-sm font-medium transition-colors text-left cursor-default group ${
                   isCurrentArticleLocked 
                     ? 'opacity-40 cursor-not-allowed hover:bg-transparent' 
-                    : 'hover:bg-[#F3F4F6] dark:hover:bg-[#2A2A32]'
+                    : ''
                 }`}
                 title={isCurrentArticleLocked ? 'Bài viết đang bị khóa, hãy mở khóa để nghe đọc' : 'Đọc bài viết (Text to speech)'}
               >
-                <div className="w-5 h-5 flex items-center justify-center text-[#18181B] dark:text-white shrink-0">
+                {!isCurrentArticleLocked && renderHoverPill('tool-news-text-to-speech')}
+                <div className="relative z-10 w-5 h-5 flex items-center justify-center text-[#18181B] dark:text-white shrink-0">
                   <Volume2 className="w-[18px] h-[18px]" />
                 </div>
-                <span className="text-[#1F2937] dark:text-[#E5E7EB]">
+                <span className="relative z-10 text-[#1F2937] dark:text-[#E5E7EB]">
                   {isCurrentArticleLocked ? 'Text to speech (Khóa)' : 'Text to speech'}
                 </span>
               </button>
@@ -440,31 +499,38 @@ export const ToolsMenu: React.FC<ToolsMenuProps> = ({
               <button
                 id="tool-news-find-words"
                 type="button"
+                onMouseEnter={() => setHoveredItemId('tool-news-find-words')}
                 onClick={() => {
                   setIsOpen(false);
                   onOpenFindWords();
                 }}
-                className="w-full flex items-center gap-3 px-3 py-2.5 rounded-xl hover:bg-[#F3F4F6] dark:hover:bg-[#2A2A32] text-sm font-medium transition-colors text-left cursor-default group"
+                className="relative w-full flex items-center gap-3 px-3.5 py-2.5 rounded-full text-sm font-medium transition-colors text-left cursor-default group"
               >
-                <div className="w-5 h-5 flex items-center justify-center text-[#18181B] dark:text-white shrink-0">
+                {renderHoverPill('tool-news-find-words')}
+                <div className="relative z-10 w-5 h-5 flex items-center justify-center text-[#18181B] dark:text-white shrink-0">
                   <Search className="w-[18px] h-[18px]" />
                 </div>
-                <span className="text-[#1F2937] dark:text-[#E5E7EB]">Find words</span>
+                <span className="relative z-10 text-[#1F2937] dark:text-[#E5E7EB]">Find words</span>
               </button>
 
               {/* 3. Font size */}
-              <div className="flex items-center justify-between px-3 py-2 rounded-xl hover:bg-[#F3F4F6] dark:hover:bg-[#2A2A32] text-sm font-medium transition-colors cursor-default">
-                <div className="flex items-center gap-3">
+              <div 
+                id="tool-news-font-size"
+                onMouseEnter={() => setHoveredItemId('tool-news-font-size')}
+                className="relative flex items-center justify-between px-3.5 py-2 rounded-full text-sm font-medium transition-colors cursor-default"
+              >
+                {renderHoverPill('tool-news-font-size')}
+                <div className="relative z-10 flex items-center gap-3">
                   <div className="w-5 h-5 flex items-center justify-center text-[#18181B] dark:text-white shrink-0">
                     <Type className="w-[18px] h-[18px]" />
                   </div>
                   <span className="text-[#1F2937] dark:text-[#E5E7EB]">Font size</span>
                 </div>
-                <div className="tools-font-box flex items-center gap-1.5 bg-[#F1F3F5] dark:bg-[#141318] p-1 rounded-lg">
+                <div className="relative z-10 tools-font-box flex items-center gap-1.5 bg-[#F1F3F5] dark:bg-[#141318] p-1 rounded-full">
                   <button
                     type="button"
                     onClick={() => onChangeFontSize(Math.max(14, fontSize - 2))}
-                    className="tools-font-btn w-6 h-6 rounded flex items-center justify-center bg-white dark:bg-[#26262E] hover:bg-neutral-100 dark:hover:bg-[#34343E] text-xs font-bold cursor-default text-[#18181B] dark:text-white shadow-xs"
+                    className="tools-font-btn w-6 h-6 rounded-full flex items-center justify-center bg-white dark:bg-[#26262E] hover:bg-neutral-100 dark:hover:bg-[#34343E] text-xs font-bold cursor-default text-[#18181B] dark:text-white shadow-xs"
                     title="Giảm cỡ chữ"
                   >
                     <Minus className="w-3 h-3" />
@@ -475,7 +541,7 @@ export const ToolsMenu: React.FC<ToolsMenuProps> = ({
                   <button
                     type="button"
                     onClick={() => onChangeFontSize(Math.min(24, fontSize + 2))}
-                    className="tools-font-btn w-6 h-6 rounded flex items-center justify-center bg-white dark:bg-[#26262E] hover:bg-neutral-100 dark:hover:bg-[#34343E] text-xs font-bold cursor-default text-[#18181B] dark:text-white shadow-xs"
+                    className="tools-font-btn w-6 h-6 rounded-full flex items-center justify-center bg-white dark:bg-[#26262E] hover:bg-neutral-100 dark:hover:bg-[#34343E] text-xs font-bold cursor-default text-[#18181B] dark:text-white shadow-xs"
                     title="Tăng cỡ chữ"
                   >
                     <Plus className="w-3 h-3" />
@@ -487,19 +553,21 @@ export const ToolsMenu: React.FC<ToolsMenuProps> = ({
               <button
                 id="tool-news-export-docx"
                 type="button"
+                onMouseEnter={() => setHoveredItemId('tool-news-export-docx')}
                 onClick={handleExportDocx}
                 disabled={exportingDocx || isCurrentArticleLocked}
-                className={`w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium transition-colors text-left cursor-default group ${
+                className={`relative w-full flex items-center gap-3 px-3.5 py-2.5 rounded-full text-sm font-medium transition-colors text-left cursor-default group ${
                   isCurrentArticleLocked
                     ? 'opacity-40 cursor-not-allowed hover:bg-transparent'
-                    : 'hover:bg-[#F3F4F6] dark:hover:bg-[#2A2A32]'
+                    : ''
                 }`}
                 title={isCurrentArticleLocked ? 'Bài viết đang bị khóa, hãy mở khóa để xuất .docx' : 'Xuất bài viết thành file .docx'}
               >
-                <div className="w-5 h-5 flex items-center justify-center text-[#18181B] dark:text-white shrink-0">
+                {!isCurrentArticleLocked && renderHoverPill('tool-news-export-docx')}
+                <div className="relative z-10 w-5 h-5 flex items-center justify-center text-[#18181B] dark:text-white shrink-0">
                   <FileDown className="w-[18px] h-[18px]" />
                 </div>
-                <span className="text-[#1F2937] dark:text-[#E5E7EB]">
+                <span className="relative z-10 text-[#1F2937] dark:text-[#E5E7EB]">
                   {isCurrentArticleLocked 
                     ? 'Export as .docx (Khóa)' 
                     : exportingDocx 
@@ -512,22 +580,24 @@ export const ToolsMenu: React.FC<ToolsMenuProps> = ({
 
           {/* Menu Items for LIVE TV */}
           {isLiveTV && (
-            <div className="space-y-1">
+            <div className="space-y-1" onMouseLeave={() => setHoveredItemId(null)}>
               {/* 1. Thêm vào / Loại bỏ yêu thích */}
               {currentChannel && (
                 <button
                   id="tool-tv-toggle-favorite"
                   type="button"
+                  onMouseEnter={() => setHoveredItemId('tool-tv-toggle-favorite')}
                   onClick={() => {
                     toggleFavoriteChannel(currentChannel.id);
                     showToast(isFav ? `Đã bỏ thích ${currentChannel.name}` : `Đã thêm ${currentChannel.name} vào yêu thích`);
                   }}
-                  className="w-full flex items-center gap-3 px-3 py-2.5 rounded-xl hover:bg-[#F3F4F6] dark:hover:bg-[#2A2A32] text-sm font-medium transition-colors text-left cursor-default group"
+                  className="relative w-full flex items-center gap-3 px-3.5 py-2.5 rounded-full text-sm font-medium transition-colors text-left cursor-default group"
                 >
-                  <div className="w-5 h-5 flex items-center justify-center text-[#18181B] dark:text-white shrink-0">
+                  {renderHoverPill('tool-tv-toggle-favorite')}
+                  <div className="relative z-10 w-5 h-5 flex items-center justify-center text-[#18181B] dark:text-white shrink-0">
                     <Heart className={`w-[18px] h-[18px] ${isFav ? 'fill-current' : ''}`} />
                   </div>
-                  <span className="text-[#1F2937] dark:text-[#E5E7EB]">
+                  <span className="relative z-10 text-[#1F2937] dark:text-[#E5E7EB]">
                     {isFav ? 'Loại bỏ khỏi yêu thích' : 'Thêm vào yêu thích'}
                   </span>
                 </button>
@@ -538,16 +608,18 @@ export const ToolsMenu: React.FC<ToolsMenuProps> = ({
                 <button
                   id="tool-tv-open-stream"
                   type="button"
+                  onMouseEnter={() => setHoveredItemId('tool-tv-open-stream')}
                   onClick={() => {
                     window.open(currentChannel.streamUrl, '_blank', 'noopener,noreferrer');
                     setIsOpen(false);
                   }}
-                  className="w-full flex items-center gap-3 px-3 py-2.5 rounded-xl hover:bg-[#F3F4F6] dark:hover:bg-[#2A2A32] text-sm font-medium transition-colors text-left cursor-default group"
+                  className="relative w-full flex items-center gap-3 px-3.5 py-2.5 rounded-full text-sm font-medium transition-colors text-left cursor-default group"
                 >
-                  <div className="w-5 h-5 flex items-center justify-center text-[#18181B] dark:text-white shrink-0">
+                  {renderHoverPill('tool-tv-open-stream')}
+                  <div className="relative z-10 w-5 h-5 flex items-center justify-center text-[#18181B] dark:text-white shrink-0">
                     <ExternalLink className="w-[18px] h-[18px]" />
                   </div>
-                  <span className="text-[#1F2937] dark:text-[#E5E7EB]">Mở luồng gốc</span>
+                  <span className="relative z-10 text-[#1F2937] dark:text-[#E5E7EB]">Mở luồng gốc</span>
                 </button>
               )}
 
@@ -555,51 +627,57 @@ export const ToolsMenu: React.FC<ToolsMenuProps> = ({
               <button
                 id="tool-tv-add-stream"
                 type="button"
+                onMouseEnter={() => setHoveredItemId('tool-tv-add-stream')}
                 onClick={() => {
                   setIsOpen(false);
                   onOpenAddStream();
                 }}
-                className="w-full flex items-center gap-3 px-3 py-2.5 rounded-xl hover:bg-[#F3F4F6] dark:hover:bg-[#2A2A32] text-sm font-medium transition-colors text-left cursor-default group"
+                className="relative w-full flex items-center gap-3 px-3.5 py-2.5 rounded-full text-sm font-medium transition-colors text-left cursor-default group"
               >
-                <div className="w-5 h-5 flex items-center justify-center text-[#18181B] dark:text-white shrink-0">
+                {renderHoverPill('tool-tv-add-stream')}
+                <div className="relative z-10 w-5 h-5 flex items-center justify-center text-[#18181B] dark:text-white shrink-0">
                   <PlusCircle className="w-[18px] h-[18px]" />
                 </div>
-                <span className="text-[#1F2937] dark:text-[#E5E7EB]">Thêm luồng mới</span>
+                <span className="relative z-10 text-[#1F2937] dark:text-[#E5E7EB]">Thêm luồng mới</span>
               </button>
 
               {/* 4. Nhập file m3u/m3u8 */}
               <button
                 id="tool-tv-import-m3u"
                 type="button"
+                onMouseEnter={() => setHoveredItemId('tool-tv-import-m3u')}
                 onClick={() => {
                   fileInputRef.current?.click();
                 }}
-                className="w-full flex items-center gap-3 px-3 py-2.5 rounded-xl hover:bg-[#F3F4F6] dark:hover:bg-[#2A2A32] text-sm font-medium transition-colors text-left cursor-default group"
+                className="relative w-full flex items-center gap-3 px-3.5 py-2.5 rounded-full text-sm font-medium transition-colors text-left cursor-default group"
               >
-                <div className="w-5 h-5 flex items-center justify-center text-[#18181B] dark:text-white shrink-0">
+                {renderHoverPill('tool-tv-import-m3u')}
+                <div className="relative z-10 w-5 h-5 flex items-center justify-center text-[#18181B] dark:text-white shrink-0">
                   <UploadCloud className="w-[18px] h-[18px]" />
                 </div>
-                <span className="text-[#1F2937] dark:text-[#E5E7EB]">Nhập file m3u/m3u8</span>
+                <span className="relative z-10 text-[#1F2937] dark:text-[#E5E7EB]">Nhập file m3u/m3u8</span>
               </button>
 
               {/* 5. Xuất file m3u/m3u8 */}
               <button
                 id="tool-tv-export-m3u"
                 type="button"
+                onMouseEnter={() => setHoveredItemId('tool-tv-export-m3u')}
                 onClick={handleExportM3U8}
-                className="w-full flex items-center gap-3 px-3 py-2.5 rounded-xl hover:bg-[#F3F4F6] dark:hover:bg-[#2A2A32] text-sm font-medium transition-colors text-left cursor-default group"
+                className="relative w-full flex items-center gap-3 px-3.5 py-2.5 rounded-full text-sm font-medium transition-colors text-left cursor-default group"
               >
-                <div className="w-5 h-5 flex items-center justify-center text-[#18181B] dark:text-white shrink-0">
+                {renderHoverPill('tool-tv-export-m3u')}
+                <div className="relative z-10 w-5 h-5 flex items-center justify-center text-[#18181B] dark:text-white shrink-0">
                   <DownloadCloud className="w-[18px] h-[18px]" />
                 </div>
-                <span className="text-[#1F2937] dark:text-[#E5E7EB]">Xuất file m3u/m3u8</span>
+                <span className="relative z-10 text-[#1F2937] dark:text-[#E5E7EB]">Xuất file m3u/m3u8</span>
               </button>
             </div>
           )}
 
           {/* Quick feedback toast inside dropdown if active */}
           {copiedToast && (
-            <div className="tools-toast-badge mt-2 p-2 rounded-xl bg-black/10 dark:bg-white/10 text-center text-xs font-semibold text-[#18181B] dark:text-white flex items-center justify-center gap-1.5">
+            <div className="tools-toast-badge mt-2 p-2 rounded-full bg-black/10 dark:bg-white/10 text-center text-xs font-semibold text-[#18181B] dark:text-white flex items-center justify-center gap-1.5">
               <Check className="w-3.5 h-3.5" />
               <span>{copiedToast}</span>
             </div>

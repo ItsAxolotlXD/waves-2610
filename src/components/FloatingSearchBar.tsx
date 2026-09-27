@@ -17,8 +17,8 @@ interface FloatingSearchBarProps {
   containerRef?: React.RefObject<HTMLDivElement | null>;
 }
 
-const SF_SEARCH_ICON_URL = 'https://github.com/andrewtavis/sf-symbols-online/blob/master/glyphs/magnifyingglass.png?raw=true';
-const SF_MIC_ICON_URL = 'https://github.com/andrewtavis/sf-symbols-online/blob/master/glyphs/mic.png?raw=true';
+const SF_SEARCH_ICON_URL = '/icons/sf-magnifyingglass.png';
+const SF_MIC_ICON_URL = '/icons/sf-mic.png';
 
 export const FloatingSearchBar: React.FC<FloatingSearchBarProps> = ({
   currentRoute,
@@ -48,10 +48,10 @@ export const FloatingSearchBar: React.FC<FloatingSearchBarProps> = ({
 
   useEffect(() => {
     if (autoFocus) {
-      // Delay focus slightly until morph animation finishes to prevent layout shift / keyboard jumping
+      // Smooth focus
       const timer = setTimeout(() => {
         inputRef.current?.focus({ preventScroll: true });
-      }, 520);
+      }, 120);
       return () => clearTimeout(timer);
     }
   }, [autoFocus]);
@@ -296,11 +296,7 @@ export const FloatingSearchBar: React.FC<FloatingSearchBarProps> = ({
         backdropFilter: 'blur(var(--spatial-glass-blur, 20px))',
         WebkitBackdropFilter: 'blur(var(--spatial-glass-blur, 20px))',
       }}
-      className={`group relative flex items-center overflow-hidden ${
-        isArticlePage && searchQuery.trim()
-          ? 'w-[94vw] max-w-[380px] sm:max-w-[440px] md:max-w-[480px]'
-          : 'w-[88vw] max-w-[320px] sm:max-w-[360px] md:max-w-[400px]'
-      } h-[56px] sm:h-[60px] px-3.5 sm:px-4 rounded-full cursor-text shadow-[0_8px_32px_rgba(0,0,0,0.35)] pointer-events-auto ${
+      className={`group relative flex items-center overflow-hidden w-[280px] sm:w-[330px] h-[58px] sm:h-[62px] px-3.5 sm:px-4 rounded-full cursor-text shadow-[0_8px_32px_rgba(0,0,0,0.35)] pointer-events-auto ${
         isDarkContent ? 'border border-black/15 text-black' : 'border border-white/10 text-white'
       } ${
         isFocused || isListening
@@ -322,13 +318,13 @@ export const FloatingSearchBar: React.FC<FloatingSearchBarProps> = ({
             inputRef.current?.focus();
           }
         }}
-        className="flex items-center justify-center shrink-0 pr-2.5 sm:pr-3 cursor-default transition-opacity"
+        className="flex items-center justify-center shrink-0 pr-2 sm:pr-2.5 cursor-default transition-opacity"
         title={isArticlePage ? 'Từ tiếp theo (Enter)' : (isHome ? 'Mở Spotlight Search (⌘K)' : 'Tìm kiếm')}
       >
         <img
           src={SF_SEARCH_ICON_URL}
           alt="Search"
-          className={`w-[22px] h-[22px] sm:w-[24px] sm:h-[24px] object-contain select-none pointer-events-none transition-opacity ${
+          className={`w-[19px] h-[19px] sm:w-[21px] sm:h-[21px] object-contain select-none pointer-events-none transition-opacity ${
             isDarkContent ? 'brightness-0' : 'filter brightness-0 invert'
           } opacity-85 group-hover:opacity-100`}
           referrerPolicy="no-referrer"
@@ -361,7 +357,7 @@ export const FloatingSearchBar: React.FC<FloatingSearchBarProps> = ({
             backgroundColor: 'transparent',
             backgroundImage: 'none',
           }}
-          className={`w-full bg-transparent text-[14px] sm:text-[15px] font-medium focus:outline-none truncate border-none outline-none shadow-none ${
+          className={`w-full bg-transparent text-[13px] sm:text-[13.5px] font-medium focus:outline-none truncate border-none outline-none shadow-none ${
             isDarkContent
               ? 'text-black placeholder:text-black/60 caret-black'
               : 'text-white placeholder:text-white/70 caret-white'
@@ -420,7 +416,7 @@ export const FloatingSearchBar: React.FC<FloatingSearchBarProps> = ({
         )}
 
         {/* Right Actions: Clear Button & SF Symbol Mic & Close Button */}
-        <div className="flex items-center gap-1.5 shrink-0 pl-1">
+        <div className="flex items-center gap-1 shrink-0 pl-1">
           {searchQuery && (
             <button
               type="button"
@@ -433,14 +429,14 @@ export const FloatingSearchBar: React.FC<FloatingSearchBarProps> = ({
                 setCurrentMatchIndex(0);
                 inputRef.current?.focus();
               }}
-              className={`p-1.5 rounded-full transition-colors cursor-default ${
+              className={`p-1 rounded-full transition-colors cursor-default ${
                 isDarkContent
                   ? 'text-black/70 hover:text-black hover:bg-black/10'
                   : 'text-white/70 hover:text-white hover:bg-white/15'
               }`}
               title="Xóa từ khóa tìm kiếm"
             >
-              <X className="w-5 h-5 sm:w-[22px] sm:h-[22px]" />
+              <X className="w-4 h-4 sm:w-[18px] sm:h-[18px]" />
             </button>
           )}
 
@@ -452,7 +448,7 @@ export const FloatingSearchBar: React.FC<FloatingSearchBarProps> = ({
               e.stopPropagation();
               toggleListening();
             }}
-            className={`p-1.5 rounded-full transition-all cursor-default flex items-center justify-center ${
+            className={`p-1 rounded-full transition-all cursor-default flex items-center justify-center ${
               isListening
                 ? 'bg-red-500/30 ring-2 ring-red-500/50 scale-105'
                 : (isDarkContent ? 'hover:bg-black/10' : 'hover:bg-white/15')
@@ -462,7 +458,7 @@ export const FloatingSearchBar: React.FC<FloatingSearchBarProps> = ({
             <img
               src={SF_MIC_ICON_URL}
               alt="Mic"
-              className={`w-[20px] h-[20px] sm:w-[22px] sm:h-[22px] object-contain select-none pointer-events-none transition-opacity ${
+              className={`w-[18px] h-[18px] sm:w-[19px] sm:h-[19px] object-contain select-none pointer-events-none transition-opacity ${
                 isDarkContent ? 'brightness-0' : 'filter brightness-0 invert'
               } ${
                 isListening ? 'opacity-100' : 'opacity-85 hover:opacity-100'
@@ -483,7 +479,7 @@ export const FloatingSearchBar: React.FC<FloatingSearchBarProps> = ({
                 e.stopPropagation();
                 onClose();
               }}
-              className={`p-1.5 rounded-full transition-colors cursor-default flex items-center justify-center ${
+              className={`p-1 rounded-full transition-colors cursor-default flex items-center justify-center ${
                 isDarkContent
                   ? 'text-black/70 hover:text-black hover:bg-black/10'
                   : 'text-white/70 hover:text-white hover:bg-white/15'
@@ -491,7 +487,7 @@ export const FloatingSearchBar: React.FC<FloatingSearchBarProps> = ({
               title="Đóng tìm kiếm (Esc)"
               aria-label="Đóng tìm kiếm"
             >
-              <X className="w-4.5 h-4.5 sm:w-5 sm:h-5" />
+              <X className="w-4 h-4 sm:w-[18px] sm:h-[18px]" />
             </button>
           )}
         </div>

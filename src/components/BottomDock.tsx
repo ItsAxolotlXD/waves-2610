@@ -38,7 +38,7 @@ const WATCH_ICON = 'https://static.wikia.nocookie.net/ep-deo/images/d/df/Cool_tv
 const NEWS_ICON = 'https://static.wikia.nocookie.net/ep-deo/images/f/f2/Icons8-megaphone-64.png/revision/latest?cb=20260925115252';
 const SETTINGS_ICON = 'https://static.wikia.nocookie.net/ftv/images/9/97/Settungs.png/revision/latest?cb=20260411085024&path-prefix=vi';
 const MORE_ICON = 'https://static.wikia.nocookie.net/ep-deo/images/7/78/Icons8-apps-90.png/revision/latest?cb=20260925115254';
-const SF_SEARCH_ICON_URL = 'https://github.com/andrewtavis/sf-symbols-online/blob/master/glyphs/magnifyingglass.png?raw=true';
+const SF_SEARCH_ICON_URL = '/icons/sf-magnifyingglass.png';
 
 interface TabItem {
   id: string;
@@ -52,7 +52,7 @@ interface TabItem {
 const DOCK_TABS: TabItem[] = [
   { id: 'dock-home', label: 'Home', route: '/', image: HOME_ICON, icon: Home },
   { id: 'dock-tv', label: 'Watch', route: '/live-tv', image: WATCH_ICON, icon: Tv },
-  { id: 'dock-news', label: 'News', route: '/news', image: NEWS_ICON, icon: Megaphone },
+  { id: 'dock-news', label: 'Articles', route: '/news', image: NEWS_ICON, icon: Megaphone },
   { id: 'dock-settings', label: 'Settings', route: '/settings', image: SETTINGS_ICON, icon: SettingsIcon },
   { id: 'dock-more', label: 'More', isAction: true, image: MORE_ICON, icon: LayoutGrid },
 ];
@@ -127,7 +127,8 @@ export const BottomDock: React.FC<BottomDockProps> = ({
       if (
         (flyout && flyout.contains(target)) ||
         (moreBtn && moreBtn.contains(target)) ||
-        target.closest('#vplay-tools-dropdown-card')
+        target.closest('#vplay-tools-dropdown-card') ||
+        target.closest('#dock-more')
       ) {
         return;
       }
@@ -138,10 +139,13 @@ export const BottomDock: React.FC<BottomDockProps> = ({
         setIsToolsOpen(false);
       }
     };
-    document.addEventListener('mousedown', handleClickOutside);
-    document.addEventListener('touchstart', handleClickOutside);
-    document.addEventListener('keydown', handleKeyDown);
+    const timer = setTimeout(() => {
+      document.addEventListener('mousedown', handleClickOutside);
+      document.addEventListener('touchstart', handleClickOutside);
+      document.addEventListener('keydown', handleKeyDown);
+    }, 100);
     return () => {
+      clearTimeout(timer);
       document.removeEventListener('mousedown', handleClickOutside);
       document.removeEventListener('touchstart', handleClickOutside);
       document.removeEventListener('keydown', handleKeyDown);
@@ -158,6 +162,7 @@ export const BottomDock: React.FC<BottomDockProps> = ({
         searchContainerRef.current?.contains(target) ||
         target.closest('#vplay-native-keyboard') ||
         target.closest('#floating-search-bar-pill') ||
+        target.closest('#floating-search-bar-container') ||
         target.closest('#btn-floaty-search-trigger')
       ) {
         return;
@@ -167,7 +172,7 @@ export const BottomDock: React.FC<BottomDockProps> = ({
     const timer = setTimeout(() => {
       document.addEventListener('mousedown', handleClickOutside);
       document.addEventListener('touchstart', handleClickOutside);
-    }, 50);
+    }, 100);
     return () => {
       clearTimeout(timer);
       document.removeEventListener('mousedown', handleClickOutside);
@@ -268,13 +273,17 @@ export const BottomDock: React.FC<BottomDockProps> = ({
   const renderTabIcon = (item: TabItem, active: boolean, isSelectedOrHovered: boolean) => {
     const Icon = item.icon;
     const hasImage = !!item.image && !imageErrors[item.id];
+    const isWatchTab = item.id === 'dock-tv';
+    const iconSizeClasses = isWatchTab
+      ? 'w-[24px] h-[24px] sm:w-[26.5px] sm:h-[26.5px]'
+      : 'w-[28px] h-[28px] sm:w-[31px] sm:h-[31px]';
 
     if (active) {
       const activeColor = isLightMode ? '#000000' : '#FFFFFF';
       if (hasImage) {
         return (
           <div
-            className="w-[31px] h-[31px] sm:w-[35px] sm:h-[35px] shrink-0 transition-transform duration-200"
+            className={`${iconSizeClasses} shrink-0 transition-transform duration-200`}
             style={{
               maskImage: `url(${item.image})`,
               WebkitMaskImage: `url(${item.image})`,
@@ -291,7 +300,7 @@ export const BottomDock: React.FC<BottomDockProps> = ({
       }
       return (
         <Icon
-          className={`w-[31px] h-[31px] sm:w-[35px] sm:h-[35px] shrink-0 ${
+          className={`${iconSizeClasses} shrink-0 ${
             isLightMode ? 'text-black stroke-black' : 'text-white stroke-white'
           } transition-all duration-200`}
         />
@@ -306,7 +315,7 @@ export const BottomDock: React.FC<BottomDockProps> = ({
           alt={item.label}
           referrerPolicy="no-referrer"
           onError={() => setImageErrors((prev) => ({ ...prev, [item.id]: true }))}
-          className={`w-[31px] h-[31px] sm:w-[35px] sm:h-[35px] object-contain shrink-0 transition-all duration-150 ${
+          className={`${iconSizeClasses} object-contain shrink-0 transition-all duration-150 ${
             isDarkContent
               ? 'brightness-0'
               : 'filter brightness-0 invert'
@@ -317,7 +326,7 @@ export const BottomDock: React.FC<BottomDockProps> = ({
 
     return (
       <Icon
-        className={`w-[31px] h-[31px] sm:w-[35px] sm:h-[35px] shrink-0 transition-all duration-150 ${
+        className={`${iconSizeClasses} shrink-0 transition-all duration-150 ${
           isDarkContent
             ? 'text-black stroke-black'
             : 'text-white stroke-white'
@@ -354,21 +363,16 @@ export const BottomDock: React.FC<BottomDockProps> = ({
         }}
         className={`fixed ${isKeyboardOpen ? '' : 'bottom-5'} left-1/2 -translate-x-1/2 z-40 select-none flex items-center justify-center pointer-events-auto`}
       >
-        <AnimatePresence mode="popLayout" initial={false}>
+        <AnimatePresence mode="wait" initial={false}>
           {!isSearchOpen ? (
             <motion.div
               key="dock-tab-view"
-              initial={{ opacity: 0, scale: 0.88, filter: 'blur(8px)' }}
-              animate={{ opacity: 1, scale: 1, filter: 'blur(0px)' }}
+              initial={{ opacity: 0, scale: 0.94 }}
+              animate={{ opacity: 1, scale: 1 }}
               exit={{ 
                 opacity: 0, 
-                scale: 0.88, 
-                filter: 'blur(8px)',
-                transition: {
-                  opacity: { duration: 0.28, ease: 'easeInOut' },
-                  scale: { duration: 0.38, ease: [0.22, 1, 0.36, 1] },
-                  filter: { duration: 0.30 },
-                }
+                scale: 0.94,
+                transition: { duration: 0.18, ease: 'easeOut' }
               }}
               transition={SQUISHY_SPRING}
               className="flex items-center justify-center gap-2 sm:gap-2.5 relative"
@@ -384,14 +388,14 @@ export const BottomDock: React.FC<BottomDockProps> = ({
                   backdropFilter: 'blur(var(--spatial-glass-blur, 20px))',
                   WebkitBackdropFilter: 'blur(var(--spatial-glass-blur, 20px))',
                 }}
-                className={`floaty-bar floaty-bar__surface h-[66px] sm:h-[72px] flex items-center gap-1 sm:gap-1.5 px-2 sm:px-2.5 rounded-full shadow-[0_8px_32px_rgba(0,0,0,0.35)] select-none pointer-events-auto overflow-hidden transition-[background-color,border-color,box-shadow] ${
+                className={`floaty-bar floaty-bar__surface h-[58px] sm:h-[62px] w-[280px] sm:w-[330px] flex items-center justify-between gap-1 sm:gap-1.5 px-1.5 sm:px-2 rounded-full shadow-[0_8px_32px_rgba(0,0,0,0.35)] select-none pointer-events-auto overflow-hidden transition-[background-color,border-color,box-shadow] ${
                   isDarkContent || isLightMode ? 'border border-black/15 text-black' : 'border border-white/10 text-white'
                 }`}
                 aria-label="Tab View"
               >
                 <div 
                   id="floaty-bar-tabs-container"
-                  className="floaty-bar__items w-auto h-full relative z-30 overflow-hidden flex items-center justify-center gap-1 sm:gap-1.5 px-0.5 shrink-0 whitespace-nowrap min-w-max"
+                  className="floaty-bar__items w-full h-full relative z-30 overflow-hidden flex items-center justify-between gap-1 sm:gap-1.5 px-0.5 shrink-0 whitespace-nowrap"
                 >
                   {DOCK_TABS.map((item) => {
                     const active = currentActiveId === item.id;
@@ -408,7 +412,7 @@ export const BottomDock: React.FC<BottomDockProps> = ({
                         onMouseEnter={() => setHoveredId(item.id)}
                         onMouseLeave={() => setHoveredId(null)}
                         onClick={() => handleTabClick(item)}
-                        className={`floaty-bar__item relative h-[56px] sm:h-[62px] min-w-[56px] sm:min-w-[66px] px-2 sm:px-3 rounded-full flex flex-col items-center justify-center cursor-default transition-all duration-150 outline-none select-none shrink-0 ${
+                        className={`floaty-bar__item relative flex-1 h-[48px] sm:h-[52px] min-w-0 px-1 sm:px-1.5 rounded-full flex flex-col items-center justify-center cursor-default transition-all duration-150 outline-none select-none shrink-0 ${
                           active
                             ? (isLightMode ? 'is-active text-black z-20' : 'is-active text-white z-20')
                             : isSelectedOrHovered
@@ -429,10 +433,12 @@ export const BottomDock: React.FC<BottomDockProps> = ({
                             className="floaty-bar-pill-indicator absolute inset-0 rounded-full pointer-events-none bg-[#fd932f] shadow-[0_4px_14px_rgba(253,147,47,0.40)] border border-[#fd932f]"
                           />
                         )}
-                        <div className="relative z-10 flex flex-col items-center justify-center">
-                          {renderTabIcon(item, active, isSelectedOrHovered)}
+                        <div className="relative z-10 flex flex-col items-center justify-center w-full">
+                          <div className="w-full h-[27px] sm:h-[29px] flex items-center justify-center shrink-0">
+                            {renderTabIcon(item, active, isSelectedOrHovered)}
+                          </div>
                           <span
-                            className={`text-[9px] sm:text-[9.5px] font-semibold leading-tight tracking-tight transition-colors duration-150 select-none mt-0.5 ${
+                            className={`text-[8px] sm:text-[8.5px] font-semibold leading-none tracking-tight transition-colors duration-150 select-none text-center whitespace-nowrap block mt-0.5 -translate-y-[1.5px] ${
                               active
                                 ? (isLightMode ? 'font-bold text-black' : 'font-bold text-white')
                                 : isDarkContent
@@ -469,7 +475,7 @@ export const BottomDock: React.FC<BottomDockProps> = ({
                   backdropFilter: 'blur(var(--spatial-glass-blur, 20px))',
                   WebkitBackdropFilter: 'blur(var(--spatial-glass-blur, 20px))',
                 }}
-                className={`group h-[66px] w-[66px] sm:h-[72px] sm:w-[72px] rounded-full flex items-center justify-center cursor-default shadow-[0_8px_32px_rgba(0,0,0,0.35)] select-none shrink-0 pointer-events-auto transition-[border-color,box-shadow] ${
+                className={`group h-[58px] w-[58px] sm:h-[62px] sm:w-[62px] rounded-full flex items-center justify-center cursor-default shadow-[0_8px_32px_rgba(0,0,0,0.35)] select-none shrink-0 pointer-events-auto transition-[border-color,box-shadow] ${
                   isDarkContent || isLightMode ? 'border border-black/15 text-black' : 'border border-white/10 text-white'
                 } ${
                   searchQuery?.trim()
@@ -480,7 +486,7 @@ export const BottomDock: React.FC<BottomDockProps> = ({
                 <img
                   src={SF_SEARCH_ICON_URL}
                   alt="Search"
-                  className={`w-[30px] h-[30px] sm:w-[33px] sm:h-[33px] object-contain select-none pointer-events-none transition-opacity ${
+                  className={`w-[31px] h-[31px] sm:w-[34px] sm:h-[34px] object-contain select-none pointer-events-none transition-opacity ${
                     isDarkContent || isLightMode ? 'brightness-0' : 'filter brightness-0 invert'
                   } opacity-90`}
                   referrerPolicy="no-referrer"
@@ -489,14 +495,14 @@ export const BottomDock: React.FC<BottomDockProps> = ({
                   }}
                 />
                 {searchQuery?.trim() && (
-                  <span className="absolute top-2.5 right-2.5 w-2 h-2 rounded-full bg-[#fd932f] ring-2 ring-black/40" />
+                  <span className="absolute top-2 right-2 w-2 h-2 rounded-full bg-[#fd932f] ring-2 ring-black/40" />
                 )}
               </motion.button>
 
               {/* Tools Flyout Menu attached to More tab */}
               <div 
                 ref={toolsFlyoutRef}
-                className="absolute right-16 sm:right-20 bottom-full mb-3.5 z-50 pointer-events-auto"
+                className="absolute right-8 sm:right-12 bottom-full mb-2.5 z-50 pointer-events-auto"
               >
                 <ToolsMenu
                   currentRoute={currentRoute}
@@ -546,17 +552,12 @@ export const BottomDock: React.FC<BottomDockProps> = ({
           ) : (
             <motion.div
               key="dock-search-mode"
-              initial={{ opacity: 0, scale: 0.88, filter: 'blur(8px)' }}
-              animate={{ opacity: 1, scale: 1, filter: 'blur(0px)' }}
+              initial={{ opacity: 0, scale: 0.94 }}
+              animate={{ opacity: 1, scale: 1 }}
               exit={{ 
                 opacity: 0, 
-                scale: 0.88, 
-                filter: 'blur(8px)',
-                transition: {
-                  opacity: { duration: 0.28, ease: 'easeInOut' },
-                  scale: { duration: 0.38, ease: [0.22, 1, 0.36, 1] },
-                  filter: { duration: 0.30 },
-                }
+                scale: 0.94,
+                transition: { duration: 0.18, ease: 'easeOut' }
               }}
               transition={SQUISHY_SPRING}
               className="flex items-center justify-center pointer-events-auto"

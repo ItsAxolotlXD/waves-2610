@@ -952,53 +952,52 @@ html.light-mode .settings-unsaved-tooltip-card {
   pointer-events: none;
   transform: translateZ(0);
   -webkit-transform: translateZ(0);
-  will-change: transform, backdrop-filter;
 }
 
 /* Layer 1: Whispering fine blur extending deepest towards bottom (feathered boundary) */
 .topbar-progressive-blur .layer-1 {
-  backdrop-filter: blur(1.5px);
-  -webkit-backdrop-filter: blur(1.5px);
+  backdrop-filter: blur(1px);
+  -webkit-backdrop-filter: blur(1px);
   mask-image: linear-gradient(to bottom, rgba(0, 0, 0, 1) 0%, rgba(0, 0, 0, 1) 50%, rgba(0, 0, 0, 0) 100%);
   -webkit-mask-image: linear-gradient(to bottom, rgba(0, 0, 0, 1) 0%, rgba(0, 0, 0, 1) 50%, rgba(0, 0, 0, 0) 100%);
 }
 
 /* Layer 2: Soft blur */
 .topbar-progressive-blur .layer-2 {
-  backdrop-filter: blur(3px);
-  -webkit-backdrop-filter: blur(3px);
+  backdrop-filter: blur(2px);
+  -webkit-backdrop-filter: blur(2px);
   mask-image: linear-gradient(to bottom, rgba(0, 0, 0, 1) 0%, rgba(0, 0, 0, 1) 40%, rgba(0, 0, 0, 0) 85%);
   -webkit-mask-image: linear-gradient(to bottom, rgba(0, 0, 0, 1) 0%, rgba(0, 0, 0, 1) 40%, rgba(0, 0, 0, 0) 85%);
 }
 
 /* Layer 3: Medium smooth blur */
 .topbar-progressive-blur .layer-3 {
-  backdrop-filter: blur(6px);
-  -webkit-backdrop-filter: blur(6px);
+  backdrop-filter: blur(3.5px);
+  -webkit-backdrop-filter: blur(3.5px);
   mask-image: linear-gradient(to bottom, rgba(0, 0, 0, 1) 0%, rgba(0, 0, 0, 1) 32%, rgba(0, 0, 0, 0) 70%);
   -webkit-mask-image: linear-gradient(to bottom, rgba(0, 0, 0, 1) 0%, rgba(0, 0, 0, 1) 32%, rgba(0, 0, 0, 0) 70%);
 }
 
 /* Layer 4: Deep blur */
 .topbar-progressive-blur .layer-4 {
-  backdrop-filter: blur(12px) saturate(150%);
-  -webkit-backdrop-filter: blur(12px) saturate(150%);
+  backdrop-filter: blur(6px) saturate(120%);
+  -webkit-backdrop-filter: blur(6px) saturate(120%);
   mask-image: linear-gradient(to bottom, rgba(0, 0, 0, 1) 0%, rgba(0, 0, 0, 1) 24%, rgba(0, 0, 0, 0) 55%);
   -webkit-mask-image: linear-gradient(to bottom, rgba(0, 0, 0, 1) 0%, rgba(0, 0, 0, 1) 24%, rgba(0, 0, 0, 0) 55%);
 }
 
 /* Layer 5: Heavy blur */
 .topbar-progressive-blur .layer-5 {
-  backdrop-filter: blur(20px) saturate(180%);
-  -webkit-backdrop-filter: blur(20px) saturate(180%);
+  backdrop-filter: blur(9px) saturate(130%);
+  -webkit-backdrop-filter: blur(9px) saturate(130%);
   mask-image: linear-gradient(to bottom, rgba(0, 0, 0, 1) 0%, rgba(0, 0, 0, 1) 16%, rgba(0, 0, 0, 0) 42%);
   -webkit-mask-image: linear-gradient(to bottom, rgba(0, 0, 0, 1) 0%, rgba(0, 0, 0, 1) 16%, rgba(0, 0, 0, 0) 42%);
 }
 
-/* Layer 6: Maximum frosted glass blur at top header band */
+/* Layer 6: Frosted glass blur at top header band */
 .topbar-progressive-blur .layer-6 {
-  backdrop-filter: blur(32px) saturate(200%);
-  -webkit-backdrop-filter: blur(32px) saturate(200%);
+  backdrop-filter: blur(12px) saturate(140%);
+  -webkit-backdrop-filter: blur(12px) saturate(140%);
   mask-image: linear-gradient(to bottom, rgba(0, 0, 0, 1) 0%, rgba(0, 0, 0, 1) 10%, rgba(0, 0, 0, 0) 30%);
   -webkit-mask-image: linear-gradient(to bottom, rgba(0, 0, 0, 1) 0%, rgba(0, 0, 0, 1) 10%, rgba(0, 0, 0, 0) 30%);
 }
@@ -1010,10 +1009,10 @@ html.light-mode .settings-unsaved-tooltip-card {
   pointer-events: none;
   background: linear-gradient(
     to bottom,
-    rgba(24, 24, 24, 0.88) 0%,
-    rgba(24, 24, 24, 0.72) 35%,
-    rgba(24, 24, 24, 0.40) 60%,
-    rgba(24, 24, 24, 0.12) 82%,
+    rgba(24, 24, 24, 0.48) 0%,
+    rgba(24, 24, 24, 0.32) 35%,
+    rgba(24, 24, 24, 0.16) 60%,
+    rgba(24, 24, 24, 0.04) 82%,
     rgba(24, 24, 24, 0) 100%
   );
 }
@@ -1022,23 +1021,23 @@ html.light-mode .settings-unsaved-tooltip-card {
 html.light-mode .topbar-progressive-blur .progressive-blur-gradient {
   background: linear-gradient(
     to bottom,
-    rgba(226, 228, 234, 0.90) 0%,
-    rgba(226, 228, 234, 0.75) 35%,
-    rgba(226, 228, 234, 0.45) 60%,
-    rgba(226, 228, 234, 0.15) 82%,
+    rgba(226, 228, 234, 0.52) 0%,
+    rgba(226, 228, 234, 0.36) 35%,
+    rgba(226, 228, 234, 0.18) 60%,
+    rgba(226, 228, 234, 0.05) 82%,
     rgba(226, 228, 234, 0) 100%
   );
 }
 
 /* ==========================================================================
-   Bottom Progressive Blur (Feathered upward for Floating Search Bar)
+   Bottom Progressive Blur (Feathered upward for Floating Search Bar & Tab View)
    ========================================================================== */
 .bottom-progressive-blur {
   position: fixed;
   bottom: 0;
   left: 0;
   right: 0;
-  height: 96px;
+  height: 76px;
   pointer-events: none;
   z-index: 38;
   overflow: hidden;
@@ -1052,47 +1051,46 @@ html.light-mode .topbar-progressive-blur .progressive-blur-gradient {
   pointer-events: none;
   transform: translateZ(0);
   -webkit-transform: translateZ(0);
-  will-change: transform, backdrop-filter;
 }
 
 .bottom-progressive-blur .layer-1 {
-  backdrop-filter: blur(1.5px);
-  -webkit-backdrop-filter: blur(1.5px);
+  backdrop-filter: blur(1px);
+  -webkit-backdrop-filter: blur(1px);
   mask-image: linear-gradient(to top, rgba(0, 0, 0, 1) 0%, rgba(0, 0, 0, 1) 50%, rgba(0, 0, 0, 0) 100%);
   -webkit-mask-image: linear-gradient(to top, rgba(0, 0, 0, 1) 0%, rgba(0, 0, 0, 1) 50%, rgba(0, 0, 0, 0) 100%);
 }
 
 .bottom-progressive-blur .layer-2 {
-  backdrop-filter: blur(3px);
-  -webkit-backdrop-filter: blur(3px);
+  backdrop-filter: blur(2px);
+  -webkit-backdrop-filter: blur(2px);
   mask-image: linear-gradient(to top, rgba(0, 0, 0, 1) 0%, rgba(0, 0, 0, 1) 40%, rgba(0, 0, 0, 0) 85%);
   -webkit-mask-image: linear-gradient(to top, rgba(0, 0, 0, 1) 0%, rgba(0, 0, 0, 1) 40%, rgba(0, 0, 0, 0) 85%);
 }
 
 .bottom-progressive-blur .layer-3 {
-  backdrop-filter: blur(6px);
-  -webkit-backdrop-filter: blur(6px);
+  backdrop-filter: blur(3.5px);
+  -webkit-backdrop-filter: blur(3.5px);
   mask-image: linear-gradient(to top, rgba(0, 0, 0, 1) 0%, rgba(0, 0, 0, 1) 32%, rgba(0, 0, 0, 0) 70%);
   -webkit-mask-image: linear-gradient(to top, rgba(0, 0, 0, 1) 0%, rgba(0, 0, 0, 1) 32%, rgba(0, 0, 0, 0) 70%);
 }
 
 .bottom-progressive-blur .layer-4 {
-  backdrop-filter: blur(12px) saturate(150%);
-  -webkit-backdrop-filter: blur(12px) saturate(150%);
+  backdrop-filter: blur(6px) saturate(120%);
+  -webkit-backdrop-filter: blur(6px) saturate(120%);
   mask-image: linear-gradient(to top, rgba(0, 0, 0, 1) 0%, rgba(0, 0, 0, 1) 24%, rgba(0, 0, 0, 0) 55%);
   -webkit-mask-image: linear-gradient(to top, rgba(0, 0, 0, 1) 0%, rgba(0, 0, 0, 1) 24%, rgba(0, 0, 0, 0) 55%);
 }
 
 .bottom-progressive-blur .layer-5 {
-  backdrop-filter: blur(20px) saturate(180%);
-  -webkit-backdrop-filter: blur(20px) saturate(180%);
+  backdrop-filter: blur(9px) saturate(130%);
+  -webkit-backdrop-filter: blur(9px) saturate(130%);
   mask-image: linear-gradient(to top, rgba(0, 0, 0, 1) 0%, rgba(0, 0, 0, 1) 16%, rgba(0, 0, 0, 0) 42%);
   -webkit-mask-image: linear-gradient(to top, rgba(0, 0, 0, 1) 0%, rgba(0, 0, 0, 1) 16%, rgba(0, 0, 0, 0) 42%);
 }
 
 .bottom-progressive-blur .layer-6 {
-  backdrop-filter: blur(32px) saturate(200%);
-  -webkit-backdrop-filter: blur(32px) saturate(200%);
+  backdrop-filter: blur(12px) saturate(140%);
+  -webkit-backdrop-filter: blur(12px) saturate(140%);
   mask-image: linear-gradient(to top, rgba(0, 0, 0, 1) 0%, rgba(0, 0, 0, 1) 10%, rgba(0, 0, 0, 0) 30%);
   -webkit-mask-image: linear-gradient(to top, rgba(0, 0, 0, 1) 0%, rgba(0, 0, 0, 1) 10%, rgba(0, 0, 0, 0) 30%);
 }
@@ -1103,10 +1101,10 @@ html.light-mode .topbar-progressive-blur .progressive-blur-gradient {
   pointer-events: none;
   background: linear-gradient(
     to top,
-    rgba(24, 24, 24, 0.75) 0%,
-    rgba(24, 24, 24, 0.52) 35%,
-    rgba(24, 24, 24, 0.25) 60%,
-    rgba(24, 24, 24, 0.08) 82%,
+    rgba(24, 24, 24, 0.42) 0%,
+    rgba(24, 24, 24, 0.26) 35%,
+    rgba(24, 24, 24, 0.12) 60%,
+    rgba(24, 24, 24, 0.03) 82%,
     rgba(24, 24, 24, 0) 100%
   );
 }
@@ -1114,10 +1112,10 @@ html.light-mode .topbar-progressive-blur .progressive-blur-gradient {
 html.light-mode .bottom-progressive-blur .progressive-blur-gradient {
   background: linear-gradient(
     to top,
-    rgba(226, 228, 234, 0.85) 0%,
-    rgba(226, 228, 234, 0.60) 35%,
-    rgba(226, 228, 234, 0.30) 60%,
-    rgba(226, 228, 234, 0.10) 82%,
+    rgba(226, 228, 234, 0.46) 0%,
+    rgba(226, 228, 234, 0.28) 35%,
+    rgba(226, 228, 234, 0.12) 60%,
+    rgba(226, 228, 234, 0.03) 82%,
     rgba(226, 228, 234, 0) 100%
   );
 }
@@ -2283,7 +2281,7 @@ html.spatial-glass-dark-content .floaty-bar__surface:hover::after {
 }
 
 #btn-floaty-search-trigger {
-  transition: background-color 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease, filter 0.2s ease !important;
+  transition: background-color 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease !important;
 }
 
 #btn-floaty-search-trigger:hover {
@@ -2291,7 +2289,7 @@ html.spatial-glass-dark-content .floaty-bar__surface:hover::after {
 }
 
 #floating-search-bar-pill {
-  transition: background-color 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease, filter 0.2s ease !important;
+  transition: background-color 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease !important;
 }
 
 #floating-search-bar-pill:hover {
@@ -3551,19 +3549,22 @@ input[type="range"] {
 
 /* Light Mode Tools Menu Dropdown Card */
 html.light-mode #vplay-tools-dropdown-card {
-  position: absolute !important;
   box-sizing: border-box !important;
   border-radius: 30px !important;
-  background-color: rgba(255, 255, 255, 0.82) !important;
-  backdrop-filter: blur(14px) saturate(150%) !important;
-  -webkit-backdrop-filter: blur(14px) saturate(150%) !important;
-  border: none !important;
+  border: 1px solid rgba(0, 0, 0, 0.08) !important;
   background-image: none !important;
   color: #111827 !important;
-  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.10) !important;
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.15) !important;
+}
+
+html.light-mode.no-spatial-glass #vplay-tools-dropdown-card {
+  background-color: #FFFFFF !important;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
 }
 
 html.light-mode #vplay-tools-dropdown-card button {
+  background-color: transparent !important;
   color: #1F2937 !important;
 }
 
@@ -3572,7 +3573,7 @@ html.light-mode #vplay-tools-dropdown-card button span {
 }
 
 html.light-mode #vplay-tools-dropdown-card button:hover {
-  background-color: rgba(241, 243, 245, 0.75) !important;
+  background-color: transparent !important;
   color: #111827 !important;
 }
 
@@ -3591,7 +3592,7 @@ html.light-mode #vplay-tools-dropdown-card svg.fill-current {
 }
 
 html.light-mode #vplay-tools-dropdown-card .tools-font-box {
-  background-color: rgba(241, 243, 245, 0.65) !important;
+  background-color: rgba(0, 0, 0, 0.06) !important;
   backdrop-filter: blur(6px) !important;
   border: none !important;
 }
@@ -3617,19 +3618,22 @@ html.light-mode #vplay-tools-dropdown-card .tools-toast-badge {
 
 /* Dark Mode Tools Menu Dropdown Card */
 html:not(.light-mode) #vplay-tools-dropdown-card {
-  position: absolute !important;
   box-sizing: border-box !important;
   border-radius: 30px !important;
-  background-color: rgba(30, 30, 36, 0.80) !important;
-  backdrop-filter: blur(14px) saturate(150%) !important;
-  -webkit-backdrop-filter: blur(14px) saturate(150%) !important;
-  border: none !important;
+  border: 1px solid rgba(255, 255, 255, 0.10) !important;
   background-image: none !important;
   color: #FFFFFF !important;
   box-shadow: 0 20px 50px rgba(0, 0, 0, 0.45) !important;
 }
 
+html:not(.light-mode).no-spatial-glass #vplay-tools-dropdown-card {
+  background-color: #1E1E24 !important;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+}
+
 html:not(.light-mode) #vplay-tools-dropdown-card button {
+  background-color: transparent !important;
   color: #E5E7EB !important;
 }
 
@@ -3638,12 +3642,30 @@ html:not(.light-mode) #vplay-tools-dropdown-card button span {
 }
 
 html:not(.light-mode) #vplay-tools-dropdown-card button:hover {
-  background-color: rgba(255, 255, 255, 0.14) !important;
+  background-color: transparent !important;
   color: #FFFFFF !important;
 }
 
 html:not(.light-mode) #vplay-tools-dropdown-card button:hover span {
   color: #FFFFFF !important;
+}
+
+/* Ensure tools dropdown items have pill-shaped hover background and never zoom/scale */
+#vplay-tools-dropdown-card button,
+#vplay-tools-dropdown-card [role="button"],
+#vplay-tools-dropdown-card .tools-font-box {
+  border-radius: 9999px !important;
+  transform: none !important;
+}
+
+#vplay-tools-dropdown-card button:hover,
+#vplay-tools-dropdown-card button:active,
+#vplay-tools-dropdown-card button:focus,
+#vplay-tools-dropdown-card button:hover *,
+#vplay-tools-dropdown-card button:active *,
+#vplay-tools-dropdown-card button:focus * {
+  transform: none !important;
+  scale: 1 !important;
 }
 
 html:not(.light-mode) #vplay-tools-dropdown-card svg {
@@ -4452,13 +4474,14 @@ html.light-mode .floaty-bar .floaty-bar__item:hover:not(.is-active) {
    Driven by --spatial-glass-bg, --spatial-glass-opacity, and --spatial-glass-blur
    ========================================================================== */
 
-/* 1. Floaty Bar Surface, Float Search & Search Trigger */
+/* 1. Floaty Bar Surface, Float Search & Search Trigger, and Tools Flyout */
 html:not(.no-spatial-glass) .floaty-bar__surface,
 html:not(.no-spatial-glass) #btn-floaty-search-trigger,
 html:not(.no-spatial-glass) #floating-search-bar-pill,
 html:not(.no-spatial-glass) #floating-search-bar-container [id^="floating-search-bar-pill"],
 html:not(.no-spatial-glass) #floating-search-bar-container .floating-search-pill,
-html:not(.no-spatial-glass) .floaty-search-box-pill {
+html:not(.no-spatial-glass) .floaty-search-box-pill,
+html:not(.no-spatial-glass) #vplay-tools-dropdown-card {
   background-color: var(--spatial-glass-bg, rgba(255, 255, 255, 0.20)) !important;
   background-image: none !important;
   backdrop-filter: blur(var(--spatial-glass-blur, 20px)) !important;
@@ -4516,7 +4539,8 @@ html.spatial-glass-dark-content .floaty-bar__surface,
 html.spatial-glass-dark-content #btn-floaty-search-trigger,
 html.spatial-glass-dark-content #floating-search-bar-pill,
 html.spatial-glass-dark-content #floating-search-bar-container [id^="floating-search-bar-pill"],
-html.spatial-glass-dark-content .floaty-search-box-pill {
+html.spatial-glass-dark-content .floaty-search-box-pill,
+html.spatial-glass-dark-content #vplay-tools-dropdown-card {
   border-color: rgba(0, 0, 0, 0.15) !important;
 }
 
