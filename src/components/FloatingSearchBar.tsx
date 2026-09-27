@@ -36,7 +36,8 @@ export const FloatingSearchBar: React.FC<FloatingSearchBarProps> = ({
     ? draftSettings.spatialGlassOpacity
     : (settings.spatialGlassOpacity ?? 20);
   const isSpatialGlassActive = (draftSettings?.spatialGlass ?? settings.spatialGlass) !== false;
-  const isDarkContent = isSpatialGlassActive && currentOpacity > 40;
+  const isLightMode = settings.theme === 'light';
+  const isDarkContent = isLightMode || (isSpatialGlassActive && currentOpacity > 40);
 
   const inputRef = useRef<HTMLInputElement>(null);
   const [isFocused, setIsFocused] = useState(false);
@@ -50,7 +51,7 @@ export const FloatingSearchBar: React.FC<FloatingSearchBarProps> = ({
       // Delay focus slightly until morph animation finishes to prevent layout shift / keyboard jumping
       const timer = setTimeout(() => {
         inputRef.current?.focus({ preventScroll: true });
-      }, 340);
+      }, 520);
       return () => clearTimeout(timer);
     }
   }, [autoFocus]);
@@ -299,7 +300,7 @@ export const FloatingSearchBar: React.FC<FloatingSearchBarProps> = ({
         isArticlePage && searchQuery.trim()
           ? 'w-[94vw] max-w-[380px] sm:max-w-[440px] md:max-w-[480px]'
           : 'w-[88vw] max-w-[320px] sm:max-w-[360px] md:max-w-[400px]'
-      } h-[64px] sm:h-[70px] px-3.5 sm:px-4 rounded-full cursor-text shadow-[0_8px_32px_rgba(0,0,0,0.35)] pointer-events-auto ${
+      } h-[56px] sm:h-[60px] px-3.5 sm:px-4 rounded-full cursor-text shadow-[0_8px_32px_rgba(0,0,0,0.35)] pointer-events-auto ${
         isDarkContent ? 'border border-black/15 text-black' : 'border border-white/10 text-white'
       } ${
         isFocused || isListening
@@ -321,13 +322,13 @@ export const FloatingSearchBar: React.FC<FloatingSearchBarProps> = ({
             inputRef.current?.focus();
           }
         }}
-        className="flex items-center justify-center shrink-0 pr-3 cursor-default transition-opacity"
+        className="flex items-center justify-center shrink-0 pr-2.5 sm:pr-3 cursor-default transition-opacity"
         title={isArticlePage ? 'Từ tiếp theo (Enter)' : (isHome ? 'Mở Spotlight Search (⌘K)' : 'Tìm kiếm')}
       >
         <img
           src={SF_SEARCH_ICON_URL}
           alt="Search"
-          className={`w-[24px] h-[24px] sm:w-[26px] sm:h-[26px] object-contain select-none pointer-events-none transition-opacity ${
+          className={`w-[22px] h-[22px] sm:w-[24px] sm:h-[24px] object-contain select-none pointer-events-none transition-opacity ${
             isDarkContent ? 'brightness-0' : 'filter brightness-0 invert'
           } opacity-85 group-hover:opacity-100`}
           referrerPolicy="no-referrer"
@@ -355,7 +356,12 @@ export const FloatingSearchBar: React.FC<FloatingSearchBarProps> = ({
           onBlur={() => setIsFocused(false)}
           onKeyDown={handleKeyDown}
           placeholder={isListening ? 'Đang lắng nghe...' : getTabPlaceholder(currentRoute)}
-          className={`w-full bg-transparent text-[14px] sm:text-[15px] font-medium focus:outline-none truncate ${
+          style={{
+            background: 'transparent',
+            backgroundColor: 'transparent',
+            backgroundImage: 'none',
+          }}
+          className={`w-full bg-transparent text-[14px] sm:text-[15px] font-medium focus:outline-none truncate border-none outline-none shadow-none ${
             isDarkContent
               ? 'text-black placeholder:text-black/60 caret-black'
               : 'text-white placeholder:text-white/70 caret-white'
@@ -456,7 +462,7 @@ export const FloatingSearchBar: React.FC<FloatingSearchBarProps> = ({
             <img
               src={SF_MIC_ICON_URL}
               alt="Mic"
-              className={`w-[23px] h-[23px] sm:w-[25px] sm:h-[25px] object-contain select-none pointer-events-none transition-opacity ${
+              className={`w-[20px] h-[20px] sm:w-[22px] sm:h-[22px] object-contain select-none pointer-events-none transition-opacity ${
                 isDarkContent ? 'brightness-0' : 'filter brightness-0 invert'
               } ${
                 isListening ? 'opacity-100' : 'opacity-85 hover:opacity-100'
@@ -485,7 +491,7 @@ export const FloatingSearchBar: React.FC<FloatingSearchBarProps> = ({
               title="Đóng tìm kiếm (Esc)"
               aria-label="Đóng tìm kiếm"
             >
-              <X className="w-5 h-5 sm:w-[22px] sm:h-[22px]" />
+              <X className="w-4.5 h-4.5 sm:w-5 sm:h-5" />
             </button>
           )}
         </div>

@@ -577,24 +577,9 @@ export default function App() {
             ? 'pb-28 sm:pb-32'
             : ''
         }`}>
-          {!settings.reduceAllMotion && settings.animatePageTransitions ? (
-            <AnimatePresence mode="wait" initial={false}>
-              <motion.div
-                key={currentRoute}
-                initial={{ opacity: 0, y: 22 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: -14 }}
-                transition={{ duration: 0.32, ease: [0.16, 1, 0.3, 1] }}
-                className="w-full h-full"
-              >
-                {renderContent()}
-              </motion.div>
-            </AnimatePresence>
-          ) : (
-            <div key={currentRoute} className="w-full h-full">
-              {renderContent()}
-            </div>
-          )}
+          <div key={currentRoute} className="w-full h-full">
+            {renderContent()}
+          </div>
         </main>
       </div>
 
@@ -603,9 +588,32 @@ export default function App() {
         <BottomDock
           currentRoute={currentRoute}
           navigate={navigate}
+          currentChannel={currentChannel}
+          channels={channels}
           onOpenSearch={handleOpenSearch}
           onOpenHelp={() => setIsHelpModalOpen(true)}
           onOpenDiscord={() => setIsWelcomeModalOpen(true)}
+          onOpenSummarize={(art) => {
+            setSummarizeArticle(art);
+            setIsNewsSummaryOpen(true);
+          }}
+          onOpenTextToSpeech={(art) => {
+            setTtsArticle(art);
+            setIsTtsOpen(true);
+          }}
+          onOpenFindWords={() => {
+            const floatInput = document.getElementById('floating-search-input') as HTMLInputElement | null;
+            if (floatInput && settings.floatingSearchBar) {
+              floatInput.focus();
+              floatInput.select?.();
+            } else {
+              setIsFindWordsOpen(true);
+            }
+          }}
+          onOpenAddStream={() => setIsAddStreamOpen(true)}
+          onImportChannels={handleImportPlaylist}
+          fontSize={articleFontSize}
+          onChangeFontSize={handleFontSizeChange}
           searchQuery={currentTabSearchQuery}
           onSearchChange={handleTabSearchChange}
           onOpenSpotlight={() => setIsSpotlightOpen(true)}

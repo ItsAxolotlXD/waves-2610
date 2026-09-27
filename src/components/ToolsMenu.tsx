@@ -38,6 +38,11 @@ interface ToolsMenuProps {
   onImportChannels: (newChannels: Channel[]) => void;
   fontSize: number;
   onChangeFontSize: (size: number) => void;
+  placement?: 'top' | 'bottom';
+  isOpen?: boolean;
+  onClose?: () => void;
+  showTrigger?: boolean;
+  className?: string;
 }
 
 export const ToolsMenu: React.FC<ToolsMenuProps> = ({
@@ -54,9 +59,26 @@ export const ToolsMenu: React.FC<ToolsMenuProps> = ({
   onOpenAddStream,
   onImportChannels,
   fontSize,
-  onChangeFontSize
+  onChangeFontSize,
+  placement = 'top',
+  isOpen: externalIsOpen,
+  onClose,
+  showTrigger = true,
+  className
 }) => {
-  const [isOpen, setIsOpen] = useState(false);
+  const [internalOpen, setInternalOpen] = useState(false);
+  const isControlled = externalIsOpen !== undefined;
+  const isOpen = isControlled ? externalIsOpen : internalOpen;
+
+  const setIsOpen = (next: boolean | ((prev: boolean) => boolean)) => {
+    if (isControlled) {
+      const nextVal = typeof next === 'function' ? next(externalIsOpen!) : next;
+      if (!nextVal && onClose) onClose();
+    } else {
+      setInternalOpen(next);
+    }
+  };
+
   const [spinCount, setSpinCount] = useState(0);
   const [isClickSpinning, setIsClickSpinning] = useState(false);
   const [copiedToast, setCopiedToast] = useState<string | null>(null);
@@ -64,8 +86,9 @@ export const ToolsMenu: React.FC<ToolsMenuProps> = ({
   const closeTimeoutRef = useRef<NodeJS.Timeout | null>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
 
+  const isRelevant = true; // Always available on all pages
+
   const handleTriggerClick = () => {
-    if (!isRelevant) return;
     setSpinCount((prev) => prev + 1);
     setIsClickSpinning(true);
     setIsOpen((prev) => !prev);
@@ -88,7 +111,7 @@ export const ToolsMenu: React.FC<ToolsMenuProps> = ({
   const isHome = currentRoute === '/' || currentRoute === '/home';
   const isNews = currentRoute.startsWith('/news');
   const isLiveTV = currentRoute.startsWith('/live-tv') || currentRoute.startsWith('/channels') || currentRoute.startsWith('/test');
-  const isRelevant = isHome || isNews || isLiveTV;
+  const isOther = !isNews && !isLiveTV;
 
   // Find active article if on news
   const currentNewsArticle: NewsArticle = (() => {
@@ -221,47 +244,53 @@ export const ToolsMenu: React.FC<ToolsMenuProps> = ({
         onChange={handleFileInputChange}
       />
 
-      {/* Tools Trigger Button with Tools icon */}
-      <button
-        id="btn-top-tools-menu"
-        type="button"
-        disabled={!isRelevant}
-        onClick={handleTriggerClick}
-        className="w-10 h-10 rounded-full flex items-center justify-center text-[#18181B] dark:text-white transition-all drop-shadow-sm cursor-default relative group hover:bg-white/10"
-        title={isRelevant ? "Công cụ & Tiện ích VNRT Online (Tools)" : "Không có công cụ khả dụng"}
-        aria-label="Menu công cụ VNRT Online"
-        aria-expanded={isOpen}
-      >
-        <img
-          key={spinCount}
-          src="https://static.wikia.nocookie.net/ep-deo/images/3/3c/Tools_menu.png/revision/latest?cb=20260905055712"
-          alt="Tools"
-          referrerPolicy="no-referrer"
-          onAnimationEnd={() => setIsClickSpinning(false)}
-          className={`w-6 h-6 object-contain topbar-tools-icon transition-transform duration-700 ease-in-out ${
-            isClickSpinning ? 'spin-click' : ''
-          }`}
-        />
-      </button>
+      {/* Tools Trigger Button with Tools icon (rendered when showTrigger is true) */}
+      {showTrigger && (
+        <button
+          id="btn-top-tools-menu"
+          type="button"
+          disabled={!isRelevant}
+          onClick={handleTriggerClick}
+          className="w-10 h-10 rounded-full flex items-center justify-center text-[#18181B] dark:text-white transition-all drop-shadow-sm cursor-default relative group hover:bg-white/10"
+          title={isRelevant ? "Công cụ & Tiện ích VNRT Online (Tools)" : "Không có công cụ khả dụng"}
+          aria-label="Menu công cụ VNRT Online"
+          aria-expanded={isOpen}
+        >
+          <img
+            key={spinCount}
+            src="https://static.wikia.nocookie.net/ep-deo/images/3/3c/Tools_menu.png/revision/latest?cb=20260905055712"
+            alt="Tools"
+            referrerPolicy="no-referrer"
+            onAnimationEnd={() => setIsClickSpinning(false)}
+            className={`w-6 h-6 object-contain topbar-tools-icon transition-transform duration-700 ease-in-out ${
+              isClickSpinning ? 'spin-click' : ''
+            }`}
+          />
+        </button>
+      )}
 
       {/* Floating Popup Menu with Slide Down Bounce Animation */}
       <AnimatePresence>
         {isOpen && isRelevant && (
           <motion.div
             id="vplay-tools-dropdown-card"
-            initial={{ opacity: 0, y: -16, scale: 0.94 }}
+            initial={{ opacity: 0, y: placement === 'bottom' ? 16 : -16, scale: 0.94 }}
             animate={{ opacity: 1, y: 0, scale: 1 }}
-            exit={{ opacity: 0, y: -12, scale: 0.95 }}
+            exit={{ opacity: 0, y: placement === 'bottom' ? 12 : -12, scale: 0.95 }}
             transition={{
               type: "spring",
               stiffness: 420,
               damping: 20,
               mass: 0.75
             }}
-            className="absolute right-0 mt-2 w-72 rounded-[30px] p-3 z-50 select-none text-[#111827] dark:text-white cursor-default origin-top-right overflow-hidden"
+            className={`absolute right-0 ${
+              placement === 'bottom' ? 'bottom-full mb-3.5 origin-bottom-right' : 'mt-2 origin-top-right'
+            } w-72 max-w-[calc(100vw-32px)] rounded-[30px] p-3 z-50 select-none text-[#111827] dark:text-white cursor-default overflow-hidden ${
+              className || ''
+            }`}
           >
-            {/* Menu Items for HOME */}
-          {isHome && (
+            {/* Menu Items for HOME & OTHER PAGES */}
+          {isOther && (
             <div className="space-y-1">
               <button
                 id="tool-home-help"
@@ -293,6 +322,47 @@ export const ToolsMenu: React.FC<ToolsMenuProps> = ({
                   </svg>
                 </div>
                 <span className="text-[#1F2937] dark:text-[#E5E7EB]">Join now</span>
+              </button>
+
+              <button
+                id="tool-home-add-stream"
+                type="button"
+                onClick={() => {
+                  setIsOpen(false);
+                  onOpenAddStream();
+                }}
+                className="w-full flex items-center gap-3 px-3 py-2.5 rounded-xl hover:bg-[#F3F4F6] dark:hover:bg-[#2A2A32] text-sm font-medium transition-colors text-left cursor-default group"
+              >
+                <div className="w-5 h-5 flex items-center justify-center text-[#18181B] dark:text-white shrink-0">
+                  <PlusCircle className="w-[18px] h-[18px]" />
+                </div>
+                <span className="text-[#1F2937] dark:text-[#E5E7EB]">Thêm luồng mới</span>
+              </button>
+
+              <button
+                id="tool-home-import-m3u"
+                type="button"
+                onClick={() => {
+                  fileInputRef.current?.click();
+                }}
+                className="w-full flex items-center gap-3 px-3 py-2.5 rounded-xl hover:bg-[#F3F4F6] dark:hover:bg-[#2A2A32] text-sm font-medium transition-colors text-left cursor-default group"
+              >
+                <div className="w-5 h-5 flex items-center justify-center text-[#18181B] dark:text-white shrink-0">
+                  <UploadCloud className="w-[18px] h-[18px]" />
+                </div>
+                <span className="text-[#1F2937] dark:text-[#E5E7EB]">Nhập file m3u/m3u8</span>
+              </button>
+
+              <button
+                id="tool-home-export-m3u"
+                type="button"
+                onClick={handleExportM3U8}
+                className="w-full flex items-center gap-3 px-3 py-2.5 rounded-xl hover:bg-[#F3F4F6] dark:hover:bg-[#2A2A32] text-sm font-medium transition-colors text-left cursor-default group"
+              >
+                <div className="w-5 h-5 flex items-center justify-center text-[#18181B] dark:text-white shrink-0">
+                  <DownloadCloud className="w-[18px] h-[18px]" />
+                </div>
+                <span className="text-[#1F2937] dark:text-[#E5E7EB]">Xuất file m3u/m3u8</span>
               </button>
 
               <button

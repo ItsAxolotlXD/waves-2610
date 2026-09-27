@@ -2131,7 +2131,6 @@ html.light-mode .immersive-search-input input {
 .floaty-bar__surface {
   position: relative !important;
   min-width: 0 !important;
-  width: auto !important;
   max-width: calc(100vw - 2rem) !important;
   justify-content: space-between;
   overflow: hidden;
@@ -2196,27 +2195,34 @@ html.light-mode .immersive-search-input input {
   background-image: none !important;
 }
 
-/* Floaty bar (tab view bar) & search trigger button: become noticeably brighter on hover */
-.floaty-bar__surface:hover,
-#btn-floaty-search-trigger:hover {
-  background-color: rgba(255, 255, 255, 0.35) !important;
-  box-shadow: 0 14px 44px rgba(0, 0, 0, 0.45), 0 0 28px rgba(255, 255, 255, 0.25) !important;
-  filter: brightness(1.30) !important;
+/* Floaty bar (tab view bar) & search trigger button: keep glass opacity/blur consistent */
+.floaty-bar__surface:hover {
+  background-color: rgba(255, 255, 255, 0.30) !important;
+  box-shadow: 0 14px 44px rgba(0, 0, 0, 0.45) !important;
 }
 
-html.light-mode .floaty-bar__surface:hover,
-html.light-mode #btn-floaty-search-trigger:hover {
-  background-color: rgba(255, 255, 255, 0.75) !important;
-  box-shadow: 0 12px 36px rgba(0, 0, 0, 0.18), 0 0 24px rgba(255, 255, 255, 0.65) !important;
-  filter: brightness(1.15) !important;
+html.light-mode .floaty-bar__surface:hover {
+  background-color: rgba(255, 255, 255, 0.45) !important;
+  box-shadow: 0 12px 36px rgba(0, 0, 0, 0.18) !important;
 }
 
-#floating-search-bar-pill:hover {
+/* Floating Search Bar & Trigger on hover: NEVER alter opacity or blur */
+#floating-search-bar-pill:hover,
+#btn-floaty-search-trigger:hover,
+html.light-mode #floating-search-bar-pill:hover,
+html.light-mode #btn-floaty-search-trigger:hover,
+html.spatial-glass-dark-content #floating-search-bar-pill:hover,
+html.spatial-glass-dark-content #btn-floaty-search-trigger:hover,
+html:not(.no-spatial-glass) #floating-search-bar-pill:hover,
+html:not(.no-spatial-glass) #btn-floaty-search-trigger:hover {
   background: var(--spatial-glass-bg, rgba(255, 255, 255, 0.20)) !important;
   background-color: var(--spatial-glass-bg, rgba(255, 255, 255, 0.20)) !important;
-  box-shadow: 0 12px 36px rgba(0, 0, 0, 0.40) !important;
+  backdrop-filter: blur(var(--spatial-glass-blur, 20px)) !important;
+  -webkit-backdrop-filter: blur(var(--spatial-glass-blur, 20px)) !important;
+  box-shadow: 0 12px 36px rgba(0, 0, 0, 0.35) !important;
   border: none !important;
   filter: none !important;
+  opacity: 1 !important;
 }
 
 #floating-search-bar-pill:hover::after,
@@ -2229,14 +2235,6 @@ html.light-mode #btn-floaty-search-trigger:hover {
   opacity: 1 !important;
 }
 
-html.light-mode #floating-search-bar-pill:hover {
-  background: rgba(0, 0, 0, 0.06) !important;
-  background-color: rgba(0, 0, 0, 0.06) !important;
-  box-shadow: 0 10px 32px rgba(0, 0, 0, 0.18) !important;
-  border: none !important;
-  filter: none !important;
-}
-
 html.light-mode #floating-search-bar-pill:hover::after,
 html.light-mode #btn-floaty-search-trigger:hover::after,
 html.light-mode .floaty-bar__surface:hover::after {
@@ -2246,18 +2244,9 @@ html.light-mode .floaty-bar__surface:hover::after {
   box-shadow: none !important;
 }
 
-html.spatial-glass-dark-content .floaty-bar__surface:hover,
-html.spatial-glass-dark-content #btn-floaty-search-trigger:hover {
-  background-color: rgba(255, 255, 255, 0.55) !important;
-  box-shadow: 0 12px 36px rgba(0, 0, 0, 0.22), 0 0 22px rgba(255, 255, 255, 0.45) !important;
-  filter: brightness(1.20) !important;
-}
-
-html.spatial-glass-dark-content #floating-search-bar-pill:hover {
-  background: rgba(0, 0, 0, 0.06) !important;
-  background-color: rgba(0, 0, 0, 0.06) !important;
-  box-shadow: 0 10px 32px rgba(0, 0, 0, 0.18) !important;
-  border: none !important;
+html.spatial-glass-dark-content .floaty-bar__surface:hover {
+  background-color: rgba(255, 255, 255, 0.40) !important;
+  box-shadow: 0 12px 36px rgba(0, 0, 0, 0.22) !important;
 }
 
 html.spatial-glass-dark-content #floating-search-bar-pill:hover::after,
@@ -2528,15 +2517,41 @@ html.light-mode main .text-\[\#E0E0E6\] {
 }
 
 /* Form controls in light mode */
-html.light-mode input[type="text"],
-html.light-mode input[type="search"],
-html.light-mode input[type="url"],
+html.light-mode input[type="text"]:not(#floating-search-input),
+html.light-mode input[type="search"]:not(#floating-search-input),
+html.light-mode input[type="url"]:not(#floating-search-input),
 html.light-mode input[type="password"],
 html.light-mode textarea,
 html.light-mode select {
   background-color: #FFFFFF !important;
   border-color: #D1D5DB !important;
   color: #111827 !important;
+}
+
+/* Floating Search Bar input text box must NEVER have a background in any mode (light or dark) */
+#floating-search-input,
+#floating-search-bar-pill input,
+#floating-search-bar-pill input[type="text"],
+html.light-mode #floating-search-input,
+html.light-mode #floating-search-bar-pill input,
+html.light-mode #floating-search-bar-pill input[type="text"],
+html.spatial-glass-dark-content #floating-search-input,
+html.spatial-glass-dark-content #floating-search-bar-pill input {
+  background: transparent !important;
+  background-color: transparent !important;
+  background-image: none !important;
+  border: none !important;
+  border-width: 0 !important;
+  box-shadow: none !important;
+  outline: none !important;
+}
+
+html.light-mode #floating-search-input {
+  color: #111827 !important;
+}
+
+html.light-mode #floating-search-input::placeholder {
+  color: rgba(17, 24, 39, 0.60) !important;
 }
 
 html.light-mode select option {
@@ -4336,6 +4351,23 @@ html.light-mode #home-about-community-card p {
   box-shadow: none !important;
   transform: none !important;
   border-radius: 9999px !important;
+  flex-shrink: 0 !important;
+  letter-spacing: normal !important;
+}
+
+.floaty-bar .floaty-bar__item span {
+  display: block !important;
+  white-space: nowrap !important;
+  letter-spacing: -0.01em !important;
+  transform: none !important;
+}
+
+.floaty-bar .floaty-bar__item img,
+.floaty-bar .floaty-bar__item svg,
+.floaty-bar .floaty-bar__item div[style*="mask-image"] {
+  flex-shrink: 0 !important;
+  aspect-ratio: 1 / 1 !important;
+  transform: none !important;
 }
 
 .floaty-bar-pill-indicator {

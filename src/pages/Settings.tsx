@@ -52,7 +52,7 @@ const SETTINGS_GROUP_1: SettingsCategoryItem[] = [
     title: 'Spatial Glass',
     subtitle: 'Hiệu ứng kính mờ, độ trong suốt và độ nhòe thị giác',
     icon: Box,
-    badgeColor: 'bg-gradient-to-b from-[#34C759] to-[#248A3D]',
+    badgeColor: 'bg-gradient-to-b from-[#FF3B30] to-[#C41C10]',
     keywords: ['spatial', 'glass', 'kính', 'opacity', 'trong suốt', 'blur', 'mờ', 'nhòe', 'liquid glass'],
   },
   {
@@ -60,16 +60,16 @@ const SETTINGS_GROUP_1: SettingsCategoryItem[] = [
     title: 'Giao diện',
     subtitle: 'Thanh điều hướng, chế độ ứng dụng, cỡ chữ và ô tìm kiếm',
     icon: Palette,
-    badgeColor: 'bg-gradient-to-b from-[#007AFF] to-[#005bb5]',
+    badgeColor: 'bg-gradient-to-b from-[#34C759] to-[#248A3D]',
     keywords: ['giao diện', 'navigation', 'thanh điều hướng', 'sidebar', 'topbar', 'side view', 'top view', 'floaty', 'tab view', 'chế độ ứng dụng', 'ban ngày', 'ban đêm', 'light mode', 'dark mode', 'chế độ sáng', 'cỡ chữ', 'font', 'thu phóng', 'super dark', 'tối', 'floating search'],
   },
   {
     id: 'accessibility',
     title: 'Trợ năng',
-    subtitle: 'Nội dung tìm kiếm, bàn phím và tổ hợp phím',
+    subtitle: 'Hiệu ứng chuyển động, nội dung tìm kiếm và bàn phím',
     icon: Key,
-    badgeColor: 'bg-gradient-to-b from-[#FF9500] to-[#C96F00]',
-    keywords: ['trợ năng', 'accessibility', 'tìm kiếm', 'nội dung tìm kiếm', 'search', 'spotlight', 'bàn phím', 'keyboard', 'clipboard', 'sound', 'âm thanh', 'tổ hợp phím', 'phím tắt', 'keybinds', 'shortcut'],
+    badgeColor: 'bg-gradient-to-b from-[#007AFF] to-[#005bb5]',
+    keywords: ['trợ năng', 'accessibility', 'chuyển động', 'motion', 'animation', 'reduce all animation', 'giảm chuyển động', 'tìm kiếm', 'nội dung tìm kiếm', 'search', 'spotlight', 'bàn phím', 'keyboard', 'clipboard', 'sound', 'âm thanh', 'tổ hợp phím', 'phím tắt', 'keybinds', 'shortcut'],
   },
 ];
 
@@ -77,10 +77,10 @@ const SETTINGS_GROUP_2: SettingsCategoryItem[] = [
   {
     id: 'tools',
     title: 'Công cụ',
-    subtitle: 'Tỷ lệ khung hình, tự động ẩn thanh bên và hiệu ứng chuyển động',
+    subtitle: 'Tỷ lệ khung hình và tự động ẩn thanh bên',
     icon: Wrench,
     badgeColor: 'bg-gradient-to-b from-[#8E8E93] to-[#636366]',
-    keywords: ['công cụ', 'tools', 'tỉ lệ', '16:9', '4:3', 'auto hide', 'chuyển động', 'motion', 'animation', 'reduce motion', 'giảm chuyển động'],
+    keywords: ['công cụ', 'tools', 'tỉ lệ', '16:9', '4:3', 'auto hide', 'thanh bên', 'side view'],
   },
   {
     id: 'experimental',
@@ -129,7 +129,7 @@ export const Settings: React.FC<SettingsProps> = ({
   const [keybindError, setKeybindError] = useState<{ id: KeybindAction; message: string } | null>(null);
   const inputRef = useRef<HTMLInputElement>(null);
 
-  const shouldAnimateMotion = !draftSettings.reduceAllMotion;
+  const shouldAnimateMotion = !draftSettings.reduceAllMotion && draftSettings.animatePageTransitions;
 
   const updateDraft = <K extends keyof SystemSettings>(key: K, value: SystemSettings[K]) => {
     updateDraftSetting(key, value);
@@ -442,7 +442,7 @@ export const Settings: React.FC<SettingsProps> = ({
               </div>
               <div className="flex items-center justify-between text-xs sm:text-sm">
                 <span className="font-medium text-white">Software Build</span>
-                <span className="font-semibold text-[#9CA3AF]">26V1005</span>
+                <span className="font-semibold text-[#9CA3AF]">26V1006</span>
               </div>
               {/* Compatible with Spatial Glass */}
               <div id="settings-compatible-spatial-glass" className="pt-2.5 mt-1 border-t border-white/10 flex items-center">
@@ -1004,12 +1004,23 @@ export const Settings: React.FC<SettingsProps> = ({
                     </div>
                   </div>
                 </section>
+              </div>
+            )}
 
-                {/* 4.2 Section Chuyển động (Hợp nhất vào trang Trợ năng) */}
+            {/* SUBPAGE: TRỢ NĂNG (HIỆU ỨNG CHUYỂN ĐỘNG, NỘI DUNG TÌM KIẾM, BÀN PHÍM VÀ TỔ HỢP PHÍM) */}
+            {activeCategory === 'accessibility' && (
+              <div className="space-y-6">
+                {/* Section: Chuyển động (Reduce all animation & Sub-options) */}
                 <section 
                   id="settings-section-motion"
                   className="p-5 sm:p-6 rounded-[30px] bg-white/10 backdrop-blur-md shadow-xl space-y-4 border-none"
                 >
+                  <div className="px-3.5 sm:px-4 pt-0.5 pb-1">
+                    <div className="font-bold text-white text-[15px] sm:text-[16px] tracking-tight">
+                      Hiệu ứng chuyển động (Motion)
+                    </div>
+                  </div>
+
                   <div className="space-y-3">
                     {/* Reduce all animation */}
                     <div 
@@ -1137,10 +1148,10 @@ export const Settings: React.FC<SettingsProps> = ({
                       >
                         <div>
                           <div className="font-bold text-white text-sm">
-                            Chuyển trang
+                            Chuyển trang trong Cài đặt
                           </div>
                           <div className="text-xs text-[#9CA3AF] mt-1 leading-normal">
-                            Hiệu ứng trượt lên (slide up) các thành phần khi chuyển giữa các trang.
+                            Hiệu ứng trượt ngang mượt mà khi vào hoặc thoát các mục cài đặt.
                           </div>
                         </div>
 
@@ -1163,13 +1174,8 @@ export const Settings: React.FC<SettingsProps> = ({
                     </div>
                   </div>
                 </section>
-              </div>
-            )}
 
-            {/* SUBPAGE: TRỢ NĂNG (NỘI DUNG TÌM KIẾM, BÀN PHÍM VÀ TỔ HỢP PHÍM) */}
-            {activeCategory === 'accessibility' && (
-              <div className="space-y-6">
-                {/* Section 1: Nội dung Tìm kiếm */}
+                {/* Section 2: Nội dung Tìm kiếm */}
                 <section 
                   id="settings-section-search"
                   className="p-5 sm:p-6 rounded-[30px] bg-white/10 backdrop-blur-md shadow-xl space-y-4 border-none"
