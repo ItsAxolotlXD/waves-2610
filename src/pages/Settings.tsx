@@ -456,7 +456,7 @@ export const Settings: React.FC<SettingsProps> = ({
             </div>
 
             <div className="space-y-2 pt-0.5">
-              {/* Test Vplay Option Card */}
+              {/* Test VNRT Online Option Card */}
               <div className="p-3 sm:p-3.5 rounded-[18px] flex items-center justify-between gap-3 transition-colors hover:bg-white/5">
                 <div>
                   <div className="font-bold text-white text-xs sm:text-sm">
@@ -1715,7 +1715,7 @@ export const Settings: React.FC<SettingsProps> = ({
         )}
       </AnimatePresence>
 
-      {/* Welcome to Vplay / Changelogs Modal Dialog */}
+      {/* Welcome to VNRT Online / Changelogs Modal Dialog */}
       <WelcomeModal
         isOpen={isWelcomeModalOpen}
         onClose={() => setIsWelcomeModalOpen(false)}

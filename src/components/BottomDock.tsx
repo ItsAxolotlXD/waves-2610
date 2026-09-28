@@ -92,6 +92,7 @@ export const BottomDock: React.FC<BottomDockProps> = ({
   const isSpatialGlassActive = (draftSettings?.spatialGlass ?? settings.spatialGlass) !== false;
   const isLightMode = settings.theme === 'light';
   const isDarkContent = isSpatialGlassActive && currentOpacity > 40;
+  const isUnder40 = isSpatialGlassActive && currentOpacity < 40;
 
   const [hoveredId, setHoveredId] = useState<string | null>(null);
   const [gesturingTabId, setGesturingTabId] = useState<string | null>(null);
@@ -318,7 +319,11 @@ export const BottomDock: React.FC<BottomDockProps> = ({
       );
     }
 
-    // Inactive: monochrome white, or monochrome black if opacity > 40% (isDarkContent)
+    // Inactive tab icon:
+    // If spatial glass opacity < 40%, the search icon (and other tab icons) must be black.
+    // Also if opacity > 40% (isDarkContent) or in light mode, it's black.
+    const isBlackIcon = (isSearchTab && isUnder40) || isUnder40 || isDarkContent || isLightMode;
+
     if (hasImage) {
       return (
         <img
@@ -327,7 +332,7 @@ export const BottomDock: React.FC<BottomDockProps> = ({
           referrerPolicy="no-referrer"
           onError={() => setImageErrors((prev) => ({ ...prev, [item.id]: true }))}
           className={`${iconSizeClasses} object-contain shrink-0 transition-all duration-150 ${
-            isDarkContent
+            isBlackIcon
               ? 'brightness-0'
               : 'filter brightness-0 invert'
           } ${isSelectedOrHovered ? 'opacity-100' : 'opacity-75'}`}
@@ -338,7 +343,7 @@ export const BottomDock: React.FC<BottomDockProps> = ({
     return (
       <Icon
         className={`${iconSizeClasses} shrink-0 transition-all duration-150 ${
-          isDarkContent
+          isBlackIcon
             ? 'text-black stroke-black'
             : 'text-white stroke-white'
         } ${isSelectedOrHovered ? 'opacity-100' : 'opacity-75'}`}
@@ -409,7 +414,7 @@ export const BottomDock: React.FC<BottomDockProps> = ({
                   WebkitBackdropFilter: 'blur(var(--spatial-glass-blur, 20px))',
                 }}
                 className={`floaty-bar floaty-bar__surface h-[58px] sm:h-[62px] w-[336px] sm:w-[396px] max-w-[calc(100vw-20px)] flex items-center justify-between gap-0.5 sm:gap-1 px-1.5 sm:px-2 rounded-full shadow-[0_8px_32px_rgba(0,0,0,0.35)] select-none pointer-events-auto overflow-hidden transition-[background-color,border-color,box-shadow] ${
-                  isDarkContent || isLightMode ? 'border border-black/15 text-black' : 'border border-white/10 text-white'
+                  isUnder40 || isDarkContent || isLightMode ? 'border border-black/15 text-black' : 'border border-white/10 text-white'
                 }`}
                 aria-label="Tab View"
               >
@@ -436,8 +441,8 @@ export const BottomDock: React.FC<BottomDockProps> = ({
                           active
                             ? (isLightMode ? 'is-active text-black z-20' : 'is-active text-white z-20')
                             : isSelectedOrHovered
-                              ? (isDarkContent ? 'text-black z-10' : 'text-white z-10')
-                              : (isDarkContent ? 'text-black/75 hover:text-black hover:bg-black/5 z-10' : 'text-white/75 hover:text-white hover:bg-white/10 z-10')
+                              ? (isUnder40 || isDarkContent || isLightMode ? 'text-black z-10' : 'text-white z-10')
+                              : (isUnder40 || isDarkContent || isLightMode ? 'text-black/75 hover:text-black hover:bg-black/5 z-10' : 'text-white/75 hover:text-white hover:bg-white/10 z-10')
                         }`}
                       >
                         {active && (
@@ -464,9 +469,9 @@ export const BottomDock: React.FC<BottomDockProps> = ({
                             className={`text-[8px] sm:text-[8.5px] font-semibold leading-none tracking-tight transition-colors duration-150 select-none text-center whitespace-nowrap block mt-0.5 -translate-y-[1.5px] ${
                               active
                                 ? (isLightMode ? 'font-bold text-black' : 'font-bold text-white')
-                                : isDarkContent
-                                  ? 'text-black/75 group-hover:text-black'
-                                  : 'text-white/75 group-hover:text-white'
+                                : isUnder40 || isDarkContent || isLightMode
+                                  ? 'text-black/85 group-hover:text-black'
+                                  : 'text-white/85 group-hover:text-white'
                             }`}
                           >
                             {item.label}

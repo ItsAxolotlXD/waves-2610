@@ -117,7 +117,11 @@ export const OnAirSlider: React.FC<OnAirSliderProps> = ({
                 src={ch.logo}
                 alt={ch.name}
                 referrerPolicy="no-referrer"
-                className="max-h-6 sm:max-h-7 md:max-h-7.5 max-w-[82%] w-auto object-contain filter drop-shadow-sm transition-transform duration-300 group-hover:scale-105"
+                className={`${
+                  ch.category === 'Kênh địa phương' || ch.category === 'Kênh phát thanh' || ch.category === 'Kênh HTV'
+                    ? 'max-h-7 sm:max-h-8 md:max-h-9 max-w-[92%] scale-110'
+                    : 'max-h-6 sm:max-h-7 md:max-h-7.5 max-w-[82%]'
+                } w-auto object-contain filter drop-shadow-sm transition-transform duration-300 group-hover:scale-105`}
                 onError={(e) => {
                   (e.target as HTMLElement).style.display = 'none';
                 }}

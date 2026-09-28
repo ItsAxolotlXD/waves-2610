@@ -26,6 +26,7 @@ import { CHANNELS_DATA } from '../data/channels';
 import { Channel } from '../types';
 import { DiscordWelcomeModal } from './DiscordWelcomeModal';
 
+const LOGO_SRC = 'https://static.wikia.nocookie.net/ep-deo/images/4/4b/Vplay_no_wordmark.png/revision/latest/scale-to-width-down/1000?cb=20260829062616';
 const SETTINGS_ICON_SRC = 'https://static.wikia.nocookie.net/ftv/images/9/97/Settungs.png/revision/latest?cb=20260411085024&path-prefix=vi';
 
 interface SidebarProps {
@@ -133,7 +134,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
           >
             {!logoError ? (
               <img 
-                src="https://static.wikia.nocookie.net/ep-deo/images/e/ed/New_Vplay.png/revision/latest?cb=20260906031000"
+                src={LOGO_SRC}
                 alt="VNRT Online Logo" 
                 referrerPolicy="no-referrer"
                 className="h-8 max-w-[125px] w-auto object-contain shrink-0"
@@ -494,7 +495,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
                 >
                   {!logoError ? (
                     <img 
-                      src="https://static.wikia.nocookie.net/ep-deo/images/e/ed/New_Vplay.png/revision/latest?cb=20260906031000" 
+                      src={LOGO_SRC} 
                       alt="VNRT Online Logo - Mở rộng menu" 
                       referrerPolicy="no-referrer"
                       className="w-8 h-8 object-contain shrink-0 drop-shadow-sm hover:drop-shadow-[0_0_8px_rgba(230,0,90,0.5)] transition-all"

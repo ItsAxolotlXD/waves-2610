@@ -144,7 +144,6 @@ html:not(.light-mode) #btn-top-search img,
 html:not(.light-mode) #btn-spotlight-search-mini img,
 html:not(.light-mode) #btn-spotlight-search-desktop img,
 html:not(.light-mode) .spotlight-bubble-box img,
-html:not(.light-mode) #dock-search img,
 html:not(.light-mode) #dock-spotlight-btn img {
   filter: brightness(0) invert(1) !important;
 }
@@ -662,7 +661,7 @@ html.light-mode #immersive-search-page .text-\[\#E0D8E2\] {
 }
 
 /* ==========================================================================
-   SPATIAL GLASS DESIGN SYSTEM (Vplay 26.9 - Developer Beta 6)
+   SPATIAL GLASS DESIGN SYSTEM (VNRT Online 26.9 - Developer Beta 6)
    ========================================================================== */
 
 /* Spatial Glass Capsule / Surface Style for Controls & Action Buttons */
@@ -4554,6 +4553,8 @@ html.spatial-glass-dark-content #vplay-tools-dropdown-card {
 html.spatial-glass-dark-content .floaty-bar__arrow,
 html.spatial-glass-dark-content .floaty-bar__item:not(.is-active),
 html.spatial-glass-dark-content .floaty-bar__item:not(.is-active) button,
+html.spatial-glass-under-40 .floaty-bar__item:not(.is-active),
+html.spatial-glass-under-40 .floaty-bar__item:not(.is-active) button,
 html.spatial-glass-dark-content #btn-floaty-search-trigger,
 html.light-mode .floaty-bar__item:not(.is-active),
 html.light-mode .floaty-bar__item:not(.is-active) button {
@@ -4562,6 +4563,7 @@ html.light-mode .floaty-bar__item:not(.is-active) button {
 
 html.spatial-glass-dark-content .floaty-bar__arrow svg,
 html.spatial-glass-dark-content .floaty-bar__item:not(.is-active) svg,
+html.spatial-glass-under-40 .floaty-bar__item:not(.is-active) svg,
 html.spatial-glass-dark-content #btn-floaty-search-trigger svg,
 html.light-mode .floaty-bar__item:not(.is-active) svg {
   stroke: #000000 !important;
@@ -4569,6 +4571,8 @@ html.light-mode .floaty-bar__item:not(.is-active) svg {
 
 /* Invert image icons back to black only for inactive tabs or trigger */
 html.spatial-glass-dark-content .floaty-bar__item:not(.is-active) img,
+html.spatial-glass-under-40 .floaty-bar__item:not(.is-active) img,
+html.spatial-glass-under-40 #dock-search img,
 html.spatial-glass-dark-content #btn-floaty-search-trigger img,
 html.spatial-glass-dark-content #floating-search-bar-container img,
 html.light-mode .floaty-bar__item:not(.is-active) img {

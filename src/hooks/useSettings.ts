@@ -198,7 +198,9 @@ export const applySystemSettings = (settings: SystemSettings) => {
   const opacity = typeof settings.spatialGlassOpacity === 'number' ? settings.spatialGlassOpacity : 20;
   const blur = typeof settings.spatialGlassBlur === 'number' ? settings.spatialGlassBlur : 10;
   const isDarkContent = isSpatialGlassActive && opacity > 40;
+  const isUnder40 = isSpatialGlassActive && opacity < 40;
   document.documentElement.classList.toggle('spatial-glass-dark-content', isDarkContent);
+  document.documentElement.classList.toggle('spatial-glass-under-40', isUnder40);
 
   if (!isSpatialGlassActive) {
     document.documentElement.classList.add('no-spatial-glass', 'no-shiny-outline');
@@ -306,7 +308,9 @@ export const updateDraftSetting = <K extends keyof SystemSettings>(key: K, value
       const opacity = draftSettingsStore.spatialGlassOpacity ?? 20;
       const blur = draftSettingsStore.spatialGlassBlur ?? 10;
       const isDarkContent = isAct && opacity > 40;
+      const isUnder40 = isAct && opacity < 40;
       document.documentElement.classList.toggle('spatial-glass-dark-content', isDarkContent);
+      document.documentElement.classList.toggle('spatial-glass-under-40', isUnder40);
 
       if (!isAct) {
         document.documentElement.style.setProperty('--spatial-glass-opacity', '0');

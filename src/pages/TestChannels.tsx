@@ -234,10 +234,12 @@ export const TestChannels: React.FC<TestChannelsProps> = ({
                             className={`${
                               ch.id === 'vtv6'
                                 ? 'max-h-[66%] max-w-[88%] scale-110'
-                                : ch.category === 'Kênh VTV'
-                                  ? 'max-h-[56%] max-w-[80%]'
-                                  : 'max-h-[58%] max-w-[82%]'
-                            } w-auto h-auto object-contain filter drop-shadow-sm select-none pointer-events-none`}
+                                : ch.category === 'Kênh địa phương' || ch.category === 'Kênh phát thanh' || ch.category === 'Kênh HTV'
+                                  ? 'max-h-[78%] max-w-[92%] scale-110'
+                                  : ch.category === 'Kênh VTV'
+                                    ? 'max-h-[56%] max-w-[80%]'
+                                    : 'max-h-[58%] max-w-[82%]'
+                            } w-auto h-auto object-contain filter drop-shadow-sm select-none pointer-events-none transition-transform`}
                             onError={(e) => {
                               const target = e.target as HTMLImageElement;
                               const orig = channels.find((origCh) => origCh.id === ch.id)?.logo;

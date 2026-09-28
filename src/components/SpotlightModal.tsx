@@ -583,8 +583,12 @@ export const SpotlightModal: React.FC<SpotlightModalProps> = ({
                                   src={ch.logo}
                                   alt={ch.name}
                                   referrerPolicy="no-referrer"
-                                  className={`max-w-full max-h-full object-contain ${
-                                    ch.id === 'vtv1' || ch.id === 'vtv3' ? 'scale-[0.90]' : ''
+                                  className={`max-w-full max-h-full object-contain transition-transform ${
+                                    ch.category === 'Kênh địa phương' || ch.category === 'Kênh phát thanh' || ch.category === 'Kênh HTV'
+                                      ? 'scale-115'
+                                      : ch.id === 'vtv1' || ch.id === 'vtv3'
+                                        ? 'scale-[0.90]'
+                                        : ''
                                   }`}
                                 />
                               </div>

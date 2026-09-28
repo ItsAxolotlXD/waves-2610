@@ -49,8 +49,12 @@ export const ChannelCard: React.FC<ChannelCardProps> = ({
             src={channel.logo}
             alt={channel.name}
             referrerPolicy="no-referrer"
-            className={`w-full h-full object-contain filter drop-shadow-sm ${
-              channel.category === 'Kênh VTV' ? 'scale-[0.96] p-0.5' : ''
+            className={`w-full h-full object-contain filter drop-shadow-sm transition-transform ${
+              channel.category === 'Kênh địa phương' || channel.category === 'Kênh phát thanh' || channel.category === 'Kênh HTV'
+                ? 'scale-115'
+                : channel.category === 'Kênh VTV'
+                  ? 'scale-[0.96] p-0.5'
+                  : ''
             }`}
             onError={(e) => {
               // Graceful fallback to stylish initial badge if image link has network issues

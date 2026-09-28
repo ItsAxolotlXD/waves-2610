@@ -357,8 +357,12 @@ export const ImmersiveSearch: React.FC<ImmersiveSearchProps> = ({
                               src={ch.logo}
                               alt={ch.name}
                               referrerPolicy="no-referrer"
-                              className={`w-full h-full object-contain filter drop-shadow-sm ${
-                                ch.id === 'vtv1' || ch.id === 'vtv3' ? 'scale-[0.90]' : ''
+                              className={`w-full h-full object-contain filter drop-shadow-sm transition-transform ${
+                                ch.category === 'Kênh địa phương' || ch.category === 'Kênh phát thanh' || ch.category === 'Kênh HTV'
+                                  ? 'scale-115'
+                                  : ch.id === 'vtv1' || ch.id === 'vtv3'
+                                    ? 'scale-[0.90]'
+                                    : ''
                               }`}
                               onError={(e) => {
                                 (e.target as HTMLElement).style.display = 'none';

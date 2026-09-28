@@ -155,10 +155,12 @@ export const LiveTV: React.FC<LiveTVProps> = ({
                             alt={ch.name}
                             referrerPolicy="no-referrer"
                             className={`${
-                              ch.category === 'Kênh VTV'
-                                ? 'max-h-[56%] max-w-[80%]'
-                                : 'max-h-[58%] max-w-[82%]'
-                            } w-auto h-auto object-contain filter drop-shadow-sm select-none pointer-events-none`}
+                              ch.category === 'Kênh địa phương' || ch.category === 'Kênh phát thanh' || ch.category === 'Kênh HTV'
+                                ? 'max-h-[78%] max-w-[92%] scale-110'
+                                : ch.category === 'Kênh VTV'
+                                  ? 'max-h-[56%] max-w-[80%]'
+                                  : 'max-h-[58%] max-w-[82%]'
+                            } w-auto h-auto object-contain filter drop-shadow-sm select-none pointer-events-none transition-transform`}
                             onError={(e) => {
                               (e.target as HTMLElement).style.display = 'none';
                             }}
