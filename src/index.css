@@ -122,6 +122,7 @@ html.light-mode #btn-top-search img,
 html.light-mode #btn-spotlight-search-mini img,
 html.light-mode #btn-spotlight-search-desktop img,
 html.light-mode .spotlight-bubble-box img,
+html.light-mode #dock-search img,
 html.light-mode #dock-spotlight-btn img {
   filter: brightness(0) !important;
   opacity: 0.85 !important;
@@ -143,6 +144,7 @@ html:not(.light-mode) #btn-top-search img,
 html:not(.light-mode) #btn-spotlight-search-mini img,
 html:not(.light-mode) #btn-spotlight-search-desktop img,
 html:not(.light-mode) .spotlight-bubble-box img,
+html:not(.light-mode) #dock-search img,
 html:not(.light-mode) #dock-spotlight-btn img {
   filter: brightness(0) invert(1) !important;
 }
@@ -1796,16 +1798,16 @@ button *,
 }
 
 /* Global Button Hover Bounce for general buttons across the app */
-button:not(:disabled):not([role="switch"]):not([id^="toggle-"]):not(#btn-sidebar-collapse):not(#btn-sidebar-expand):not(#btn-sidebar-expand-logo):not(#btn-mobile-sidebar-close):not(#btn-sidebar-back):not(#btn-top-tools-menu):not(#btn-top-search):not(#btn-top-notifications):not(#btn-top-light-mode):not(#btn-top-settings-apply-checkbox):not(#btn-mobile-menu-toggle):not(#btn-topbar-nav-tv):not(#btn-topbar-nav-news):not(#slider-prev-btn):not(#slider-next-btn):not(#dock-spotlight-btn):not(#dock-home):not(#dock-tv):not(#dock-news):not(#dock-settings):not(#btn-discord-close):not(#btn-welcome-close-icon):not(#btn-discord-join):not(#btn-welcome-close):not(#btn-under-construction-close):not(#btn-changelogs-read):not(#btn-test-vplay-switch):not(#btn-hero-watch-now):not(#btn-theme-light):not(#btn-theme-dark):not(#livetv-category-tabs button):not([id^="livetv-cat-btn-"]):not(#news-category-tabs button):not([id^="news-cat-btn-"]):not([id^="video-player-"]):not(.video-player-glass-btn):not(.video-player-live-badge):not(.video-player-accent-btn):not(.glass-player-btn):not(.glass-player-center-play):not(.glass-player-center-seek):not([id^="nav-item-"]):not([id^="mobile-nav-item-"]) {
+button:not(:disabled):not([role="switch"]):not([id^="toggle-"]):not(#btn-sidebar-collapse):not(#btn-sidebar-expand):not(#btn-sidebar-expand-logo):not(#btn-mobile-sidebar-close):not(#btn-sidebar-back):not(#btn-top-tools-menu):not(#btn-top-search):not(#btn-top-notifications):not(#btn-top-light-mode):not(#btn-top-settings-apply-checkbox):not(#btn-mobile-menu-toggle):not(#btn-topbar-nav-tv):not(#btn-topbar-nav-news):not(#slider-prev-btn):not(#slider-next-btn):not(#dock-spotlight-btn):not(#dock-search):not(#dock-home):not(#dock-tv):not(#dock-news):not(#dock-settings):not(#dock-more):not(#btn-discord-close):not(#btn-welcome-close-icon):not(#btn-discord-join):not(#btn-welcome-close):not(#btn-under-construction-close):not(#btn-changelogs-read):not(#btn-test-vplay-switch):not(#btn-hero-watch-now):not(#btn-theme-light):not(#btn-theme-dark):not(#livetv-category-tabs button):not([id^="livetv-cat-btn-"]):not(#news-category-tabs button):not([id^="news-cat-btn-"]):not([id^="video-player-"]):not(.video-player-glass-btn):not(.video-player-live-badge):not(.video-player-accent-btn):not(.glass-player-btn):not(.glass-player-center-play):not(.glass-player-center-seek):not([id^="nav-item-"]):not([id^="mobile-nav-item-"]) {
   transform: scale(1);
   transition: transform 0.38s cubic-bezier(0.34, 1.65, 0.64, 1), box-shadow 0.2s ease, background-color 0.15s ease, color 0.15s ease;
 }
 
-button:not(:disabled):not([role="switch"]):not([id^="toggle-"]):not(#btn-sidebar-collapse):not(#btn-sidebar-expand):not(#btn-sidebar-expand-logo):not(#btn-mobile-sidebar-close):not(#btn-sidebar-back):not(#btn-top-tools-menu):not(#btn-top-search):not(#btn-top-notifications):not(#btn-top-light-mode):not(#btn-top-settings-apply-checkbox):not(#btn-mobile-menu-toggle):not(#btn-topbar-nav-tv):not(#btn-topbar-nav-news):not(#slider-prev-btn):not(#slider-next-btn):not(#dock-spotlight-btn):not(#dock-home):not(#dock-tv):not(#dock-news):not(#dock-settings):not(#btn-discord-close):not(#btn-welcome-close-icon):not(#btn-discord-join):not(#btn-welcome-close):not(#btn-under-construction-close):not(#btn-changelogs-read):not(#btn-test-vplay-switch):not(#btn-hero-watch-now):not(#btn-theme-light):not(#btn-theme-dark):not(#livetv-category-tabs button):not([id^="livetv-cat-btn-"]):not(#news-category-tabs button):not([id^="news-cat-btn-"]):not([id^="video-player-"]):not(.video-player-glass-btn):not(.video-player-live-badge):not(.video-player-accent-btn):not(.glass-player-btn):not(.glass-player-center-play):not(.glass-player-center-seek):not([id^="nav-item-"]):not([id^="mobile-nav-item-"]):hover {
+button:not(:disabled):not([role="switch"]):not([id^="toggle-"]):not(#btn-sidebar-collapse):not(#btn-sidebar-expand):not(#btn-sidebar-expand-logo):not(#btn-mobile-sidebar-close):not(#btn-sidebar-back):not(#btn-top-tools-menu):not(#btn-top-search):not(#btn-top-notifications):not(#btn-top-light-mode):not(#btn-top-settings-apply-checkbox):not(#btn-mobile-menu-toggle):not(#btn-topbar-nav-tv):not(#btn-topbar-nav-news):not(#slider-prev-btn):not(#slider-next-btn):not(#dock-spotlight-btn):not(#dock-search):not(#dock-home):not(#dock-tv):not(#dock-news):not(#dock-settings):not(#dock-more):not(#btn-discord-close):not(#btn-welcome-close-icon):not(#btn-discord-join):not(#btn-welcome-close):not(#btn-under-construction-close):not(#btn-changelogs-read):not(#btn-test-vplay-switch):not(#btn-hero-watch-now):not(#btn-theme-light):not(#btn-theme-dark):not(#livetv-category-tabs button):not([id^="livetv-cat-btn-"]):not(#news-category-tabs button):not([id^="news-cat-btn-"]):not([id^="video-player-"]):not(.video-player-glass-btn):not(.video-player-live-badge):not(.video-player-accent-btn):not(.glass-player-btn):not(.glass-player-center-play):not(.glass-player-center-seek):not([id^="nav-item-"]):not([id^="mobile-nav-item-"]):hover {
   transform: scale(1.06);
 }
 
-button:not(:disabled):not([role="switch"]):not([id^="toggle-"]):not(#btn-sidebar-collapse):not(#btn-sidebar-expand):not(#btn-sidebar-expand-logo):not(#btn-mobile-sidebar-close):not(#btn-sidebar-back):not(#btn-top-tools-menu):not(#btn-top-search):not(#btn-top-notifications):not(#btn-top-light-mode):not(#btn-top-settings-apply-checkbox):not(#btn-mobile-menu-toggle):not(#btn-topbar-nav-tv):not(#btn-topbar-nav-news):not(#slider-prev-btn):not(#slider-next-btn):not(#dock-spotlight-btn):not(#dock-home):not(#dock-tv):not(#dock-news):not(#dock-settings):not(#btn-discord-close):not(#btn-welcome-close-icon):not(#btn-discord-join):not(#btn-welcome-close):not(#btn-under-construction-close):not(#btn-changelogs-read):not(#btn-test-vplay-switch):not(#btn-hero-watch-now):not(#btn-theme-light):not(#btn-theme-dark):not(#livetv-category-tabs button):not([id^="livetv-cat-btn-"]):not(#news-category-tabs button):not([id^="news-cat-btn-"]):not([id^="video-player-"]):not(.video-player-glass-btn):not(.video-player-live-badge):not(.video-player-accent-btn):not(.glass-player-btn):not(.glass-player-center-play):not(.glass-player-center-seek):not([id^="nav-item-"]):not([id^="mobile-nav-item-"]):active {
+button:not(:disabled):not([role="switch"]):not([id^="toggle-"]):not(#btn-sidebar-collapse):not(#btn-sidebar-expand):not(#btn-sidebar-expand-logo):not(#btn-mobile-sidebar-close):not(#btn-sidebar-back):not(#btn-top-tools-menu):not(#btn-top-search):not(#btn-top-notifications):not(#btn-top-light-mode):not(#btn-top-settings-apply-checkbox):not(#btn-mobile-menu-toggle):not(#btn-topbar-nav-tv):not(#btn-topbar-nav-news):not(#slider-prev-btn):not(#slider-next-btn):not(#dock-spotlight-btn):not(#dock-search):not(#dock-home):not(#dock-tv):not(#dock-news):not(#dock-settings):not(#dock-more):not(#btn-discord-close):not(#btn-welcome-close-icon):not(#btn-discord-join):not(#btn-welcome-close):not(#btn-under-construction-close):not(#btn-changelogs-read):not(#btn-test-vplay-switch):not(#btn-hero-watch-now):not(#btn-theme-light):not(#btn-theme-dark):not(#livetv-category-tabs button):not([id^="livetv-cat-btn-"]):not(#news-category-tabs button):not([id^="news-cat-btn-"]):not([id^="video-player-"]):not(.video-player-glass-btn):not(.video-player-live-badge):not(.video-player-accent-btn):not(.glass-player-btn):not(.glass-player-center-play):not(.glass-player-center-seek):not([id^="nav-item-"]):not([id^="mobile-nav-item-"]):active {
   transform: scale(0.95);
   transition: transform 0.1s ease-out;
 }
@@ -2174,7 +2176,7 @@ html.light-mode .immersive-search-input input {
 
 #floating-search-bar-pill {
   position: relative !important;
-  height: 64px !important;
+  height: 52px !important;
   background-color: var(--spatial-glass-bg, rgba(255, 255, 255, 0.20)) !important;
   background-image: none !important;
   box-shadow: 0 8px 32px rgba(0, 0, 0, 0.35) !important;
@@ -2193,31 +2195,28 @@ html.light-mode .immersive-search-input input {
   background-image: none !important;
 }
 
-/* Floaty bar (tab view bar) & search trigger button: keep glass opacity/blur consistent */
-.floaty-bar__surface:hover {
-  background-color: rgba(255, 255, 255, 0.30) !important;
-  box-shadow: 0 14px 44px rgba(0, 0, 0, 0.45) !important;
-}
-
-html.light-mode .floaty-bar__surface:hover {
-  background-color: rgba(255, 255, 255, 0.45) !important;
-  box-shadow: 0 12px 36px rgba(0, 0, 0, 0.18) !important;
-}
-
-/* Floating Search Bar & Trigger on hover: NEVER alter opacity or blur */
+/* Floaty bar (tab view bar) & floating search bar: brighten on hover */
+.floaty-bar__surface:hover,
 #floating-search-bar-pill:hover,
-#btn-floaty-search-trigger:hover,
-html.light-mode #floating-search-bar-pill:hover,
-html.light-mode #btn-floaty-search-trigger:hover,
-html.spatial-glass-dark-content #floating-search-bar-pill:hover,
-html.spatial-glass-dark-content #btn-floaty-search-trigger:hover,
-html:not(.no-spatial-glass) #floating-search-bar-pill:hover,
-html:not(.no-spatial-glass) #btn-floaty-search-trigger:hover {
-  background: var(--spatial-glass-bg, rgba(255, 255, 255, 0.20)) !important;
-  background-color: var(--spatial-glass-bg, rgba(255, 255, 255, 0.20)) !important;
+#btn-floaty-search-trigger:hover {
+  background: rgba(255, 255, 255, 0.32) !important;
+  background-color: rgba(255, 255, 255, 0.32) !important;
   backdrop-filter: blur(var(--spatial-glass-blur, 20px)) !important;
   -webkit-backdrop-filter: blur(var(--spatial-glass-blur, 20px)) !important;
-  box-shadow: 0 12px 36px rgba(0, 0, 0, 0.35) !important;
+  box-shadow: 0 14px 44px rgba(0, 0, 0, 0.45), 0 0 25px rgba(255, 255, 255, 0.15) !important;
+  border: none !important;
+  filter: none !important;
+  opacity: 1 !important;
+}
+
+html.light-mode .floaty-bar__surface:hover,
+html.light-mode #floating-search-bar-pill:hover,
+html.light-mode #btn-floaty-search-trigger:hover {
+  background: rgba(255, 255, 255, 0.60) !important;
+  background-color: rgba(255, 255, 255, 0.60) !important;
+  backdrop-filter: blur(var(--spatial-glass-blur, 20px)) !important;
+  -webkit-backdrop-filter: blur(var(--spatial-glass-blur, 20px)) !important;
+  box-shadow: 0 14px 40px rgba(0, 0, 0, 0.14), 0 0 24px rgba(255, 255, 255, 0.70) !important;
   border: none !important;
   filter: none !important;
   opacity: 1 !important;
@@ -2226,7 +2225,7 @@ html:not(.no-spatial-glass) #btn-floaty-search-trigger:hover {
 #floating-search-bar-pill:hover::after,
 #btn-floaty-search-trigger:hover::after,
 .floaty-bar__surface:hover::after {
-  border: 1px solid rgba(255, 255, 255, 0.35) !important;
+  border: 1px solid rgba(255, 255, 255, 0.50) !important;
   background: transparent !important;
   background-image: none !important;
   box-shadow: none !important;
@@ -2236,15 +2235,23 @@ html:not(.no-spatial-glass) #btn-floaty-search-trigger:hover {
 html.light-mode #floating-search-bar-pill:hover::after,
 html.light-mode #btn-floaty-search-trigger:hover::after,
 html.light-mode .floaty-bar__surface:hover::after {
-  border: 1px solid rgba(0, 0, 0, 0.18) !important;
+  border: 1px solid rgba(0, 0, 0, 0.20) !important;
   background: transparent !important;
   background-image: none !important;
   box-shadow: none !important;
 }
 
-html.spatial-glass-dark-content .floaty-bar__surface:hover {
-  background-color: rgba(255, 255, 255, 0.40) !important;
-  box-shadow: 0 12px 36px rgba(0, 0, 0, 0.22) !important;
+html.spatial-glass-dark-content .floaty-bar__surface:hover,
+html.spatial-glass-dark-content #floating-search-bar-pill:hover,
+html.spatial-glass-dark-content #btn-floaty-search-trigger:hover {
+  background: rgba(255, 255, 255, 0.44) !important;
+  background-color: rgba(255, 255, 255, 0.44) !important;
+  backdrop-filter: blur(var(--spatial-glass-blur, 20px)) !important;
+  -webkit-backdrop-filter: blur(var(--spatial-glass-blur, 20px)) !important;
+  box-shadow: 0 14px 40px rgba(0, 0, 0, 0.22), 0 0 20px rgba(255, 255, 255, 0.35) !important;
+  border: none !important;
+  filter: none !important;
+  opacity: 1 !important;
 }
 
 html.spatial-glass-dark-content #floating-search-bar-pill:hover::after,
@@ -2257,7 +2264,7 @@ html.spatial-glass-dark-content .floaty-bar__surface:hover::after {
 
 @media (min-width: 640px) {
   #floating-search-bar-pill {
-    height: 64px !important;
+    height: 56px !important;
   }
 }
 
@@ -4920,10 +4927,12 @@ html.no-spatial-glass #btn-test-vplay-switch,
 html.no-spatial-glass #btn-welcome-close,
 html.no-spatial-glass #btn-under-construction-close,
 html.no-spatial-glass #dock-spotlight-btn,
+html.no-spatial-glass #dock-search,
 html.no-spatial-glass #dock-home,
 html.no-spatial-glass #dock-tv,
 html.no-spatial-glass #dock-news,
 html.no-spatial-glass #dock-settings,
+html.no-spatial-glass #dock-more,
 html.no-spatial-glass #livetv-category-tabs button,
 html.no-spatial-glass #news-category-tabs button,
 html.no-spatial-glass [id^="btn-"],
@@ -4964,10 +4973,12 @@ html.no-shiny-outline #btn-test-vplay-switch,
 html.no-shiny-outline #btn-welcome-close,
 html.no-shiny-outline #btn-under-construction-close,
 html.no-shiny-outline #dock-spotlight-btn,
+html.no-shiny-outline #dock-search,
 html.no-shiny-outline #dock-home,
 html.no-shiny-outline #dock-tv,
 html.no-shiny-outline #dock-news,
 html.no-shiny-outline #dock-settings,
+html.no-shiny-outline #dock-more,
 html.no-shiny-outline #livetv-category-tabs button,
 html.no-shiny-outline #news-category-tabs button,
 html.no-shiny-outline [id^="btn-"],

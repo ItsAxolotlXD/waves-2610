@@ -277,14 +277,15 @@ export const FloatingSearchBar: React.FC<FloatingSearchBarProps> = ({
       id="floating-search-bar-pill"
       onClick={() => inputRef.current?.focus()}
       whileHover={{
-        scale: 1.02,
+        scale: 1.025,
         transition: {
           type: 'spring',
-          stiffness: 450,
-          damping: 16,
+          stiffness: 420,
+          damping: 15,
           mass: 0.6
         }
       }}
+      whileTap={{ scale: 0.98 }}
       transition={{
         type: 'spring',
         stiffness: 580,
@@ -296,7 +297,7 @@ export const FloatingSearchBar: React.FC<FloatingSearchBarProps> = ({
         backdropFilter: 'blur(var(--spatial-glass-blur, 20px))',
         WebkitBackdropFilter: 'blur(var(--spatial-glass-blur, 20px))',
       }}
-      className={`group relative flex items-center overflow-hidden w-[280px] sm:w-[330px] h-[58px] sm:h-[62px] px-3.5 sm:px-4 rounded-full cursor-text shadow-[0_8px_32px_rgba(0,0,0,0.35)] pointer-events-auto ${
+      className={`group relative flex items-center overflow-hidden w-[336px] sm:w-[396px] max-w-[calc(100vw-20px)] h-[52px] sm:h-[56px] px-3.5 sm:px-4 rounded-full cursor-text shadow-[0_8px_32px_rgba(0,0,0,0.35)] pointer-events-auto ${
         isDarkContent ? 'border border-black/15 text-black' : 'border border-white/10 text-white'
       } ${
         isFocused || isListening

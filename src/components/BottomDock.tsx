@@ -4,6 +4,7 @@ import {
   Home,
   Tv,
   Megaphone,
+  Search,
   Settings as SettingsIcon,
   LayoutGrid
 } from 'lucide-react';
@@ -54,6 +55,7 @@ const DOCK_TABS: TabItem[] = [
   { id: 'dock-tv', label: 'Watch', route: '/live-tv', image: WATCH_ICON, icon: Tv },
   { id: 'dock-news', label: 'Articles', route: '/news', image: NEWS_ICON, icon: Megaphone },
   { id: 'dock-settings', label: 'Settings', route: '/settings', image: SETTINGS_ICON, icon: SettingsIcon },
+  { id: 'dock-search', label: 'Search', isAction: true, image: SF_SEARCH_ICON_URL, icon: Search },
   { id: 'dock-more', label: 'More', isAction: true, image: MORE_ICON, icon: LayoutGrid },
 ];
 
@@ -163,7 +165,8 @@ export const BottomDock: React.FC<BottomDockProps> = ({
         target.closest('#vplay-native-keyboard') ||
         target.closest('#floating-search-bar-pill') ||
         target.closest('#floating-search-bar-container') ||
-        target.closest('#btn-floaty-search-trigger')
+        target.closest('#dock-search') ||
+        target.closest('#dock-spotlight-btn')
       ) {
         return;
       }
@@ -192,7 +195,7 @@ export const BottomDock: React.FC<BottomDockProps> = ({
   };
 
   const activeRouteTab = DOCK_TABS.find((t) => t.route && isActive(t.route)) || DOCK_TABS[0];
-  const currentActiveId = gesturingTabId || (isToolsOpen ? 'dock-more' : activeRouteTab.id);
+  const currentActiveId = gesturingTabId || (isToolsOpen ? 'dock-more' : (isSearchOpen ? 'dock-search' : activeRouteTab.id));
 
   // Real-time gesture tracking: finger sliding horizontally across floaty bar updates active tab indicator
   const getTabFromTouch = (touch: React.Touch | Touch): string | null => {
@@ -246,6 +249,11 @@ export const BottomDock: React.FC<BottomDockProps> = ({
       setIsToolsOpen((prev) => !prev);
       return;
     }
+    if (item.id === 'dock-search' || item.id === 'dock-spotlight-btn') {
+      setIsToolsOpen(false);
+      setIsSearchOpen(true);
+      return;
+    }
     setIsToolsOpen(false);
     if (item.route) {
       navigate(item.route);
@@ -274,9 +282,12 @@ export const BottomDock: React.FC<BottomDockProps> = ({
     const Icon = item.icon;
     const hasImage = !!item.image && !imageErrors[item.id];
     const isWatchTab = item.id === 'dock-tv';
+    const isSearchTab = item.id === 'dock-search' || item.id === 'dock-spotlight-btn';
     const iconSizeClasses = isWatchTab
       ? 'w-[24px] h-[24px] sm:w-[26.5px] sm:h-[26.5px]'
-      : 'w-[28px] h-[28px] sm:w-[31px] sm:h-[31px]';
+      : isSearchTab
+        ? 'w-[24px] h-[24px] sm:w-[26.5px] sm:h-[26.5px]'
+        : 'w-[28px] h-[28px] sm:w-[31px] sm:h-[31px]';
 
     if (active) {
       const activeColor = isLightMode ? '#000000' : '#FFFFFF';
@@ -337,7 +348,6 @@ export const BottomDock: React.FC<BottomDockProps> = ({
 
   return (
     <>
-
       {/* 1. Progressive Blur Layer at the bottom */}
       <div 
         id="bottom-progressive-blur-dock" 
@@ -353,7 +363,7 @@ export const BottomDock: React.FC<BottomDockProps> = ({
         <div className="progressive-blur-gradient" />
       </div>
 
-      {/* 2. Bottom Dock Container with Floaty Bar & Search Trigger */}
+      {/* 2. Bottom Dock Container with Floaty Bar */}
       <div
         id="bottom-dock-container"
         style={{
@@ -375,27 +385,37 @@ export const BottomDock: React.FC<BottomDockProps> = ({
                 transition: { duration: 0.18, ease: 'easeOut' }
               }}
               transition={SQUISHY_SPRING}
-              className="flex items-center justify-center gap-2 sm:gap-2.5 relative"
+              className="relative flex items-center justify-center pointer-events-auto"
             >
-              <nav
+              <motion.nav
                 id="floaty-bar-surface"
                 onTouchStart={handleTouchStart}
                 onTouchMove={handleTouchMove}
                 onTouchEnd={handleTouchEnd}
                 onTouchCancel={handleTouchCancel}
+                whileHover={{
+                  scale: 1.025,
+                  transition: {
+                    type: 'spring',
+                    stiffness: 420,
+                    damping: 15,
+                    mass: 0.6
+                  }
+                }}
+                whileTap={{ scale: 0.98 }}
                 style={{
                   backgroundColor: 'var(--spatial-glass-bg, rgba(255, 255, 255, 0.20))',
                   backdropFilter: 'blur(var(--spatial-glass-blur, 20px))',
                   WebkitBackdropFilter: 'blur(var(--spatial-glass-blur, 20px))',
                 }}
-                className={`floaty-bar floaty-bar__surface h-[58px] sm:h-[62px] w-[280px] sm:w-[330px] flex items-center justify-between gap-1 sm:gap-1.5 px-1.5 sm:px-2 rounded-full shadow-[0_8px_32px_rgba(0,0,0,0.35)] select-none pointer-events-auto overflow-hidden transition-[background-color,border-color,box-shadow] ${
+                className={`floaty-bar floaty-bar__surface h-[58px] sm:h-[62px] w-[336px] sm:w-[396px] max-w-[calc(100vw-20px)] flex items-center justify-between gap-0.5 sm:gap-1 px-1.5 sm:px-2 rounded-full shadow-[0_8px_32px_rgba(0,0,0,0.35)] select-none pointer-events-auto overflow-hidden transition-[background-color,border-color,box-shadow] ${
                   isDarkContent || isLightMode ? 'border border-black/15 text-black' : 'border border-white/10 text-white'
                 }`}
                 aria-label="Tab View"
               >
                 <div 
                   id="floaty-bar-tabs-container"
-                  className="floaty-bar__items w-full h-full relative z-30 overflow-hidden flex items-center justify-between gap-1 sm:gap-1.5 px-0.5 shrink-0 whitespace-nowrap"
+                  className="floaty-bar__items w-full h-full relative z-30 overflow-hidden flex items-center justify-between gap-0.5 sm:gap-1 px-0.5 shrink-0 whitespace-nowrap"
                 >
                   {DOCK_TABS.map((item) => {
                     const active = currentActiveId === item.id;
@@ -412,7 +432,7 @@ export const BottomDock: React.FC<BottomDockProps> = ({
                         onMouseEnter={() => setHoveredId(item.id)}
                         onMouseLeave={() => setHoveredId(null)}
                         onClick={() => handleTabClick(item)}
-                        className={`floaty-bar__item relative flex-1 h-[48px] sm:h-[52px] min-w-0 px-1 sm:px-1.5 rounded-full flex flex-col items-center justify-center cursor-default transition-all duration-150 outline-none select-none shrink-0 ${
+                        className={`floaty-bar__item relative flex-1 h-[48px] sm:h-[52px] min-w-0 px-0.5 sm:px-1 rounded-full flex flex-col items-center justify-center cursor-default transition-all duration-150 outline-none select-none shrink-0 ${
                           active
                             ? (isLightMode ? 'is-active text-black z-20' : 'is-active text-white z-20')
                             : isSelectedOrHovered
@@ -434,8 +454,11 @@ export const BottomDock: React.FC<BottomDockProps> = ({
                           />
                         )}
                         <div className="relative z-10 flex flex-col items-center justify-center w-full">
-                          <div className="w-full h-[27px] sm:h-[29px] flex items-center justify-center shrink-0">
+                          <div className="w-full h-[27px] sm:h-[29px] flex items-center justify-center shrink-0 relative">
                             {renderTabIcon(item, active, isSelectedOrHovered)}
+                            {item.id === 'dock-search' && !!searchQuery?.trim() && (
+                              <span className="absolute top-0 right-1 w-2 h-2 rounded-full bg-[#fd932f] ring-1.5 ring-black/40 shadow-sm" />
+                            )}
                           </div>
                           <span
                             className={`text-[8px] sm:text-[8.5px] font-semibold leading-none tracking-tight transition-colors duration-150 select-none text-center whitespace-nowrap block mt-0.5 -translate-y-[1.5px] ${
@@ -453,56 +476,12 @@ export const BottomDock: React.FC<BottomDockProps> = ({
                     );
                   })}
                 </div>
-              </nav>
-
-              {/* Search Trigger Button */}
-              <motion.button
-                id="btn-floaty-search-trigger"
-                type="button"
-                onClick={() => {
-                  setIsToolsOpen(false);
-                  setIsSearchOpen(true);
-                }}
-                title="Tìm kiếm (Search)"
-                aria-label="Mở thanh tìm kiếm"
-                whileHover={{
-                  scale: 1.08,
-                  transition: SQUISHY_SPRING
-                }}
-                whileTap={{ scale: 0.94 }}
-                style={{
-                  backgroundColor: 'var(--spatial-glass-bg, rgba(255, 255, 255, 0.20))',
-                  backdropFilter: 'blur(var(--spatial-glass-blur, 20px))',
-                  WebkitBackdropFilter: 'blur(var(--spatial-glass-blur, 20px))',
-                }}
-                className={`group h-[58px] w-[58px] sm:h-[62px] sm:w-[62px] rounded-full flex items-center justify-center cursor-default shadow-[0_8px_32px_rgba(0,0,0,0.35)] select-none shrink-0 pointer-events-auto transition-[border-color,box-shadow] ${
-                  isDarkContent || isLightMode ? 'border border-black/15 text-black' : 'border border-white/10 text-white'
-                } ${
-                  searchQuery?.trim()
-                    ? (isDarkContent || isLightMode ? 'ring-2 ring-black/20 shadow-[0_10px_36px_rgba(0,0,0,0.35)]' : 'ring-2 ring-white/25 shadow-[0_10px_36px_rgba(0,0,0,0.45)]')
-                    : ''
-                }`}
-              >
-                <img
-                  src={SF_SEARCH_ICON_URL}
-                  alt="Search"
-                  className={`w-[31px] h-[31px] sm:w-[34px] sm:h-[34px] object-contain select-none pointer-events-none transition-opacity ${
-                    isDarkContent || isLightMode ? 'brightness-0' : 'filter brightness-0 invert'
-                  } opacity-90`}
-                  referrerPolicy="no-referrer"
-                  onError={(e) => {
-                    (e.target as HTMLImageElement).src = '/icons/sf-magnifyingglass.png';
-                  }}
-                />
-                {searchQuery?.trim() && (
-                  <span className="absolute top-2 right-2 w-2 h-2 rounded-full bg-[#fd932f] ring-2 ring-black/40" />
-                )}
-              </motion.button>
+              </motion.nav>
 
               {/* Tools Flyout Menu attached to More tab */}
               <div 
                 ref={toolsFlyoutRef}
-                className="absolute right-8 sm:right-12 bottom-full mb-2.5 z-50 pointer-events-auto"
+                className="absolute right-2 sm:right-3 bottom-full mb-2.5 z-50 pointer-events-auto"
               >
                 <ToolsMenu
                   currentRoute={currentRoute}
