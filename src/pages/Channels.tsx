@@ -42,21 +42,21 @@ export const Channels: React.FC<ChannelsProps> = ({
       {/* Header */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
-          <div className="flex items-center gap-2 text-xs text-[#C83DFF] font-bold uppercase tracking-wider mb-1">
+          <div className="flex items-center gap-2 text-xs text-[#E6005A] font-bold uppercase tracking-wider mb-1">
             <Tag className="w-4 h-4" />
             <span>Danh mục Hạ tầng Truyền hình</span>
           </div>
-          <h1 className="text-3xl font-bold text-white tracking-tight">
+          <h1 className="text-3xl font-bold text-[#111827] dark:text-white tracking-tight">
             Chuyên kênh Truyền hình Việt Nam
           </h1>
-          <p className="text-xs sm:text-sm text-[#9CA3AF] mt-1">
+          <p className="text-xs sm:text-sm text-[#6B7280] dark:text-[#9CA3AF] mt-1">
             Hệ thống kênh truyền hình thiết yếu quốc gia, kênh giải trí, khoa giáo và kênh đối ngoại phục vụ cộng đồng.
           </p>
         </div>
 
         <button
           onClick={onOpenCustomStreamModal}
-          className="flex items-center justify-center gap-2 px-5 py-2.5 rounded-full bg-gradient-purple-active text-white text-xs font-bold shadow-lg glow-purple shrink-0"
+          className="flex items-center justify-center gap-2 px-5 py-2.5 rounded-full bg-[#fd932f] hover:bg-[#e68428] text-white text-xs font-bold shadow-md shrink-0 cursor-pointer"
         >
           <Sparkles className="w-4 h-4" />
           <span>Nhập Kênh M3U8</span>
@@ -64,17 +64,17 @@ export const Channels: React.FC<ChannelsProps> = ({
       </div>
 
       {/* Filter and Search Bar */}
-      <div className="p-4 rounded-[28px] bg-[#1E1E22] border border-[#2D2D35] flex flex-col md:flex-row items-center justify-between gap-4">
+      <div className="p-4 rounded-[28px] bg-white dark:bg-[#1E1E22] border border-[#E5E7EB] dark:border-[#2D2D35] flex flex-col md:flex-row items-center justify-between gap-4 shadow-sm">
         {/* Groups */}
         <div className="flex items-center gap-1.5 overflow-x-auto w-full md:w-auto pb-1 md:pb-0 no-scrollbar">
           {groups.map((grp) => (
             <button
               key={grp}
               onClick={() => setSelectedGroup(grp)}
-              className={`px-4 py-2 rounded-full text-xs font-semibold whitespace-nowrap transition-all cursor-default ${
+              className={`px-4 py-2 rounded-full text-xs font-semibold whitespace-nowrap transition-all cursor-pointer ${
                 selectedGroup === grp
-                  ? 'bg-[#DF37EE] text-white shadow-md'
-                  : 'bg-[#141416] text-[#A1A1AA] hover:text-white border border-[#2D2D35]'
+                  ? 'bg-[#fd932f] text-white shadow-md'
+                  : 'bg-[#F3F4F6] text-[#4B5563] hover:text-[#111827] hover:bg-[#E5E7EB] dark:bg-[#141416] dark:text-[#A1A1AA] dark:hover:text-white border border-[#E5E7EB] dark:border-[#2D2D35]'
               }`}
             >
               {grp}
@@ -90,7 +90,7 @@ export const Channels: React.FC<ChannelsProps> = ({
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
             placeholder="Tìm kiếm kênh truyền hình..."
-            className="w-full pl-10 pr-4 py-2 rounded-full bg-[#141416] border border-[#34343C] text-xs text-white placeholder-[#8E8E93] focus:outline-none focus:border-[#DF37EE]"
+            className="w-full pl-10 pr-4 py-2 rounded-full bg-[#F3F4F6] dark:bg-[#141416] border border-[#E5E7EB] dark:border-[#34343C] text-xs text-[#111827] dark:text-white placeholder-[#8E8E93] focus:outline-none focus:border-[#fd932f]"
           />
         </div>
       </div>

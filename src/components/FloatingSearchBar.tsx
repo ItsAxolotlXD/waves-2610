@@ -37,7 +37,9 @@ export const FloatingSearchBar: React.FC<FloatingSearchBarProps> = ({
     : (settings.spatialGlassOpacity ?? 20);
   const isSpatialGlassActive = (draftSettings?.spatialGlass ?? settings.spatialGlass) !== false;
   const isLightMode = settings.theme === 'light';
-  const isDarkContent = isLightMode || (isSpatialGlassActive && currentOpacity > 40);
+  const isUnder40 = isSpatialGlassActive && currentOpacity < 40;
+  // When opacity < 40%, text and icons are monochrome white (not dark content)
+  const isDarkContent = !isUnder40 && (isLightMode || (isSpatialGlassActive && currentOpacity > 40));
 
   const inputRef = useRef<HTMLInputElement>(null);
   const [isFocused, setIsFocused] = useState(false);

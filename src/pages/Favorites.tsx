@@ -47,14 +47,14 @@ export const Favorites: React.FC<FavoritesProps> = ({
       {/* Header */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
-          <div className="flex items-center gap-2 text-xs text-[#FF2020] font-bold uppercase tracking-wider mb-1">
+          <div className="flex items-center gap-2 text-xs text-[#E6005A] font-bold uppercase tracking-wider mb-1">
             <Heart className="w-4 h-4 fill-current" />
             <span>Nội dung đã lưu</span>
           </div>
-          <h1 className="text-3xl font-bold text-white tracking-tight">
+          <h1 className="text-3xl font-bold text-[#111827] dark:text-white tracking-tight">
             Kênh & Bài viết Yêu thích
           </h1>
-          <p className="text-xs sm:text-sm text-[#9CA3AF] mt-1">
+          <p className="text-xs sm:text-sm text-[#6B7280] dark:text-[#9CA3AF] mt-1">
             Tất cả các kênh truyền hình và bài viết bạn đã đánh dấu để truy cập nhanh chóng.
           </p>
         </div>
@@ -66,7 +66,7 @@ export const Favorites: React.FC<FavoritesProps> = ({
                 clearAllFavorites();
               }
             }}
-            className="flex items-center gap-1.5 px-4 py-2 rounded-full bg-[#27121d] hover:bg-[#FF2020]/20 text-[#A1A1AA] hover:text-[#FF4D4D] border border-white/10 text-xs font-semibold transition-colors shrink-0 cursor-pointer"
+            className="flex items-center gap-1.5 px-4 py-2 rounded-full bg-[#F3F4F6] hover:bg-red-50 text-[#6B7280] hover:text-red-600 border border-[#E5E7EB] dark:bg-[#27121d] dark:hover:bg-[#FF2020]/20 dark:text-[#A1A1AA] dark:hover:text-[#FF4D4D] dark:border-white/10 text-xs font-semibold transition-colors shrink-0 cursor-pointer"
           >
             <Trash2 className="w-3.5 h-3.5" />
             <span>Xóa tất cả</span>
@@ -75,13 +75,13 @@ export const Favorites: React.FC<FavoritesProps> = ({
       </div>
 
       {/* Tabs */}
-      <div className="flex p-1.5 rounded-full bg-[#1E1E22] border border-[#2D2D35] max-w-sm">
+      <div className="flex p-1.5 rounded-full bg-[#E5E7EB] dark:bg-[#1E1E22] border border-[#D1D5DB] dark:border-[#2D2D35] max-w-sm">
         <button
           onClick={() => setActiveTab('channels')}
-          className={`flex-1 py-2 px-4 rounded-full text-xs font-bold flex items-center justify-center gap-2 transition-all ${
+          className={`flex-1 py-2 px-4 rounded-full text-xs font-bold flex items-center justify-center gap-2 transition-all cursor-pointer ${
             activeTab === 'channels'
-              ? 'bg-gradient-purple-active text-white shadow-md'
-              : 'text-[#9CA3AF] hover:text-white'
+              ? 'bg-[#fd932f] text-white shadow-md'
+              : 'text-[#6B7280] dark:text-[#9CA3AF] hover:text-[#111827] dark:hover:text-white'
           }`}
         >
           <Tv className="w-3.5 h-3.5" />
@@ -90,10 +90,10 @@ export const Favorites: React.FC<FavoritesProps> = ({
 
         <button
           onClick={() => setActiveTab('news')}
-          className={`flex-1 py-2 px-4 rounded-full text-xs font-bold flex items-center justify-center gap-2 transition-all ${
+          className={`flex-1 py-2 px-4 rounded-full text-xs font-bold flex items-center justify-center gap-2 transition-all cursor-pointer ${
             activeTab === 'news'
-              ? 'bg-gradient-purple-active text-white shadow-md'
-              : 'text-[#9CA3AF] hover:text-white'
+              ? 'bg-[#fd932f] text-white shadow-md'
+              : 'text-[#6B7280] dark:text-[#9CA3AF] hover:text-[#111827] dark:hover:text-white'
           }`}
         >
           <Bookmark className="w-3.5 h-3.5" />

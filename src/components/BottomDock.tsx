@@ -90,9 +90,12 @@ export const BottomDock: React.FC<BottomDockProps> = ({
     ? draftSettings.spatialGlassOpacity
     : (settings.spatialGlassOpacity ?? 20);
   const isSpatialGlassActive = (draftSettings?.spatialGlass ?? settings.spatialGlass) !== false;
+  // When spatial glass opacity < 40%, user wants text & icons in tab bar / float search to be monochrome white
   const isLightMode = settings.theme === 'light';
   const isDarkContent = isSpatialGlassActive && currentOpacity > 40;
   const isUnder40 = isSpatialGlassActive && currentOpacity < 40;
+  // If isUnder40 is true, force light content (white icons & text) even in light mode
+  const useDarkContent = !isUnder40 && (isDarkContent || isLightMode);
 
   const [hoveredId, setHoveredId] = useState<string | null>(null);
   const [gesturingTabId, setGesturingTabId] = useState<string | null>(null);
@@ -291,7 +294,7 @@ export const BottomDock: React.FC<BottomDockProps> = ({
         : 'w-[28px] h-[28px] sm:w-[31px] sm:h-[31px]';
 
     if (active) {
-      const activeColor = isLightMode ? '#000000' : '#FFFFFF';
+      const activeColor = (!isUnder40 && isLightMode) ? '#000000' : '#FFFFFF';
       if (hasImage) {
         return (
           <div
@@ -313,16 +316,16 @@ export const BottomDock: React.FC<BottomDockProps> = ({
       return (
         <Icon
           className={`${iconSizeClasses} shrink-0 ${
-            isLightMode ? 'text-black stroke-black' : 'text-white stroke-white'
+            (!isUnder40 && isLightMode) ? 'text-black stroke-black' : 'text-white stroke-white'
           } transition-all duration-200`}
         />
       );
     }
 
     // Inactive tab icon:
-    // If spatial glass opacity < 40%, the search icon (and other tab icons) must be black.
-    // Also if opacity > 40% (isDarkContent) or in light mode, it's black.
-    const isBlackIcon = (isSearchTab && isUnder40) || isUnder40 || isDarkContent || isLightMode;
+    // If spatial glass opacity < 40%, icons must be monochrome white.
+    // Otherwise if useDarkContent is true (opacity > 40% or light mode), it's black.
+    const isBlackIcon = useDarkContent;
 
     if (hasImage) {
       return (
@@ -414,7 +417,7 @@ export const BottomDock: React.FC<BottomDockProps> = ({
                   WebkitBackdropFilter: 'blur(var(--spatial-glass-blur, 20px))',
                 }}
                 className={`floaty-bar floaty-bar__surface h-[58px] sm:h-[62px] w-[336px] sm:w-[396px] max-w-[calc(100vw-20px)] flex items-center justify-between gap-0.5 sm:gap-1 px-1.5 sm:px-2 rounded-full shadow-[0_8px_32px_rgba(0,0,0,0.35)] select-none pointer-events-auto overflow-hidden transition-[background-color,border-color,box-shadow] ${
-                  isUnder40 || isDarkContent || isLightMode ? 'border border-black/15 text-black' : 'border border-white/10 text-white'
+                  useDarkContent ? 'border border-black/15 text-black' : 'border border-white/10 text-white'
                 }`}
                 aria-label="Tab View"
               >
@@ -439,10 +442,10 @@ export const BottomDock: React.FC<BottomDockProps> = ({
                         onClick={() => handleTabClick(item)}
                         className={`floaty-bar__item relative flex-1 h-[48px] sm:h-[52px] min-w-0 px-0.5 sm:px-1 rounded-full flex flex-col items-center justify-center cursor-default transition-all duration-150 outline-none select-none shrink-0 ${
                           active
-                            ? (isLightMode ? 'is-active text-black z-20' : 'is-active text-white z-20')
+                            ? (useDarkContent ? 'is-active text-black z-20' : 'is-active text-white z-20')
                             : isSelectedOrHovered
-                              ? (isUnder40 || isDarkContent || isLightMode ? 'text-black z-10' : 'text-white z-10')
-                              : (isUnder40 || isDarkContent || isLightMode ? 'text-black/75 hover:text-black hover:bg-black/5 z-10' : 'text-white/75 hover:text-white hover:bg-white/10 z-10')
+                              ? (useDarkContent ? 'text-black z-10' : 'text-white z-10')
+                              : (useDarkContent ? 'text-black/75 hover:text-black hover:bg-black/5 z-10' : 'text-white/75 hover:text-white hover:bg-white/10 z-10')
                         }`}
                       >
                         {active && (
@@ -455,7 +458,7 @@ export const BottomDock: React.FC<BottomDockProps> = ({
                               mass: 0.55
                             }}
                             style={{ zIndex: 1 }}
-                            className="floaty-bar-pill-indicator absolute inset-0 rounded-full pointer-events-none bg-[#fd932f] shadow-[0_4px_14px_rgba(253,147,47,0.40)] border border-[#fd932f]"
+                            className="floaty-bar-pill-indicator absolute inset-0 rounded-full pointer-events-none bg-[#fd932f] shadow-[0_0_10px_rgba(253,147,47,0.45),0_2px_6px_rgba(253,147,47,0.30)] border border-[#fd932f]"
                           />
                         )}
                         <div className="relative z-10 flex flex-col items-center justify-center w-full">
@@ -468,8 +471,8 @@ export const BottomDock: React.FC<BottomDockProps> = ({
                           <span
                             className={`text-[8px] sm:text-[8.5px] font-semibold leading-none tracking-tight transition-colors duration-150 select-none text-center whitespace-nowrap block mt-0.5 -translate-y-[1.5px] ${
                               active
-                                ? (isLightMode ? 'font-bold text-black' : 'font-bold text-white')
-                                : isUnder40 || isDarkContent || isLightMode
+                                ? (useDarkContent ? 'font-bold text-black' : 'font-bold text-white')
+                                : useDarkContent
                                   ? 'text-black/85 group-hover:text-black'
                                   : 'text-white/85 group-hover:text-white'
                             }`}

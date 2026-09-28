@@ -7,8 +7,11 @@ import { SfCheckmark } from './SfCheckmark';
 import { Channel, NewsArticle } from '../types';
 
 const LOGO_SRC = 'https://static.wikia.nocookie.net/ep-deo/images/4/4b/Vplay_no_wordmark.png/revision/latest/scale-to-width-down/1000?cb=20260829062616';
-const TV_ICON_SRC = 'https://vtvgo-next-assets.vtvdigital.vn/prod/images/menu/20260905/2026090508/b467d7552a-tv-1.webp';
+const HOME_ICON_SRC = 'https://static.wikia.nocookie.net/ep-deo/images/e/ee/Icons8-home-64.png/revision/latest?cb=20260925115253';
+const TV_ICON_SRC = 'https://static.wikia.nocookie.net/ep-deo/images/d/df/Cool_tv.png/revision/latest?cb=20260927105318';
+const NEWS_ICON_SRC = 'https://static.wikia.nocookie.net/ep-deo/images/f/f2/Icons8-megaphone-64.png/revision/latest?cb=20260925115252';
 const SETTINGS_ICON_SRC = 'https://static.wikia.nocookie.net/ftv/images/9/97/Settungs.png/revision/latest?cb=20260411085024&path-prefix=vi';
+const SF_SEARCH_ICON_URL = '/icons/sf-magnifyingglass.png';
 
 interface TopBarProps {
   currentRoute: string;
@@ -109,17 +112,54 @@ export const TopBar: React.FC<TopBarProps> = ({
             )}
           </button>
 
-          {/* Navigation links: Truyền hình, News có icon như ở sidebar */}
+          {/* Navigation links: Trang chủ, Truyền hình, News có icon đồng bộ chuẩn */}
           <nav className="flex items-center gap-1 sm:gap-2 ml-1 sm:ml-2" aria-label="Thanh điều hướng chính">
+            {/* Home (Trang chủ) */}
+            <button
+              id="btn-topbar-nav-home"
+              type="button"
+              onClick={() => navigate('/')}
+              className={`group relative flex items-center gap-2 px-3.5 sm:px-4 h-10 rounded-full text-xs sm:text-[13.5px] font-medium transition-colors cursor-default whitespace-nowrap outline-none select-none hover:bg-black/5 dark:hover:bg-white/10 ${
+                currentRoute === '/' || currentRoute === '/home'
+                  ? 'text-[#18181B] dark:text-white font-semibold'
+                  : 'text-[#4B5563] dark:text-[#D1D5DB] hover:text-[#18181B] dark:hover:text-white'
+              }`}
+              title="Trang chủ"
+            >
+              <img
+                src={HOME_ICON_SRC}
+                alt="Home"
+                referrerPolicy="no-referrer"
+                className={`w-[19px] h-[19px] object-contain shrink-0 transition-opacity ${
+                  currentRoute === '/' || currentRoute === '/home'
+                    ? 'brightness-0 dark:brightness-0 dark:invert opacity-100'
+                    : 'brightness-0 dark:brightness-0 dark:invert opacity-80 group-hover:opacity-100'
+                }`}
+                onError={(e) => {
+                  (e.target as HTMLElement).style.display = 'none';
+                }}
+              />
+              <span>Trang chủ</span>
+
+              {/* Line pill ở chân tab khi select */}
+              {(currentRoute === '/' || currentRoute === '/home') && (
+                <motion.span
+                  layoutId="topbar-nav-pill-line"
+                  className="absolute bottom-1 left-4 right-4 h-[2px] bg-[#18181B] dark:bg-white rounded-full shadow-[0_1px_3px_rgba(0,0,0,0.15)] dark:shadow-[0_1px_3px_rgba(255,255,255,0.4)] pointer-events-none"
+                  transition={{ type: 'spring', stiffness: 500, damping: 35 }}
+                />
+              )}
+            </button>
+
             {/* Truyền hình */}
             <button
               id="btn-topbar-nav-tv"
               type="button"
               onClick={() => navigate('/live-tv')}
-              className={`group relative flex items-center gap-2 px-4 h-10 rounded-full text-xs sm:text-[13.5px] font-medium transition-colors cursor-default whitespace-nowrap outline-none select-none hover:bg-white/10 ${
+              className={`group relative flex items-center gap-2 px-3.5 sm:px-4 h-10 rounded-full text-xs sm:text-[13.5px] font-medium transition-colors cursor-default whitespace-nowrap outline-none select-none hover:bg-black/5 dark:hover:bg-white/10 ${
                 currentRoute === '/live-tv' || currentRoute === '/channels'
-                  ? 'text-white font-semibold'
-                  : 'text-[#D1D5DB] hover:text-white'
+                  ? 'text-[#18181B] dark:text-white font-semibold'
+                  : 'text-[#4B5563] dark:text-[#D1D5DB] hover:text-[#18181B] dark:hover:text-white'
               }`}
               title="Truyền hình trực tiếp"
             >
@@ -129,8 +169,8 @@ export const TopBar: React.FC<TopBarProps> = ({
                 referrerPolicy="no-referrer"
                 className={`w-5 h-5 object-contain shrink-0 transition-opacity ${
                   currentRoute === '/live-tv' || currentRoute === '/channels'
-                    ? 'brightness-0 invert opacity-100'
-                    : 'opacity-80 group-hover:opacity-100'
+                    ? 'brightness-0 dark:brightness-0 dark:invert opacity-100'
+                    : 'brightness-0 dark:brightness-0 dark:invert opacity-80 group-hover:opacity-100'
                 }`}
                 onError={(e) => {
                   (e.target as HTMLElement).style.display = 'none';
@@ -138,11 +178,11 @@ export const TopBar: React.FC<TopBarProps> = ({
               />
               <span>Truyền hình</span>
 
-              {/* Line trắng pill ở chân tab khi select (đặt gần lại sát chân chữ) */}
+              {/* Line pill ở chân tab khi select (màu đen ở light mode, màu trắng ở dark mode) */}
               {(currentRoute === '/live-tv' || currentRoute === '/channels') && (
                 <motion.span
                   layoutId="topbar-nav-pill-line"
-                  className="absolute bottom-1 left-4 right-4 h-[2px] bg-white rounded-full shadow-[0_1px_3px_rgba(255,255,255,0.4)] pointer-events-none"
+                  className="absolute bottom-1 left-4 right-4 h-[2px] bg-[#18181B] dark:bg-white rounded-full shadow-[0_1px_3px_rgba(0,0,0,0.15)] dark:shadow-[0_1px_3px_rgba(255,255,255,0.4)] pointer-events-none"
                   transition={{ type: 'spring', stiffness: 500, damping: 35 }}
                 />
               )}
@@ -153,27 +193,33 @@ export const TopBar: React.FC<TopBarProps> = ({
               id="btn-topbar-nav-news"
               type="button"
               onClick={() => navigate('/news')}
-              className={`group relative flex items-center gap-2 px-4 h-10 rounded-full text-xs sm:text-[13.5px] font-medium transition-colors cursor-default whitespace-nowrap outline-none select-none hover:bg-white/10 ${
+              className={`group relative flex items-center gap-2 px-3.5 sm:px-4 h-10 rounded-full text-xs sm:text-[13.5px] font-medium transition-colors cursor-default whitespace-nowrap outline-none select-none hover:bg-black/5 dark:hover:bg-white/10 ${
                 currentRoute === '/news' || currentRoute.startsWith('/article')
-                  ? 'text-white font-semibold'
-                  : 'text-[#D1D5DB] hover:text-white'
+                  ? 'text-[#18181B] dark:text-white font-semibold'
+                  : 'text-[#4B5563] dark:text-[#D1D5DB] hover:text-[#18181B] dark:hover:text-white'
               }`}
               title="Tin tức (News)"
             >
-              <Megaphone
-                className={`w-4.5 h-4.5 shrink-0 transition-opacity ${
+              <img
+                src={NEWS_ICON_SRC}
+                alt="News"
+                referrerPolicy="no-referrer"
+                className={`w-[18px] h-[18px] object-contain shrink-0 transition-opacity ${
                   currentRoute === '/news' || currentRoute.startsWith('/article')
-                    ? 'text-white opacity-100'
-                    : 'opacity-80 group-hover:opacity-100'
+                    ? 'brightness-0 dark:brightness-0 dark:invert opacity-100'
+                    : 'brightness-0 dark:brightness-0 dark:invert opacity-80 group-hover:opacity-100'
                 }`}
+                onError={(e) => {
+                  (e.target as HTMLElement).style.display = 'none';
+                }}
               />
               <span>News</span>
 
-              {/* Line trắng pill ở chân tab khi select (đặt gần lại sát chân chữ) */}
+              {/* Line pill ở chân tab khi select (màu đen ở light mode, màu trắng ở dark mode) */}
               {(currentRoute === '/news' || currentRoute.startsWith('/article')) && (
                 <motion.span
                   layoutId="topbar-nav-pill-line"
-                  className="absolute bottom-1 left-4 right-4 h-[2px] bg-white rounded-full shadow-[0_1px_3px_rgba(255,255,255,0.4)] pointer-events-none"
+                  className="absolute bottom-1 left-4 right-4 h-[2px] bg-[#18181B] dark:bg-white rounded-full shadow-[0_1px_3px_rgba(0,0,0,0.15)] dark:shadow-[0_1px_3px_rgba(255,255,255,0.4)] pointer-events-none"
                   transition={{ type: 'spring', stiffness: 500, damping: 35 }}
                 />
               )}
@@ -229,10 +275,17 @@ export const TopBar: React.FC<TopBarProps> = ({
         <button
           id="btn-top-search"
           onClick={onOpenSearch}
-          className="w-10 h-10 rounded-full flex items-center justify-center text-[#D1D5DB] hover:text-white hover:bg-white/10 transition-all drop-shadow-sm cursor-default"
+          className="w-10 h-10 rounded-full flex items-center justify-center text-[#4B5563] dark:text-[#D1D5DB] hover:text-[#18181B] dark:hover:text-white hover:bg-black/5 dark:hover:bg-white/10 transition-all drop-shadow-sm cursor-default"
           title="Spotlight Search (⌘K)"
         >
-          <Search className="w-5.5 h-5.5 object-contain topbar-search-icon" strokeWidth={1.6} />
+          <img
+            src={SF_SEARCH_ICON_URL}
+            alt="Search"
+            className="w-[19px] h-[19px] object-contain topbar-search-icon brightness-0 dark:brightness-0 dark:invert transition-opacity opacity-80 group-hover:opacity-100"
+            onError={(e) => {
+              (e.target as HTMLImageElement).src = '/icons/sf-magnifyingglass.png';
+            }}
+          />
         </button>
 
         {/* Tools Menu Icon (Contextual hover dropdown for each tab) */}
@@ -240,6 +293,7 @@ export const TopBar: React.FC<TopBarProps> = ({
           currentRoute={currentRoute}
           currentChannel={currentChannel}
           channels={channels}
+          isLightMode={settings.theme === 'light'}
           onNavigate={navigate}
           onOpenHelp={onOpenHelp}
           onOpenDiscord={onOpenDiscord}
@@ -259,8 +313,8 @@ export const TopBar: React.FC<TopBarProps> = ({
             onClick={handleSettingsClick}
             className={`group w-10 h-10 rounded-full flex items-center justify-center transition-colors drop-shadow-sm cursor-default ${
               currentRoute === '/settings'
-                ? 'bg-white/15'
-                : 'hover:bg-white/10'
+                ? 'bg-black/10 dark:bg-white/15'
+                : 'hover:bg-black/5 dark:hover:bg-white/10'
             }`}
             title="Cài đặt hệ thống"
           >
@@ -270,7 +324,7 @@ export const TopBar: React.FC<TopBarProps> = ({
               alt="Cài đặt"
               referrerPolicy="no-referrer"
               onAnimationEnd={() => setIsSettingsSpinning(false)}
-              className={`w-6 h-6 object-contain shrink-0 brightness-0 invert transition-opacity duration-200 settings-icon-hoverable ${
+              className={`w-6 h-6 object-contain shrink-0 brightness-0 dark:brightness-0 dark:invert transition-opacity duration-200 settings-icon-hoverable ${
                 currentRoute === '/settings' ? 'opacity-100' : 'opacity-80 group-hover:opacity-100'
               } ${isSettingsSpinning ? 'settings-icon-spin' : ''}`}
             />
