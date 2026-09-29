@@ -617,31 +617,13 @@ export default function App() {
             ? 'pb-28 sm:pb-32'
             : ''
         }`}>
-          <AnimatePresence mode="wait">
-            {isTabLoading ? (
-              <motion.div
-                key="tab-loading-state"
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                exit={{ opacity: 0 }}
-                transition={{ duration: 0.15 }}
-                className="w-full h-full flex items-center justify-center min-h-[50vh]"
-              >
-                <TabLoadingScreen />
-              </motion.div>
-            ) : (
-              <motion.div
-                key={currentRoute}
-                initial={{ opacity: 0, y: 4 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0 }}
-                transition={{ duration: 0.2 }}
-                className="w-full h-full"
-              >
-                {renderContent()}
-              </motion.div>
-            )}
-          </AnimatePresence>
+          {isTabLoading ? (
+            <TabLoadingScreen />
+          ) : (
+            <div key={currentRoute} className="w-full h-full">
+              {renderContent()}
+            </div>
+          )}
         </main>
       </div>
 
