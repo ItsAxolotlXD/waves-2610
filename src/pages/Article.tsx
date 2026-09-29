@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { NEWS_DATA } from '../data/news';
 import { NewsArticle } from '../types';
 import { NewsCard } from '../components/NewsCard';
+import { CategoryIcon } from '../components/CategoryIcon';
 import { useFavorites } from '../hooks/useFavorites';
 import { 
   ArrowLeft, 
@@ -335,7 +336,10 @@ export const Article: React.FC<ArticleProps> = ({ slug, navigate, fontSize = 16 
 
       {/* Related News */}
       <div className="space-y-4 pt-6">
-        <h3 className="text-xl font-bold text-[#111827] dark:text-white">Bài viết khác</h3>
+        <h3 className="text-xl font-bold text-[#111827] dark:text-white flex items-center gap-2.5">
+          <CategoryIcon className="w-7 h-7 sm:w-8 sm:h-8 shrink-0" />
+          <span>Bài viết khác</span>
+        </h3>
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
           {relatedArticles.map((rel) => (
             <NewsCard

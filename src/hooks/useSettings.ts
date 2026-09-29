@@ -38,6 +38,8 @@ export interface SystemSettings {
   floatingSearchBarVersion?: number;
   streamAspectRatio: '16:9' | '4:3';
   developerMode: boolean;
+  triangleExperiment: boolean;
+  triangleExperimentVersion?: number;
   customKeybinds: CustomKeybinds;
 }
 
@@ -83,6 +85,8 @@ export const DEFAULT_SETTINGS: SystemSettings = {
   floatingSearchBarVersion: 1,
   streamAspectRatio: '16:9',
   developerMode: false,
+  triangleExperiment: true,
+  triangleExperimentVersion: 1,
   customKeybinds: DEFAULT_KEYBINDS,
 };
 
@@ -159,6 +163,10 @@ export const getStoredSettings = (): SystemSettings => {
           ...DEFAULT_KEYBINDS,
           ...(parsed.customKeybinds || {})
         },
+        triangleExperiment: parsed.triangleExperimentVersion === 1
+          ? (typeof parsed.triangleExperiment === 'boolean' ? parsed.triangleExperiment : true)
+          : true,
+        triangleExperimentVersion: 1,
         fontScale,
         fontScaleVersion: 2,
       };
@@ -170,6 +178,13 @@ export const getStoredSettings = (): SystemSettings => {
 // Apply side-effects (theme class, font-scale property)
 export const applySystemSettings = (settings: SystemSettings) => {
   if (typeof document === 'undefined') return;
+
+  // Triangle Loading Experiment
+  if (settings.triangleExperiment) {
+    document.documentElement.classList.add('triangle-experiment-active');
+  } else {
+    document.documentElement.classList.remove('triangle-experiment-active');
+  }
 
   // App Theme Mode (Ban ngày / Ban đêm - Ban đêm là mặc định)
   if (settings.theme === 'light') {

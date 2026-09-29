@@ -2,6 +2,7 @@ import React from 'react';
 import { HeroCarousel } from '../components/HeroCarousel';
 import { OnAirSlider } from '../components/OnAirSlider';
 import { IntroducingSpatialGlass } from '../components/IntroducingSpatialGlass';
+import { CategoryIcon } from '../components/CategoryIcon';
 import { NEWS_DATA } from '../data/news';
 import { Channel } from '../types';
 import { 
@@ -146,8 +147,8 @@ export const Home: React.FC<HomeProps> = ({
         {/* 1. Trang & Chức năng hệ thống */}
         {matchingPages.length > 0 && (
           <section className="space-y-3">
-            <h2 className="text-sm font-bold uppercase tracking-wider text-[#9CA3AF] flex items-center gap-2">
-              <Compass className="w-4 h-4 text-[#E6005A]" />
+            <h2 className="text-sm font-bold uppercase tracking-wider text-[#9CA3AF] flex items-center gap-2.5">
+              <CategoryIcon className="w-6 h-6 sm:w-6.5 sm:h-6.5 shrink-0" />
               <span>Trang & Danh mục ({matchingPages.length})</span>
             </h2>
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
@@ -180,8 +181,8 @@ export const Home: React.FC<HomeProps> = ({
         {/* 2. Lối tắt cài đặt */}
         {matchingSettings.length > 0 && (
           <section className="space-y-3">
-            <h2 className="text-sm font-bold uppercase tracking-wider text-[#9CA3AF] flex items-center gap-2">
-              <SlidersHorizontal className="w-4 h-4 text-[#E6005A]" />
+            <h2 className="text-sm font-bold uppercase tracking-wider text-[#9CA3AF] flex items-center gap-2.5">
+              <CategoryIcon className="w-6 h-6 sm:w-6.5 sm:h-6.5 shrink-0" />
               <span>Cài đặt hệ thống ({matchingSettings.length})</span>
             </h2>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
@@ -211,8 +212,8 @@ export const Home: React.FC<HomeProps> = ({
         {/* 3. Kênh truyền hình khớp */}
         {matchingChannels.length > 0 && (
           <section className="space-y-3">
-            <h2 className="text-sm font-bold uppercase tracking-wider text-[#9CA3AF] flex items-center gap-2">
-              <Tv className="w-4 h-4 text-[#E6005A]" />
+            <h2 className="text-sm font-bold uppercase tracking-wider text-[#9CA3AF] flex items-center gap-2.5">
+              <CategoryIcon className="w-6 h-6 sm:w-6.5 sm:h-6.5 shrink-0" />
               <span>Kênh truyền hình ({matchingChannels.length})</span>
             </h2>
             <div className="grid grid-cols-3 md:grid-cols-6 gap-2.5 sm:gap-3.5">
@@ -248,8 +249,8 @@ export const Home: React.FC<HomeProps> = ({
         {/* 4. Bài viết tin tức khớp */}
         {matchingNews.length > 0 && (
           <section className="space-y-3">
-            <h2 className="text-sm font-bold uppercase tracking-wider text-[#9CA3AF] flex items-center gap-2">
-              <Megaphone className="w-4 h-4 text-[#E6005A]" />
+            <h2 className="text-sm font-bold uppercase tracking-wider text-[#9CA3AF] flex items-center gap-2.5">
+              <CategoryIcon className="w-6 h-6 sm:w-6.5 sm:h-6.5 shrink-0" />
               <span>Bài viết tin tức ({matchingNews.length})</span>
             </h2>
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">

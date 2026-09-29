@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Channel } from '../types';
 import { ChannelCard } from '../components/ChannelCard';
 import { NewsCard } from '../components/NewsCard';
+import { CategoryIcon } from '../components/CategoryIcon';
 import { NEWS_DATA } from '../data/news';
 import { useFavorites } from '../hooks/useFavorites';
 import { Heart, Bookmark, Tv, Newspaper, Trash2, ArrowRight } from 'lucide-react';
@@ -47,8 +48,8 @@ export const Favorites: React.FC<FavoritesProps> = ({
       {/* Header */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
-          <div className="flex items-center gap-2 text-xs text-[#E6005A] font-bold uppercase tracking-wider mb-1">
-            <Heart className="w-4 h-4 fill-current" />
+          <div className="flex items-center gap-2.5 text-xs text-[#E6005A] font-bold uppercase tracking-wider mb-1">
+            <CategoryIcon className="w-6 h-6 sm:w-6.5 sm:h-6.5 shrink-0" />
             <span>Nội dung đã lưu</span>
           </div>
           <h1 className="text-3xl font-bold text-[#111827] dark:text-white tracking-tight">

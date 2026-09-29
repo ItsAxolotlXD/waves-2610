@@ -1,5 +1,6 @@
 import React, { useState, useMemo, useEffect } from 'react';
 import { VideoPlayer } from '../components/VideoPlayer';
+import { CategoryIcon } from '../components/CategoryIcon';
 import { Channel } from '../types';
 import {
   Tv,
@@ -157,7 +158,8 @@ export const TestChannels: React.FC<TestChannelsProps> = ({
       <div className="space-y-6 pt-2">
         {/* Section Header & Filters */}
         <div className="flex flex-col gap-3 sm:gap-3.5">
-          <div className="flex items-center gap-2">
+          <div className="flex items-center gap-2.5">
+            <CategoryIcon className="w-7 h-7 sm:w-8 sm:h-8 shrink-0" />
             <h2 className="text-lg sm:text-xl font-bold text-[#111827] dark:text-white">
               Danh sách kênh kiểm thử
             </h2>
@@ -199,8 +201,8 @@ export const TestChannels: React.FC<TestChannelsProps> = ({
               <section key={group.category} className="space-y-3">
                 {/* Category Section Header & Divider */}
                 <div className="livetv-category-divider flex items-center justify-between border-b border-[#E5E7EB] dark:border-[#2D2D35] pb-2">
-                  <div className="flex items-center gap-2">
-                    <div className="w-1.5 h-4 bg-[#E50914] rounded-full" />
+                  <div className="flex items-center gap-2.5">
+                    <CategoryIcon className="w-6 h-6 sm:w-6.5 sm:h-6.5 shrink-0" />
                     <h3 className="text-sm sm:text-base font-bold text-[#111827] dark:text-white">
                       {group.category}
                     </h3>

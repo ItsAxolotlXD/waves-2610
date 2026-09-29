@@ -15,6 +15,7 @@ import { motion, AnimatePresence } from 'motion/react';
 import { CHANNELS_DATA } from '../data/channels';
 import { NEWS_DATA } from '../data/news';
 import { Channel, NewsArticle } from '../types';
+import { CategoryIcon } from '../components/CategoryIcon';
 
 interface ImmersiveSearchProps {
   navigate: (path: string, state?: any) => void;
@@ -434,8 +435,8 @@ export const ImmersiveSearch: React.FC<ImmersiveSearchProps> = ({
           /* Default Immersive View with circular popular searches */
           <div className="space-y-4 pt-1">
             <div className="flex items-center justify-between">
-              <h3 className="text-sm sm:text-base font-bold text-white tracking-wide flex items-center gap-2">
-                <Flame className="w-4 h-4 text-[#E6005A] fill-[#E6005A]" />
+              <h3 className="text-sm sm:text-base font-bold text-white tracking-wide flex items-center gap-2.5">
+                <CategoryIcon className="w-6.5 h-6.5 sm:w-7 sm:h-7 shrink-0" />
                 <span>Tìm kiếm đang phổ biến</span>
               </h3>
               <span className="text-xs text-[#8A798C]">Nhấn để tìm nhanh</span>

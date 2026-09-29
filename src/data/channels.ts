@@ -60,31 +60,6 @@ const RAW_CHANNELS: RawChannelItem[] = [
   { id: 'htvc_thuanviethd', name: 'HTVC Thuần Việt HD', logo: 'https://upload.wikimedia.org/wikipedia/vi/3/3a/Thu%E1%BA%A7n_Vi%E1%BB%87t.png', category: 'Kênh HTV', streamUrl: 'https://live.fptplay53.net/epzhd1/htvcthuanviethd_vhls.smil/chunklist_b5000000.m3u8' },
   { id: 'htvc_plus_hd', name: 'HTVC+ HD', logo: 'https://upload.wikimedia.org/wikipedia/vi/e/ec/HTVC_Plus.png', category: 'Kênh HTV', streamUrl: 'https://live.fptplay53.net/epzhd1/htvcplus_vhls.smil/chunklist_b5000000.m3u8' },
 
-  // Kênh SCTV
-  { id: 'sctv1', name: 'SCTV1 HD', logo: '/logos/sctv1.png', category: 'Kênh SCTV', streamUrl: 'https://hoiquan.dpdns.org/VTVGo/?sctv1' },
-  { id: 'sctv2', name: 'SCTV2 HD', logo: '/logos/sctv2.png', category: 'Kênh SCTV', streamUrl: 'https://liveh12.vtvprime.vn/hls/SCTV2/03.m3u8' },
-  { id: 'sctv3', name: 'SCTV3 HD', logo: '/logos/sctv3.png', category: 'Kênh SCTV', streamUrl: 'https://hoiquan.dpdns.org/VTVGo/?sctv3' },
-  { id: 'sctv4', name: 'SCTV4 HD', logo: '/logos/sctv4.png', category: 'Kênh SCTV', streamUrl: 'https://hoiquan.dpdns.org/VTVGo/?sctv4' },
-  { id: 'sctv5', name: 'SCTV5 HD', logo: '/logos/sctv5.png', category: 'Kênh SCTV', streamUrl: 'https://hoiquan.dpdns.org/VTVGo/?sctv5' },
-  { id: 'sctv6', name: 'SCTV6 HD', logo: '/logos/sctv6.png', category: 'Kênh SCTV', streamUrl: 'https://live.fptplay53.net/epzhd2/film360_vhls.smil/chunklist_b5000000.m3u8' },
-  { id: 'sctv7', name: 'SCTV7 HD', logo: '/logos/sctv7.png', category: 'Kênh SCTV', streamUrl: 'https://hoiquan.dpdns.org/VTVGo/?sctv7' },
-  { id: 'sctv8', name: 'SCTV8 HD', logo: '/logos/sctv8.png', category: 'Kênh SCTV', streamUrl: 'https://hoiquan.dpdns.org/VTVGo/?sctv8' },
-  { id: 'sctv9', name: 'SCTV9 HD', logo: '/logos/sctv9.png', category: 'Kênh SCTV', streamUrl: 'https://hoiquan.dpdns.org/VTVGo/?sctv9' },
-  { id: 'sctv10', name: 'SCTV10 HD', logo: '/logos/sctv10.png', category: 'Kênh SCTV', streamUrl: 'https://liveh34.vtvprime.vn/hls/SCTV10/01.m3u8' },
-  { id: 'sctv11', name: 'SCTV11 HD', logo: '/logos/sctv11.png', category: 'Kênh SCTV', streamUrl: 'https://hoiquan.dpdns.org/VTVGo/?sctv11' },
-  { id: 'sctv12', name: 'SCTV12 HD', logo: '/logos/sctv12.png', category: 'Kênh SCTV', streamUrl: 'https://hoiquan.dpdns.org/VTVGo/?sctv12' },
-  { id: 'sctv13', name: 'SCTV13 HD', logo: '/logos/sctv13.png', category: 'Kênh SCTV', streamUrl: 'https://hoiquan.dpdns.org/VTVGo/?sctv13' },
-  { id: 'sctv14', name: 'SCTV14 HD', logo: '/logos/sctv14.png', category: 'Kênh SCTV', streamUrl: 'https://hoiquan.dpdns.org/VTVGo/?sctv14' },
-  { id: 'sctv15', name: 'SCTV15 HD', logo: '/logos/sctv15.png', category: 'Kênh SCTV', streamUrl: 'https://hoiquan.dpdns.org/VTVGo/?sctv15' },
-  { id: 'sctv16', name: 'SCTV16 HD', logo: '/logos/sctv16.png', category: 'Kênh SCTV', streamUrl: 'https://hoiquan.dpdns.org/VTVGo/?sctv16' },
-  { id: 'sctv17', name: 'SCTV17 HD', logo: '/logos/sctv17.png', category: 'Kênh SCTV', streamUrl: 'https://hoiquan.dpdns.org/VTVGo/?sctv17' },
-  { id: 'sctv18', name: 'SCTV18 HD', logo: '/logos/sctv18.png', category: 'Kênh SCTV', streamUrl: 'https://hoiquan.dpdns.org/VTVGo/?sctv18' },
-  { id: 'sctv19', name: 'SCTV19 HD', logo: '/logos/sctv19.png', category: 'Kênh SCTV', streamUrl: 'https://hoiquan.dpdns.org/VTVGo/?sctv19' },
-  { id: 'sctv20', name: 'SCTV20 HD', logo: '/logos/sctv20.png', category: 'Kênh SCTV', streamUrl: 'https://hoiquan.dpdns.org/VTVGo/?sctv20' },
-  { id: 'sctv21', name: 'SCTV21 HD', logo: '/logos/sctv21.png', category: 'Kênh SCTV', streamUrl: 'https://hoiquan.dpdns.org/VTVGo/?sctv21' },
-  { id: 'sctv22', name: 'SCTV22 HD', logo: 'https://static.wikia.nocookie.net/logos/images/5/5f/SCTV22.png/revision/latest/scale-to-width-down/1000?cb=20210821035512&path-prefix=vi', category: 'Kênh SCTV', streamUrl: 'https://hoiquan.dpdns.org/VTVGo/?sctv22' },
-  { id: 'sctv_phim', name: 'SCTV Phim HD', logo: '/logos/sctv_phim.png', category: 'Kênh SCTV', streamUrl: 'https://hoiquan.dpdns.org/VTVGo/?sctvphim' },
-
   // Kênh thiết yếu
   { id: 'antv_thiet_yeu', name: 'Truyền hình Công an Nhân dân (ANTV) HD', logo: 'https://img-zlr1.tv360.vn/image1/2020_09_23/1600822516608/b33963dc0df8_640_360.png', category: 'Kênh thiết yếu', streamUrl: 'https://live.fptplay53.net/fnxhd2/anninhtv_vhls.smil/chunklist_b5000000.m3u8' },
   { id: 'qpvn_thiet_yeu', name: 'Truyền hình Quốc phòng Việt Nam (QPVN) HD', logo: '/logos/qpvn_thiet_yeu.png', category: 'Kênh thiết yếu', streamUrl: 'https://live.fptplay53.net/fnxhd2/quocphongvnhd_vhls.smil/chunklist_b5000000.m3u8' },
@@ -142,27 +117,6 @@ const RAW_CHANNELS: RawChannelItem[] = [
   { id: 'vinh_long_4', name: 'Truyền hình Vĩnh Long - THVL4 HD', logo: '/logos/vinh_long_4.png', category: 'Kênh địa phương', streamUrl: 'https://live.fptplay53.net/epzhd2/vinhlong4hd_vhls.smil/chunklist_b5000000.m3u8' },
   { id: 'vinh_long_5', name: 'Truyền hình Vĩnh Long - THVL5 HD', logo: '/logos/vinh_long_5.png', category: 'Kênh địa phương', streamUrl: 'https://live.fptplay53.net/epzsd1/vinhlong5_vhls.smil/chunklist_b5000000.m3u8' },
 
-  // Kênh quốc tế
-  { id: 'cnn', name: 'CNN HD', logo: 'https://upload.wikimedia.org/wikipedia/commons/b/b1/CNN.svg', category: 'Kênh quốc tế', streamUrl: 'https://d3bp6dwmpbdajl.cloudfront.net/v1/master/3722c60a815c199d9c0ef36c5b73da68a62b09d1/cc-ury0meh5m4nzm/index.m3u8' },
-  { id: 'bbc_news', name: 'BBC News HD', logo: 'https://upload.wikimedia.org/wikipedia/commons/6/62/BBC_News_2022.svg', category: 'Kênh quốc tế', streamUrl: 'https://stream8.cinerama.uz/1251/tracks-v1a1/mono.m3u8' },
-  { id: 'discovery_channel_hd', name: 'Discovery Channel HD', logo: 'https://upload.wikimedia.org/wikipedia/commons/e/e5/Discovery_Channel_logo.svg', category: 'Kênh quốc tế', streamUrl: 'http://cdn4.skygo.mn/live/disk1/SoutheastAsia/HLSv3-FTA/SoutheastAsia.m3u8' },
-  { id: 'aljazeera', name: 'ALJAZEERA HD', logo: 'https://upload.wikimedia.org/wikipedia/en/f/f2/Aljazeera_eng.svg', category: 'Kênh quốc tế', streamUrl: 'https://live-hls-apps-aje-fa.getaj.net/AJE/01.m3u8' },
-  { id: 'animal_planet', name: 'Animal Planet HD', logo: 'https://upload.wikimedia.org/wikipedia/commons/5/53/Animal_Planet_logo_2018.svg', category: 'Kênh quốc tế', streamUrl: 'https://tiger-hub.vercel.app@vodzong.mjunoon.tv:8087/streamtest/Animal-Planet-158-3/playlist.m3u8' },
-  { id: 'asian_food_network', name: 'ASIAN FOOD NETWORK HD', logo: 'https://static.wikia.nocookie.net/logos/images/a/a2/Asian_Food_Network.png', category: 'Kênh quốc tế', streamUrl: 'https://live.fptplay53.net/fnxhd2/afchd_vhls.smil/chunklist_b5000000.m3u8' },
-  { id: 'cartoon_network_intl', name: 'Cartoon Network HD', logo: 'https://upload.wikimedia.org/wikipedia/commons/b/bb/Cartoon_Network_logo.svg', category: 'Kênh quốc tế', streamUrl: 'http://cdn4.skygo.mn/live/disk1/Cartoon_Network/HLSv3-FTA/Cartoon_Network.m3u8' },
-  { id: 'kbs_world_intl', name: 'KBS World HD', logo: 'https://upload.wikimedia.org/wikipedia/commons/f/f6/KBS_World_2018.svg', category: 'Kênh quốc tế', streamUrl: 'https://live.fptplay53.net/epzhd2/kbs_vhls.smil/chunklist_b5000000.m3u8' },
-  { id: 'nhk_world_japan', name: 'NHK World Japan HD', logo: 'https://upload.wikimedia.org/wikipedia/commons/8/87/NHK_World-Japan_logo.svg', category: 'Kênh quốc tế', streamUrl: 'https://live.fptplay53.net/fnxhd2/nhkworld_vhls.smil/chunklist_b5000000.m3u8' },
-  { id: 'tv5_monde', name: 'TV5 Monde HD', logo: 'https://upload.wikimedia.org/wikipedia/commons/7/7b/TV5MONDE_logo.svg', category: 'Kênh quốc tế', streamUrl: 'https://live.fptplay53.net/fnxhd2/tv5_hls.smil/chunklist_b2500000.m3u8' },
-  { id: 'cna', name: 'CNA HD', logo: 'https://upload.wikimedia.org/wikipedia/commons/c/c2/Channel_NewsAsia_logo.svg', category: 'Kênh quốc tế', streamUrl: 'https://live.fptplay53.net/fnxhd2/newsasia_hls.smil/chunklist_b2500000.m3u8' },
-  { id: 'cnbc', name: 'CNBC HD', logo: 'https://upload.wikimedia.org/wikipedia/commons/e/e3/CNBC_logo.svg', category: 'Kênh quốc tế', streamUrl: 'https://live.fptplay53.net/fnxsd1/cnbc_hls.smil/chunklist_b2500000.m3u8' },
-  { id: 'kix_hd', name: 'KIX HD', logo: 'https://static.wikia.nocookie.net/logos/images/0/05/KIX_HD.png', category: 'Kênh quốc tế', streamUrl: 'https://live.fptplay53.net/fnxhd2/kixhd_vhls.smil/chunklist_b5000000.m3u8' },
-  { id: 'outdoor_channel', name: 'Outdoor Channel HD', logo: 'https://upload.wikimedia.org/wikipedia/commons/3/36/Outdoor_Channel_logo.svg', category: 'Kênh quốc tế', streamUrl: 'https://live.fptplay53.net/epzhd2/outdoorfhd_vhls.smil/chunklist_b5000000.m3u8' },
-  { id: 'tvn', name: 'tvN HD', logo: 'https://upload.wikimedia.org/wikipedia/commons/b/be/Tvn_logo.svg', category: 'Kênh quốc tế', streamUrl: 'https://d21dxaer0ypwk1.cloudfront.net/v1/master/3722c60a815c199d9c0ef36c5b73da68a62b09d1/cc-a6m2cy2rylsvo-ssai-prd/54ac8e25_eb5a_4f10_ba20_ffb254f0a16c/hls/playlist.m3u8' },
-  { id: 'warner_tv_hd', name: 'Warner TV HD', logo: 'https://upload.wikimedia.org/wikipedia/commons/5/50/Warner_TV_logo.svg', category: 'Kênh quốc tế', streamUrl: 'http://cdn4.skygo.mn/live/disk1/Warner/HLSv3-FTA/Warner.m3u8' },
-  { id: 'extreme_sports', name: 'Extreme Sports HD', logo: 'https://upload.wikimedia.org/wikipedia/commons/1/18/Extreme_Group_Logo.svg', category: 'Kênh quốc tế', streamUrl: 'http://flussonic.mkpnet.ru/tv-1a9441fd32d63873/video.m3u8' },
-  { id: 'fashion_tv', name: 'Fashion TV HD', logo: 'https://upload.wikimedia.org/wikipedia/commons/6/69/Fashion_TV.svg', category: 'Kênh quốc tế', streamUrl: 'https://stream8.cinerama.uz/1053/tracks-v1a1/mono.m3u8' },
-  { id: 'bloomberg', name: 'Bloomberg HD', logo: 'https://upload.wikimedia.org/wikipedia/commons/5/50/Bloomberg_logo.svg', category: 'Kênh quốc tế', streamUrl: 'https://cdn4.skygo.mn/live/disk1/Bloomberg/HLSv3-FTA/Bloomberg.m3u8' },
-
   // Kênh phát thanh
   { id: 'vov1', name: 'VOV1', logo: '/logos/vov1.png', category: 'Kênh phát thanh', streamUrl: 'https://media-audio.vov.vn/vov1vov5Vietnamese.sdp_aac/playlist.m3u8' },
   { id: 'vov2', name: 'VOV2', logo: '/logos/vov2.png', category: 'Kênh phát thanh', streamUrl: 'https://media-audio.vov.vn/vov2.sdp_aac/playlist.m3u8' },
@@ -177,24 +131,10 @@ const RAW_CHANNELS: RawChannelItem[] = [
   { id: 'vov_gt_mekong', name: 'VOV Giao Thông Mê Kông', logo: '/logos/vov_giao_thong.png', category: 'Kênh phát thanh', streamUrl: 'https://play.vovgiaothong.vn/live/mekong/playlist.m3u8' },
   { id: 'vov_gt_duyenhai', name: 'VOV Giao Thông Duyên Hải', logo: '/logos/vov_giao_thong.png', category: 'Kênh phát thanh', streamUrl: 'https://play.vovgiaothong.vn/live/duyenhai2/playlist.m3u8' },
   { id: 'hanoi_fm90', name: 'Hà Nội FM90', logo: '/logos/hanoi_fm90.png', category: 'Kênh phát thanh', streamUrl: 'http://14.162.146.90:8000/HANOI90' },
-  { id: 'hanoi_fm96', name: 'Hà Nội FM96', logo: '/logos/hanoi_fm96.png', category: 'Kênh phát thanh', streamUrl: 'http://222.252.21.96:8000/HANOI96' },
-
-  // Kênh WTV (Luôn luôn nằm ở vị trí kênh cuối cùng)
-  { 
-    id: 'wtv1', 
-    name: 'WTV1 (Thử nghiệm)', 
-    logo: 'data:image/svg+xml;utf8,%3Csvg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 80" width="200" height="80"%3E%3Crect width="200" height="80" rx="18" fill="%23E6005A"/%3E%3Ctext x="70" y="54" fill="%23ffffff" font-family="sans-serif" font-size="42" font-weight="900" letter-spacing="1"%3EWTV%3C/text%3E%3Crect x="138" y="16" width="44" height="48" rx="10" fill="%23ffffff"/%3E%3Ctext x="160" y="52" fill="%23E6005A" font-family="sans-serif" font-size="36" font-weight="900" text-anchor="middle"%3E1%3C/text%3E%3C/svg%3E', 
-    category: 'Kênh WTV', 
-    streamUrl: 'https://live.tdv.dpdns.org/hls/wtv1.m3u8' 
-  }
+  { id: 'hanoi_fm96', name: 'Hà Nội FM96', logo: '/logos/hanoi_fm96.png', category: 'Kênh phát thanh', streamUrl: 'http://222.252.21.96:8000/HANOI96' }
 ];
 
-// Helper ensuring WTV1 is strictly at the very last position
-const nonWtvList = RAW_CHANNELS.filter(item => item.id !== 'wtv1');
-const wtvItem = RAW_CHANNELS.find(item => item.id === 'wtv1');
-const SORTED_RAW_CHANNELS = wtvItem ? [...nonWtvList, wtvItem] : nonWtvList;
-
-export const CHANNELS_DATA: Channel[] = SORTED_RAW_CHANNELS.map((item, idx) => {
+export const CHANNELS_DATA: Channel[] = RAW_CHANNELS.map((item, idx) => {
   const chNum = idx + 1;
   const chCode = String(chNum).padStart(3, '0');
   return {
@@ -228,15 +168,11 @@ export const CHANNELS_DATA: Channel[] = SORTED_RAW_CHANNELS.map((item, idx) => {
     description: `Kênh ${item.name} (${item.category}).`,
     resolution: item.category === 'Kênh phát thanh' ? 'Audio Stream' : '1080p Full HD',
     bitrate: item.category === 'Kênh phát thanh' ? '128 - 320 kbps' : '6.5 - 9.0 Mbps HLS',
-    tags: [item.category, item.name, chCode, String(chNum), 'wtv', 'wtv1', 'nhóm kênh wtv', 'kênh wtv']
+    tags: [item.category, item.name, chCode, String(chNum)]
   };
 });
 
 export const SCHEDULE_DATA: Record<string, ProgramScheduleItem[]> = {
-  wtv1: [
-    { id: 'wtv1-1', channelId: 'wtv1', startTime: '18:00', endTime: '20:00', title: 'Phát sóng thử nghiệm WTV1', category: 'Thử nghiệm', description: 'Luồng phát sóng trực tuyến thử nghiệm kênh WTV1.', isLive: true },
-    { id: 'wtv1-2', channelId: 'wtv1', startTime: '20:00', endTime: '22:00', title: 'Tiếp sóng chương trình WTV1', category: 'Tổng hợp', description: 'Bản tin và nội dung giải trí tiếp nối trên kênh WTV1.' }
-  ],
   vtv1: [
     { id: 'v1-1', channelId: 'vtv1', startTime: '18:30', endTime: '19:00', title: 'Việt Nam hôm nay', category: 'Chính luận', description: 'Phân tích các vấn đề kinh tế xã hội.' },
     { id: 'v1-2', channelId: 'vtv1', startTime: '19:00', endTime: '19:50', title: 'Thời sự 19h Quốc gia', category: 'Thời sự', description: 'Bản tin chính luận trọng điểm quốc gia.', isLive: true },

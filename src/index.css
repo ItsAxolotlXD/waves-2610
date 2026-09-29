@@ -123,6 +123,28 @@ html.light-mode .tab-loading-spinner {
   filter: brightness(0.12) drop-shadow(0 0 8px rgba(0, 0, 0, 0.25)) drop-shadow(0 0 18px rgba(253, 147, 47, 0.35));
 }
 
+/* Triangle Experiment Loading: Continuous running lines that fade/disappear behind (No spin) */
+@keyframes triangle-path-flow {
+  0% {
+    stroke-dashoffset: 0;
+  }
+  100% {
+    stroke-dashoffset: -100;
+  }
+}
+
+.triangle-dash-flowing {
+  stroke-dasharray: 32 68;
+  animation: triangle-path-flow 1.25s linear infinite;
+  will-change: stroke-dashoffset;
+}
+
+.triangle-dash-glow {
+  stroke-dasharray: 38 62;
+  animation: triangle-path-flow 1.25s linear infinite;
+  will-change: stroke-dashoffset;
+}
+
 /* Header & Search Monochrome Filter */
 html.light-mode .topbar-search-icon,
 html.light-mode .sidebar-nav-home-icon,
@@ -4409,24 +4431,30 @@ html.light-mode #home-about-community-card p {
   transform: none !important;
 }
 
+/* Floaty Bar (Tab View Bar) Surface: Strictly clip internal tab glow within the capsule perimeter */
+.floaty-bar,
+.floaty-bar__surface,
+#floaty-bar-surface {
+  overflow: hidden !important;
+  clip-path: inset(0 round 9999px) !important;
+}
+
+.floaty-bar__items,
+#floaty-bar-tabs-container {
+  overflow: hidden !important;
+  clip-path: inset(0 round 9999px) !important;
+}
+
 .floaty-bar-pill-indicator {
-  background: #fd932f !important;
-  background-color: #fd932f !important;
-  background-image: none !important;
   border-radius: 9999px !important;
-  /* Soft glow around the selected tab, contained within the tab view bounds */
-  box-shadow: 0 0 10px rgba(253, 147, 47, 0.45), 0 2px 8px rgba(253, 147, 47, 0.35) !important;
-  border: 1px solid #fd932f !important;
+  /* Soft glow around the selected tab, contained strictly within the tab bar bounds */
+  box-shadow: 0 0 10px 1px rgba(253, 147, 47, 0.42) !important;
   z-index: 5 !important;
 }
 
 html.light-mode .floaty-bar-pill-indicator {
-  background: #fd932f !important;
-  background-color: #fd932f !important;
-  background-image: none !important;
-  /* Soft glow around the selected tab, contained within the tab view bounds */
-  box-shadow: 0 0 8px rgba(253, 147, 47, 0.35), 0 2px 6px rgba(253, 147, 47, 0.25) !important;
-  border: 1px solid #fd932f !important;
+  /* Soft glow around the selected tab in light mode, contained within tab bar */
+  box-shadow: 0 0 8px 1px rgba(253, 147, 47, 0.35) !important;
   z-index: 5 !important;
 }
 

@@ -27,6 +27,8 @@ import { useSettings, FONT_SCALE_CONFIG, SystemSettings } from '../hooks/useSett
 import { useVoiceSearch } from '../hooks/useVoiceSearch';
 import { WelcomeModal } from '../components/WelcomeModal';
 import { SfCheckmark } from '../components/SfCheckmark';
+import { CategoryIcon } from '../components/CategoryIcon';
+import { TriangleLoader } from '../components/TriangleLoader';
 import { KEYBIND_DEFINITIONS, DEFAULT_KEYBINDS, eventToKeyString, validateKeybind } from '../utils/keybinds';
 import { KeybindAction } from '../types';
 
@@ -88,7 +90,7 @@ const SETTINGS_GROUP_2: SettingsCategoryItem[] = [
     subtitle: 'Các tính năng phòng thí nghiệm và thử nghiệm mới',
     icon: FlaskConical,
     badgeColor: 'bg-gradient-to-b from-[#8E8E93] to-[#636366]',
-    keywords: ['thử nghiệm', 'experimental', 'lab', 'native keyboard', 'immersive search'],
+    keywords: ['thử nghiệm', 'experimental', 'lab', 'native keyboard', 'immersive search', 'tam giác', 'triangle', 'loading'],
   },
 ];
 
@@ -1703,6 +1705,46 @@ export const Settings: React.FC<SettingsProps> = ({
                       }}
                       className={`toggle-switch-btn relative w-[66px] h-7 rounded-full p-[3px] transition-colors duration-200 ease-in-out cursor-default shrink-0 flex items-center ${
                         draftSettings.immersiveSearch ? 'bg-[#fd932f]' : 'bg-[#E4E4E7] dark:bg-[#3F3F46]'
+                      }`}
+                    >
+                      <span className="toggle-switch-thumb block w-[32px] h-[22px] rounded-full bg-white border border-black/10 dark:border-white/10 shadow-md pointer-events-none" />
+                    </button>
+                  </div>
+
+                  {/* Thử nghiệm "Tam giác" */}
+                  <div 
+                    id="setting-experimental-triangle"
+                    onClick={() => updateDraft('triangleExperiment', !draftSettings.triangleExperiment)}
+                    className="group p-3.5 sm:p-4 rounded-[20px] flex items-center justify-between gap-4 cursor-default hover:bg-white/5 transition-colors"
+                  >
+                    <div className="flex items-center gap-3 min-w-0">
+                      <div className="w-10 h-10 flex items-center justify-center shrink-0">
+                        <TriangleLoader size={32} glow={false} />
+                      </div>
+                      <div className="min-w-0 flex-1">
+                        <div className="font-bold text-white text-sm flex items-center gap-2">
+                          <span>Tam giác</span>
+                          <span className="text-[10px] px-2 py-0.5 rounded-full font-bold uppercase tracking-wider bg-[#fd932f]/20 text-[#fd932f] border border-[#fd932f]/30">
+                            Mới
+                          </span>
+                        </div>
+                        <div className="text-xs text-[#9CA3AF] mt-1 leading-normal">
+                          Khi bật, biểu tượng loading của app sẽ thay bằng hình tam giác lỗ màu đỏ cam gradient chạy loop liên tục.
+                        </div>
+                      </div>
+                    </div>
+
+                    <button
+                      id="toggle-triangle-experiment"
+                      type="button"
+                      role="switch"
+                      aria-checked={draftSettings.triangleExperiment}
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        updateDraft('triangleExperiment', !draftSettings.triangleExperiment);
+                      }}
+                      className={`toggle-switch-btn relative w-[66px] h-7 rounded-full p-[3px] transition-colors duration-200 ease-in-out cursor-default shrink-0 flex items-center ${
+                        draftSettings.triangleExperiment ? 'bg-[#fd932f]' : 'bg-[#E4E4E7] dark:bg-[#3F3F46]'
                       }`}
                     >
                       <span className="toggle-switch-thumb block w-[32px] h-[22px] rounded-full bg-white border border-black/10 dark:border-white/10 shadow-md pointer-events-none" />

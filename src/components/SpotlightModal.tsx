@@ -23,6 +23,7 @@ import {
 import { CHANNELS_DATA } from '../data/channels';
 import { NEWS_DATA } from '../data/news';
 import { Channel } from '../types';
+import { CategoryIcon } from './CategoryIcon';
 import { useSettings } from '../hooks/useSettings';
 import { useVoiceSearch } from '../hooks/useVoiceSearch';
 
@@ -564,7 +565,7 @@ export const SpotlightModal: React.FC<SpotlightModalProps> = ({
                     {matchedChannels.length > 0 && (
                       <div className="space-y-1">
                         <div className="px-2 py-1 text-[10px] font-bold uppercase tracking-wider text-[#fd932f] flex items-center gap-1.5">
-                          <Tv className="w-3 h-3" />
+                          <CategoryIcon className="w-4.5 h-4.5 sm:w-5 sm:h-5 shrink-0" />
                           <span>Kênh truyền hình ({matchedChannels.length})</span>
                         </div>
                         {matchedChannels.slice(0, 5).map((ch) => (
@@ -615,7 +616,7 @@ export const SpotlightModal: React.FC<SpotlightModalProps> = ({
                     {matchedCategories.length > 0 && (
                       <div className="space-y-1">
                         <div className="px-2 py-1 text-[10px] font-bold uppercase tracking-wider text-[#38BDF8] flex items-center gap-1.5">
-                          <Box className="w-3 h-3" />
+                          <CategoryIcon className="w-4.5 h-4.5 sm:w-5 sm:h-5 shrink-0" />
                           <span>Danh mục ({matchedCategories.length})</span>
                         </div>
                         {matchedCategories.map((item) => {
@@ -643,7 +644,7 @@ export const SpotlightModal: React.FC<SpotlightModalProps> = ({
                     {matchedNews.length > 0 && (
                       <div className="space-y-1">
                         <div className="px-2 py-1 text-[10px] font-bold uppercase tracking-wider text-[#FF4D4D] flex items-center gap-1.5">
-                          <Megaphone className="w-3 h-3" />
+                          <CategoryIcon className="w-4.5 h-4.5 sm:w-5 sm:h-5 shrink-0" />
                           <span>Tin tức ({matchedNews.length})</span>
                         </div>
                         {matchedNews.slice(0, 3).map((n) => (
@@ -668,7 +669,7 @@ export const SpotlightModal: React.FC<SpotlightModalProps> = ({
                     {matchedSettings.length > 0 && (
                       <div className="space-y-1">
                         <div className="px-2 py-1 text-[10px] font-bold uppercase tracking-wider text-[#FF4D4D] flex items-center gap-1.5">
-                          <SettingsIcon className="w-3 h-3" />
+                          <CategoryIcon className="w-4.5 h-4.5 sm:w-5 sm:h-5 shrink-0" />
                           <span>Cài đặt ({matchedSettings.length})</span>
                         </div>
                         {matchedSettings.map((st) => (

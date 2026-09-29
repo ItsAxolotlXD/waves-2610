@@ -17,6 +17,7 @@ import { Channel } from '../types';
 import { useHLS } from '../hooks/useHLS';
 import { useFavorites } from '../hooks/useFavorites';
 import { useSettings } from '../hooks/useSettings';
+import { TriangleLoader } from './TriangleLoader';
 
 interface VideoPlayerProps {
   channel: Channel;
@@ -432,7 +433,11 @@ export const VideoPlayer: React.FC<VideoPlayerProps> = ({
       {/* Buffering & Loading Spinner */}
       {(isLoading || isBuffering) && !error && (
         <div className="absolute inset-0 flex items-center justify-center bg-black/40 backdrop-blur-[2px] z-10 pointer-events-none p-4">
-          <div className="w-10 h-10 sm:w-14 sm:h-14 rounded-full border-4 sm:border-[5px] border-white/25 border-t-white animate-spin shadow-none" />
+          {settings.triangleExperiment ? (
+            <TriangleLoader size={66} glow={false} />
+          ) : (
+            <div className="w-10 h-10 sm:w-14 sm:h-14 rounded-full border-4 sm:border-[5px] border-white/25 border-t-white animate-spin shadow-none" />
+          )}
         </div>
       )}
 

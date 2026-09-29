@@ -458,8 +458,15 @@ export const BottomDock: React.FC<BottomDockProps> = ({
                               mass: 0.55
                             }}
                             style={{ zIndex: 1 }}
-                            className="floaty-bar-pill-indicator absolute inset-0 rounded-full pointer-events-none bg-[#fd932f] shadow-[0_0_10px_rgba(253,147,47,0.45),0_2px_6px_rgba(253,147,47,0.30)] border border-[#fd932f]"
-                          />
+                            className="floaty-bar-pill-indicator absolute inset-0 rounded-full pointer-events-none"
+                          >
+                            {/* Subtle contained glow around selected tab within tab view bar perimeter */}
+                            <div 
+                              className="absolute -inset-1 rounded-full bg-[#fd932f]/45 blur-[5px] pointer-events-none" 
+                              aria-hidden="true" 
+                            />
+                            <div className="absolute inset-0 rounded-full bg-[#fd932f] border border-[#fd932f] shadow-[inset_0_1px_2px_rgba(255,255,255,0.4)]" />
+                          </motion.div>
                         )}
                         <div className="relative z-10 flex flex-col items-center justify-center w-full">
                           <div className="w-full h-[27px] sm:h-[29px] flex items-center justify-center shrink-0 relative">
