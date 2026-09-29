@@ -13,6 +13,7 @@ import { FindWordsBar } from './components/FindWordsBar';
 import { AddStreamModal } from './components/AddStreamModal';
 import { TextToSpeechPlayer } from './components/TextToSpeechPlayer';
 import { FloatingSearchBar } from './components/FloatingSearchBar';
+import { TabLoadingScreen } from './components/TabLoadingScreen';
 import { NativeKeyboard } from './components/NativeKeyboard';
 import { NativeKeyboardProvider } from './context/NativeKeyboardContext';
 import { Home } from './pages/Home';
@@ -64,6 +65,18 @@ export default function App() {
   });
   const [routeState, setRouteState] = useState<any>(null);
   const previousRouteRef = useRef<string>('/');
+
+  // Tab Switching Loading State (2-second loading animation before new tab loads)
+  const [isTabLoading, setIsTabLoading] = useState(false);
+  const tabLoadingTimerRef = useRef<NodeJS.Timeout | null>(null);
+
+  useEffect(() => {
+    return () => {
+      if (tabLoadingTimerRef.current) {
+        clearTimeout(tabLoadingTimerRef.current);
+      }
+    };
+  }, []);
 
   // Tab-specific search state for Floating Search Bar
   const [tabSearchQueries, setTabSearchQueries] = useState<Record<string, string>>({});
@@ -223,6 +236,11 @@ export default function App() {
       }
     }
 
+    const baseRoute = path.includes('?') ? path.split('?')[0] : path;
+    const currentBaseRoute = currentRoute.includes('?') ? currentRoute.split('?')[0] : currentRoute;
+    const currentFullLoc = window.location.pathname + window.location.search;
+    const isTabSwitch = baseRoute !== currentBaseRoute || (path.includes('?') && path !== currentFullLoc);
+
     if (currentRoute !== '/search') {
       previousRouteRef.current = currentRoute;
     }
@@ -231,7 +249,7 @@ export default function App() {
     
     // Parse query params if any
     if (path.includes('?')) {
-      const [baseRoute, query] = path.split('?');
+      const [parsedBaseRoute, query] = path.split('?');
       const params = new URLSearchParams(query);
       const chSlug = params.get('channel');
       if (chSlug) {
@@ -239,7 +257,7 @@ export default function App() {
         if (matched) setCurrentChannel(matched);
       }
       window.history.pushState(null, '', path);
-      setCurrentRoute(baseRoute);
+      setCurrentRoute(parsedBaseRoute);
     } else {
       window.history.pushState(null, '', path);
       setCurrentRoute(path);
@@ -247,6 +265,17 @@ export default function App() {
 
     // Scroll to top on navigation
     window.scrollTo({ top: 0, behavior: 'smooth' });
+
+    // 2-second loading animation before the tab loads
+    if (isTabSwitch) {
+      if (tabLoadingTimerRef.current) {
+        clearTimeout(tabLoadingTimerRef.current);
+      }
+      setIsTabLoading(true);
+      tabLoadingTimerRef.current = setTimeout(() => {
+        setIsTabLoading(false);
+      }, 2000);
+    }
   };
 
   // Open search handler (respects navigation mode and immersive search experiment)
@@ -314,6 +343,7 @@ export default function App() {
         return;
       }
       const path = window.location.pathname;
+      const isTabSwitch = path !== currentRoute;
       const params = new URLSearchParams(window.location.search);
       const chSlug = params.get('channel');
       if (chSlug) {
@@ -321,6 +351,16 @@ export default function App() {
         if (matched) setCurrentChannel(matched);
       }
       setCurrentRoute(path);
+
+      if (isTabSwitch) {
+        if (tabLoadingTimerRef.current) {
+          clearTimeout(tabLoadingTimerRef.current);
+        }
+        setIsTabLoading(true);
+        tabLoadingTimerRef.current = setTimeout(() => {
+          setIsTabLoading(false);
+        }, 2000);
+      }
     };
 
     window.addEventListener('popstate', handlePopState);
@@ -577,9 +617,31 @@ export default function App() {
             ? 'pb-28 sm:pb-32'
             : ''
         }`}>
-          <div key={currentRoute} className="w-full h-full">
-            {renderContent()}
-          </div>
+          <AnimatePresence mode="wait">
+            {isTabLoading ? (
+              <motion.div
+                key="tab-loading-state"
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
+                transition={{ duration: 0.15 }}
+                className="w-full h-full flex items-center justify-center min-h-[50vh]"
+              >
+                <TabLoadingScreen />
+              </motion.div>
+            ) : (
+              <motion.div
+                key={currentRoute}
+                initial={{ opacity: 0, y: 4 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0 }}
+                transition={{ duration: 0.2 }}
+                className="w-full h-full"
+              >
+                {renderContent()}
+              </motion.div>
+            )}
+          </AnimatePresence>
         </main>
       </div>
 

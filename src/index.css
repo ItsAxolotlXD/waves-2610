@@ -114,6 +114,15 @@ html.light-mode #root {
   color: #111827 !important;
 }
 
+/* Tab Switching Loading Spinner with Gentle Glow */
+.tab-loading-spinner {
+  filter: drop-shadow(0 0 10px rgba(255, 255, 255, 0.7)) drop-shadow(0 0 22px rgba(255, 255, 255, 0.35));
+}
+
+html.light-mode .tab-loading-spinner {
+  filter: brightness(0.12) drop-shadow(0 0 8px rgba(0, 0, 0, 0.25)) drop-shadow(0 0 18px rgba(253, 147, 47, 0.35));
+}
+
 /* Header & Search Monochrome Filter */
 html.light-mode .topbar-search-icon,
 html.light-mode .sidebar-nav-home-icon,
