@@ -56,7 +56,7 @@ export const OnAirSlider: React.FC<OnAirSliderProps> = ({
     <section className="w-full">
       {/* Header with Title & Slider Controls */}
       <div className="flex items-center justify-between mb-4">
-        <h2 className="text-xl md:text-2xl font-bold tracking-tight text-white flex items-center gap-2.5 sm:gap-3">
+        <h2 className="text-xl md:text-2xl font-bold font-square tracking-tight text-white flex items-center gap-2.5 sm:gap-3">
           <CategoryIcon className="w-8 h-8 sm:w-9 sm:h-9 shrink-0" />
           <span>Đề xuất cho bạn</span>
         </h2>

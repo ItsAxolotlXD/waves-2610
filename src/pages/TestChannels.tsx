@@ -160,7 +160,7 @@ export const TestChannels: React.FC<TestChannelsProps> = ({
         <div className="flex flex-col gap-3 sm:gap-3.5">
           <div className="flex items-center gap-2.5">
             <CategoryIcon className="w-7 h-7 sm:w-8 sm:h-8 shrink-0" />
-            <h2 className="text-lg sm:text-xl font-bold text-[#111827] dark:text-white">
+            <h2 className="text-lg sm:text-xl font-bold font-square text-[#111827] dark:text-white">
               Danh sách kênh kiểm thử
             </h2>
             <span className="px-2.5 py-0.5 rounded-full text-xs font-semibold bg-[#F1F3F5] dark:bg-[#26262C] text-[#4B5563] dark:text-[#9CA3AF] border border-[#E5E7EB] dark:border-[#383842]">
@@ -203,7 +203,7 @@ export const TestChannels: React.FC<TestChannelsProps> = ({
                 <div className="livetv-category-divider flex items-center justify-between border-b border-[#E5E7EB] dark:border-[#2D2D35] pb-2">
                   <div className="flex items-center gap-2.5">
                     <CategoryIcon className="w-6 h-6 sm:w-6.5 sm:h-6.5 shrink-0" />
-                    <h3 className="text-sm sm:text-base font-bold text-[#111827] dark:text-white">
+                    <h3 className="text-sm sm:text-base font-bold font-square text-[#111827] dark:text-white">
                       {group.category}
                     </h3>
                     <span className="text-[11px] font-semibold text-[#6B7280] dark:text-[#9CA3AF]">

@@ -43,11 +43,11 @@ export const Channels: React.FC<ChannelsProps> = ({
       {/* Header */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
-          <div className="flex items-center gap-2.5 text-xs text-[#E6005A] font-bold uppercase tracking-wider mb-1">
+          <div className="flex items-center gap-2.5 text-xs text-[#E6005A] font-bold font-square uppercase tracking-wider mb-1">
             <CategoryIcon className="w-6 h-6 sm:w-6.5 sm:h-6.5 shrink-0" />
             <span>Danh mục Hạ tầng Truyền hình</span>
           </div>
-          <h1 className="text-3xl font-bold text-[#111827] dark:text-white tracking-tight">
+          <h1 className="text-3xl font-bold font-square text-[#111827] dark:text-white tracking-tight">
             Chuyên kênh Truyền hình Việt Nam
           </h1>
           <p className="text-xs sm:text-sm text-[#6B7280] dark:text-[#9CA3AF] mt-1">

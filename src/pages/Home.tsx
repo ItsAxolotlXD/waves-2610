@@ -2,6 +2,7 @@ import React from 'react';
 import { HeroCarousel } from '../components/HeroCarousel';
 import { OnAirSlider } from '../components/OnAirSlider';
 import { IntroducingSpatialGlass } from '../components/IntroducingSpatialGlass';
+import { FarewellAnnouncement } from '../components/FarewellAnnouncement';
 import { CategoryIcon } from '../components/CategoryIcon';
 import { NEWS_DATA } from '../data/news';
 import { Channel } from '../types';
@@ -147,7 +148,7 @@ export const Home: React.FC<HomeProps> = ({
         {/* 1. Trang & Chức năng hệ thống */}
         {matchingPages.length > 0 && (
           <section className="space-y-3">
-            <h2 className="text-sm font-bold uppercase tracking-wider text-[#9CA3AF] flex items-center gap-2.5">
+            <h2 className="text-sm font-bold font-square uppercase tracking-wider text-[#9CA3AF] flex items-center gap-2.5">
               <CategoryIcon className="w-6 h-6 sm:w-6.5 sm:h-6.5 shrink-0" />
               <span>Trang & Danh mục ({matchingPages.length})</span>
             </h2>
@@ -181,7 +182,7 @@ export const Home: React.FC<HomeProps> = ({
         {/* 2. Lối tắt cài đặt */}
         {matchingSettings.length > 0 && (
           <section className="space-y-3">
-            <h2 className="text-sm font-bold uppercase tracking-wider text-[#9CA3AF] flex items-center gap-2.5">
+            <h2 className="text-sm font-bold font-square uppercase tracking-wider text-[#9CA3AF] flex items-center gap-2.5">
               <CategoryIcon className="w-6 h-6 sm:w-6.5 sm:h-6.5 shrink-0" />
               <span>Cài đặt hệ thống ({matchingSettings.length})</span>
             </h2>
@@ -212,7 +213,7 @@ export const Home: React.FC<HomeProps> = ({
         {/* 3. Kênh truyền hình khớp */}
         {matchingChannels.length > 0 && (
           <section className="space-y-3">
-            <h2 className="text-sm font-bold uppercase tracking-wider text-[#9CA3AF] flex items-center gap-2.5">
+            <h2 className="text-sm font-bold font-square uppercase tracking-wider text-[#9CA3AF] flex items-center gap-2.5">
               <CategoryIcon className="w-6 h-6 sm:w-6.5 sm:h-6.5 shrink-0" />
               <span>Kênh truyền hình ({matchingChannels.length})</span>
             </h2>
@@ -249,7 +250,7 @@ export const Home: React.FC<HomeProps> = ({
         {/* 4. Bài viết tin tức khớp */}
         {matchingNews.length > 0 && (
           <section className="space-y-3">
-            <h2 className="text-sm font-bold uppercase tracking-wider text-[#9CA3AF] flex items-center gap-2.5">
+            <h2 className="text-sm font-bold font-square uppercase tracking-wider text-[#9CA3AF] flex items-center gap-2.5">
               <CategoryIcon className="w-6 h-6 sm:w-6.5 sm:h-6.5 shrink-0" />
               <span>Bài viết tin tức ({matchingNews.length})</span>
             </h2>
@@ -315,27 +316,8 @@ export const Home: React.FC<HomeProps> = ({
         {/* Dòng giới thiệu: Introducing Spatial Glass (gradient đỏ - trắng, chữ có glow và hạt bay chậm) */}
         <IntroducingSpatialGlass />
 
-        {/* Dải màu vàng thông báo: The next chapter of VNRT Online (đặt dưới banner Introducing Spatial Glass) */}
-        <div
-          id="home-announcement-banner"
-          className="relative w-full rounded-2xl bg-[#FACC15] text-[#1C1917] px-4 py-3 sm:py-3.5 sm:px-5 flex items-center justify-between gap-3 shadow-lg shadow-amber-500/10 border border-amber-300/40 select-none overflow-hidden"
-        >
-          {/* Subtle ambient light shape */}
-          <div 
-            aria-hidden="true" 
-            className="absolute -right-6 -top-6 w-32 h-32 rounded-full bg-white/30 blur-xl pointer-events-none" 
-          />
-          <div className="flex items-center gap-3 min-w-0 flex-1">
-            <div className="w-8 h-8 rounded-xl bg-black/10 flex items-center justify-center shrink-0 text-black">
-              <Megaphone className="w-4 h-4 text-black" />
-            </div>
-            <div className="text-xs sm:text-sm text-[#1C1917] leading-relaxed font-normal min-w-0">
-              <span className="font-bold text-black">The next chapter of VNRT Online</span>
-              <span className="mx-1.5 font-bold opacity-60">-</span>
-              <span>Nền tảng VNRT Online sẽ chính thức áp dụng kể từ 16 tháng 10 năm 2026.</span>
-            </div>
-          </div>
-        </div>
+        {/* Thông báo dừng sản xuất & Lời cảm ơn VPlay (đặt dưới đề xuất cho bạn và introducing spatial glass) */}
+        <FarewellAnnouncement />
 
         {/* 3. Nội dung Giới thiệu VNRT Online (Chuyển toàn bộ nội dung từ Giới thiệu vào Home) */}
         <section id="home-about-section" className="space-y-8 pt-4 border-t border-[#26262E]">

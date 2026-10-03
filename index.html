@@ -53,12 +53,15 @@
             document.documentElement.classList.remove('no-spatial-glass', 'no-shiny-outline');
           }
 
-          // Default to light mode (user preference: light mode là mode mặc định)
-          var theme = 'light';
+          // Default to dark mode (user preference: dark mode là chế độ giao diện mặc định)
+          var theme = 'dark';
           if (saved) {
             try {
               var ts = JSON.parse(saved);
-              if (ts.theme === 'dark') {
+              if (ts.themeVersion === 2) {
+                if (ts.theme === 'light') theme = 'light';
+                else theme = 'dark';
+              } else {
                 theme = 'dark';
               }
             } catch(e) {}
@@ -71,8 +74,8 @@
             document.documentElement.classList.add('dark');
           }
         } catch(e) {
-          document.documentElement.classList.add('light-mode');
-          document.documentElement.classList.remove('dark');
+          document.documentElement.classList.remove('light-mode');
+          document.documentElement.classList.add('dark');
         }
       })();
     </script>
@@ -85,6 +88,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Alata&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@500;600;700;800&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Google+Sans:wght@400;500;700&display=swap">
     <meta property="og:title" content="Vplay" />
     <meta property="og:description" content="Nền tảng cộng đồng dành cho những người yêu thích, theo dõi và lưu trữ nội dung về truyền hình Việt Nam với giao diện streaming hiện đại." />

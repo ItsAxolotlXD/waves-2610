@@ -435,7 +435,7 @@ export const ImmersiveSearch: React.FC<ImmersiveSearchProps> = ({
           /* Default Immersive View with circular popular searches */
           <div className="space-y-4 pt-1">
             <div className="flex items-center justify-between">
-              <h3 className="text-sm sm:text-base font-bold text-white tracking-wide flex items-center gap-2.5">
+              <h3 className="text-sm sm:text-base font-bold font-square text-white tracking-wide flex items-center gap-2.5">
                 <CategoryIcon className="w-6.5 h-6.5 sm:w-7 sm:h-7 shrink-0" />
                 <span>Tìm kiếm đang phổ biến</span>
               </h3>

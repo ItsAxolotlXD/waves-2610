@@ -5,6 +5,7 @@ import { keyboardSound } from '../utils/keyboardSound';
 
 export interface SystemSettings {
   theme: 'dark' | 'light';
+  themeVersion?: number;
   superDarkMode: boolean;
   spatialGlass: boolean;
   spatialGlassVersion?: number;
@@ -51,11 +52,12 @@ export const getDefaultNavigationMode = (): 'sidebar' | 'topbar' | 'floaty' => {
 };
 
 export const DEFAULT_SETTINGS: SystemSettings = {
-  theme: 'light', // Ban ngày (Light mode) là mặc định
+  theme: 'dark', // Ban đêm (Dark mode) là mặc định
+  themeVersion: 2,
   superDarkMode: false,
   spatialGlass: true,
   spatialGlassVersion: 3,
-  spatialGlassOpacity: 43, // 43% mặc định cho Light mode
+  spatialGlassOpacity: 20, // 20% mặc định cho Dark mode
   spatialGlassBlur: 10, // 10%
   disableShinyOutline: false,
   dockToSidebar: true,
@@ -130,11 +132,14 @@ export const getStoredSettings = (): SystemSettings => {
       const immersiveSearch = parsed.immersiveSearchVersion === 2
         ? parsed.immersiveSearch
         : true;
-      const theme = parsed.theme === 'dark' ? 'dark' : 'light';
+      const theme = parsed.themeVersion === 2
+        ? (parsed.theme === 'light' ? 'light' : 'dark')
+        : 'dark';
       return { 
         ...DEFAULT_SETTINGS, 
         ...parsed,
         theme,
+        themeVersion: 2,
         immersiveSearch,
         immersiveSearchVersion: 2,
         navigationMode: navigationMode || DEFAULT_SETTINGS.navigationMode,

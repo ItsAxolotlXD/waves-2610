@@ -564,7 +564,7 @@ export const SpotlightModal: React.FC<SpotlightModalProps> = ({
                     {/* 1. Channels */}
                     {matchedChannels.length > 0 && (
                       <div className="space-y-1">
-                        <div className="px-2 py-1 text-[10px] font-bold uppercase tracking-wider text-[#fd932f] flex items-center gap-1.5">
+                        <div className="px-2 py-1 text-[10px] font-bold font-square uppercase tracking-wider text-[#fd932f] flex items-center gap-1.5">
                           <CategoryIcon className="w-4.5 h-4.5 sm:w-5 sm:h-5 shrink-0" />
                           <span>Kênh truyền hình ({matchedChannels.length})</span>
                         </div>
@@ -615,7 +615,7 @@ export const SpotlightModal: React.FC<SpotlightModalProps> = ({
                     {/* 2. Categories / Navigation */}
                     {matchedCategories.length > 0 && (
                       <div className="space-y-1">
-                        <div className="px-2 py-1 text-[10px] font-bold uppercase tracking-wider text-[#38BDF8] flex items-center gap-1.5">
+                        <div className="px-2 py-1 text-[10px] font-bold font-square uppercase tracking-wider text-[#38BDF8] flex items-center gap-1.5">
                           <CategoryIcon className="w-4.5 h-4.5 sm:w-5 sm:h-5 shrink-0" />
                           <span>Danh mục ({matchedCategories.length})</span>
                         </div>
@@ -643,7 +643,7 @@ export const SpotlightModal: React.FC<SpotlightModalProps> = ({
                     {/* 3. News */}
                     {matchedNews.length > 0 && (
                       <div className="space-y-1">
-                        <div className="px-2 py-1 text-[10px] font-bold uppercase tracking-wider text-[#FF4D4D] flex items-center gap-1.5">
+                        <div className="px-2 py-1 text-[10px] font-bold font-square uppercase tracking-wider text-[#FF4D4D] flex items-center gap-1.5">
                           <CategoryIcon className="w-4.5 h-4.5 sm:w-5 sm:h-5 shrink-0" />
                           <span>Tin tức ({matchedNews.length})</span>
                         </div>
@@ -668,7 +668,7 @@ export const SpotlightModal: React.FC<SpotlightModalProps> = ({
                     {/* 4. Settings Shortcuts */}
                     {matchedSettings.length > 0 && (
                       <div className="space-y-1">
-                        <div className="px-2 py-1 text-[10px] font-bold uppercase tracking-wider text-[#FF4D4D] flex items-center gap-1.5">
+                        <div className="px-2 py-1 text-[10px] font-bold font-square uppercase tracking-wider text-[#FF4D4D] flex items-center gap-1.5">
                           <CategoryIcon className="w-4.5 h-4.5 sm:w-5 sm:h-5 shrink-0" />
                           <span>Cài đặt ({matchedSettings.length})</span>
                         </div>

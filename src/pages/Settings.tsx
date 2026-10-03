@@ -444,7 +444,7 @@ export const Settings: React.FC<SettingsProps> = ({
               </div>
               <div className="flex items-center justify-between text-xs sm:text-sm">
                 <span className="font-medium text-white">Software Build</span>
-                <span className="font-semibold text-[#9CA3AF]">26V1006</span>
+                <span className="font-semibold text-[#9CA3AF]">26v1009</span>
               </div>
               {/* Compatible with Spatial Glass */}
               <div id="settings-compatible-spatial-glass" className="pt-2.5 mt-1 border-t border-white/10 flex items-center">
@@ -709,11 +709,11 @@ export const Settings: React.FC<SettingsProps> = ({
                             }
                           }}
                           className={`flex items-center justify-center gap-2 rounded-full px-4 py-2 text-xs font-semibold transition-all cursor-default ${
-                            (draftSettings.theme || 'light') === val
+                            (draftSettings.theme || 'dark') === val
                               ? 'bg-[#fd932f] text-white shadow-[0_2px_10px_rgba(253,147,47,0.35)]'
                               : 'text-[#9CA3AF] hover:text-white hover:bg-white/5'
                           }`}
-                          aria-pressed={(draftSettings.theme || 'light') === val}
+                          aria-pressed={(draftSettings.theme || 'dark') === val}
                         >
                           <IconComponent className="w-4 h-4" />
                           <span>{label}</span>

@@ -336,7 +336,7 @@ export const Article: React.FC<ArticleProps> = ({ slug, navigate, fontSize = 16 
 
       {/* Related News */}
       <div className="space-y-4 pt-6">
-        <h3 className="text-xl font-bold text-[#111827] dark:text-white flex items-center gap-2.5">
+        <h3 className="text-xl font-bold font-square text-[#111827] dark:text-white flex items-center gap-2.5">
           <CategoryIcon className="w-7 h-7 sm:w-8 sm:h-8 shrink-0" />
           <span>Bài viết khác</span>
         </h3>

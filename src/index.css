@@ -145,6 +145,42 @@ html.light-mode .tab-loading-spinner {
   will-change: stroke-dashoffset;
 }
 
+/* Font chữ vuông cho các heading danh mục */
+.font-square,
+.category-heading {
+  font-family: 'Chakra Petch', 'Space Grotesk', system-ui, -apple-system, sans-serif !important;
+  letter-spacing: -0.01em;
+}
+
+/* Light mode adaptation for Farewell Announcement */
+html.light-mode #home-farewell-announcement {
+  background-color: rgba(255, 255, 255, 0.96) !important;
+  border-color: rgba(0, 0, 0, 0.08) !important;
+  color: #1f2937 !important;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05) !important;
+}
+
+html.light-mode #home-farewell-announcement h2 {
+  color: #111827 !important;
+}
+
+html.light-mode #home-farewell-announcement p {
+  color: #374151 !important;
+}
+
+html.light-mode #home-farewell-announcement strong {
+  color: #111827 !important;
+}
+
+html.light-mode #home-farewell-announcement .farewell-quote {
+  background-color: rgba(0, 0, 0, 0.04) !important;
+  color: #111827 !important;
+}
+
+html.light-mode #home-farewell-announcement .farewell-footer-note {
+  color: #6b7280 !important;
+}
+
 /* Header & Search Monochrome Filter */
 html.light-mode .topbar-search-icon,
 html.light-mode .sidebar-nav-home-icon,
