@@ -16,26 +16,29 @@ export function useRevealEffect() {
   const onMouseMove = useCallback((e: React.MouseEvent<HTMLElement>) => {
     const el = e.currentTarget;
     const rect = el.getBoundingClientRect();
-    const x = e.clientX - rect.left;
-    const y = e.clientY - rect.top;
+    const x = Math.round(e.clientX - rect.left);
+    const y = Math.round(e.clientY - rect.top);
     el.style.setProperty('--reveal-x', `${x}px`);
     el.style.setProperty('--reveal-y', `${y}px`);
     el.style.setProperty('--reveal-opacity', '1');
+    el.style.setProperty('--reveal-border-opacity', '1');
   }, []);
 
   const onMouseEnter = useCallback((e: React.MouseEvent<HTMLElement>) => {
     const el = e.currentTarget;
     const rect = el.getBoundingClientRect();
-    const x = e.clientX - rect.left;
-    const y = e.clientY - rect.top;
+    const x = Math.round(e.clientX - rect.left);
+    const y = Math.round(e.clientY - rect.top);
     el.style.setProperty('--reveal-x', `${x}px`);
     el.style.setProperty('--reveal-y', `${y}px`);
     el.style.setProperty('--reveal-opacity', '1');
+    el.style.setProperty('--reveal-border-opacity', '1');
   }, []);
 
   const onMouseLeave = useCallback((e: React.MouseEvent<HTMLElement>) => {
     const el = e.currentTarget;
     el.style.setProperty('--reveal-opacity', '0');
+    el.style.setProperty('--reveal-border-opacity', '0');
   }, []);
 
   return {

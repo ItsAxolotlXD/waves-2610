@@ -22,7 +22,7 @@ export const ChannelCard: React.FC<ChannelCardProps> = ({
     <div
       id={`channel-card-${channel.id}`}
       onClick={() => onSelect(channel)}
-      className={`group relative rounded-[8px] bg-white dark:bg-[#2b2b2b] border transition-colors overflow-hidden cursor-default shadow-xs ${
+      className={`fluent-reveal-item channel-card group relative rounded-[8px] bg-white dark:bg-[#2b2b2b] border transition-colors overflow-hidden cursor-default shadow-xs ${
         isActive
           ? 'border-[#0067c0] ring-1 ring-[#0067c0]'
           : 'border-[#e5e5e5] dark:border-[#383838] hover:border-[#cccccc] dark:hover:border-[#505050] hover:bg-[#fafafa] dark:hover:bg-[#323232]'

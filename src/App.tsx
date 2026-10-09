@@ -30,9 +30,16 @@ import { NEWS_DATA } from './data/news';
 import { Channel, NewsArticle } from './types';
 import { useSettings } from './hooks/useSettings';
 import { useKeyboardShortcuts } from './hooks/useKeyboardShortcuts';
+import { initGlobalRevealEngine } from './utils/revealEngine';
 
 export default function App() {
   const { settings, draftSettings, hasChanges } = useSettings();
+
+  // Initialize app-wide Fluent Reveal Highlight Engine
+  useEffect(() => {
+    const cleanup = initGlobalRevealEngine();
+    return cleanup;
+  }, []);
 
   // Tooltip & navigation block for unsaved settings
   const [showUnsavedTooltip, setShowUnsavedTooltip] = useState(false);
@@ -563,11 +570,11 @@ export default function App() {
             ? 'md:pl-0 md:pr-0 pb-20'
             : settings.sidebarPosition === 'right'
               ? isEffectiveCollapsed
-                ? 'md:pr-[80px]'
-                : 'md:pr-[290px]'
+                ? 'md:pr-[60px]'
+                : 'md:pr-[270px]'
               : isEffectiveCollapsed
-                ? 'md:pl-[80px]'
-                : 'md:pl-[290px]'
+                ? 'md:pl-[60px]'
+                : 'md:pl-[270px]'
       }`}>
         {/* TopBar Header */}
         <TopBar
