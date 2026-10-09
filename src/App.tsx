@@ -532,7 +532,7 @@ export default function App() {
       <div
         data-immersive-sidebar={settings.immersiveSidebar}
       data-sidebar-position={settings.sidebarPosition}
-      className={`min-h-screen ${settings.superDarkMode ? 'bg-black' : 'bg-transparent'} text-[#E0E0E6] flex font-sans selection:bg-[#C83DFF] selection:text-white relative`}
+      className={`min-h-screen ${settings.superDarkMode ? 'bg-black' : 'bg-[#f3f3f3] dark:bg-[#202020]'} text-[#111827] dark:text-[#E0E0E6] flex font-sans selection:bg-[#0067c0] selection:text-white relative`}
     >
       {/* Fixed atmospheric cosmic background matching custom nebula gradient */}
       <div 

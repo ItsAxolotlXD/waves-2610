@@ -6,30 +6,20 @@ export const FarewellAnnouncement: React.FC = () => {
     <section
       id="home-farewell-announcement"
       aria-label="Thông báo dừng sản xuất nền tảng truyền hình VPlay"
-      className="relative w-full rounded-[28px] sm:rounded-[32px] overflow-hidden bg-white/95 dark:bg-gradient-to-b dark:from-[#1C1C22]/90 dark:via-[#18181D]/90 dark:to-[#121216]/95 border border-black/10 dark:border-white/10 shadow-xl dark:shadow-2xl p-6 sm:p-8 md:p-10 select-text transition-colors duration-200"
+      className="relative w-full rounded-[8px] sm:rounded-[10px] overflow-hidden bg-white dark:bg-[#2b2b2b] border border-[#e5e5e5] dark:border-[#383838] shadow-xs p-5 sm:p-7 md:p-8 select-text transition-colors duration-200"
     >
-      {/* Decorative ambient background glows */}
-      <div 
-        aria-hidden="true"
-        className="absolute top-0 right-0 -mr-20 -mt-20 w-80 h-80 rounded-full bg-gradient-to-br from-[#E6005A]/10 to-[#FF8A00]/10 dark:from-[#E6005A]/15 dark:to-[#FF8A00]/10 blur-3xl pointer-events-none"
-      />
-      <div 
-        aria-hidden="true"
-        className="absolute bottom-0 left-0 -ml-20 -mb-20 w-80 h-80 rounded-full bg-gradient-to-tr from-[#3B82F6]/5 to-[#8B5CF6]/5 dark:from-[#3B82F6]/10 dark:to-[#8B5CF6]/10 blur-3xl pointer-events-none"
-      />
-
-      <div className="relative z-10 max-w-4xl mx-auto space-y-6 sm:space-y-7">
+      <div className="relative z-10 max-w-4xl mx-auto space-y-5 sm:space-y-6">
         {/* Header Tag */}
-        <div className="flex items-center justify-between border-b border-black/10 dark:border-white/10 pb-4">
-          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#E6005A]/10 text-[#D60052] dark:bg-[#E6005A]/15 dark:text-[#FF2D78] text-xs font-bold font-square uppercase tracking-wider border border-[#E6005A]/25 dark:border-[#E6005A]/30">
+        <div className="flex items-center justify-between border-b border-[#e5e5e5] dark:border-[#383838] pb-3">
+          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-[4px] bg-[#d83b01]/10 text-[#d83b01] dark:bg-[#d83b01]/20 dark:text-[#ff8c00] text-xs font-semibold uppercase tracking-wider">
             <Heart className="w-3.5 h-3.5 fill-current" />
             <span>LỜI CẢM ƠN VÀ TẠM BIỆT</span>
           </div>
         </div>
 
         {/* Main Title */}
-        <div className="space-y-2">
-          <h2 className="font-square text-xl sm:text-2xl md:text-3xl font-extrabold tracking-tight text-[#111827] dark:text-white uppercase leading-snug">
+        <div className="space-y-1.5">
+          <h2 className="text-lg sm:text-xl md:text-2xl font-bold tracking-tight text-[#111827] dark:text-white uppercase leading-snug">
             THÔNG BÁO DỪNG SẢN XUẤT NỀN TẢNG TRUYỀN HÌNH VPLAY
           </h2>
         </div>

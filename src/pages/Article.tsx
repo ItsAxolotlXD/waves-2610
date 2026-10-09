@@ -203,7 +203,7 @@ export const Article: React.FC<ArticleProps> = ({ slug, navigate, fontSize = 16 
               alt={article.title}
               className="w-full h-full object-cover group-hover:scale-[1.01] transition-transform duration-300"
             />
-            <div className="absolute bottom-3 right-3 px-3 py-1.5 rounded-full bg-black/70 backdrop-blur-md text-white text-[11px] font-medium flex items-center gap-1.5 opacity-0 group-hover:opacity-100 transition-opacity">
+            <div className="absolute bottom-2.5 right-2.5 px-2.5 py-1 rounded-[4px] bg-black/75 text-white text-[11px] font-normal flex items-center gap-1.5 opacity-0 group-hover:opacity-100 transition-opacity">
               <Maximize2 className="w-3.5 h-3.5" />
               <span>Xem kích thước đầy đủ</span>
             </div>
@@ -212,18 +212,18 @@ export const Article: React.FC<ArticleProps> = ({ slug, navigate, fontSize = 16 
           {/* Full Article Body Content */}
           <div 
             style={{ fontSize: `${fontSize}px`, lineHeight: 1.75 }}
-            className="p-6 md:p-10 rounded-[28px] bg-white dark:bg-[#1A1A1E] border border-[#E5E7EB] dark:border-[#2A2A32] shadow-md text-[#374151] dark:text-[#D1D5DB] space-y-8"
+            className="p-5 md:p-8 rounded-[8px] bg-white dark:bg-[#2b2b2b] border border-[#e5e5e5] dark:border-[#383838] shadow-xs text-[#374151] dark:text-[#d1d5db] space-y-6"
           >
             {/* Excerpt Lead */}
             <p 
               style={{ fontSize: `${fontSize * 1.125}px` }}
-              className="font-semibold text-[#111827] dark:text-white leading-relaxed border-l-4 border-[#E50914] pl-4 italic bg-[#F9FAFB] dark:bg-transparent py-2 rounded-r-lg"
+              className="font-medium text-[#111827] dark:text-white leading-relaxed border-l-3 border-[#0067c0] pl-3 italic bg-black/5 dark:bg-white/5 py-2 rounded-r-[4px]"
             >
               {article.excerpt}
             </p>
 
             {/* Article Body Paragraphs */}
-            <div className="space-y-6">
+            <div className="space-y-5">
               {article.content.map((paragraph, idx) => {
                 // Image element (no caption/description) - Displayed Full Size
                 if (paragraph.startsWith('<image>')) {
@@ -231,7 +231,7 @@ export const Article: React.FC<ArticleProps> = ({ slug, navigate, fontSize = 16 
                   return (
                     <figure 
                       key={idx} 
-                      className="my-8 rounded-[24px] overflow-hidden border border-[#E5E7EB] dark:border-[#2D2D35] bg-[#F1F3F5] dark:bg-[#0C0D12] shadow-md dark:shadow-xl group relative cursor-default"
+                      className="my-6 rounded-[8px] overflow-hidden border border-[#e5e5e5] dark:border-[#383838] bg-neutral-100 dark:bg-[#202020] shadow-xs group relative cursor-default"
                       onClick={() => {
                         setLightboxImage(imgUrl);
                         setLightboxZoom(1);
@@ -245,9 +245,9 @@ export const Article: React.FC<ArticleProps> = ({ slug, navigate, fontSize = 16 
                         className="w-full h-auto block object-contain mx-auto group-hover:opacity-95 transition-opacity"
                         loading="lazy"
                       />
-                      <div className="absolute top-4 right-4 px-3.5 py-1.5 rounded-full bg-black/75 backdrop-blur-md text-white text-xs font-semibold flex items-center gap-1.5 shadow-md border border-white/10 opacity-80 group-hover:opacity-100 transition-opacity">
-                        <ZoomIn className="w-4 h-4 text-[#FF4D8B]" />
-                        <span>Kích thước đầy đủ (Full size)</span>
+                      <div className="absolute top-3 right-3 px-2.5 py-1 rounded-[4px] bg-black/80 text-white text-xs font-normal flex items-center gap-1.5 shadow-sm opacity-80 group-hover:opacity-100 transition-opacity">
+                        <ZoomIn className="w-3.5 h-3.5 text-[#60cdff]" />
+                        <span>Kích thước đầy đủ</span>
                       </div>
                     </figure>
                   );
@@ -354,18 +354,18 @@ export const Article: React.FC<ArticleProps> = ({ slug, navigate, fontSize = 16 
       {/* Full Size Image Lightbox Modal */}
       {lightboxImage && (
         <div 
-          className="fixed inset-0 z-[100] bg-black/90 backdrop-blur-xl flex flex-col items-center justify-center p-4 animate-in fade-in duration-200"
+          className="fixed inset-0 z-[100] bg-black/90 flex flex-col items-center justify-center p-4 animate-in fade-in duration-200"
           onClick={() => setLightboxImage(null)}
         >
           {/* Top Control Bar */}
           <div 
-            className="absolute top-4 right-4 flex items-center gap-2 bg-[#25141E]/90 border border-white/20 rounded-full px-3 py-1.5 shadow-2xl z-10"
+            className="absolute top-4 right-4 flex items-center gap-2 bg-[#2c2c2c] border border-white/20 rounded-[6px] px-3 py-1.5 shadow-2xl z-10"
             onClick={(e) => e.stopPropagation()}
           >
             <button
               type="button"
               onClick={() => setLightboxZoom((prev) => Math.min(3, prev + 0.25))}
-              className="p-1.5 rounded-full hover:bg-white/15 text-white transition-colors cursor-default"
+              className="p-1 rounded-[4px] hover:bg-white/10 text-white transition-colors cursor-default"
               title="Phóng to"
             >
               <ZoomIn className="w-4 h-4" />

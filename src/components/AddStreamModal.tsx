@@ -61,98 +61,103 @@ export const AddStreamModal: React.FC<AddStreamModalProps> = ({
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            transition={{ duration: shouldAnimate ? 0.3 : 0 }}
+            transition={{ duration: 0.25, ease: 'easeOut' }}
             onClick={onClose}
-            className="fixed inset-0 bg-black/10 backdrop-blur-md"
+            className="fixed inset-0 bg-black/50"
           />
 
           <motion.div
             id="add-stream-dialog"
-            initial={shouldAnimate ? { opacity: 0, scale: 1.08 } : { opacity: 1, scale: 1 }}
-            animate={{ opacity: 1, scale: 1 }}
-            exit={shouldAnimate ? { opacity: 0, scale: 1.05 } : { opacity: 0 }}
-            transition={{ duration: shouldAnimate ? 0.35 : 0, ease: [0.16, 1, 0.3, 1] }}
-            className="spatial-glass-modal relative w-full max-w-[390px] bg-white/70 border border-white/50 rounded-[26px] p-5 sm:p-6 shadow-2xl z-10 text-black"
+            initial={shouldAnimate ? { opacity: 0, scale: 0.98, y: 8 } : { opacity: 1, scale: 1 }}
+            animate={{ opacity: 1, scale: 1, y: 0 }}
+            exit={shouldAnimate ? { opacity: 0, scale: 0.98, y: 6 } : { opacity: 0 }}
+            transition={{ duration: 0.22, ease: [0.1, 0.9, 0.2, 1] }}
+            className="fluent-modal-dialog relative z-10 w-full max-w-[440px] bg-white dark:bg-[#202020] rounded-xl overflow-hidden shadow-[0_20px_50px_rgba(0,0,0,0.25),0_0_0_1px_rgba(0,0,0,0.08)] dark:shadow-[0_20px_50px_rgba(0,0,0,0.6),0_0_0_1px_rgba(255,255,255,0.08)] border border-black/[0.08] dark:border-white/[0.08] text-[#1F1F1F] dark:text-[#F3F4F6]"
           >
-            {/* Header */}
-            <div className="flex items-center justify-between pb-3.5 border-b border-black/10">
-              <div className="flex items-center gap-2.5">
-                <div className="w-9 h-9 rounded-2xl bg-[#E6005A]/20 text-[#E6005A] flex items-center justify-center border border-[#E6005A]/30">
-                  <Plus className="w-4.5 h-4.5" />
-                </div>
+            {/* Header & Body Content Area */}
+            <form onSubmit={handleSubmit}>
+              <div className="p-6 pb-5 space-y-4">
                 <div>
-                  <h3 className="text-sm sm:text-base font-bold text-black">Thêm luồng trực tiếp mới</h3>
-                  <p className="text-[11px] text-neutral-700">Nhập thông tin luồng HLS / M3U8</p>
+                  <h2 className="text-[20px] font-semibold text-[#1F1F1F] dark:text-[#FFFFFF] tracking-tight leading-snug font-sans">
+                    Thêm luồng trực tiếp mới
+                  </h2>
+                  <p className="text-[14px] text-[#555555] dark:text-[#CCCCCC] leading-normal mt-1.5 font-normal">
+                    Nhập thông tin luồng HLS / M3U8 để phát trực tiếp
+                  </p>
                 </div>
-              </div>
-              <button
-                onClick={onClose}
-                className="w-7 h-7 rounded-full bg-transparent hover:bg-transparent border-none flex items-center justify-center text-neutral-700 hover:text-black cursor-default transition-colors"
-              >
-                <X className="w-4 h-4" />
-              </button>
-            </div>
 
-            {/* Form */}
-            <form onSubmit={handleSubmit} className="mt-4 space-y-3.5">
-              <div>
-                <label className="block text-xs font-semibold text-neutral-800 mb-1">
-                  Tên luồng <span className="text-[#FF4D8D]">*</span>
-                </label>
-                <input
-                  type="text"
-                  required
-                  value={streamName}
-                  onChange={(e) => setStreamName(e.target.value)}
-                  placeholder="Ví dụ: VTV3 HD 1080p Nguồn 2"
-                  className="w-full px-3.5 py-2.5 rounded-xl bg-white/60 border border-black/15 text-black placeholder:text-neutral-500 text-xs sm:text-sm focus:outline-none focus:border-[#E6005A]"
-                />
-              </div>
+                <div className="space-y-3 pt-1">
+                  <div>
+                    <label className="block text-[13px] font-medium text-[#333333] dark:text-[#DDDDDD] mb-1">
+                      Tên luồng <span className="text-[#0067C0]">*</span>
+                    </label>
+                    <input
+                      type="text"
+                      required
+                      value={streamName}
+                      onChange={(e) => setStreamName(e.target.value)}
+                      placeholder="Ví dụ: VTV3 HD Nguồn 2"
+                      className="w-full px-3 py-2 rounded-md bg-[#F9F9F9] dark:bg-[#2B2B2B] border border-black/[0.12] dark:border-white/[0.12] text-[#1F1F1F] dark:text-[#FFFFFF] placeholder:text-[#888888] text-sm focus:outline-none focus:border-[#0067c0] focus:ring-1 focus:ring-[#0067c0] transition-all"
+                    />
+                  </div>
 
-              <div>
-                <label className="block text-xs font-semibold text-neutral-800 mb-1">
-                  Địa chỉ luồng (.m3u8) <span className="text-[#FF4D8D]">*</span>
-                </label>
-                <input
-                  type="url"
-                  required
-                  value={streamUrl}
-                  onChange={(e) => setStreamUrl(e.target.value)}
-                  placeholder="https://domain.com/live/stream.m3u8"
-                  className="w-full px-4 py-3 rounded-2xl bg-white/60 border border-black/15 text-black placeholder:text-neutral-500 text-xs sm:text-sm font-mono focus:outline-none focus:border-[#E6005A]"
-                />
-              </div>
+                  <div>
+                    <label className="block text-[13px] font-medium text-[#333333] dark:text-[#DDDDDD] mb-1">
+                      Địa chỉ luồng (.m3u8) <span className="text-[#0067C0]">*</span>
+                    </label>
+                    <input
+                      type="url"
+                      required
+                      value={streamUrl}
+                      onChange={(e) => setStreamUrl(e.target.value)}
+                      placeholder="https://domain.com/live/stream.m3u8"
+                      className="w-full px-3 py-2 rounded-md bg-[#F9F9F9] dark:bg-[#2B2B2B] border border-black/[0.12] dark:border-white/[0.12] text-[#1F1F1F] dark:text-[#FFFFFF] placeholder:text-[#888888] text-sm font-mono focus:outline-none focus:border-[#0067c0] focus:ring-1 focus:ring-[#0067c0] transition-all"
+                    />
+                  </div>
 
-              <div>
-                <label className="block text-xs font-semibold text-neutral-800 mb-1.5">
-                  Chất lượng
-                </label>
-                <div className="flex gap-2">
-                  {(['SD', 'HD', 'Full HD', '4K'] as const).map((q) => (
-                    <button
-                      key={q}
-                      type="button"
-                      onClick={() => setStreamQuality(q)}
-                      className={`flex-1 py-2 rounded-xl text-xs font-bold transition-all cursor-default ${
-                        streamQuality === q
-                          ? 'bg-[#fd932f] text-white shadow-md'
-                          : 'bg-black/5 text-neutral-700 hover:text-black border border-black/10'
-                      }`}
-                    >
-                      {q}
-                    </button>
-                  ))}
+                  <div>
+                    <label className="block text-[13px] font-medium text-[#333333] dark:text-[#DDDDDD] mb-1.5">
+                      Chất lượng
+                    </label>
+                    <div className="flex gap-2">
+                      {(['SD', 'HD', 'Full HD', '4K'] as const).map((q) => (
+                        <button
+                          key={q}
+                          type="button"
+                          onClick={() => setStreamQuality(q)}
+                          className={`flex-1 py-1.5 rounded-[4px] text-xs font-medium transition-all cursor-default border ${
+                            streamQuality === q
+                              ? 'bg-[#0067C0] text-white border-[#005A9E] shadow-sm'
+                              : 'bg-white dark:bg-[#2B2B2B] text-[#555555] dark:text-[#AAAAAA] hover:text-[#1F1F1F] dark:hover:text-[#FFFFFF] border-[#d1d1d1] dark:border-[#3E3E3E]'
+                          }`}
+                        >
+                          {q}
+                        </button>
+                      ))}
+                    </div>
+                  </div>
                 </div>
               </div>
 
-              <div className="pt-2">
+              {/* Subtle Divider */}
+              <div className="h-[1px] w-full bg-[#E5E5E5] dark:bg-[#2F2F2F]" />
+
+              {/* Bottom Actions Footer */}
+              <div className="fluent-modal-footer bg-[#F3F3F3] dark:bg-[#272727] px-6 py-3.5 flex items-center justify-end gap-2.5">
                 <button
                   type="submit"
                   id="btn-add-stream-submit"
-                  className="w-full py-2.5 sm:py-3 rounded-full bg-[#fd932f] hover:bg-[#e68428] active:scale-[0.98] text-white text-xs sm:text-sm font-bold flex items-center justify-center gap-2 transition-all shadow-md cursor-default"
+                  className="fluent-btn-primary px-5 py-1.5 h-8 sm:h-9 rounded-[4px] bg-[#0067c0] hover:bg-[#1875c7] active:bg-[#005fb8] text-white text-[14px] font-medium shadow-sm transition-colors border border-[#005A9E] border-b-2 border-b-[#004578] flex items-center justify-center cursor-default gap-1.5"
                 >
-                  <Play className="w-4 h-4 fill-current" />
-                  <span>Thêm & Phát luồng ngay</span>
+                  <Play className="w-3.5 h-3.5 fill-current" />
+                  <span>Phát luồng</span>
+                </button>
+                <button
+                  type="button"
+                  onClick={onClose}
+                  className="fluent-btn-secondary px-5 py-1.5 h-8 sm:h-9 rounded-[4px] bg-white dark:bg-[#2D2D2D] hover:bg-[#F9F9F9] dark:hover:bg-[#383838] active:bg-[#EEEEEE] dark:active:bg-[#222222] text-[#1F1F1F] dark:text-[#FFFFFF] border border-[#d1d1d1] dark:border-[#3E3E3E] border-b-[#b5b5b5] dark:border-b-[#4F4F4F] text-[14px] font-normal shadow-[0_1px_2px_rgba(0,0,0,0.04)] transition-colors flex items-center justify-center cursor-default"
+                >
+                  Hủy bỏ
                 </button>
               </div>
             </form>

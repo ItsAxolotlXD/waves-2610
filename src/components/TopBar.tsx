@@ -1,9 +1,8 @@
 import React, { useState } from 'react';
-import { Menu, Search, Tv, Megaphone, Settings } from 'lucide-react';
+import { Menu } from 'lucide-react';
 import { motion, AnimatePresence } from 'motion/react';
 import { useSettings } from '../hooks/useSettings';
 import { ToolsMenu } from './ToolsMenu';
-import { SfCheckmark } from './SfCheckmark';
 import { Channel, NewsArticle } from '../types';
 
 const LOGO_SRC = 'https://static.wikia.nocookie.net/ep-deo/images/4/4b/Vplay_no_wordmark.png/revision/latest/scale-to-width-down/1000?cb=20260829062616';
@@ -48,7 +47,6 @@ export const TopBar: React.FC<TopBarProps> = ({
   onOpenFindWords = () => {},
   onOpenAddStream = () => {},
   onImportChannels = () => {},
-  onOpenNotifications = () => {},
   fontSize = 16,
   onChangeFontSize = () => {},
   showUnsavedTooltip = false,
@@ -56,13 +54,10 @@ export const TopBar: React.FC<TopBarProps> = ({
 }) => {
   const { settings, hasChanges, applyDraftSettings } = useSettings();
   const [logoError, setLogoError] = useState(false);
-  const [settingsSpinCount, setSettingsSpinCount] = useState(0);
-  const [isSettingsSpinning, setIsSettingsSpinning] = useState(false);
+
   const isTopBarMode = settings.navigationMode === 'topbar';
 
   const handleSettingsClick = () => {
-    setSettingsSpinCount((prev) => prev + 1);
-    setIsSettingsSpinning(true);
     navigate('/settings');
   };
 
@@ -72,26 +67,11 @@ export const TopBar: React.FC<TopBarProps> = ({
   };
 
   return (
-    <header className="w-full h-16 relative bg-transparent border-0 px-3 sm:px-6 md:px-8 flex items-center justify-between sticky top-0 z-30 pointer-events-none">
-      {/* Progressive Blur Layer over the top header bar spanning entire top width */}
-      <div 
-        id="topbar-progressive-blur" 
-        className="topbar-progressive-blur" 
-        aria-hidden="true"
-      >
-        <div className="progressive-blur-layer layer-1" />
-        <div className="progressive-blur-layer layer-2" />
-        <div className="progressive-blur-layer layer-3" />
-        <div className="progressive-blur-layer layer-4" />
-        <div className="progressive-blur-layer layer-5" />
-        <div className="progressive-blur-layer layer-6" />
-        <div className="progressive-blur-gradient" />
-      </div>
-
+    <header className="w-full h-14 relative bg-[#f3f3f3] dark:bg-[#202020] border-b border-[#e5e5e5] dark:border-[#2e2e2e] px-3 sm:px-6 md:px-8 flex items-center justify-between sticky top-0 z-30 select-none">
       {/* TOP BAR MODE: Brand Logo & Navigation Links (Truyền hình, News) */}
       {isTopBarMode ? (
-        <div className="flex items-center gap-2 sm:gap-4 pointer-events-auto shrink-0 relative z-10">
-          {/* Logo web - không có viền, không có text, logo chuẩn như ở sidebar */}
+        <div className="flex items-center gap-2 sm:gap-4 shrink-0 relative z-10">
+          {/* Logo web - chuẩn WinUI */}
           <button
             id="btn-topbar-brand"
             type="button"
@@ -104,25 +84,25 @@ export const TopBar: React.FC<TopBarProps> = ({
                 src={LOGO_SRC}
                 alt="VNRT Online Logo" 
                 referrerPolicy="no-referrer"
-                className="h-8 max-w-[125px] w-auto object-contain shrink-0 drop-shadow-sm"
+                className="h-7.5 max-w-[125px] w-auto object-contain shrink-0 drop-shadow-sm"
                 onError={() => setLogoError(true)}
               />
             ) : (
-              <span className="text-white dark:text-white light:text-[#111827] font-black text-2xl tracking-tighter">V</span>
+              <span className="text-[#0067c0] font-black text-2xl tracking-tighter">V</span>
             )}
           </button>
 
-          {/* Navigation links: Trang chủ, Truyền hình, News có icon đồng bộ chuẩn */}
-          <nav className="flex items-center gap-1 sm:gap-2 ml-1 sm:ml-2" aria-label="Thanh điều hướng chính">
+          {/* Navigation links */}
+          <nav className="flex items-center gap-1 ml-1 sm:ml-2" aria-label="Thanh điều hướng chính">
             {/* Home (Trang chủ) */}
             <button
               id="btn-topbar-nav-home"
               type="button"
               onClick={() => navigate('/')}
-              className={`group relative flex items-center gap-2 px-3.5 sm:px-4 h-10 rounded-full text-xs sm:text-[13.5px] font-medium transition-colors cursor-default whitespace-nowrap outline-none select-none hover:bg-black/5 dark:hover:bg-white/10 ${
+              className={`group relative flex items-center gap-2 px-3 h-8.5 rounded-[4px] text-xs sm:text-[13px] font-normal transition-colors cursor-default whitespace-nowrap outline-none select-none ${
                 currentRoute === '/' || currentRoute === '/home'
-                  ? 'text-[#18181B] dark:text-white font-semibold'
-                  : 'text-[#4B5563] dark:text-[#D1D5DB] hover:text-[#18181B] dark:hover:text-white'
+                  ? 'bg-black/5 dark:bg-white/10 text-[#111827] dark:text-white font-medium'
+                  : 'text-[#4b5563] dark:text-[#d1d5db] hover:bg-black/5 dark:hover:bg-white/[0.06] hover:text-[#111827] dark:hover:text-white'
               }`}
               title="Trang chủ"
             >
@@ -130,10 +110,10 @@ export const TopBar: React.FC<TopBarProps> = ({
                 src={HOME_ICON_SRC}
                 alt="Home"
                 referrerPolicy="no-referrer"
-                className={`w-[19px] h-[19px] object-contain shrink-0 transition-opacity ${
+                className={`w-4 h-4 object-contain shrink-0 transition-opacity ${
                   currentRoute === '/' || currentRoute === '/home'
                     ? 'brightness-0 dark:brightness-0 dark:invert opacity-100'
-                    : 'brightness-0 dark:brightness-0 dark:invert opacity-80 group-hover:opacity-100'
+                    : 'brightness-0 dark:brightness-0 dark:invert opacity-70 group-hover:opacity-100'
                 }`}
                 onError={(e) => {
                   (e.target as HTMLElement).style.display = 'none';
@@ -141,13 +121,8 @@ export const TopBar: React.FC<TopBarProps> = ({
               />
               <span>Trang chủ</span>
 
-              {/* Line pill ở chân tab khi select */}
               {(currentRoute === '/' || currentRoute === '/home') && (
-                <motion.span
-                  layoutId="topbar-nav-pill-line"
-                  className="absolute bottom-1 left-4 right-4 h-[2px] bg-[#18181B] dark:bg-white rounded-full shadow-[0_1px_3px_rgba(0,0,0,0.15)] dark:shadow-[0_1px_3px_rgba(255,255,255,0.4)] pointer-events-none"
-                  transition={{ type: 'spring', stiffness: 500, damping: 35 }}
-                />
+                <span className="absolute bottom-0 left-2 right-2 h-[2px] bg-[#0067c0] rounded-t-full pointer-events-none" />
               )}
             </button>
 
@@ -156,10 +131,10 @@ export const TopBar: React.FC<TopBarProps> = ({
               id="btn-topbar-nav-tv"
               type="button"
               onClick={() => navigate('/live-tv')}
-              className={`group relative flex items-center gap-2 px-3.5 sm:px-4 h-10 rounded-full text-xs sm:text-[13.5px] font-medium transition-colors cursor-default whitespace-nowrap outline-none select-none hover:bg-black/5 dark:hover:bg-white/10 ${
+              className={`group relative flex items-center gap-2 px-3 h-8.5 rounded-[4px] text-xs sm:text-[13px] font-normal transition-colors cursor-default whitespace-nowrap outline-none select-none ${
                 currentRoute === '/live-tv' || currentRoute === '/channels'
-                  ? 'text-[#18181B] dark:text-white font-semibold'
-                  : 'text-[#4B5563] dark:text-[#D1D5DB] hover:text-[#18181B] dark:hover:text-white'
+                  ? 'bg-black/5 dark:bg-white/10 text-[#111827] dark:text-white font-medium'
+                  : 'text-[#4b5563] dark:text-[#d1d5db] hover:bg-black/5 dark:hover:bg-white/[0.06] hover:text-[#111827] dark:hover:text-white'
               }`}
               title="Truyền hình trực tiếp"
             >
@@ -167,10 +142,10 @@ export const TopBar: React.FC<TopBarProps> = ({
                 src={TV_ICON_SRC}
                 alt="Truyền hình"
                 referrerPolicy="no-referrer"
-                className={`w-5 h-5 object-contain shrink-0 transition-opacity ${
+                className={`w-4 h-4 object-contain shrink-0 transition-opacity ${
                   currentRoute === '/live-tv' || currentRoute === '/channels'
                     ? 'brightness-0 dark:brightness-0 dark:invert opacity-100'
-                    : 'brightness-0 dark:brightness-0 dark:invert opacity-80 group-hover:opacity-100'
+                    : 'brightness-0 dark:brightness-0 dark:invert opacity-70 group-hover:opacity-100'
                 }`}
                 onError={(e) => {
                   (e.target as HTMLElement).style.display = 'none';
@@ -178,13 +153,8 @@ export const TopBar: React.FC<TopBarProps> = ({
               />
               <span>Truyền hình</span>
 
-              {/* Line pill ở chân tab khi select (màu đen ở light mode, màu trắng ở dark mode) */}
               {(currentRoute === '/live-tv' || currentRoute === '/channels') && (
-                <motion.span
-                  layoutId="topbar-nav-pill-line"
-                  className="absolute bottom-1 left-4 right-4 h-[2px] bg-[#18181B] dark:bg-white rounded-full shadow-[0_1px_3px_rgba(0,0,0,0.15)] dark:shadow-[0_1px_3px_rgba(255,255,255,0.4)] pointer-events-none"
-                  transition={{ type: 'spring', stiffness: 500, damping: 35 }}
-                />
+                <span className="absolute bottom-0 left-2 right-2 h-[2px] bg-[#0067c0] rounded-t-full pointer-events-none" />
               )}
             </button>
 
@@ -193,10 +163,10 @@ export const TopBar: React.FC<TopBarProps> = ({
               id="btn-topbar-nav-news"
               type="button"
               onClick={() => navigate('/news')}
-              className={`group relative flex items-center gap-2 px-3.5 sm:px-4 h-10 rounded-full text-xs sm:text-[13.5px] font-medium transition-colors cursor-default whitespace-nowrap outline-none select-none hover:bg-black/5 dark:hover:bg-white/10 ${
+              className={`group relative flex items-center gap-2 px-3 h-8.5 rounded-[4px] text-xs sm:text-[13px] font-normal transition-colors cursor-default whitespace-nowrap outline-none select-none ${
                 currentRoute === '/news' || currentRoute.startsWith('/article')
-                  ? 'text-[#18181B] dark:text-white font-semibold'
-                  : 'text-[#4B5563] dark:text-[#D1D5DB] hover:text-[#18181B] dark:hover:text-white'
+                  ? 'bg-black/5 dark:bg-white/10 text-[#111827] dark:text-white font-medium'
+                  : 'text-[#4b5563] dark:text-[#d1d5db] hover:bg-black/5 dark:hover:bg-white/[0.06] hover:text-[#111827] dark:hover:text-white'
               }`}
               title="Tin tức (News)"
             >
@@ -204,10 +174,10 @@ export const TopBar: React.FC<TopBarProps> = ({
                 src={NEWS_ICON_SRC}
                 alt="News"
                 referrerPolicy="no-referrer"
-                className={`w-[18px] h-[18px] object-contain shrink-0 transition-opacity ${
+                className={`w-4 h-4 object-contain shrink-0 transition-opacity ${
                   currentRoute === '/news' || currentRoute.startsWith('/article')
                     ? 'brightness-0 dark:brightness-0 dark:invert opacity-100'
-                    : 'brightness-0 dark:brightness-0 dark:invert opacity-80 group-hover:opacity-100'
+                    : 'brightness-0 dark:brightness-0 dark:invert opacity-70 group-hover:opacity-100'
                 }`}
                 onError={(e) => {
                   (e.target as HTMLElement).style.display = 'none';
@@ -215,13 +185,8 @@ export const TopBar: React.FC<TopBarProps> = ({
               />
               <span>News</span>
 
-              {/* Line pill ở chân tab khi select (màu đen ở light mode, màu trắng ở dark mode) */}
               {(currentRoute === '/news' || currentRoute.startsWith('/article')) && (
-                <motion.span
-                  layoutId="topbar-nav-pill-line"
-                  className="absolute bottom-1 left-4 right-4 h-[2px] bg-[#18181B] dark:bg-white rounded-full shadow-[0_1px_3px_rgba(0,0,0,0.15)] dark:shadow-[0_1px_3px_rgba(255,255,255,0.4)] pointer-events-none"
-                  transition={{ type: 'spring', stiffness: 500, damping: 35 }}
-                />
+                <span className="absolute bottom-0 left-2 right-2 h-[2px] bg-[#0067c0] rounded-t-full pointer-events-none" />
               )}
             </button>
           </nav>
@@ -229,20 +194,18 @@ export const TopBar: React.FC<TopBarProps> = ({
       ) : (
         /* STANDARD MODE Left Side (Mobile Only Logo & Hamburger) */
         <>
-          <div className="flex items-center gap-2.5 md:hidden pointer-events-auto relative z-10">
-            {/* If navigationMode is 'floaty' (Tab View), hide hamburger icon on mobile header */}
+          <div className="flex items-center gap-2 md:hidden relative z-10">
             {settings.navigationMode !== 'floaty' && (
               <button
                 id="btn-mobile-menu-toggle"
                 onClick={onOpenMobileMenu}
-                className="w-9 h-9 flex items-center justify-center text-[#18181B] dark:text-white bg-transparent border-0 shadow-none hover:bg-transparent transition-opacity hover:opacity-80 active:opacity-60 cursor-default p-0"
+                className="w-8 h-8 rounded-md flex items-center justify-center text-[#18181B] dark:text-white hover:bg-black/5 dark:hover:bg-white/10 transition-colors cursor-default"
                 aria-label="Mở menu điều hướng"
               >
-                <Menu className="w-6 h-6" />
+                <Menu className="w-5 h-5" />
               </button>
             )}
 
-            {/* Logo web mobile - không có viền, không có text, logo như ở sidebar */}
             <button 
               id="btn-mobile-brand-logo"
               type="button"
@@ -252,43 +215,43 @@ export const TopBar: React.FC<TopBarProps> = ({
             >
               {!logoError ? (
                 <img 
-                  src={LOGO_SRC}
+                  src={LOGO_SRC} 
                   alt="VNRT Online Logo" 
                   referrerPolicy="no-referrer"
-                  className="h-7.5 max-w-[120px] w-auto object-contain shrink-0 drop-shadow-sm"
+                  className="h-7 max-w-[120px] w-auto object-contain shrink-0"
                   onError={() => setLogoError(true)}
                 />
               ) : (
-                <span className="text-[#E6005A] font-black text-lg">V</span>
+                <span className="text-[#0067c0] font-black text-lg">V</span>
               )}
             </button>
           </div>
 
-          {/* Empty placeholder on desktop left */}
           <div className="hidden md:flex items-center gap-3 relative z-10" />
         </>
       )}
 
       {/* Right Action Icons: Search, Tools Menu, Settings Gear */}
-      <div className="flex items-center gap-1.5 sm:gap-3 pointer-events-auto ml-auto shrink-0 relative z-10">
+      <div className="flex items-center gap-1.5 sm:gap-2 ml-auto shrink-0 relative z-10">
         {/* Quick Spotlight Search trigger */}
         <button
           id="btn-top-search"
           onClick={onOpenSearch}
-          className="w-10 h-10 rounded-full flex items-center justify-center text-[#4B5563] dark:text-[#D1D5DB] hover:text-[#18181B] dark:hover:text-white hover:bg-black/5 dark:hover:bg-white/10 transition-all drop-shadow-sm cursor-default"
+          className="h-8.5 px-2.5 rounded-[4px] flex items-center gap-2 text-xs text-[#555555] dark:text-[#cccccc] hover:bg-black/5 dark:hover:bg-white/10 transition-colors cursor-default"
           title="Spotlight Search (⌘K)"
         >
           <img
             src={SF_SEARCH_ICON_URL}
             alt="Search"
-            className="w-[19px] h-[19px] object-contain topbar-search-icon brightness-0 dark:brightness-0 dark:invert transition-opacity opacity-80 group-hover:opacity-100"
+            className="w-4 h-4 object-contain brightness-0 dark:brightness-0 dark:invert opacity-75"
             onError={(e) => {
               (e.target as HTMLImageElement).src = '/icons/sf-magnifyingglass.png';
             }}
           />
+          <span className="hidden sm:inline text-xs font-normal text-[#666666] dark:text-[#999999]">Tìm kiếm</span>
         </button>
 
-        {/* Tools Menu Icon (Contextual hover dropdown for each tab) */}
+        {/* Tools Menu Icon */}
         <ToolsMenu
           currentRoute={currentRoute}
           currentChannel={currentChannel}
@@ -311,7 +274,7 @@ export const TopBar: React.FC<TopBarProps> = ({
           <button
             id="btn-top-settings-gear"
             onClick={handleSettingsClick}
-            className={`group w-10 h-10 rounded-full flex items-center justify-center transition-colors drop-shadow-sm cursor-default ${
+            className={`w-9 h-9 rounded-md flex items-center justify-center transition-colors cursor-default ${
               currentRoute === '/settings'
                 ? 'bg-black/10 dark:bg-white/15'
                 : 'hover:bg-black/5 dark:hover:bg-white/10'
@@ -319,28 +282,26 @@ export const TopBar: React.FC<TopBarProps> = ({
             title="Cài đặt hệ thống"
           >
             <img 
-              key={settingsSpinCount}
               src={SETTINGS_ICON_SRC}
               alt="Cài đặt"
               referrerPolicy="no-referrer"
-              onAnimationEnd={() => setIsSettingsSpinning(false)}
-              className={`w-6 h-6 object-contain shrink-0 brightness-0 dark:brightness-0 dark:invert transition-opacity duration-200 settings-icon-hoverable ${
-                currentRoute === '/settings' ? 'opacity-100' : 'opacity-80 group-hover:opacity-100'
-              } ${isSettingsSpinning ? 'settings-icon-spin' : ''}`}
+              className={`w-5 h-5 object-contain shrink-0 brightness-0 dark:brightness-0 dark:invert transition-opacity duration-200 ${
+                currentRoute === '/settings' ? 'opacity-100' : 'opacity-75 hover:opacity-100'
+              }`}
             />
           </button>
         )}
 
-        {/* In Settings tab: Save Button (Matches Switch & Read button style) */}
+        {/* In Settings tab: Fluent Save Button */}
         {currentRoute === '/settings' ? (
-          <div className="relative flex items-center justify-center ml-0.5">
+          <div className="relative flex items-center justify-center ml-1">
             <button
               id="btn-top-settings-apply-checkbox"
               type="button"
               onClick={handleApplySettings}
-              className={`px-5 py-2 rounded-full font-bold text-white bg-[#fd932f] hover:bg-[#e68428] active:scale-[0.96] transition-all text-xs sm:text-sm cursor-default flex items-center justify-center shrink-0 shadow-md tracking-tight text-center select-none ${
+              className={`px-4 py-1.5 rounded-[4px] font-medium text-white bg-[#0067c0] hover:bg-[#1875c7] active:bg-[#005fb8] transition-colors text-xs sm:text-[13px] cursor-default flex items-center justify-center shrink-0 border-b-2 border-[#005299] shadow-xs select-none ${
                 hasChanges 
-                  ? 'shadow-[0_0_16px_rgba(253,147,47,0.7)] animate-pulse' 
+                  ? 'ring-2 ring-[#0067c0]/50' 
                   : ''
               } ${showUnsavedTooltip ? 'animate-shake' : ''}`}
               title={
@@ -350,7 +311,7 @@ export const TopBar: React.FC<TopBarProps> = ({
               }
               aria-label={hasChanges ? "Lưu cài đặt" : "Cài đặt đã lưu"}
             >
-              <span>Save</span>
+              <span>Lưu cài đặt</span>
             </button>
 
             {/* Unsaved Settings Warning Tooltip */}
@@ -358,18 +319,15 @@ export const TopBar: React.FC<TopBarProps> = ({
               {showUnsavedTooltip && (
                 <motion.div
                   id="settings-unsaved-tooltip"
-                  initial={{ opacity: 0, y: -6, scale: 0.94 }}
-                  animate={{ opacity: 1, y: 0, scale: 1 }}
-                  exit={{ opacity: 0, y: -4, scale: 0.94 }}
-                  transition={{ duration: 0.22, ease: [0.16, 1, 0.3, 1] }}
-                  className="absolute top-full mt-2.5 right-0 z-50 flex flex-col items-end pointer-events-auto"
+                  initial={{ opacity: 0, y: -4 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: -2 }}
+                  transition={{ duration: 0.15 }}
+                  className="absolute top-full mt-2 right-0 z-50 flex flex-col items-end pointer-events-auto"
                 >
-                  <div className="settings-unsaved-tooltip-arrow w-2.5 h-2.5 rotate-45 bg-[#1C1C1E] border-t border-l border-white/20 translate-y-[5px] mr-3 z-10" />
-                  <div className="settings-unsaved-tooltip-card px-3.5 py-2 rounded-2xl bg-[#1C1C1E]/95 border border-white/20 text-white shadow-2xl backdrop-blur-xl flex items-center gap-2 whitespace-nowrap">
-                    <span className="w-2 h-2 rounded-full bg-[#fd932f] shadow-[0_0_8px_rgba(253,147,47,0.9)] shrink-0 animate-ping" />
-                    <span className="text-[12.5px] font-medium tracking-wide">
-                      Vui lòng lưu thay đổi cài đặt trước khi rời
-                    </span>
+                  <div className="px-3 py-1.5 rounded-[4px] bg-[#2c2c2c] border border-[#3e3e3e] text-white shadow-xl flex items-center gap-2 whitespace-nowrap text-xs">
+                    <span className="w-2 h-2 rounded-full bg-[#0067c0] shrink-0" />
+                    <span>Vui lòng lưu thay đổi cài đặt trước khi rời</span>
                   </div>
                 </motion.div>
               )}

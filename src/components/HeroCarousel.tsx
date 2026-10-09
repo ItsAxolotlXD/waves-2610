@@ -164,42 +164,6 @@ export const HeroCarousel: React.FC<HeroCarouselProps> = () => {
       style={{ touchAction: 'pan-y' }}
       className="relative w-full overflow-hidden select-none pt-1 sm:pt-2 pb-1"
     >
-      {/* Nền phía sau các banner: Lấy hình ảnh banner chính với hiệu ứng backdrop blur & diffuse ambient glow */}
-      <div
-        id="hero-banner-ambient-background"
-        className="absolute inset-0 -top-16 -bottom-20 pointer-events-none overflow-hidden select-none -z-10"
-        aria-hidden="true"
-      >
-        <div className="absolute inset-0 flex items-center justify-center overflow-hidden">
-          <AnimatePresence mode="popLayout">
-            {currentBannerBg && (
-              <motion.img
-                key={`hero-bg-${currentIndex}-${currentBannerBg}`}
-                src={currentBannerBg}
-                alt=""
-                referrerPolicy="no-referrer"
-                initial={{ opacity: 0, scale: 1.15 }}
-                animate={{ opacity: 0.38, scale: 1.25 }}
-                exit={{ opacity: 0, scale: 1.25 }}
-                transition={{ duration: 0.65, ease: 'easeOut' }}
-                className="w-full h-full object-cover select-none pointer-events-none"
-                style={{
-                  filter: 'blur(28px) saturate(140%)',
-                  WebkitFilter: 'blur(28px) saturate(140%)',
-                  transform: 'scale(1.25) translateZ(0)',
-                  willChange: 'opacity',
-                }}
-              />
-            )}
-          </AnimatePresence>
-        </div>
-
-        {/* Lớp phủ chuyển sắc mượt mà hòa vào màu nền ứng dụng #121212 (dark) hoặc #EDEDF2 (light) */}
-        <div className={`absolute inset-0 ${isLightMode ? 'bg-[#EDEDF2]/30' : 'bg-[#121212]/30'}`} />
-        <div className={`absolute inset-0 ${isLightMode ? 'bg-gradient-to-b from-[#EDEDF2]/85 via-transparent to-[#EDEDF2]' : 'bg-gradient-to-b from-[#121212]/85 via-transparent to-[#121212]'}`} />
-        <div className={`absolute inset-0 ${isLightMode ? 'bg-gradient-to-r from-[#EDEDF2]/90 via-transparent to-[#EDEDF2]/90' : 'bg-gradient-to-r from-[#121212]/90 via-transparent to-[#121212]/90'}`} />
-      </div>
-
       {/* 3D Stage Container */}
       <div
         className="relative w-full flex items-center justify-center"
@@ -290,10 +254,10 @@ export const HeroCarousel: React.FC<HeroCarouselProps> = () => {
               key={slide.id}
               id={`hero-carousel-slide-${slide.id}`}
               style={transformStyle}
-              className={`hero-carousel-slide absolute inset-0 m-auto w-[88%] sm:w-[76%] md:w-[66%] lg:w-[62%] max-w-[860px] aspect-[16/9] rounded-2xl sm:rounded-[24px] overflow-hidden cursor-default select-none pointer-events-none transition-shadow duration-500 ${
+              className={`hero-carousel-slide absolute inset-0 m-auto w-[88%] sm:w-[76%] md:w-[66%] lg:w-[62%] max-w-[860px] aspect-[16/9] rounded-lg sm:rounded-xl overflow-hidden cursor-default select-none pointer-events-none transition-shadow duration-500 ${
                 isCenter
-                  ? 'is-center shadow-[0_20px_50px_rgba(0,0,0,0.85),0_0_35px_rgba(230,0,90,0.32)]'
-                  : 'shadow-[0_16px_40px_rgba(0,0,0,0.7)]'
+                  ? 'is-center shadow-2xl'
+                  : 'shadow-lg'
               }`}
             >
               {/* Ảnh nền banner - 16:9 với object-cover */}
@@ -310,41 +274,35 @@ export const HeroCarousel: React.FC<HeroCarouselProps> = () => {
                 }}
               />
 
-              {/* Lớp phủ tối mờ tinh tế khi slide ở 2 bên góc nhìn 3D */}
+              {/* Lớp phủ tinh tế khi slide ở 2 bên */}
               {!isCenter && (
-                <div className="absolute inset-0 bg-black/35 hover:bg-black/15 transition-colors z-10 pointer-events-none" />
+                <div className="absolute inset-0 bg-black/40 z-10 pointer-events-none" />
               )}
-
-              {/* Spatial Glass: Viền trắng ở 2 cạnh trên - dưới, mỏng 1px với opacity 40% */}
-              <div
-                className="hero-slide-glass-border absolute inset-0 pointer-events-none z-30 rounded-[inherit]"
-                aria-hidden="true"
-              />
             </div>
           );
         })}
 
-        {/* Nút mũi tên Chevron trái (<) - Kính mờ tròn chuẩn theo ảnh */}
+        {/* Nút mũi tên Chevron trái (<) - Fluent Button Style */}
         {totalSlides > 1 && (
           <button
             id="btn-coverflow-prev"
             onClick={() => prevSlide(true)}
             aria-label="Slide trước"
-            className="absolute left-[3%] sm:left-[6%] md:left-[9%] lg:left-[11%] top-1/2 -translate-y-1/2 z-40 w-10 h-10 sm:w-11 sm:h-11 md:w-12 md:h-12 rounded-full bg-[#1c1c1f]/60 hover:bg-[#1c1c1f]/90 active:scale-95 hover:scale-110 backdrop-blur-md border border-white/20 flex items-center justify-center text-white/90 hover:text-white transition-all shadow-[0_8px_25px_rgba(0,0,0,0.7)] cursor-default select-none outline-none"
+            className="absolute left-[3%] sm:left-[6%] md:left-[9%] lg:left-[11%] top-1/2 -translate-y-1/2 z-40 w-9 h-9 sm:w-10 sm:h-10 rounded-md bg-[#202020]/90 hover:bg-[#2b2b2b] border border-white/15 flex items-center justify-center text-white transition-colors shadow-lg cursor-default select-none outline-none"
           >
-            <ChevronLeft className="w-5 h-5 sm:w-6 sm:h-6 stroke-[2.5]" />
+            <ChevronLeft className="w-5 h-5 stroke-[2]" />
           </button>
         )}
 
-        {/* Nút mũi tên Chevron phải (>) - Kính mờ tròn chuẩn theo ảnh */}
+        {/* Nút mũi tên Chevron phải (>) - Fluent Button Style */}
         {totalSlides > 1 && (
           <button
             id="btn-coverflow-next"
             onClick={() => nextSlide(true)}
             aria-label="Slide tiếp theo"
-            className="absolute right-[3%] sm:right-[6%] md:right-[9%] lg:right-[11%] top-1/2 -translate-y-1/2 z-40 w-10 h-10 sm:w-11 sm:h-11 md:w-12 md:h-12 rounded-full bg-[#1c1c1f]/60 hover:bg-[#1c1c1f]/90 active:scale-95 hover:scale-110 backdrop-blur-md border border-white/20 flex items-center justify-center text-white/90 hover:text-white transition-all shadow-[0_8px_25px_rgba(0,0,0,0.7)] cursor-default select-none outline-none"
+            className="absolute right-[3%] sm:right-[6%] md:right-[9%] lg:right-[11%] top-1/2 -translate-y-1/2 z-40 w-9 h-9 sm:w-10 sm:h-10 rounded-md bg-[#202020]/90 hover:bg-[#2b2b2b] border border-white/15 flex items-center justify-center text-white transition-colors shadow-lg cursor-default select-none outline-none"
           >
-            <ChevronRight className="w-5 h-5 sm:w-6 sm:h-6 stroke-[2.5]" />
+            <ChevronRight className="w-5 h-5 stroke-[2]" />
           </button>
         )}
       </div>

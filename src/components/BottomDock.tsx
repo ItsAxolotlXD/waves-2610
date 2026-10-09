@@ -356,26 +356,10 @@ export const BottomDock: React.FC<BottomDockProps> = ({
 
   return (
     <>
-      {/* 1. Progressive Blur Layer at the bottom */}
-      <div 
-        id="bottom-progressive-blur-dock" 
-        className="bottom-progressive-blur"
-        aria-hidden="true"
-      >
-        <div className="progressive-blur-layer layer-1" />
-        <div className="progressive-blur-layer layer-2" />
-        <div className="progressive-blur-layer layer-3" />
-        <div className="progressive-blur-layer layer-4" />
-        <div className="progressive-blur-layer layer-5" />
-        <div className="progressive-blur-layer layer-6" />
-        <div className="progressive-blur-gradient" />
-      </div>
-
-      {/* 2. Bottom Dock Container with Floaty Bar */}
+      {/* Bottom Dock Container with Fluent Bar */}
       <div
         id="bottom-dock-container"
         style={{
-          fontFamily: "'Inter', 'Integer', system-ui, -apple-system, sans-serif",
           bottom: isKeyboardOpen ? `${keyboardHeight + 12}px` : undefined,
           transition: 'bottom 0.42s cubic-bezier(0.22, 1, 0.36, 1)',
         }}
@@ -402,23 +386,11 @@ export const BottomDock: React.FC<BottomDockProps> = ({
                 onTouchEnd={handleTouchEnd}
                 onTouchCancel={handleTouchCancel}
                 whileHover={{
-                  scale: 1.025,
-                  transition: {
-                    type: 'spring',
-                    stiffness: 420,
-                    damping: 15,
-                    mass: 0.6
-                  }
+                  scale: 1.01,
+                  transition: { duration: 0.15 }
                 }}
                 whileTap={{ scale: 0.98 }}
-                style={{
-                  backgroundColor: 'var(--spatial-glass-bg, rgba(255, 255, 255, 0.20))',
-                  backdropFilter: 'blur(var(--spatial-glass-blur, 20px))',
-                  WebkitBackdropFilter: 'blur(var(--spatial-glass-blur, 20px))',
-                }}
-                className={`floaty-bar floaty-bar__surface h-[58px] sm:h-[62px] w-[336px] sm:w-[396px] max-w-[calc(100vw-20px)] flex items-center justify-between gap-0.5 sm:gap-1 px-1.5 sm:px-2 rounded-full shadow-[0_8px_32px_rgba(0,0,0,0.35)] select-none pointer-events-auto overflow-hidden transition-[background-color,border-color,box-shadow] ${
-                  useDarkContent ? 'border border-black/15 text-black' : 'border border-white/10 text-white'
-                }`}
+                className="floaty-bar floaty-bar__surface h-[56px] sm:h-[58px] w-[336px] sm:w-[396px] max-w-[calc(100vw-20px)] flex items-center justify-between gap-1 px-2 rounded-xl shadow-[0_8px_20px_rgba(0,0,0,0.18)] dark:shadow-[0_8px_24px_rgba(0,0,0,0.36)] select-none pointer-events-auto overflow-hidden bg-white dark:bg-[#2c2c2c] border border-[#e5e5e5] dark:border-[#3e3e3e] text-[#1b1b1b] dark:text-[#f3f3f3]"
                 aria-label="Tab View"
               >
                 <div 

@@ -25,32 +25,24 @@
           var scaleVal = fontScaleMap[scaleIdx] || '1';
           document.documentElement.style.setProperty('--waves-font-scale', scaleVal);
 
-          // Spatial Glass on by default
+          // Fluent Design on by default (shiny outline and heavy spatial glass removed)
+          document.documentElement.classList.add('no-shiny-outline', 'fluent-design');
           if (saved) {
             try {
               var s = JSON.parse(saved);
-              if (s.spatialGlassVersion === 2 && s.spatialGlass === false) {
-                document.documentElement.classList.add('no-spatial-glass', 'no-shiny-outline');
-              } else {
-                document.documentElement.classList.remove('no-spatial-glass', 'no-shiny-outline');
-              }
-              var isGlassActive = s.spatialGlass !== false;
-              var glassOpacity = typeof s.spatialGlassOpacity === 'number' ? s.spatialGlassOpacity : 20;
-              if (isGlassActive && glassOpacity < 40) {
+              var isAcrylicActive = s.spatialGlass !== false;
+              var acrylicOpacity = typeof s.spatialGlassOpacity === 'number' ? s.spatialGlassOpacity : 20;
+              if (isAcrylicActive && acrylicOpacity < 40) {
                 document.documentElement.classList.add('spatial-glass-under-40');
               } else {
                 document.documentElement.classList.remove('spatial-glass-under-40');
               }
-              if (isGlassActive && glassOpacity > 40) {
+              if (isAcrylicActive && acrylicOpacity > 40) {
                 document.documentElement.classList.add('spatial-glass-dark-content');
               } else {
                 document.documentElement.classList.remove('spatial-glass-dark-content');
               }
-            } catch(e) {
-              document.documentElement.classList.remove('no-spatial-glass', 'no-shiny-outline');
-            }
-          } else {
-            document.documentElement.classList.remove('no-spatial-glass', 'no-shiny-outline');
+            } catch(e) {}
           }
 
           // Default to dark mode (user preference: dark mode là chế độ giao diện mặc định)
@@ -85,11 +77,9 @@
     <link rel="apple-touch-icon" href="https://static.wikia.nocookie.net/ep-deo/images/4/4b/Vplay_no_wordmark.png/revision/latest/scale-to-width-down/1000?cb=20260829062616" />
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.cdnfonts.com/css/segoe-ui-4" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Segoe+UI:wght@300;400;600;700&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Alata&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@500;600;700;800&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Google+Sans:wght@400;500;700&display=swap">
     <meta property="og:title" content="Vplay" />
     <meta property="og:description" content="Nền tảng cộng đồng dành cho những người yêu thích, theo dõi và lưu trữ nội dung về truyền hình Việt Nam với giao diện streaming hiện đại." />
     <meta property="og:image" content="https://static.wikia.nocookie.net/ep-deo/images/4/4b/Vplay_no_wordmark.png/revision/latest/scale-to-width-down/1000?cb=20260829062616" />
@@ -97,7 +87,7 @@
     <link rel="image_src" href="https://static.wikia.nocookie.net/ep-deo/images/4/4b/Vplay_no_wordmark.png/revision/latest/scale-to-width-down/1000?cb=20260829062616" />
     <meta property="og:type" content="website" />
   </head>
-  <body class="bg-[#121212] min-h-screen text-[#F3F4F6] antialiased selection:bg-[#E6005A] selection:text-white font-sans font-bold">
+  <body class="bg-[#121212] min-h-screen text-[#F3F4F6] antialiased selection:bg-[#0067c0] selection:text-white" style="font-family: 'Segoe UI Variable Text', 'Segoe UI Variable', 'Segoe UI', system-ui, -apple-system, sans-serif;">
     <div id="root"></div>
     <script type="module" src="/src/main.tsx"></script>
   </body>

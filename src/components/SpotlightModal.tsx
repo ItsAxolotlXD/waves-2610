@@ -186,32 +186,34 @@ export const SpotlightModal: React.FC<SpotlightModalProps> = ({
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            transition={{ duration: shouldAnimateModal ? 0.32 : 0, ease: [0.16, 1, 0.3, 1] }}
-            className="fixed inset-0 bg-black/10 backdrop-blur-md"
+            transition={{ duration: 0.25, ease: 'easeOut' }}
+            className="fixed inset-0 bg-black/50"
             onClick={onClose}
           />
 
-          {/* 2. Dialog Modal Box */}
+          {/* 2. Dialog Modal Box - Fluent Design */}
           <motion.div 
             id="spotlight-popup-card"
-            initial={shouldAnimateModal ? { opacity: 0, scale: 1.10 } : { opacity: 1, scale: 1 }}
+            initial={shouldAnimateModal ? { opacity: 0, scale: 0.98, y: 8 } : { opacity: 1, scale: 1 }}
             animate={{ 
               opacity: 1, 
               scale: 1,
+              y: 0,
               transition: {
-                duration: shouldAnimateModal ? 0.38 : 0,
-                ease: [0.16, 1, 0.3, 1]
+                duration: 0.22,
+                ease: [0.1, 0.9, 0.2, 1]
               }
             }}
             exit={shouldAnimateModal ? { 
               opacity: 0, 
-              scale: 1.08,
+              scale: 0.98,
+              y: 6,
               transition: {
-                duration: 0.25,
-                ease: [0.25, 0.1, 0.25, 1]
+                duration: 0.16,
+                ease: 'easeIn'
               }
             } : { opacity: 0 }}
-            className="spatial-glass-modal relative w-full max-w-[400px] sm:max-w-[460px] bg-white/70 border border-white/50 rounded-[28px] p-4 sm:p-5 shadow-2xl overflow-hidden z-10 my-auto max-h-[calc(100vh-32px)] flex flex-col text-black"
+            className="fluent-modal-dialog relative w-full max-w-[420px] sm:max-w-[480px] bg-white dark:bg-[#202020] border border-black/[0.08] dark:border-white/[0.08] rounded-xl p-4 sm:p-5 shadow-[0_20px_50px_rgba(0,0,0,0.25)] dark:shadow-[0_20px_50px_rgba(0,0,0,0.6)] overflow-hidden z-10 my-auto max-h-[calc(100vh-32px)] flex flex-col text-[#1F1F1F] dark:text-[#FFFFFF]"
           >
             {viewMode === 'settings' ? (
               /* View 2: Search Settings Menu (Without navigating to Settings tab) */
@@ -429,14 +431,14 @@ export const SpotlightModal: React.FC<SpotlightModalProps> = ({
             ) : (
               /* View 1: Spotlight Search Standard Mode */
               <>
-                {/* Capsule Pill Search Input Bar */}
+                {/* Fluent AutoSuggestBox Search Input */}
                 <div 
                   id="spotlight-search-container"
                   onClick={() => {
                     setIsFocused(true);
                     inputRef.current?.focus();
                   }}
-                  className={`relative w-full h-[46px] flex items-center px-4 rounded-full spotlight-bubble-box text-sm transition-all spotlight-input-container overflow-hidden cursor-text select-none ${settings.immersiveSearch ? 'immersive-search-input' : ''}`}
+                  className="relative w-full h-[42px] flex items-center px-3.5 rounded-[6px] bg-black/5 dark:bg-[#2c2c2c] text-sm transition-colors border border-black/10 dark:border-[#3e3e3e] focus-within:border-b-2 focus-within:border-b-[#0067c0] overflow-hidden cursor-text select-none"
                 >
                   <motion.div 
                     animate={{

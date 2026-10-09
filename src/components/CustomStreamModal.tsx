@@ -111,88 +111,62 @@ export const CustomStreamModal: React.FC<CustomStreamModalProps> = ({
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            transition={{ duration: shouldAnimate ? 0.35 : 0, ease: [0.16, 1, 0.3, 1] }}
-            className="fixed inset-0 bg-black/10 backdrop-blur-md"
+            transition={{ duration: 0.25, ease: 'easeOut' }}
+            className="fixed inset-0 bg-black/50"
             onClick={onClose}
           />
 
-          {/* 2. Dialog Modal Box */}
+          {/* 2. Dialog Modal Box - Fluent Design ContentDialog */}
           <motion.div 
             id="custom-stream-dialog"
-            initial={shouldAnimate ? { opacity: 0, scale: 1.10 } : { opacity: 1, scale: 1 }}
-            animate={{ 
-              opacity: 1, 
-              scale: 1,
-              transition: {
-                duration: shouldAnimate ? 0.40 : 0,
-                ease: [0.16, 1, 0.3, 1]
-              }
-            }}
-            exit={shouldAnimate ? { 
-              opacity: 0, 
-              scale: 1.08,
-              transition: {
-                duration: 0.26,
-                ease: [0.25, 0.1, 0.25, 1]
-              }
-            } : { opacity: 0 }}
-            className="spatial-glass-modal relative w-full max-w-[480px] bg-white/70 border border-white/50 rounded-[28px] shadow-2xl overflow-hidden z-10 text-black"
+            initial={shouldAnimate ? { opacity: 0, scale: 0.98, y: 8 } : { opacity: 1, scale: 1 }}
+            animate={{ opacity: 1, scale: 1, y: 0 }}
+            exit={shouldAnimate ? { opacity: 0, scale: 0.98, y: 6 } : { opacity: 0 }}
+            transition={{ duration: 0.22, ease: [0.1, 0.9, 0.2, 1] }}
+            className="fluent-modal-dialog relative z-10 w-full max-w-[500px] bg-white dark:bg-[#202020] rounded-xl overflow-hidden shadow-[0_20px_50px_rgba(0,0,0,0.25),0_0_0_1px_rgba(0,0,0,0.08)] dark:shadow-[0_20px_50px_rgba(0,0,0,0.6),0_0_0_1px_rgba(255,255,255,0.08)] border border-black/[0.08] dark:border-white/[0.08] text-[#1F1F1F] dark:text-[#F3F4F6]"
           >
-            {/* Header */}
-            <div className="flex items-center justify-between p-5 pb-3.5 border-b border-black/10">
-              <div className="flex items-center gap-2.5">
-                <div className="w-8 h-8 rounded-xl bg-[#E6005A]/20 text-[#E6005A] flex items-center justify-center border border-[#E6005A]/30">
-                  <Radio className="w-4 h-4" />
-                </div>
-                <div>
-                  <h3 className="text-sm sm:text-base font-bold text-black">
-                    Cấu hình Luồng M3U8 & Playlist
-                  </h3>
-                  <p className="text-[11px] text-neutral-700">
-                    Dán luồng HLS trực tiếp hoặc nhập playlist .m3u
-                  </p>
-                </div>
-              </div>
-              <button
-                onClick={onClose}
-                className="w-7 h-7 rounded-full bg-transparent hover:bg-transparent border-none flex items-center justify-center text-neutral-700 hover:text-black cursor-default transition-colors"
-              >
-                <X className="w-4 h-4" />
-              </button>
-            </div>
+            {/* Header Area */}
+            <div className="p-6 pb-3">
+              <h2 className="text-[20px] font-semibold text-[#1F1F1F] dark:text-[#FFFFFF] tracking-tight leading-snug font-sans">
+                Cấu hình Luồng M3U8 & Playlist
+              </h2>
+              <p className="text-[14px] text-[#555555] dark:text-[#CCCCCC] leading-normal mt-1.5 font-normal">
+                Dán luồng HLS trực tiếp hoặc nhập danh sách kênh file .m3u
+              </p>
 
-            {/* Tab Toggle */}
-            <div className="flex p-1 mx-5 mt-3.5 rounded-full bg-black/5 border border-black/10">
-              <button
-                type="button"
-                onClick={() => setActiveTab('single')}
-                className={`flex-1 py-2 rounded-full text-xs font-bold transition-all cursor-default ${
-                  activeTab === 'single'
-                    ? 'bg-[#fd932f] text-white shadow-md'
-                    : 'text-neutral-700 hover:text-black'
-                }`}
-              >
-                1 Luồng Trực Tiếp (.m3u8)
-              </button>
-              <button
-                type="button"
-                onClick={() => setActiveTab('playlist')}
-                className={`flex-1 py-2 rounded-full text-xs font-bold transition-all cursor-default ${
-                  activeTab === 'playlist'
-                    ? 'bg-[#fd932f] text-white shadow-md'
-                    : 'text-neutral-700 hover:text-black'
-                }`}
-              >
-                Nhập Playlist (.m3u)
-              </button>
+              {/* Fluent Tab Bar */}
+              <div className="flex p-1 mt-4 rounded-md bg-[#F4F4F4] dark:bg-[#2B2B2B] border border-black/[0.06] dark:border-white/[0.08]">
+                <button
+                  type="button"
+                  onClick={() => setActiveTab('single')}
+                  className={`flex-1 py-1.5 rounded-[4px] text-xs font-medium transition-all cursor-default ${
+                    activeTab === 'single'
+                      ? 'bg-white dark:bg-[#383838] text-[#1F1F1F] dark:text-[#FFFFFF] shadow-sm font-semibold'
+                      : 'text-[#666666] dark:text-[#AAAAAA] hover:text-[#1F1F1F] dark:hover:text-[#FFFFFF]'
+                  }`}
+                >
+                  1 Luồng Trực Tiếp (.m3u8)
+                </button>
+                <button
+                  type="button"
+                  onClick={() => setActiveTab('playlist')}
+                  className={`flex-1 py-1.5 rounded-[4px] text-xs font-medium transition-all cursor-default ${
+                    activeTab === 'playlist'
+                      ? 'bg-white dark:bg-[#383838] text-[#1F1F1F] dark:text-[#FFFFFF] shadow-sm font-semibold'
+                      : 'text-[#666666] dark:text-[#AAAAAA] hover:text-[#1F1F1F] dark:hover:text-[#FFFFFF]'
+                  }`}
+                >
+                  Nhập Playlist (.m3u)
+                </button>
+              </div>
             </div>
 
             {/* Form Body */}
-            <div className="p-6 pt-4">
+            <div className="px-6 pb-5 pt-1">
               {activeTab === 'single' ? (
-                <form onSubmit={handlePlaySingle} className="space-y-4">
+                <form id="form-single-stream" onSubmit={handlePlaySingle} className="space-y-3.5">
                   <div>
-                    <label className="block text-xs font-semibold text-neutral-800 mb-1.5">
+                    <label className="block text-[13px] font-medium text-[#333333] dark:text-[#DDDDDD] mb-1">
                       Tên kênh / Tiêu đề
                     </label>
                     <input
@@ -200,13 +174,13 @@ export const CustomStreamModal: React.FC<CustomStreamModalProps> = ({
                       value={channelName}
                       onChange={(e) => setChannelName(e.target.value)}
                       placeholder="Ví dụ: VTV1 HD Nguồn Phụ"
-                      className="w-full px-4 py-3 rounded-full bg-white/60 border border-black/15 text-black placeholder:text-neutral-500 text-sm focus:outline-none focus:border-[#E6005A]"
+                      className="w-full px-3 py-2 rounded-md bg-[#F9F9F9] dark:bg-[#2B2B2B] border border-black/[0.12] dark:border-white/[0.12] text-[#1F1F1F] dark:text-[#FFFFFF] placeholder:text-[#888888] text-sm focus:outline-none focus:border-[#0067c0] focus:ring-1 focus:ring-[#0067c0] transition-all"
                     />
                   </div>
 
                   <div>
-                    <label className="block text-xs font-semibold text-neutral-800 mb-1.5">
-                      Đường dẫn HLS Stream URL (.m3u8) <span className="text-[#FF267A]">*</span>
+                    <label className="block text-[13px] font-medium text-[#333333] dark:text-[#DDDDDD] mb-1">
+                      Đường dẫn HLS Stream URL (.m3u8) <span className="text-[#0067C0]">*</span>
                     </label>
                     <input
                       type="url"
@@ -214,13 +188,13 @@ export const CustomStreamModal: React.FC<CustomStreamModalProps> = ({
                       value={streamUrl}
                       onChange={(e) => setStreamUrl(e.target.value)}
                       placeholder="https://example.com/live/channel.m3u8"
-                      className="w-full px-4 py-3 rounded-full bg-white/60 border border-black/15 text-black placeholder:text-neutral-500 text-sm focus:outline-none focus:border-[#E6005A]"
+                      className="w-full px-3 py-2 rounded-md bg-[#F9F9F9] dark:bg-[#2B2B2B] border border-black/[0.12] dark:border-white/[0.12] text-[#1F1F1F] dark:text-[#FFFFFF] placeholder:text-[#888888] text-sm font-mono focus:outline-none focus:border-[#0067c0] focus:ring-1 focus:ring-[#0067c0] transition-all"
                     />
                   </div>
 
                   {/* Sample test streams buttons */}
                   <div>
-                    <span className="text-[11px] font-medium text-neutral-700 block mb-2">
+                    <span className="text-[11px] font-medium text-[#666666] dark:text-[#AAAAAA] block mb-1.5">
                       Luồng thử nghiệm nhanh:
                     </span>
                     <div className="flex flex-wrap gap-2">
@@ -230,7 +204,7 @@ export const CustomStreamModal: React.FC<CustomStreamModalProps> = ({
                           setStreamUrl('https://test-streams.mux.dev/x36xhzz/x36xhzz.m3u8');
                           setChannelName('Mux HLS Test Multi-Rate');
                         }}
-                        className="px-3.5 py-1.5 rounded-full bg-black/5 text-[11px] text-neutral-800 hover:text-black hover:bg-black/10 border border-black/10 cursor-default"
+                        className="px-2.5 py-1 rounded-[4px] bg-[#F4F4F4] dark:bg-[#2B2B2B] text-[11px] text-[#333333] dark:text-[#DDDDDD] hover:bg-[#EAEAEA] dark:hover:bg-[#383838] border border-black/[0.08] dark:border-white/[0.1] cursor-default"
                       >
                         Mux HLS HD
                       </button>
@@ -240,64 +214,78 @@ export const CustomStreamModal: React.FC<CustomStreamModalProps> = ({
                           setStreamUrl('https://cph-p2p-msl.akamaized.net/hls/live/2000341/test/master.m3u8');
                           setChannelName('Akamai Live Master HLS');
                         }}
-                        className="px-3.5 py-1.5 rounded-full bg-black/5 text-[11px] text-neutral-800 hover:text-black hover:bg-black/10 border border-black/10 cursor-default"
+                        className="px-2.5 py-1 rounded-[4px] bg-[#F4F4F4] dark:bg-[#2B2B2B] text-[11px] text-[#333333] dark:text-[#DDDDDD] hover:bg-[#EAEAEA] dark:hover:bg-[#383838] border border-black/[0.08] dark:border-white/[0.1] cursor-default"
                       >
                         Akamai Live HD
                       </button>
                     </div>
                   </div>
-
-                  <div className="pt-2">
-                    <button
-                      type="submit"
-                      className="w-full py-4 rounded-full bg-[#fd932f] text-white text-base font-bold flex items-center justify-center gap-2 hover:bg-[#e68428] active:scale-[0.98] transition-all shadow-md cursor-default"
-                    >
-                      <Play className="w-4 h-4 fill-current ml-0.5" />
-                      <span>Phát Ngay Trên Player</span>
-                    </button>
-                  </div>
                 </form>
               ) : (
-                <div className="space-y-4">
+                <div className="space-y-3">
                   <div>
-                    <div className="flex items-center justify-between mb-1.5">
-                      <label className="text-xs font-semibold text-neutral-800">
-                        Dán nội dung Playlist định dạng #EXTM3U
+                    <div className="flex items-center justify-between mb-1">
+                      <label className="text-[13px] font-medium text-[#333333] dark:text-[#DDDDDD]">
+                        Dán nội dung Playlist #EXTM3U
                       </label>
                       <button
                         type="button"
                         onClick={handleLoadSample}
-                        className="text-[11px] text-[#E6005A] hover:underline cursor-default font-semibold"
+                        className="text-[11px] text-[#0067C0] dark:text-[#4CC2FF] hover:underline cursor-default font-medium"
                       >
                         Nạp playlist mẫu
                       </button>
                     </div>
                     <textarea
-                      rows={6}
+                      rows={5}
                       value={playlistText}
                       onChange={(e) => setPlaylistText(e.target.value)}
                       placeholder={`#EXTM3U\n#EXTINF:-1 tvg-id="vtv1" tvg-name="VTV1 HD" group-title="VTV", VTV1 HD\nhttps://example.com/vtv1.m3u8`}
-                      className="w-full p-3.5 rounded-2xl bg-white/60 border border-black/15 text-black placeholder:text-neutral-500 text-xs font-mono focus:outline-none focus:border-[#E6005A] resize-none"
+                      className="w-full p-2.5 rounded-md bg-[#F9F9F9] dark:bg-[#2B2B2B] border border-black/[0.12] dark:border-white/[0.12] text-[#1F1F1F] dark:text-[#FFFFFF] placeholder:text-[#888888] text-xs font-mono focus:outline-none focus:border-[#0067c0] resize-none"
                     />
                   </div>
 
                   {parseStatus && (
-                    <div className="p-3 rounded-2xl bg-black/5 border border-black/10 text-xs flex items-center gap-2 text-black">
+                    <div className="p-2.5 rounded-md bg-[#F4F4F4] dark:bg-[#2B2B2B] border border-black/[0.08] dark:border-white/[0.08] text-xs flex items-center gap-2 text-[#1F1F1F] dark:text-[#FFFFFF]">
                       <CheckCircle2 className="w-4 h-4 text-emerald-600 shrink-0" />
                       <span>{parseStatus}</span>
                     </div>
                   )}
-
-                  <button
-                    type="button"
-                    onClick={handleImportM3U}
-                    className="w-full py-4 rounded-full bg-[#fd932f] text-white text-base font-bold flex items-center justify-center gap-2 hover:bg-[#e68428] active:scale-[0.98] transition-all shadow-md cursor-default"
-                  >
-                    <Upload className="w-4 h-4" />
-                    <span>Nhập Toàn Bộ Kênh Vào Danh Sách</span>
-                  </button>
                 </div>
               )}
+            </div>
+
+            {/* Subtle Divider */}
+            <div className="h-[1px] w-full bg-[#E5E5E5] dark:bg-[#2F2F2F]" />
+
+            {/* Bottom Actions Footer */}
+            <div className="fluent-modal-footer bg-[#F3F3F3] dark:bg-[#272727] px-6 py-3.5 flex items-center justify-end gap-2.5">
+              {activeTab === 'single' ? (
+                <button
+                  type="submit"
+                  form="form-single-stream"
+                  className="fluent-btn-primary px-5 py-1.5 h-8 sm:h-9 rounded-[4px] bg-[#0067c0] hover:bg-[#1875c7] active:bg-[#005fb8] text-white text-[14px] font-medium shadow-sm transition-colors border border-[#005A9E] border-b-2 border-b-[#004578] flex items-center justify-center cursor-default gap-1.5"
+                >
+                  <Play className="w-3.5 h-3.5 fill-current" />
+                  <span>Phát luồng</span>
+                </button>
+              ) : (
+                <button
+                  type="button"
+                  onClick={handleImportM3U}
+                  className="fluent-btn-primary px-5 py-1.5 h-8 sm:h-9 rounded-[4px] bg-[#0067c0] hover:bg-[#1875c7] active:bg-[#005fb8] text-white text-[14px] font-medium shadow-sm transition-colors border border-[#005A9E] border-b-2 border-b-[#004578] flex items-center justify-center cursor-default gap-1.5"
+                >
+                  <Upload className="w-3.5 h-3.5" />
+                  <span>Nhập danh sách</span>
+                </button>
+              )}
+              <button
+                type="button"
+                onClick={onClose}
+                className="fluent-btn-secondary px-5 py-1.5 h-8 sm:h-9 rounded-[4px] bg-white dark:bg-[#2D2D2D] hover:bg-[#F9F9F9] dark:hover:bg-[#383838] active:bg-[#EEEEEE] dark:active:bg-[#222222] text-[#1F1F1F] dark:text-[#FFFFFF] border border-[#d1d1d1] dark:border-[#3E3E3E] border-b-[#b5b5b5] dark:border-b-[#4F4F4F] text-[14px] font-normal shadow-[0_1px_2px_rgba(0,0,0,0.04)] transition-colors flex items-center justify-center cursor-default"
+              >
+                Đóng
+              </button>
             </div>
           </motion.div>
         </div>
