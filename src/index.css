@@ -40,10 +40,10 @@
   }
 
   html, body, *, *::before, *::after {
-    font-family: 'Segoe UI Variable Text', 'Segoe UI Variable', 'Segoe UI', system-ui, -apple-system, BlinkMacSystemFont, Roboto, sans-serif;
+    font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
   }
 
-  /* Global typography: Segoe UI Variable for headers, headings, h1-h6, titles & big titles */
+  /* Global typography: bold font for headers, headings, h1-h6, titles & big titles */
   .font-bold, strong, b,
   h1, h2, h3, h4, h5, h6,
   header h1, header h2, header h3, header h4, header h5, header h6,
@@ -59,7 +59,7 @@
   .section-title,
   .modal-title,
   .card-title {
-    font-family: 'Segoe UI Variable Display', 'Segoe UI Variable', 'Segoe UI', system-ui, -apple-system, BlinkMacSystemFont, Roboto, sans-serif !important;
+    font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif !important;
     font-weight: 700 !important;
   }
 
@@ -110,7 +110,7 @@
 html.light-mode,
 html.light-mode body,
 html.light-mode #root {
-  background-color: #f3f3f3 !important;
+  background-color: #EDEDF2 !important;
   color: #111827 !important;
 }
 
@@ -256,8 +256,8 @@ html.light-mode #btn-top-notifications svg {
 #waves-desktop-sidebar,
 #waves-mobile-sidebar {
   background-color: rgba(18, 10, 24, 0.30) !important;
-  backdrop-filter: none !important;
-  -webkit-backdrop-filter: none !important;
+  backdrop-filter: blur(28px) saturate(190%) !important;
+  -webkit-backdrop-filter: blur(28px) saturate(190%) !important;
   border-color: rgba(255, 255, 255, 0.08) !important;
 }
 
@@ -265,8 +265,8 @@ html.light-mode #btn-top-notifications svg {
 html.light-mode #waves-desktop-sidebar,
 html.light-mode #waves-mobile-sidebar {
   background-color: rgba(255, 255, 255, 0.30) !important;
-  backdrop-filter: none !important;
-  -webkit-backdrop-filter: none !important;
+  backdrop-filter: blur(28px) saturate(190%) !important;
+  -webkit-backdrop-filter: blur(28px) saturate(190%) !important;
   border-color: rgba(0, 0, 0, 0.08) !important;
 }
 
@@ -417,12 +417,12 @@ html.light-mode #settings-section-search hr {
 
 /* Theme Surface Overrides in Dark Mode */
 html:not(.light-mode) body {
-  background-color: #202020 !important;
+  background-color: #121212 !important;
   background-image: none !important;
 }
 
 #fixed-app-background-solid {
-  background-color: #202020 !important;
+  background-color: #121212 !important;
   background-image: none !important;
 }
 
@@ -465,18 +465,18 @@ html.super-dark .to-\[\#181818\]\/85 {
 }
 
 html.light-mode #fixed-app-background-solid {
-  background-color: #f3f3f3 !important;
+  background-color: #EDEDF2 !important;
   background-image: none !important;
   display: block !important;
 }
 
 html:not(.light-mode) .bg-\[\#141416\],
 html:not(.light-mode) .bg-\[\#141418\],
-html:not(.light-mode) .bg-\[\#202020\],
-html:not(.light-mode) .bg-\[\#202020\],
-html:not(.light-mode) .bg-\[\#202020\],
-html:not(.light-mode) .bg-\[\#202020\] {
-  background-color: #202020 !important;
+html:not(.light-mode) .bg-\[\#150718\],
+html:not(.light-mode) .bg-\[\#140718\],
+html:not(.light-mode) .bg-\[\#1B0912\],
+html:not(.light-mode) .bg-\[\#0c020e\] {
+  background-color: #170919 !important;
 }
 
 html:not(.light-mode) .bg-\[\#1E1D22\],
@@ -489,10 +489,10 @@ html:not(.light-mode) .bg-\[\#26262C\],
 html:not(.light-mode) .bg-\[\#28282E\],
 html:not(.light-mode) .bg-\[\#24242A\],
 html:not(.light-mode) .bg-\[\#2A2A32\],
-html:not(.light-mode) .bg-\[\#2b2b2b\],
-html:not(.light-mode) .bg-\[\#252525\],
+html:not(.light-mode) .bg-\[\#2c1132\],
+html:not(.light-mode) .bg-\[\#1b0620\],
 html:not(.light-mode) .bg-\[\#222127\] {
-  background-color: #2b2b2b !important;
+  background-color: #27121d !important;
 }
 
 html:not(.light-mode) button.bg-\[\#28272E\]:hover,
@@ -500,135 +500,22 @@ html:not(.light-mode) button.bg-\[\#26262C\]:hover,
 html:not(.light-mode) button.bg-\[\#28282E\]:hover,
 html:not(.light-mode) button.bg-\[\#24242A\]:hover,
 html:not(.light-mode) button.bg-\[\#2A2A32\]:hover {
-  background-color: #323232 !important;
+  background-color: #331726 !important;
 }
 
 html:not(.light-mode) #waves-desktop-sidebar,
 html:not(.light-mode) #waves-mobile-sidebar {
-  background-color: #202020 !important;
-  backdrop-filter: none !important;
-  -webkit-backdrop-filter: none !important;
-  border-color: #2e2e2e !important;
-}
-
-html.light-mode #waves-desktop-sidebar,
-html.light-mode #waves-mobile-sidebar {
-  background-color: #f3f3f3 !important;
-  backdrop-filter: none !important;
-  -webkit-backdrop-filter: none !important;
-  border-color: #e5e5e5 !important;
-}
-
-/* =========================================================================
-   WINDOWS FLUENT DESIGN - REVEAL HIGHLIGHT / REVEAL EFFECT (APP-WIDE)
-   Smooth cursor-following glow on background and border for all interactive elements
-   ========================================================================= */
-.fluent-reveal-item,
-.reveal-item,
-.reveal-target,
-.sidebar-nav-item,
-.channel-card,
-.news-card {
-  position: relative;
-  --reveal-x: -999px;
-  --reveal-y: -999px;
-  --reveal-opacity: 0;
-  --reveal-border-opacity: 0;
-}
-
-/* 1. Reveal Surface Glow (Fill illumination following pointer) */
-.fluent-reveal-item::before,
-.reveal-item::before,
-.sidebar-nav-item::before,
-.channel-card::before,
-.news-card::before {
-  content: '';
-  position: absolute;
-  inset: 0;
-  border-radius: inherit;
-  pointer-events: none;
-  opacity: var(--reveal-opacity, 0);
-  transition: opacity 0.2s cubic-bezier(0.1, 0.9, 0.2, 1);
-  background: radial-gradient(
-    circle 110px at var(--reveal-x, -999px) var(--reveal-y, -999px),
-    rgba(255, 255, 255, 0.16) 0%,
-    rgba(255, 255, 255, 0.05) 50%,
-    transparent 80%
-  );
-  z-index: 1;
-}
-
-html.light-mode .fluent-reveal-item::before,
-html.light-mode .reveal-item::before,
-html.light-mode .sidebar-nav-item::before,
-html.light-mode .channel-card::before,
-html.light-mode .news-card::before {
-  background: radial-gradient(
-    circle 110px at var(--reveal-x, -999px) var(--reveal-y, -999px),
-    rgba(0, 103, 192, 0.12) 0%,
-    rgba(0, 0, 0, 0.05) 50%,
-    transparent 80%
-  );
-}
-
-/* 2. Reveal Border Glow (Border illumination following pointer & neighboring proximity) */
-.fluent-reveal-item::after,
-.reveal-item::after,
-.sidebar-nav-item::after,
-.channel-card::after,
-.news-card::after {
-  content: '';
-  position: absolute;
-  inset: 0;
-  box-sizing: border-box;
-  border-radius: inherit;
-  padding: 1px;
-  pointer-events: none;
-  opacity: max(var(--reveal-opacity, 0), var(--reveal-border-opacity, 0));
-  transition: opacity 0.2s cubic-bezier(0.1, 0.9, 0.2, 1);
-  background: radial-gradient(
-    circle 95px at var(--reveal-x, -999px) var(--reveal-y, -999px),
-    rgba(255, 255, 255, 0.65) 0%,
-    rgba(255, 255, 255, 0.22) 40%,
-    transparent 75%
-  );
-  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
-  -webkit-mask-composite: xor;
-  mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
-  mask-composite: exclude;
-  z-index: 2;
-}
-
-html.light-mode .fluent-reveal-item::after,
-html.light-mode .reveal-item::after,
-html.light-mode .sidebar-nav-item::after,
-html.light-mode .channel-card::after,
-html.light-mode .news-card::after {
-  background: radial-gradient(
-    circle 95px at var(--reveal-x, -999px) var(--reveal-y, -999px),
-    rgba(0, 103, 192, 0.65) 0%,
-    rgba(0, 0, 0, 0.22) 45%,
-    transparent 75%
-  );
-}
-
-/* Ensure all text and icons stay sharp above reveal glow layers while preserving absolute indicators */
-.fluent-reveal-item > *:not(.absolute),
-.reveal-item > *:not(.absolute),
-.sidebar-nav-item > *:not(.absolute) {
-  position: relative;
-}
-.fluent-reveal-item > *,
-.reveal-item > *,
-.sidebar-nav-item > * {
-  z-index: 3;
+  background-color: rgba(18, 10, 24, 0.30) !important;
+  backdrop-filter: blur(24px) saturate(180%) !important;
+  -webkit-backdrop-filter: blur(24px) saturate(180%) !important;
+  border-color: rgba(255, 255, 255, 0.08) !important;
 }
 
 /* Experimental Immersive Sidebar: the content remains underneath a soft fading edge. */
 html[data-immersive-sidebar="true"] #waves-desktop-sidebar {
   background: linear-gradient(90deg, rgba(18, 10, 24, 0.35) 0%, rgba(18, 10, 24, 0.30) 58%, rgba(18, 10, 24, 0.08) 100%) !important;
-  backdrop-filter: none !important;
-  -webkit-backdrop-filter: none !important;
+  backdrop-filter: blur(22px) saturate(175%) !important;
+  -webkit-backdrop-filter: blur(22px) saturate(175%) !important;
   border-color: transparent !important;
   -webkit-mask-image: linear-gradient(90deg, #000 0%, #000 64%, transparent 100%);
   mask-image: linear-gradient(90deg, #000 0%, #000 64%, transparent 100%);
@@ -656,8 +543,8 @@ html.light-mode[data-immersive-sidebar="true"][data-sidebar-position="right"] #w
   background-image: none !important;
   border: none !important;
   box-shadow: 0 4px 14px rgba(0, 0, 0, 0.25) !important;
-  backdrop-filter: none !important;
-  -webkit-backdrop-filter: none !important;
+  backdrop-filter: blur(16px) !important;
+  -webkit-backdrop-filter: blur(16px) !important;
   transition: all 0.2s ease !important;
   position: relative !important;
 }
@@ -671,7 +558,7 @@ html.light-mode[data-immersive-sidebar="true"][data-sidebar-position="right"] #w
   box-shadow: 0 5px 18px rgba(0, 0, 0, 0.35) !important;
 }
 
-/* Search Bars: Specular Spatial Glass border effect with #2b2b2b background */
+/* Search Bars: Specular Spatial Glass border effect with #27121d background */
 .spotlight-bubble-box:not(#btn-spotlight-search):not(#btn-mobile-spotlight-search):not(#btn-spotlight-search-mini):not(#settings-search-container),
 .spotlight-input-container:not(#btn-spotlight-search):not(#btn-mobile-spotlight-search):not(#settings-search-container),
 .search-box-capsule,
@@ -679,16 +566,16 @@ html.light-mode[data-immersive-sidebar="true"][data-sidebar-position="right"] #w
 #spotlight-search-container,
 #btn-close-immersive-search {
   opacity: 1 !important;
-  background-color: #2b2b2b !important;
+  background-color: #27121d !important;
   background-image: 
-    linear-gradient(#2b2b2b, #2b2b2b), 
+    linear-gradient(#27121d, #27121d), 
     linear-gradient(180deg, rgba(255, 255, 255, 0.50) 0%, rgba(160, 160, 175, 0.16) 25%, rgba(160, 160, 175, 0.04) 50%, rgba(160, 160, 175, 0.16) 75%, rgba(255, 255, 255, 0.50) 100%) !important;
   background-origin: padding-box, border-box !important;
   background-clip: padding-box, border-box !important;
   border: 1px solid transparent !important;
   box-shadow: inset 0 1px 1px 0 rgba(255, 255, 255, 0.14), inset 0 -1px 1px 0 rgba(255, 255, 255, 0.14), 0 4px 14px rgba(0, 0, 0, 0.35) !important;
-  backdrop-filter: none !important;
-  -webkit-backdrop-filter: none !important;
+  backdrop-filter: blur(16px) !important;
+  -webkit-backdrop-filter: blur(16px) !important;
   transition: background-color 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease, transform 0.2s ease !important;
 }
 
@@ -699,9 +586,9 @@ html.light-mode[data-immersive-sidebar="true"][data-sidebar-position="right"] #w
 #spotlight-search-container:hover,
 #btn-close-immersive-search:hover {
   opacity: 1 !important;
-  background-color: #323232 !important;
+  background-color: #331726 !important;
   background-image: 
-    linear-gradient(#323232, #323232), 
+    linear-gradient(#331726, #331726), 
     linear-gradient(180deg, rgba(255, 255, 255, 0.68) 0%, rgba(160, 160, 175, 0.22) 25%, rgba(160, 160, 175, 0.06) 50%, rgba(160, 160, 175, 0.22) 75%, rgba(255, 255, 255, 0.68) 100%) !important;
   background-origin: padding-box, border-box !important;
   background-clip: padding-box, border-box !important;
@@ -712,9 +599,9 @@ html.light-mode[data-immersive-sidebar="true"][data-sidebar-position="right"] #w
 
 #spotlight-search-container:focus-within,
 .spotlight-input-container:not(#settings-search-container):focus-within {
-  background-color: #2b2b2b !important;
+  background-color: #27121d !important;
   background-image: 
-    linear-gradient(#2b2b2b, #2b2b2b), 
+    linear-gradient(#27121d, #27121d), 
     linear-gradient(180deg, rgba(255, 255, 255, 0.90) 0%, rgba(230, 0, 90, 0.65) 30%, rgba(230, 0, 90, 0.25) 70%, rgba(255, 255, 255, 0.90) 100%) !important;
   background-origin: padding-box, border-box !important;
   background-clip: padding-box, border-box !important;
@@ -735,8 +622,8 @@ html.light-mode[data-immersive-sidebar="true"][data-sidebar-position="right"] #w
   background-color: rgba(255, 255, 255, 0.15) !important;
   background-image: none !important;
   box-shadow: 0 4px 14px rgba(0, 0, 0, 0.25) !important;
-  backdrop-filter: none !important;
-  -webkit-backdrop-filter: none !important;
+  backdrop-filter: blur(16px) !important;
+  -webkit-backdrop-filter: blur(16px) !important;
   transition: all 0.2s ease !important;
 }
 
@@ -778,13 +665,13 @@ html.light-mode #settings-search-container:focus-within {
 }
 
 #channels-search-container input {
-  background-color: #2b2b2b !important;
+  background-color: #27121d !important;
   border-color: rgba(255, 255, 255, 0.15) !important;
   color: #FFFFFF !important;
   opacity: 1 !important;
 }
 #channels-search-container input:focus {
-  background-color: #323232 !important;
+  background-color: #331726 !important;
   border-color: #E6005A !important;
 }
 
@@ -870,13 +757,17 @@ html.light-mode #immersive-search-page .text-\[\#E0D8E2\] {
   box-sizing: border-box !important;
   border: none !important;
   background-image: none !important;
-  background-color: #2b2b2b !important;
+  background-color: #27121d !important;
   box-shadow: inset 0 1px 1px 0 rgba(255, 255, 255, 0.10), inset 0 -1px 1px 0 rgba(255, 255, 255, 0.10), 0 2px 8px rgba(0, 0, 0, 0.22);
   transform: scale(1);
   transition: transform 0.38s cubic-bezier(0.34, 1.65, 0.64, 1), box-shadow 0.24s ease-out, background-color 0.18s ease-in-out !important;
   will-change: transform;
 }
 
+#btn-sidebar-collapse:hover,
+#btn-sidebar-expand:hover,
+#btn-mobile-sidebar-close:hover,
+#btn-sidebar-back:hover,
 #slider-prev-btn:hover,
 #slider-next-btn:hover,
 #btn-welcome-close-icon:hover,
@@ -888,7 +779,7 @@ html.light-mode #immersive-search-page .text-\[\#E0D8E2\] {
 .video-player-glass-btn:hover,
 .tools-font-btn:hover {
   border: none !important;
-  background-color: #323232 !important;
+  background-color: #331726 !important;
   background-image: none !important;
   box-shadow: inset 0 1px 1px 0 rgba(255, 255, 255, 0.18), inset 0 -1px 1px 0 rgba(255, 255, 255, 0.18), 0 5px 16px rgba(0, 0, 0, 0.32);
   transform: scale(1.085) !important;
@@ -898,13 +789,17 @@ html.light-mode #immersive-search-page .text-\[\#E0D8E2\] {
 #news-category-tabs button:hover,
 #channels-category-tabs button:hover {
   border: none !important;
-  background-color: #323232 !important;
+  background-color: #331726 !important;
   background-image: none !important;
   box-shadow: inset 0 1px 1px 0 rgba(255, 255, 255, 0.25), inset 0 -1px 1px 0 rgba(255, 255, 255, 0.25), 0 3px 10px rgba(0, 0, 0, 0.28) !important;
   color: #FFFFFF !important;
   transform: none !important;
 }
 
+#btn-sidebar-collapse:active,
+#btn-sidebar-expand:active,
+#btn-mobile-sidebar-close:active,
+#btn-sidebar-back:active,
 #slider-prev-btn:active,
 #slider-next-btn:active,
 #btn-discord-close:active,
@@ -1108,7 +1003,18 @@ html.light-mode .settings-unsaved-tooltip-card {
 }
 
 /* Progressive Blur Layer over Top Header Bar */
-.topbar-progressive-blur { display: none !important; }
+.topbar-progressive-blur {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 88px;
+  pointer-events: none;
+  z-index: 0;
+  overflow: hidden;
+  transform: translateZ(0);
+  -webkit-transform: translateZ(0);
+}
 
 .topbar-progressive-blur .progressive-blur-layer {
   position: absolute;
@@ -1120,48 +1026,48 @@ html.light-mode .settings-unsaved-tooltip-card {
 
 /* Layer 1: Whispering fine blur extending deepest towards bottom (feathered boundary) */
 .topbar-progressive-blur .layer-1 {
-  backdrop-filter: none !important;
-  -webkit-backdrop-filter: none !important;
+  backdrop-filter: blur(1px);
+  -webkit-backdrop-filter: blur(1px);
   mask-image: linear-gradient(to bottom, rgba(0, 0, 0, 1) 0%, rgba(0, 0, 0, 1) 50%, rgba(0, 0, 0, 0) 100%);
   -webkit-mask-image: linear-gradient(to bottom, rgba(0, 0, 0, 1) 0%, rgba(0, 0, 0, 1) 50%, rgba(0, 0, 0, 0) 100%);
 }
 
 /* Layer 2: Soft blur */
 .topbar-progressive-blur .layer-2 {
-  backdrop-filter: none !important;
-  -webkit-backdrop-filter: none !important;
+  backdrop-filter: blur(2px);
+  -webkit-backdrop-filter: blur(2px);
   mask-image: linear-gradient(to bottom, rgba(0, 0, 0, 1) 0%, rgba(0, 0, 0, 1) 40%, rgba(0, 0, 0, 0) 85%);
   -webkit-mask-image: linear-gradient(to bottom, rgba(0, 0, 0, 1) 0%, rgba(0, 0, 0, 1) 40%, rgba(0, 0, 0, 0) 85%);
 }
 
 /* Layer 3: Medium smooth blur */
 .topbar-progressive-blur .layer-3 {
-  backdrop-filter: none !important;
-  -webkit-backdrop-filter: none !important;
+  backdrop-filter: blur(3.5px);
+  -webkit-backdrop-filter: blur(3.5px);
   mask-image: linear-gradient(to bottom, rgba(0, 0, 0, 1) 0%, rgba(0, 0, 0, 1) 32%, rgba(0, 0, 0, 0) 70%);
   -webkit-mask-image: linear-gradient(to bottom, rgba(0, 0, 0, 1) 0%, rgba(0, 0, 0, 1) 32%, rgba(0, 0, 0, 0) 70%);
 }
 
 /* Layer 4: Deep blur */
 .topbar-progressive-blur .layer-4 {
-  backdrop-filter: none !important;
-  -webkit-backdrop-filter: none !important;
+  backdrop-filter: blur(6px) saturate(120%);
+  -webkit-backdrop-filter: blur(6px) saturate(120%);
   mask-image: linear-gradient(to bottom, rgba(0, 0, 0, 1) 0%, rgba(0, 0, 0, 1) 24%, rgba(0, 0, 0, 0) 55%);
   -webkit-mask-image: linear-gradient(to bottom, rgba(0, 0, 0, 1) 0%, rgba(0, 0, 0, 1) 24%, rgba(0, 0, 0, 0) 55%);
 }
 
 /* Layer 5: Heavy blur */
 .topbar-progressive-blur .layer-5 {
-  backdrop-filter: none !important;
-  -webkit-backdrop-filter: none !important;
+  backdrop-filter: blur(9px) saturate(130%);
+  -webkit-backdrop-filter: blur(9px) saturate(130%);
   mask-image: linear-gradient(to bottom, rgba(0, 0, 0, 1) 0%, rgba(0, 0, 0, 1) 16%, rgba(0, 0, 0, 0) 42%);
   -webkit-mask-image: linear-gradient(to bottom, rgba(0, 0, 0, 1) 0%, rgba(0, 0, 0, 1) 16%, rgba(0, 0, 0, 0) 42%);
 }
 
 /* Layer 6: Frosted glass blur at top header band */
 .topbar-progressive-blur .layer-6 {
-  backdrop-filter: none !important;
-  -webkit-backdrop-filter: none !important;
+  backdrop-filter: blur(12px) saturate(140%);
+  -webkit-backdrop-filter: blur(12px) saturate(140%);
   mask-image: linear-gradient(to bottom, rgba(0, 0, 0, 1) 0%, rgba(0, 0, 0, 1) 10%, rgba(0, 0, 0, 0) 30%);
   -webkit-mask-image: linear-gradient(to bottom, rgba(0, 0, 0, 1) 0%, rgba(0, 0, 0, 1) 10%, rgba(0, 0, 0, 0) 30%);
 }
@@ -1196,7 +1102,18 @@ html.light-mode .topbar-progressive-blur .progressive-blur-gradient {
 /* ==========================================================================
    Bottom Progressive Blur (Feathered upward for Floating Search Bar & Tab View)
    ========================================================================== */
-.bottom-progressive-blur { display: none !important; }
+.bottom-progressive-blur {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 76px;
+  pointer-events: none;
+  z-index: 38;
+  overflow: hidden;
+  transform: translateZ(0);
+  -webkit-transform: translateZ(0);
+}
 
 .bottom-progressive-blur .progressive-blur-layer {
   position: absolute;
@@ -1207,43 +1124,43 @@ html.light-mode .topbar-progressive-blur .progressive-blur-gradient {
 }
 
 .bottom-progressive-blur .layer-1 {
-  backdrop-filter: none !important;
-  -webkit-backdrop-filter: none !important;
+  backdrop-filter: blur(1px);
+  -webkit-backdrop-filter: blur(1px);
   mask-image: linear-gradient(to top, rgba(0, 0, 0, 1) 0%, rgba(0, 0, 0, 1) 50%, rgba(0, 0, 0, 0) 100%);
   -webkit-mask-image: linear-gradient(to top, rgba(0, 0, 0, 1) 0%, rgba(0, 0, 0, 1) 50%, rgba(0, 0, 0, 0) 100%);
 }
 
 .bottom-progressive-blur .layer-2 {
-  backdrop-filter: none !important;
-  -webkit-backdrop-filter: none !important;
+  backdrop-filter: blur(2px);
+  -webkit-backdrop-filter: blur(2px);
   mask-image: linear-gradient(to top, rgba(0, 0, 0, 1) 0%, rgba(0, 0, 0, 1) 40%, rgba(0, 0, 0, 0) 85%);
   -webkit-mask-image: linear-gradient(to top, rgba(0, 0, 0, 1) 0%, rgba(0, 0, 0, 1) 40%, rgba(0, 0, 0, 0) 85%);
 }
 
 .bottom-progressive-blur .layer-3 {
-  backdrop-filter: none !important;
-  -webkit-backdrop-filter: none !important;
+  backdrop-filter: blur(3.5px);
+  -webkit-backdrop-filter: blur(3.5px);
   mask-image: linear-gradient(to top, rgba(0, 0, 0, 1) 0%, rgba(0, 0, 0, 1) 32%, rgba(0, 0, 0, 0) 70%);
   -webkit-mask-image: linear-gradient(to top, rgba(0, 0, 0, 1) 0%, rgba(0, 0, 0, 1) 32%, rgba(0, 0, 0, 0) 70%);
 }
 
 .bottom-progressive-blur .layer-4 {
-  backdrop-filter: none !important;
-  -webkit-backdrop-filter: none !important;
+  backdrop-filter: blur(6px) saturate(120%);
+  -webkit-backdrop-filter: blur(6px) saturate(120%);
   mask-image: linear-gradient(to top, rgba(0, 0, 0, 1) 0%, rgba(0, 0, 0, 1) 24%, rgba(0, 0, 0, 0) 55%);
   -webkit-mask-image: linear-gradient(to top, rgba(0, 0, 0, 1) 0%, rgba(0, 0, 0, 1) 24%, rgba(0, 0, 0, 0) 55%);
 }
 
 .bottom-progressive-blur .layer-5 {
-  backdrop-filter: none !important;
-  -webkit-backdrop-filter: none !important;
+  backdrop-filter: blur(9px) saturate(130%);
+  -webkit-backdrop-filter: blur(9px) saturate(130%);
   mask-image: linear-gradient(to top, rgba(0, 0, 0, 1) 0%, rgba(0, 0, 0, 1) 16%, rgba(0, 0, 0, 0) 42%);
   -webkit-mask-image: linear-gradient(to top, rgba(0, 0, 0, 1) 0%, rgba(0, 0, 0, 1) 16%, rgba(0, 0, 0, 0) 42%);
 }
 
 .bottom-progressive-blur .layer-6 {
-  backdrop-filter: none !important;
-  -webkit-backdrop-filter: none !important;
+  backdrop-filter: blur(12px) saturate(140%);
+  -webkit-backdrop-filter: blur(12px) saturate(140%);
   mask-image: linear-gradient(to top, rgba(0, 0, 0, 1) 0%, rgba(0, 0, 0, 1) 10%, rgba(0, 0, 0, 0) 30%);
   -webkit-mask-image: linear-gradient(to top, rgba(0, 0, 0, 1) 0%, rgba(0, 0, 0, 1) 10%, rgba(0, 0, 0, 0) 30%);
 }
@@ -1300,9 +1217,9 @@ html.light-mode #floating-search-build-info .build-info-line-2 {
 .spotlight-bubble-box:hover,
 .search-box-capsule:hover {
   border: 1px solid transparent;
-  background-color: #323232 !important;
+  background-color: #331726 !important;
   background-image: 
-    linear-gradient(#323232, #323232), 
+    linear-gradient(#331726, #331726), 
     linear-gradient(180deg, rgba(255, 255, 255, 0.72) 0%, rgba(255, 255, 255, 0.18) 35%, rgba(255, 255, 255, 0.18) 65%, rgba(255, 255, 255, 0.72) 100%) !important;
   background-origin: padding-box, border-box;
   background-clip: padding-box, border-box;
@@ -1419,20 +1336,20 @@ button[role="switch"],
   border: none !important;
   background-image: none !important;
   background-color: #353535 !important;
-  backdrop-filter: none !important;
-  -webkit-backdrop-filter: none !important;
+  backdrop-filter: blur(12px) !important;
+  -webkit-backdrop-filter: blur(12px) !important;
   box-shadow: none !important;
   transform: none !important;
   transition: none !important;
   will-change: auto;
 }
 
-/* Fluent Design: Permanently remove shiny outlines and spatial glass mask pseudo-elements */
+/* 2. Viền trắng ở 2 cạnh trên - dưới chạy hết, rồi sang 2 bên trái - phải mới mất dần */
 [id^="recommended-channel-"]::after,
-[id^="livetv-channel-card-"]::after,
+[id^="livetv-channel-card-"]:not(.is-selected)::after,
 [id^="home-channel-card-"]::after,
-[id^="channel-card-"]::after,
-[id^="test-channel-card-"]::after,
+[id^="channel-card-"]:not(.is-selected)::after,
+[id^="test-channel-card-"]:not(.is-selected)::after,
 .channel-card::after,
 [class*="channel-card"]::after,
 .hero-carousel-slide::after,
@@ -1496,9 +1413,150 @@ button[role="switch"]::after,
 #spotlight-popup-card::after,
 #add-stream-dialog::after,
 .spatial-glass-modal::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  box-sizing: border-box !important;
+  border-radius: inherit;
+  pointer-events: none;
+  z-index: 25;
+  border: 1px solid rgba(255, 255, 255, 0.45) !important;
+  box-shadow: none !important;
+  background: transparent !important;
+  background-image: none !important;
+  -webkit-mask-image: linear-gradient(180deg, 
+    #000000 0%, 
+    rgba(0, 0, 0, 0.75) 4%, 
+    rgba(0, 0, 0, 0.35) 10%, 
+    rgba(0, 0, 0, 0.08) 18%, 
+    transparent 26%, 
+    transparent 74%, 
+    rgba(0, 0, 0, 0.08) 82%, 
+    rgba(0, 0, 0, 0.35) 90%, 
+    rgba(0, 0, 0, 0.75) 96%, 
+    #000000 100%
+  ) !important;
+  mask-image: linear-gradient(180deg, 
+    #000000 0%, 
+    rgba(0, 0, 0, 0.75) 4%, 
+    rgba(0, 0, 0, 0.35) 10%, 
+    rgba(0, 0, 0, 0.08) 18%, 
+    transparent 26%, 
+    transparent 74%, 
+    rgba(0, 0, 0, 0.08) 82%, 
+    rgba(0, 0, 0, 0.35) 90%, 
+    rgba(0, 0, 0, 0.75) 96%, 
+    #000000 100%
+  ) !important;
+  transition: opacity 0.2s ease, border-color 0.2s ease;
+}
+
+[id^="livetv-channel-card-"].is-selected::after,
+[id^="test-channel-card-"].is-selected::after {
   display: none !important;
-  content: none !important;
-  opacity: 0 !important;
+}
+
+[id^="recommended-channel-"]:hover,
+[id^="livetv-channel-card-"]:not(.is-selected):hover,
+[id^="home-channel-card-"]:hover,
+[id^="channel-card-"]:not(.is-selected):hover,
+[id^="test-channel-card-"]:not(.is-selected):hover {
+  box-sizing: border-box !important;
+  border: none !important;
+  background-image: none !important;
+  background-color: #3d3d3d !important;
+  box-shadow: none !important;
+  transform: none !important;
+  transition: none !important;
+}
+
+/* 3. Trạng thái Hover / Focus / Active / Center Slide / Selected */
+[id^="recommended-channel-"]:hover::after,
+[id^="livetv-channel-card-"]:hover::after,
+[id^="home-channel-card-"]:hover::after,
+[id^="channel-card-"]:hover::after,
+[id^="test-channel-card-"]:hover::after,
+.channel-card:hover::after,
+[class*="channel-card"]:hover::after,
+.hero-carousel-slide.is-center::after,
+[id^="hero-carousel-slide-"].is-center::after,
+.hero-carousel-slide.is-center .hero-slide-glass-border,
+.hero-carousel-slide:hover::after,
+[id^="hero-carousel-slide-"]:hover::after,
+.hero-carousel-slide:hover .hero-slide-glass-border,
+#home-news-horizontal-banner:hover::after,
+.news-card:hover::after,
+[id^="news-card-"]:hover::after,
+.news-card-featured:hover::after,
+#featured-news-card:hover::after,
+#introducing-spatial-glass:hover::after,
+#btn-discord-join:hover::after,
+#btn-home-join-discord:hover::after,
+#btn-changelogs-read:hover::after,
+#btn-test-vplay-switch:hover::after,
+#btn-welcome-close:hover::after,
+#btn-under-construction-close:hover::after,
+#btn-discord-close:hover::after,
+#btn-devmode-close:hover::after,
+#btn-hero-watch-now:hover::after,
+#btn-add-stream-submit:hover::after,
+#btn-add-stream-cancel:hover::after,
+#btn-confirm-yes:hover::after,
+#btn-confirm-no:hover::after,
+#btn-home-all-news:hover::after,
+#btn-settings-save:hover::after,
+#btn-settings-reset:hover::after,
+#slider-prev-btn:hover::after,
+#slider-next-btn:hover::after,
+#btn-welcome-close-icon:hover::after,
+#btn-under-construction-close-icon:hover::after,
+#btn-theme-light:hover::after,
+#btn-theme-dark:hover::after,
+#livetv-category-tabs button:hover::after,
+#news-category-tabs button:hover::after,
+#channels-category-tabs button:hover::after,
+.category-tab-btn:hover::after,
+button.bg-\[\#fd932f\]:hover::after,
+button[class*="bg-[#fd932f]"]:hover::after,
+.btn-fd932f:hover::after,
+button[role="switch"]:hover::after,
+.toggle-switch-btn:hover::after,
+#settings-search-container:hover::after,
+#spotlight-search-container:hover::after,
+#btn-spotlight-search:hover::after,
+#btn-mobile-spotlight-search:hover::after,
+#btn-spotlight-search-mini:hover::after,
+.floaty-bar__surface:hover::after,
+#vplay-tools-dropdown-card:hover::after,
+#native-keyboard-lang-menu:hover::after {
+  border: 1px solid rgba(255, 255, 255, 0.70) !important;
+  box-shadow: none !important;
+  background: transparent !important;
+  background-image: none !important;
+  -webkit-mask-image: linear-gradient(180deg, 
+    #000000 0%, 
+    rgba(0, 0, 0, 0.85) 5%, 
+    rgba(0, 0, 0, 0.45) 12%, 
+    rgba(0, 0, 0, 0.12) 20%, 
+    transparent 28%, 
+    transparent 72%, 
+    rgba(0, 0, 0, 0.12) 80%, 
+    rgba(0, 0, 0, 0.45) 88%, 
+    rgba(0, 0, 0, 0.85) 95%, 
+    #000000 100%
+  ) !important;
+  mask-image: linear-gradient(180deg, 
+    #000000 0%, 
+    rgba(0, 0, 0, 0.85) 5%, 
+    rgba(0, 0, 0, 0.45) 12%, 
+    rgba(0, 0, 0, 0.12) 20%, 
+    transparent 28%, 
+    transparent 72%, 
+    rgba(0, 0, 0, 0.12) 80%, 
+    rgba(0, 0, 0, 0.45) 88%, 
+    rgba(0, 0, 0, 0.85) 95%, 
+    #000000 100%
+  ) !important;
 }
 
 [id^="recommended-channel-"]:active,
@@ -1547,8 +1605,8 @@ img[src*="imgur.com"],
   border: 3.5px solid #FFFFFF !important;
   background-image: none !important;
   background-color: #353535 !important;
-  backdrop-filter: none !important;
-  -webkit-backdrop-filter: none !important;
+  backdrop-filter: blur(12px) !important;
+  -webkit-backdrop-filter: blur(12px) !important;
   box-shadow: none !important;
   transform: none !important;
   transition: none !important;
@@ -1808,16 +1866,16 @@ button *,
 }
 
 /* Global Button Hover Bounce for general buttons across the app */
-button:not(:disabled):not([role="switch"]):not([id^="toggle-"]):not(#waves-desktop-sidebar button):not(#waves-desktop-sidebar *):not(.sidebar-nav-item):not([id^="sidebar-nav-"]):not([id^="mobile-nav-"]):not(#btn-sidebar-collapse):not(#btn-sidebar-expand):not(#btn-sidebar-expand-logo):not(#btn-sidebar-expand-toggle):not(#btn-desktop-sidebar-toggle):not(#btn-mobile-sidebar-toggle):not(#btn-mobile-sidebar-close):not(#btn-sidebar-back):not(#btn-top-tools-menu):not(#btn-top-search):not(#btn-top-notifications):not(#btn-top-light-mode):not(#btn-top-settings-apply-checkbox):not(#btn-mobile-menu-toggle):not(#btn-topbar-nav-tv):not(#btn-topbar-nav-news):not(#slider-prev-btn):not(#slider-next-btn):not(#dock-spotlight-btn):not(#dock-search):not(#dock-home):not(#dock-tv):not(#dock-news):not(#dock-settings):not(#dock-more):not(#btn-discord-close):not(#btn-welcome-close-icon):not(#btn-discord-join):not(#btn-welcome-close):not(#btn-under-construction-close):not(#btn-changelogs-read):not(#btn-test-vplay-switch):not(#btn-hero-watch-now):not(#btn-theme-light):not(#btn-theme-dark):not(#livetv-category-tabs button):not([id^="livetv-cat-btn-"]):not(#news-category-tabs button):not([id^="news-cat-btn-"]):not([id^="video-player-"]):not(.video-player-glass-btn):not(.video-player-live-badge):not(.video-player-accent-btn):not(.glass-player-btn):not(.glass-player-center-play):not(.glass-player-center-seek):not([id^="nav-item-"]):not([id^="mobile-nav-item-"]) {
+button:not(:disabled):not([role="switch"]):not([id^="toggle-"]):not(#btn-sidebar-collapse):not(#btn-sidebar-expand):not(#btn-sidebar-expand-logo):not(#btn-mobile-sidebar-close):not(#btn-sidebar-back):not(#btn-top-tools-menu):not(#btn-top-search):not(#btn-top-notifications):not(#btn-top-light-mode):not(#btn-top-settings-apply-checkbox):not(#btn-mobile-menu-toggle):not(#btn-topbar-nav-tv):not(#btn-topbar-nav-news):not(#slider-prev-btn):not(#slider-next-btn):not(#dock-spotlight-btn):not(#dock-search):not(#dock-home):not(#dock-tv):not(#dock-news):not(#dock-settings):not(#dock-more):not(#btn-discord-close):not(#btn-welcome-close-icon):not(#btn-discord-join):not(#btn-welcome-close):not(#btn-under-construction-close):not(#btn-changelogs-read):not(#btn-test-vplay-switch):not(#btn-hero-watch-now):not(#btn-theme-light):not(#btn-theme-dark):not(#livetv-category-tabs button):not([id^="livetv-cat-btn-"]):not(#news-category-tabs button):not([id^="news-cat-btn-"]):not([id^="video-player-"]):not(.video-player-glass-btn):not(.video-player-live-badge):not(.video-player-accent-btn):not(.glass-player-btn):not(.glass-player-center-play):not(.glass-player-center-seek):not([id^="nav-item-"]):not([id^="mobile-nav-item-"]) {
   transform: scale(1);
   transition: transform 0.38s cubic-bezier(0.34, 1.65, 0.64, 1), box-shadow 0.2s ease, background-color 0.15s ease, color 0.15s ease;
 }
 
-button:not(:disabled):not([role="switch"]):not([id^="toggle-"]):not(#waves-desktop-sidebar button):not(#waves-desktop-sidebar *):not(.sidebar-nav-item):not([id^="sidebar-nav-"]):not([id^="mobile-nav-"]):not(#btn-sidebar-collapse):not(#btn-sidebar-expand):not(#btn-sidebar-expand-logo):not(#btn-sidebar-expand-toggle):not(#btn-desktop-sidebar-toggle):not(#btn-mobile-sidebar-toggle):not(#btn-mobile-sidebar-close):not(#btn-sidebar-back):not(#btn-top-tools-menu):not(#btn-top-search):not(#btn-top-notifications):not(#btn-top-light-mode):not(#btn-top-settings-apply-checkbox):not(#btn-mobile-menu-toggle):not(#btn-topbar-nav-tv):not(#btn-topbar-nav-news):not(#slider-prev-btn):not(#slider-next-btn):not(#dock-spotlight-btn):not(#dock-search):not(#dock-home):not(#dock-tv):not(#dock-news):not(#dock-settings):not(#dock-more):not(#btn-discord-close):not(#btn-welcome-close-icon):not(#btn-discord-join):not(#btn-welcome-close):not(#btn-under-construction-close):not(#btn-changelogs-read):not(#btn-test-vplay-switch):not(#btn-hero-watch-now):not(#btn-theme-light):not(#btn-theme-dark):not(#livetv-category-tabs button):not([id^="livetv-cat-btn-"]):not(#news-category-tabs button):not([id^="news-cat-btn-"]):not([id^="video-player-"]):not(.video-player-glass-btn):not(.video-player-live-badge):not(.video-player-accent-btn):not(.glass-player-btn):not(.glass-player-center-play):not(.glass-player-center-seek):not([id^="nav-item-"]):not([id^="mobile-nav-item-"]):hover {
+button:not(:disabled):not([role="switch"]):not([id^="toggle-"]):not(#btn-sidebar-collapse):not(#btn-sidebar-expand):not(#btn-sidebar-expand-logo):not(#btn-mobile-sidebar-close):not(#btn-sidebar-back):not(#btn-top-tools-menu):not(#btn-top-search):not(#btn-top-notifications):not(#btn-top-light-mode):not(#btn-top-settings-apply-checkbox):not(#btn-mobile-menu-toggle):not(#btn-topbar-nav-tv):not(#btn-topbar-nav-news):not(#slider-prev-btn):not(#slider-next-btn):not(#dock-spotlight-btn):not(#dock-search):not(#dock-home):not(#dock-tv):not(#dock-news):not(#dock-settings):not(#dock-more):not(#btn-discord-close):not(#btn-welcome-close-icon):not(#btn-discord-join):not(#btn-welcome-close):not(#btn-under-construction-close):not(#btn-changelogs-read):not(#btn-test-vplay-switch):not(#btn-hero-watch-now):not(#btn-theme-light):not(#btn-theme-dark):not(#livetv-category-tabs button):not([id^="livetv-cat-btn-"]):not(#news-category-tabs button):not([id^="news-cat-btn-"]):not([id^="video-player-"]):not(.video-player-glass-btn):not(.video-player-live-badge):not(.video-player-accent-btn):not(.glass-player-btn):not(.glass-player-center-play):not(.glass-player-center-seek):not([id^="nav-item-"]):not([id^="mobile-nav-item-"]):hover {
   transform: scale(1.06);
 }
 
-button:not(:disabled):not([role="switch"]):not([id^="toggle-"]):not(#waves-desktop-sidebar button):not(#waves-desktop-sidebar *):not(.sidebar-nav-item):not([id^="sidebar-nav-"]):not([id^="mobile-nav-"]):not(#btn-sidebar-collapse):not(#btn-sidebar-expand):not(#btn-sidebar-expand-logo):not(#btn-sidebar-expand-toggle):not(#btn-desktop-sidebar-toggle):not(#btn-mobile-sidebar-toggle):not(#btn-mobile-sidebar-close):not(#btn-sidebar-back):not(#btn-top-tools-menu):not(#btn-top-search):not(#btn-top-notifications):not(#btn-top-light-mode):not(#btn-top-settings-apply-checkbox):not(#btn-mobile-menu-toggle):not(#btn-topbar-nav-tv):not(#btn-topbar-nav-news):not(#slider-prev-btn):not(#slider-next-btn):not(#dock-spotlight-btn):not(#dock-search):not(#dock-home):not(#dock-tv):not(#dock-news):not(#dock-settings):not(#dock-more):not(#btn-discord-close):not(#btn-welcome-close-icon):not(#btn-discord-join):not(#btn-welcome-close):not(#btn-under-construction-close):not(#btn-changelogs-read):not(#btn-test-vplay-switch):not(#btn-hero-watch-now):not(#btn-theme-light):not(#btn-theme-dark):not(#livetv-category-tabs button):not([id^="livetv-cat-btn-"]):not(#news-category-tabs button):not([id^="news-cat-btn-"]):not([id^="video-player-"]):not(.video-player-glass-btn):not(.video-player-live-badge):not(.video-player-accent-btn):not(.glass-player-btn):not(.glass-player-center-play):not(.glass-player-center-seek):not([id^="nav-item-"]):not([id^="mobile-nav-item-"]):active {
+button:not(:disabled):not([role="switch"]):not([id^="toggle-"]):not(#btn-sidebar-collapse):not(#btn-sidebar-expand):not(#btn-sidebar-expand-logo):not(#btn-mobile-sidebar-close):not(#btn-sidebar-back):not(#btn-top-tools-menu):not(#btn-top-search):not(#btn-top-notifications):not(#btn-top-light-mode):not(#btn-top-settings-apply-checkbox):not(#btn-mobile-menu-toggle):not(#btn-topbar-nav-tv):not(#btn-topbar-nav-news):not(#slider-prev-btn):not(#slider-next-btn):not(#dock-spotlight-btn):not(#dock-search):not(#dock-home):not(#dock-tv):not(#dock-news):not(#dock-settings):not(#dock-more):not(#btn-discord-close):not(#btn-welcome-close-icon):not(#btn-discord-join):not(#btn-welcome-close):not(#btn-under-construction-close):not(#btn-changelogs-read):not(#btn-test-vplay-switch):not(#btn-hero-watch-now):not(#btn-theme-light):not(#btn-theme-dark):not(#livetv-category-tabs button):not([id^="livetv-cat-btn-"]):not(#news-category-tabs button):not([id^="news-cat-btn-"]):not([id^="video-player-"]):not(.video-player-glass-btn):not(.video-player-live-badge):not(.video-player-accent-btn):not(.glass-player-btn):not(.glass-player-center-play):not(.glass-player-center-seek):not([id^="nav-item-"]):not([id^="mobile-nav-item-"]):active {
   transform: scale(0.95);
   transition: transform 0.1s ease-out;
 }
@@ -1863,51 +1921,40 @@ html.light-mode [id^="news-cat-btn-"]:active {
   will-change: auto !important;
 }
 
-/* Sidebar Navigation Tabs & Channel Items - Pure static layout, ABSOLUTELY NO scale/zoom/bounce on hover or unhover */
-#waves-desktop-sidebar,
-#waves-desktop-sidebar *,
-#waves-mobile-sidebar,
-#waves-mobile-sidebar *,
-.sidebar-nav-item,
-[id^="sidebar-nav-"],
-[id^="mobile-nav-"],
+/* Sidebar Navigation Tabs & Channel Items - Pure static layout, NO scale/bounce on hover or unhover */
+#waves-desktop-sidebar [id^="nav-item-"],
+#waves-desktop-sidebar .sidebar-visible-scroller button,
+#waves-desktop-sidebar .sidebar-visible-scroller [role="button"],
+#waves-mobile-sidebar [id^="mobile-nav-item-"],
+#waves-mobile-sidebar .sidebar-visible-scroller button,
+#waves-mobile-sidebar .sidebar-visible-scroller [role="button"],
 [id^="nav-item-"],
 [id^="mobile-nav-item-"] {
   transform: none !important;
-  scale: 1 !important;
+  transition: background-color 0.18s ease, color 0.18s ease, box-shadow 0.18s ease !important;
   will-change: auto !important;
 }
 
-#waves-desktop-sidebar button:hover,
-#waves-desktop-sidebar a:hover,
-#waves-desktop-sidebar [role="button"]:hover,
-#waves-desktop-sidebar input:hover,
-#waves-desktop-sidebar svg:hover,
-#waves-desktop-sidebar span:hover,
-#waves-mobile-sidebar button:hover,
-#waves-mobile-sidebar a:hover,
-#waves-mobile-sidebar [role="button"]:hover,
-#waves-mobile-sidebar input:hover,
-#waves-mobile-sidebar svg:hover,
-#waves-mobile-sidebar span:hover,
-.sidebar-nav-item:hover,
-[id^="sidebar-nav-"]:hover,
-[id^="mobile-nav-"]:hover,
+#waves-desktop-sidebar [id^="nav-item-"]:hover,
+#waves-desktop-sidebar .sidebar-visible-scroller button:hover,
+#waves-desktop-sidebar .sidebar-visible-scroller [role="button"]:hover,
+#waves-mobile-sidebar [id^="mobile-nav-item-"]:hover,
+#waves-mobile-sidebar .sidebar-visible-scroller button:hover,
+#waves-mobile-sidebar .sidebar-visible-scroller [role="button"]:hover,
 [id^="nav-item-"]:hover,
-[id^="mobile-nav-item-"]:hover,
-#waves-desktop-sidebar button:active,
-#waves-desktop-sidebar a:active,
-#waves-desktop-sidebar [role="button"]:active,
-#waves-mobile-sidebar button:active,
-#waves-mobile-sidebar a:active,
-#waves-mobile-sidebar [role="button"]:active,
-.sidebar-nav-item:active,
-[id^="sidebar-nav-"]:active,
-[id^="mobile-nav-"]:active,
+[id^="mobile-nav-item-"]:hover {
+  transform: none !important;
+}
+
+#waves-desktop-sidebar [id^="nav-item-"]:active,
+#waves-desktop-sidebar .sidebar-visible-scroller button:active,
+#waves-desktop-sidebar .sidebar-visible-scroller [role="button"]:active,
+#waves-mobile-sidebar [id^="mobile-nav-item-"]:active,
+#waves-mobile-sidebar .sidebar-visible-scroller button:active,
+#waves-mobile-sidebar .sidebar-visible-scroller [role="button"]:active,
 [id^="nav-item-"]:active,
 [id^="mobile-nav-item-"]:active {
   transform: none !important;
-  scale: 1 !important;
 }
 
 /* THICK FOCUS BORDER ON SEARCH BOX CONTAINER ONLY (3px Solid Reddish Magenta, No Outer Ring) */
@@ -1915,7 +1962,7 @@ html.light-mode [id^="news-cat-btn-"]:active {
 .spotlight-input-container:focus-within,
 .search-box-capsule:focus-within {
   background-image: none !important;
-  background-color: #2b2b2b !important;
+  background-color: #27121d !important;
   border: 3px solid #E6005A !important;
   outline: none !important;
   box-shadow: 0 4px 16px rgba(0, 0, 0, 0.25) !important;
@@ -2159,8 +2206,8 @@ html.light-mode .immersive-search-input input {
   background-color: var(--spatial-glass-bg, rgba(255, 255, 255, 0.20)) !important;
   background-image: none !important;
   box-shadow: 0 8px 32px rgba(0, 0, 0, 0.35) !important;
-  backdrop-filter: none !important;
-  -webkit-backdrop-filter: none !important;
+  backdrop-filter: blur(var(--spatial-glass-blur, 20px)) !important;
+  -webkit-backdrop-filter: blur(var(--spatial-glass-blur, 20px)) !important;
   border: none !important;
   box-sizing: border-box !important;
 }
@@ -2182,8 +2229,8 @@ html.light-mode .immersive-search-input input {
   background-color: var(--spatial-glass-bg, rgba(255, 255, 255, 0.20)) !important;
   background-image: none !important;
   box-shadow: 0 8px 32px rgba(0, 0, 0, 0.35) !important;
-  backdrop-filter: none !important;
-  -webkit-backdrop-filter: none !important;
+  backdrop-filter: blur(var(--spatial-glass-blur, 20px)) !important;
+  -webkit-backdrop-filter: blur(var(--spatial-glass-blur, 20px)) !important;
   border: none !important;
   box-sizing: border-box !important;
 }
@@ -2201,8 +2248,8 @@ html.light-mode .immersive-search-input input {
   background-color: var(--spatial-glass-bg, rgba(255, 255, 255, 0.20)) !important;
   background-image: none !important;
   box-shadow: 0 8px 32px rgba(0, 0, 0, 0.35) !important;
-  backdrop-filter: none !important;
-  -webkit-backdrop-filter: none !important;
+  backdrop-filter: blur(var(--spatial-glass-blur, 20px)) !important;
+  -webkit-backdrop-filter: blur(var(--spatial-glass-blur, 20px)) !important;
   border: none !important;
   box-sizing: border-box !important;
 }
@@ -2222,8 +2269,8 @@ html.light-mode .immersive-search-input input {
 #btn-floaty-search-trigger:hover {
   background: rgba(255, 255, 255, 0.32) !important;
   background-color: rgba(255, 255, 255, 0.32) !important;
-  backdrop-filter: none !important;
-  -webkit-backdrop-filter: none !important;
+  backdrop-filter: blur(var(--spatial-glass-blur, 20px)) !important;
+  -webkit-backdrop-filter: blur(var(--spatial-glass-blur, 20px)) !important;
   box-shadow: 0 14px 44px rgba(0, 0, 0, 0.45), 0 0 25px rgba(255, 255, 255, 0.15) !important;
   border: none !important;
   filter: none !important;
@@ -2235,8 +2282,8 @@ html.light-mode #floating-search-bar-pill:hover,
 html.light-mode #btn-floaty-search-trigger:hover {
   background: rgba(255, 255, 255, 0.60) !important;
   background-color: rgba(255, 255, 255, 0.60) !important;
-  backdrop-filter: none !important;
-  -webkit-backdrop-filter: none !important;
+  backdrop-filter: blur(var(--spatial-glass-blur, 20px)) !important;
+  -webkit-backdrop-filter: blur(var(--spatial-glass-blur, 20px)) !important;
   box-shadow: 0 14px 40px rgba(0, 0, 0, 0.14), 0 0 24px rgba(255, 255, 255, 0.70) !important;
   border: none !important;
   filter: none !important;
@@ -2267,8 +2314,8 @@ html.spatial-glass-dark-content #floating-search-bar-pill:hover,
 html.spatial-glass-dark-content #btn-floaty-search-trigger:hover {
   background: rgba(255, 255, 255, 0.44) !important;
   background-color: rgba(255, 255, 255, 0.44) !important;
-  backdrop-filter: none !important;
-  -webkit-backdrop-filter: none !important;
+  backdrop-filter: blur(var(--spatial-glass-blur, 20px)) !important;
+  -webkit-backdrop-filter: blur(var(--spatial-glass-blur, 20px)) !important;
   box-shadow: 0 14px 40px rgba(0, 0, 0, 0.22), 0 0 20px rgba(255, 255, 255, 0.35) !important;
   border: none !important;
   filter: none !important;
@@ -2651,8 +2698,8 @@ html.light-mode #hero-carousel-container .hero-badge-channel span {
 
 #hero-carousel-container #btn-hero-prev,
 #hero-carousel-container #btn-hero-next {
-  backdrop-filter: none !important;
-  -webkit-backdrop-filter: none !important;
+  backdrop-filter: blur(16px) saturate(180%) !important;
+  -webkit-backdrop-filter: blur(16px) saturate(180%) !important;
 }
 
 html.light-mode #hero-carousel-container #btn-hero-prev,
@@ -2907,8 +2954,9 @@ html.light-mode .bg-\[\#1E1E22\].text-\[\#A1A1AA\] {
 }
 
 /* ==========================================================================
-   Modal Popup Dialogs - Microsoft Fluent Design (Windows 11 ContentDialog)
-   Clean surfaces, elevation shadows, crisp borders, separated footer actions
+   Modal Popup Dialogs - Spatial Glass Adaptations (Dark & Light Mode)
+   Dynamic background opacity and blur adapting to --spatial-glass-opacity
+   and --spatial-glass-blur settings.
    ========================================================================== */
 #welcome-modal-dialog,
 #discord-welcome-dialog,
@@ -2917,22 +2965,25 @@ html.light-mode .bg-\[\#1E1E22\].text-\[\#A1A1AA\] {
 #custom-stream-dialog,
 #help-modal-dialog,
 #news-summary-dialog,
+#spotlight-popup-card,
 #add-stream-dialog,
-.fluent-modal-dialog,
 .spatial-glass-modal {
   position: relative !important;
   box-sizing: border-box !important;
-  background-color: #202020 !important;
-  color: #FFFFFF !important;
-  border: 1px solid rgba(255, 255, 255, 0.08) !important;
-  border-radius: 12px !important;
-  box-shadow: 0 20px 48px rgba(0, 0, 0, 0.6), 0 0 0 1px rgba(255, 255, 255, 0.08) !important;
-  overflow: hidden !important;
-  backdrop-filter: none !important;
-  -webkit-backdrop-filter: none !important;
+  background-color: rgba(255, 255, 255, 0.70) !important;
+  backdrop-filter: blur(var(--spatial-glass-blur, 24px)) saturate(160%) !important;
+  -webkit-backdrop-filter: blur(var(--spatial-glass-blur, 24px)) saturate(160%) !important;
+  color: #000000 !important;
+  border-left: 0 !important;
+  border-right: 0 !important;
+  border-left-width: 0 !important;
+  border-right-width: 0 !important;
+  border-top: 1px solid rgba(255, 255, 255, 0.60) !important;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.12) !important;
+  box-shadow: 0 24px 64px rgba(0, 0, 0, 0.20), inset 0 1px 1.5px 0 rgba(255, 255, 255, 0.8), inset 0 -1px 1px 0 rgba(255, 255, 255, 0.3) !important;
 }
 
-/* Modal Backdrops with softened dark blur */
+/* Modal Backdrops with softened cinematic blur - 10% opacity */
 #welcome-modal-backdrop,
 #discord-welcome-backdrop,
 #under-construction-modal-backdrop,
@@ -2942,12 +2993,12 @@ html.light-mode .bg-\[\#1E1E22\].text-\[\#A1A1AA\] {
 #news-summary-backdrop,
 #spotlight-modal-backdrop,
 #add-stream-backdrop {
-  background-color: rgba(0, 0, 0, 0.45) !important;
-  backdrop-filter: none !important;
-  -webkit-backdrop-filter: none !important;
+  background-color: rgba(0, 0, 0, 0.10) !important;
+  backdrop-filter: blur(10px) !important;
+  -webkit-backdrop-filter: blur(10px) !important;
 }
 
-/* Light Mode Modal Dialog Overrides with Fluent Design (White card, subtle border) */
+/* Light Mode Modal Dialog Overrides with Spatial Glass */
 html.light-mode #discord-welcome-dialog,
 html.light-mode #welcome-modal-dialog,
 html.light-mode #under-construction-modal-dialog,
@@ -2957,79 +3008,20 @@ html.light-mode #help-modal-dialog,
 html.light-mode #news-summary-dialog,
 html.light-mode #spotlight-popup-card,
 html.light-mode #add-stream-dialog,
-html.light-mode .fluent-modal-dialog,
 html.light-mode .spatial-glass-modal {
-  background-color: #FFFFFF !important;
-  color: #1F1F1F !important;
-  border: 1px solid rgba(0, 0, 0, 0.08) !important;
-  border-radius: 12px !important;
-  box-shadow: 0 20px 48px rgba(0, 0, 0, 0.18), 0 0 0 1px rgba(0, 0, 0, 0.06) !important;
-}
-
-/* Fluent Design ContentDialog Footer */
-.fluent-modal-footer {
-  background-color: #272727 !important;
-  border-top: 1px solid rgba(255, 255, 255, 0.08) !important;
-}
-
-html.light-mode .fluent-modal-footer {
-  background-color: #F3F3F3 !important;
-  border-top: 1px solid rgba(0, 0, 0, 0.08) !important;
-}
-
-/* Fluent Primary Button (Accent Blue - Windows 11) */
-.fluent-btn-primary {
-  background-color: #0067C0 !important;
-  color: #FFFFFF !important;
-  border: 1px solid #005A9E !important;
-  border-bottom: 2px solid #004578 !important;
-  border-radius: 4px !important;
-  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.15) !important;
-  transition: all 0.1s ease-in-out !important;
-}
-
-.fluent-btn-primary:hover {
-  background-color: #1875C7 !important;
-}
-
-.fluent-btn-primary:active {
-  background-color: #005FB8 !important;
-  border-bottom-width: 1px !important;
-}
-
-/* Fluent Standard Button (Secondary / Cancel) */
-.fluent-btn-secondary {
-  background-color: #2D2D2D !important;
-  color: #FFFFFF !important;
-  border: 1px solid #3E3E3E !important;
-  border-bottom: 1px solid #4D4D4D !important;
-  border-radius: 4px !important;
-  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2) !important;
-  transition: all 0.1s ease-in-out !important;
-}
-
-.fluent-btn-secondary:hover {
-  background-color: #383838 !important;
-}
-
-.fluent-btn-secondary:active {
-  background-color: #252525 !important;
-}
-
-html.light-mode .fluent-btn-secondary {
-  background-color: #FFFFFF !important;
-  color: #1F1F1F !important;
-  border: 1px solid #D1D1D1 !important;
-  border-bottom: 1px solid #BFBFBF !important;
-  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05) !important;
-}
-
-html.light-mode .fluent-btn-secondary:hover {
-  background-color: #F7F7F7 !important;
-}
-
-html.light-mode .fluent-btn-secondary:active {
-  background-color: #EFEFEF !important;
+  position: relative !important;
+  box-sizing: border-box !important;
+  background-color: rgba(255, 255, 255, 0.70) !important;
+  backdrop-filter: blur(var(--spatial-glass-blur, 24px)) saturate(160%) !important;
+  -webkit-backdrop-filter: blur(var(--spatial-glass-blur, 24px)) saturate(160%) !important;
+  color: #000000 !important;
+  border-left: 0 !important;
+  border-right: 0 !important;
+  border-left-width: 0 !important;
+  border-right-width: 0 !important;
+  border-top: 1px solid rgba(255, 255, 255, 0.95) !important;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.12) !important;
+  box-shadow: 0 25px 60px rgba(0, 0, 0, 0.16), inset 0 1px 2px 0 rgba(255, 255, 255, 0.95), inset 0 -1px 1px 0 rgba(255, 255, 255, 0.40) !important;
 }
 
 /* Modal dialog close X buttons - strictly no background and no border */
@@ -3052,8 +3044,8 @@ html.light-mode .fluent-btn-secondary:active {
 /* Settings Grouped Categories: Matches inner category section cards, without border */
 .settings-ios-group {
   background-color: rgba(255, 255, 255, 0.10) !important;
-  backdrop-filter: none !important;
-  -webkit-backdrop-filter: none !important;
+  backdrop-filter: blur(16px) !important;
+  -webkit-backdrop-filter: blur(16px) !important;
   border: none !important;
   border-width: 0 !important;
   box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2) !important;
@@ -3106,8 +3098,8 @@ html.light-mode #news-summary-backdrop,
 html.light-mode #spotlight-modal-backdrop,
 html.light-mode #add-stream-backdrop {
   background-color: rgba(0, 0, 0, 0.10) !important;
-  backdrop-filter: none !important;
-  -webkit-backdrop-filter: none !important;
+  backdrop-filter: blur(10px) !important;
+  -webkit-backdrop-filter: blur(10px) !important;
 }
 
 /* Fallback when Spatial Glass is explicitly turned off */
@@ -3676,7 +3668,7 @@ html.light-mode #vplay-tools-dropdown-card svg.fill-current {
 
 html.light-mode #vplay-tools-dropdown-card .tools-font-box {
   background-color: rgba(0, 0, 0, 0.06) !important;
-  backdrop-filter: none !important;
+  backdrop-filter: blur(6px) !important;
   border: none !important;
 }
 
@@ -3768,8 +3760,8 @@ html:not(.light-mode) #vplay-tools-dropdown-card svg.fill-current {
   box-sizing: border-box !important;
   border-radius: 28px !important;
   background-color: rgba(255, 255, 255, 0.20) !important;
-  backdrop-filter: none !important;
-  -webkit-backdrop-filter: none !important;
+  backdrop-filter: blur(18px) saturate(160%) !important;
+  -webkit-backdrop-filter: blur(18px) saturate(160%) !important;
   box-shadow: 0 16px 40px rgba(0, 0, 0, 0.20) !important;
   border: 1px solid rgba(255, 255, 255, 0.35) !important;
   color: #000000 !important;
@@ -3827,7 +3819,7 @@ html:not(.light-mode) #vplay-tools-dropdown-card svg.fill-current {
 
 html:not(.light-mode) #vplay-tools-dropdown-card .tools-font-box {
   background-color: rgba(20, 19, 24, 0.60) !important;
-  backdrop-filter: none !important;
+  backdrop-filter: blur(6px) !important;
   border: none !important;
 }
 
@@ -3970,8 +3962,8 @@ html.light-mode #news-summary-dialog button.bg-\[\#28282E\]:hover {
 /* VisionOS Spatial Glass Player Buttons */
 .glass-player-btn {
   background-color: rgba(255, 255, 255, 0.18) !important;
-  backdrop-filter: none !important;
-  -webkit-backdrop-filter: none !important;
+  backdrop-filter: blur(6px) saturate(150%) !important;
+  -webkit-backdrop-filter: blur(6px) saturate(150%) !important;
   border: 1px solid rgba(255, 255, 255, 0.35) !important;
   box-shadow: inset 0 1px 1.5px 0 rgba(255, 255, 255, 0.45), inset 0 -1px 1.5px 0 rgba(255, 255, 255, 0.45), 0 8px 24px rgba(0, 0, 0, 0.35) !important;
   color: #FFFFFF !important;
@@ -3992,8 +3984,8 @@ html.light-mode #news-summary-dialog button.bg-\[\#28282E\]:hover {
 /* VisionOS Center Play / Pause Button */
 .glass-player-center-play {
   background-color: rgba(255, 255, 255, 0.20) !important;
-  backdrop-filter: none !important;
-  -webkit-backdrop-filter: none !important;
+  backdrop-filter: blur(6px) saturate(150%) !important;
+  -webkit-backdrop-filter: blur(6px) saturate(150%) !important;
   border: 1.5px solid rgba(255, 255, 255, 0.45) !important;
   box-shadow: inset 0 1.5px 2px 0 rgba(255, 255, 255, 0.60), inset 0 -1.5px 2px 0 rgba(255, 255, 255, 0.60), 0 16px 45px rgba(0, 0, 0, 0.50) !important;
   color: #FFFFFF !important;
@@ -4014,8 +4006,8 @@ html.light-mode #news-summary-dialog button.bg-\[\#28282E\]:hover {
 /* VisionOS Center Seek 10s Buttons */
 .glass-player-center-seek {
   background-color: rgba(255, 255, 255, 0.16) !important;
-  backdrop-filter: none !important;
-  -webkit-backdrop-filter: none !important;
+  backdrop-filter: blur(6px) saturate(150%) !important;
+  -webkit-backdrop-filter: blur(6px) saturate(150%) !important;
   border: 1px solid rgba(255, 255, 255, 0.35) !important;
   box-shadow: inset 0 1px 1.5px 0 rgba(255, 255, 255, 0.40), inset 0 -1px 1.5px 0 rgba(255, 255, 255, 0.40), 0 10px 30px rgba(0, 0, 0, 0.35) !important;
   color: #FFFFFF !important;
@@ -4036,8 +4028,8 @@ html.light-mode #news-summary-dialog button.bg-\[\#28282E\]:hover {
 /* VisionOS Volume Pill */
 .glass-player-volume-pill {
   background-color: rgba(255, 255, 255, 0.18) !important;
-  backdrop-filter: none !important;
-  -webkit-backdrop-filter: none !important;
+  backdrop-filter: blur(6px) saturate(150%) !important;
+  -webkit-backdrop-filter: blur(6px) saturate(150%) !important;
   border: 1px solid rgba(255, 255, 255, 0.35) !important;
   box-shadow: inset 0 1px 1.5px 0 rgba(255, 255, 255, 0.40), inset 0 -1px 1.5px 0 rgba(255, 255, 255, 0.40), 0 8px 28px rgba(0, 0, 0, 0.35) !important;
   color: #FFFFFF !important;
@@ -4046,8 +4038,8 @@ html.light-mode #news-summary-dialog button.bg-\[\#28282E\]:hover {
 /* VisionOS Bottom Progress Bar Pill */
 .glass-player-progress-pill {
   background-color: rgba(255, 255, 255, 0.18) !important;
-  backdrop-filter: none !important;
-  -webkit-backdrop-filter: none !important;
+  backdrop-filter: blur(6px) saturate(150%) !important;
+  -webkit-backdrop-filter: blur(6px) saturate(150%) !important;
   border: 1px solid rgba(255, 255, 255, 0.35) !important;
   box-shadow: inset 0 1px 1.5px 0 rgba(255, 255, 255, 0.45), inset 0 -1px 1.5px 0 rgba(255, 255, 255, 0.45), 0 14px 45px rgba(0, 0, 0, 0.45) !important;
   color: #FFFFFF !important;
@@ -4082,8 +4074,8 @@ html.light-mode #news-summary-dialog button.bg-\[\#28282E\]:hover {
   background-origin: padding-box, border-box !important;
   background-clip: padding-box, border-box !important;
   box-shadow: inset 0 1px 1px 0 rgba(255, 255, 255, 0.20), inset 0 -1px 1px 0 rgba(255, 255, 255, 0.20), 0 12px 36px rgba(0, 0, 0, 0.6) !important;
-  backdrop-filter: none !important;
-  -webkit-backdrop-filter: none !important;
+  backdrop-filter: blur(16px) !important;
+  -webkit-backdrop-filter: blur(16px) !important;
 }
 
 /* Video Player Glass Buttons */
@@ -4096,8 +4088,8 @@ html.light-mode #news-summary-dialog button.bg-\[\#28282E\]:hover {
   background-origin: padding-box, border-box !important;
   background-clip: padding-box, border-box !important;
   box-shadow: inset 0 1px 1px 0 rgba(255, 255, 255, 0.18), inset 0 -1px 1px 0 rgba(255, 255, 255, 0.18), 0 2px 6px rgba(0, 0, 0, 0.3) !important;
-  backdrop-filter: none !important;
-  -webkit-backdrop-filter: none !important;
+  backdrop-filter: blur(12px) !important;
+  -webkit-backdrop-filter: blur(12px) !important;
   transition: all 0.22s cubic-bezier(0.34, 1.5, 0.64, 1) !important;
 }
 
@@ -4178,8 +4170,8 @@ html.light-mode #news-summary-dialog button.bg-\[\#28282E\]:hover {
   background-origin: padding-box, border-box !important;
   background-clip: padding-box, border-box !important;
   box-shadow: inset 0 1px 1px 0 rgba(255, 255, 255, 0.15), inset 0 -1px 1px 0 rgba(255, 255, 255, 0.15), 0 4px 16px rgba(0, 0, 0, 0.4) !important;
-  backdrop-filter: none !important;
-  -webkit-backdrop-filter: none !important;
+  backdrop-filter: blur(12px) !important;
+  -webkit-backdrop-filter: blur(12px) !important;
 }
 
 /* Video Player Quality Menu Dropdown Card */
@@ -4523,8 +4515,8 @@ html.light-mode .floaty-bar .floaty-bar__item:hover:not(.is-active) {
   background-image: none !important;
   border: 3.5px solid transparent !important;
   box-shadow: none !important;
-  backdrop-filter: none !important;
-  -webkit-backdrop-filter: none !important;
+  backdrop-filter: blur(16px) !important;
+  -webkit-backdrop-filter: blur(16px) !important;
   transition: border-color 0.15s ease, box-shadow 0.15s ease !important;
 }
 
@@ -4556,8 +4548,8 @@ html.light-mode .floaty-bar .floaty-bar__item:hover:not(.is-active) {
   background-color: rgba(255, 255, 255, 0.10) !important;
   border: none !important;
   border-width: 0 !important;
-  backdrop-filter: none !important;
-  -webkit-backdrop-filter: none !important;
+  backdrop-filter: blur(16px) !important;
+  -webkit-backdrop-filter: blur(16px) !important;
 }
 
 /* ==========================================================================
@@ -4575,8 +4567,8 @@ html:not(.no-spatial-glass) .floaty-search-box-pill,
 html:not(.no-spatial-glass) #vplay-tools-dropdown-card {
   background-color: var(--spatial-glass-bg, rgba(255, 255, 255, 0.20)) !important;
   background-image: none !important;
-  backdrop-filter: none !important;
-  -webkit-backdrop-filter: none !important;
+  backdrop-filter: blur(var(--spatial-glass-blur, 20px)) !important;
+  -webkit-backdrop-filter: blur(var(--spatial-glass-blur, 20px)) !important;
 }
 
 /* 3. Category & Navigation Tabs */
@@ -4588,8 +4580,8 @@ html:not(.no-spatial-glass) [id^="news-cat-btn-"]:not(.bg-white):not(.text-black
 html:not(.no-spatial-glass) [id^="test-cat-btn-"]:not(.bg-white):not(.text-black),
 html:not(.no-spatial-glass) .category-tab-btn:not(.is-active) {
   background-color: var(--spatial-glass-bg, rgba(255, 255, 255, 0.20)) !important;
-  backdrop-filter: none !important;
-  -webkit-backdrop-filter: none !important;
+  backdrop-filter: blur(var(--spatial-glass-blur, 20px)) !important;
+  -webkit-backdrop-filter: blur(var(--spatial-glass-blur, 20px)) !important;
 }
 
 html:not(.no-spatial-glass) #livetv-category-tabs button,
@@ -4599,8 +4591,8 @@ html:not(.no-spatial-glass) [id^="livetv-cat-btn-"],
 html:not(.no-spatial-glass) [id^="news-cat-btn-"],
 html:not(.no-spatial-glass) [id^="test-cat-btn-"],
 html:not(.no-spatial-glass) .category-tab-btn {
-  backdrop-filter: none !important;
-  -webkit-backdrop-filter: none !important;
+  backdrop-filter: blur(var(--spatial-glass-blur, 20px)) !important;
+  -webkit-backdrop-filter: blur(var(--spatial-glass-blur, 20px)) !important;
 }
 
 /* 4. Interactive Glass Buttons */
@@ -4617,8 +4609,8 @@ html:not(.no-spatial-glass) #btn-discord-join,
 html:not(.no-spatial-glass) #btn-home-join-discord,
 html:not(.no-spatial-glass) #btn-changelogs-read,
 html:not(.no-spatial-glass) #btn-welcome-close {
-  backdrop-filter: none !important;
-  -webkit-backdrop-filter: none !important;
+  backdrop-filter: blur(var(--spatial-glass-blur, 4px)) !important;
+  -webkit-backdrop-filter: blur(var(--spatial-glass-blur, 4px)) !important;
 }
 
 /* ==========================================================================

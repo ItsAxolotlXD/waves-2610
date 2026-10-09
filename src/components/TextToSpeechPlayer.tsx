@@ -245,7 +245,7 @@ export const TextToSpeechPlayer: React.FC<TextToSpeechPlayerProps> = ({
         transition={{ type: 'spring', stiffness: 350, damping: 28 }}
         className="fixed bottom-5 right-4 left-4 sm:left-auto sm:right-6 sm:w-[480px] z-50 select-none"
       >
-        <div className="bg-[#2c2c2c] border border-[#3e3e3e] rounded-lg shadow-2xl p-4 text-white overflow-hidden">
+        <div className="bg-[#200F17]/95 backdrop-blur-2xl border border-[#E6005A]/40 rounded-[26px] shadow-2xl p-4 text-white overflow-hidden">
           {/* Top Header */}
           <div className="flex items-center justify-between gap-2 pb-2.5 border-b border-white/10">
             <div className="flex items-center gap-2.5 min-w-0">

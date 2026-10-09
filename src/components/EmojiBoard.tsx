@@ -233,7 +233,7 @@ export const EmojiBoard: React.FC<EmojiBoardProps> = ({
               onMouseDown={(e) => e.preventDefault()}
               onPointerDown={() => playSound('modifier')}
               onClick={onSwitchToABC}
-              className="h-8 px-4 rounded-xl bg-white/50 hover:bg-white/70 active:bg-white/80 text-xs font-bold text-black border border-white/30 shadow-xs transition-colors cursor-default"
+              className="h-8 px-4 rounded-xl bg-white/50 hover:bg-white/70 active:bg-white/80 text-xs font-bold text-black border border-white/30 backdrop-blur-md shadow-xs transition-colors cursor-default"
             >
               ABC
             </button>

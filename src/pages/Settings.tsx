@@ -51,11 +51,11 @@ interface SettingsCategoryItem {
 const SETTINGS_GROUP_1: SettingsCategoryItem[] = [
   {
     id: 'spatial-glass',
-    title: 'Fluent Design',
-    subtitle: 'Hiệu ứng chất liệu Acrylic, Mica và giao diện hiện đại',
+    title: 'Spatial Glass',
+    subtitle: 'Hiệu ứng kính mờ, độ trong suốt và độ nhòe thị giác',
     icon: Box,
-    badgeColor: 'bg-gradient-to-b from-[#0067C0] to-[#004E8C]',
-    keywords: ['fluent', 'design', 'acrylic', 'mica', 'opacity', 'trong suốt', 'blur', 'mờ', 'nhòe', 'windows 11'],
+    badgeColor: 'bg-gradient-to-b from-[#FF3B30] to-[#C41C10]',
+    keywords: ['spatial', 'glass', 'kính', 'opacity', 'trong suốt', 'blur', 'mờ', 'nhòe', 'liquid glass'],
   },
   {
     id: 'interface',
@@ -237,7 +237,7 @@ export const Settings: React.FC<SettingsProps> = ({
                   setIsFocused(true);
                   inputRef.current?.focus();
                 }}
-                className="relative w-full h-[48px] flex items-center px-4 rounded-full bg-white/10 dark:bg-white/10  text-sm transition-all shadow-lg overflow-hidden cursor-text select-none border border-white/10"
+                className="relative w-full h-[48px] flex items-center px-4 rounded-full bg-white/10 dark:bg-white/10 backdrop-blur-md text-sm transition-all shadow-lg overflow-hidden cursor-text select-none border border-white/10"
               >
                 <motion.div 
                   animate={{
@@ -338,7 +338,7 @@ export const Settings: React.FC<SettingsProps> = ({
           >
           {/* Quick Search Jump Results if user typed a search query */}
           {searchQuery.trim() && (
-            <div className="p-4 rounded-[8px] bg-white dark:bg-[#2b2b2b] border border-[#e5e5e5] dark:border-[#383838] shadow-xs space-y-2">
+            <div className="p-4 rounded-[30px] bg-white/10 backdrop-blur-md shadow-xl space-y-2 border-none">
               <div className="text-xs font-bold text-[#8E8E93] uppercase tracking-wider px-1">
                 Kết quả tìm kiếm cho "{searchQuery}"
               </div>
@@ -371,7 +371,7 @@ export const Settings: React.FC<SettingsProps> = ({
           )}
 
           {/* Group 1: Spatial Glass, Giao diện, Trợ năng */}
-          <div className="settings-fluent-group rounded-[8px] bg-white dark:bg-[#2b2b2b] border border-[#e5e5e5] dark:border-[#383838] shadow-xs overflow-hidden">
+          <div className="settings-ios-group rounded-[26px] bg-white/10 backdrop-blur-md shadow-xl overflow-hidden border-none">
             {SETTINGS_GROUP_1.map((item, idx) => (
               <React.Fragment key={item.id}>
                 <div
@@ -402,7 +402,7 @@ export const Settings: React.FC<SettingsProps> = ({
           </div>
 
           {/* Group 2: Công cụ, Thử nghiệm */}
-          <div className="settings-fluent-group rounded-[8px] bg-white dark:bg-[#2b2b2b] border border-[#e5e5e5] dark:border-[#383838] shadow-xs overflow-hidden">
+          <div className="settings-ios-group rounded-[26px] bg-white/10 backdrop-blur-md shadow-xl overflow-hidden border-none">
             {SETTINGS_GROUP_2.map((item, idx) => (
               <React.Fragment key={item.id}>
                 <div
@@ -435,7 +435,7 @@ export const Settings: React.FC<SettingsProps> = ({
           {/* Thông tin phần mềm & Giới thiệu (Chuyển xuống cuối trang Cài đặt) */}
           <section 
             id="settings-section-version"
-            className="p-4 sm:p-5 rounded-[8px] bg-white dark:bg-[#2b2b2b] border border-[#e5e5e5] dark:border-[#383838] shadow-xs space-y-3.5 select-none"
+            className="p-4 sm:p-5 rounded-[26px] bg-white/10 backdrop-blur-md shadow-xl space-y-3.5 border-none select-none"
           >
             <div className="p-3.5 sm:p-4 rounded-[18px] bg-white/5 space-y-3 select-text">
               <div className="flex items-center justify-between text-xs sm:text-sm">
@@ -446,12 +446,12 @@ export const Settings: React.FC<SettingsProps> = ({
                 <span className="font-medium text-white">Software Build</span>
                 <span className="font-semibold text-[#9CA3AF]">26v1009</span>
               </div>
-              {/* Compatible with Fluent Design */}
+              {/* Compatible with Spatial Glass */}
               <div id="settings-compatible-spatial-glass" className="pt-2.5 mt-1 border-t border-white/10 flex items-center">
-                <p className="text-sm sm:text-base font-semibold tracking-tight text-white">
+                <p className="text-sm sm:text-base font-bold tracking-tight text-white">
                   Compatible with{' '}
-                  <span className="text-[#0067C0] dark:text-[#4CC2FF] font-semibold">
-                    Microsoft Fluent Design.
+                  <span className="bg-gradient-to-r from-[#FF8A00] via-[#FF0A54] to-[#E6005A] bg-clip-text text-transparent font-bold drop-shadow-[0_0_12px_rgba(230,0,90,0.35)]">
+                    Spatial Glass.
                   </span>
                 </p>
               </div>
@@ -520,22 +520,22 @@ export const Settings: React.FC<SettingsProps> = ({
             {activeCategory === 'spatial-glass' && (
               <section 
                 id="settings-section-spatial-glass"
-                className="p-5 sm:p-6 rounded-[8px] bg-white dark:bg-[#2b2b2b] border border-[#e5e5e5] dark:border-[#383838] shadow-xs space-y-4"
+                className="p-5 sm:p-6 rounded-[30px] bg-white/10 backdrop-blur-md shadow-xl space-y-4 border-none"
               >
                 <div className="space-y-4 select-none">
-                  {/* 1. Fluent Design Master Toggle */}
+                  {/* 1. Spatial Glass Master Toggle */}
                   <div 
                     id="setting-spatial-glass"
-                    className="p-3.5 sm:p-4 rounded-[12px] flex items-center justify-between gap-4 transition-colors hover:bg-white/5"
+                    className="p-3.5 sm:p-4 rounded-[20px] flex items-center justify-between gap-4 transition-colors hover:bg-white/5"
                   >
                     <div className="flex-1 min-w-0 pr-2">
-                      <div className="font-semibold text-white text-sm">
-                        <span className="text-[#0067C0] dark:text-[#4CC2FF] font-semibold">
-                          Fluent Design (Mica & Acrylic)
+                      <div className="font-bold text-white text-sm">
+                        <span className="bg-gradient-to-r from-[#FF8A00] via-[#FF0A54] to-[#E6005A] bg-clip-text text-transparent font-bold">
+                          Spatial Glass
                         </span>
                       </div>
                       <div className="text-xs text-[#9CA3AF] mt-1 leading-normal">
-                        Ngôn ngữ thiết kế giao diện người dùng Fluent Design của Microsoft, kết hợp hiệu ứng chất liệu Mica và Acrylic, phân cấp thị giác tinh tế và đường nét tối giản hiện đại.
+                        Ngôn ngữ thiết kế giao diện người dùng mới dựa trên Liquid Glass của Apple, mô phỏng hiệu ứng kính mờ trong suốt, có khả năng khúc xạ ánh sáng, tạo chiều sâu thị giác và chuyển động linh hoạt theo thao tác cử chỉ của người dùng.
                       </div>
                     </div>
 
@@ -546,13 +546,13 @@ export const Settings: React.FC<SettingsProps> = ({
                       role="switch"
                       aria-checked={draftSettings.spatialGlass}
                       onClick={() => updateDraft('spatialGlass', !draftSettings.spatialGlass)}
-                      className={`toggle-switch-btn relative w-[52px] h-6 rounded-full p-[2px] transition-colors duration-200 ease-in-out cursor-default shrink-0 flex items-center ${
-                        draftSettings.spatialGlass ? 'bg-[#0067c0]' : 'bg-[#E4E4E7] dark:bg-[#3F3F46]'
+                      className={`toggle-switch-btn relative w-[66px] h-7 rounded-full p-[3px] transition-colors duration-200 ease-in-out cursor-default shrink-0 flex items-center ${
+                        draftSettings.spatialGlass ? 'bg-[#fd932f]' : 'bg-[#E4E4E7] dark:bg-[#3F3F46]'
                       }`}
-                      title="Bật/Tắt hiệu ứng Acrylic Fluent Design"
+                      title="Bật/Tắt Spatial Glass"
                     >
                       <span
-                        className="toggle-switch-thumb block w-[20px] h-[20px] rounded-full bg-white shadow-sm pointer-events-none"
+                        className="toggle-switch-thumb block w-[32px] h-[22px] rounded-full bg-white border border-black/10 dark:border-white/10 shadow-md pointer-events-none"
                       />
                     </button>
                   </div>
@@ -566,14 +566,14 @@ export const Settings: React.FC<SettingsProps> = ({
                   >
                     <div className="flex items-center justify-between">
                       <div>
-                        <div className="font-semibold text-white text-sm">
-                          Độ trong suốt Acrylic (Opacity)
+                        <div className="font-bold text-white text-sm">
+                          Độ trong suốt (Opacity)
                         </div>
                         <div className="text-xs text-[#9CA3AF] mt-1 leading-normal">
-                          Điều chỉnh độ trong suốt của chất liệu Acrylic Fluent Design từ 0% đến 100%. Khi trên 40%, biểu tượng và văn bản sẽ tự động cân bằng tương phản tối ưu.
+                          Điều chỉnh độ trong suốt từ 0% đến 100%. Khi trên 40%, biểu tượng và chữ trên thanh điều hướng nổi và ô tìm kiếm sẽ tự động chuyển sang màu đen để đảm bảo độ tương phản.
                         </div>
                       </div>
-                      <span className="text-xs font-mono font-semibold text-[#0067C0] dark:text-[#4CC2FF] px-2.5 py-1 rounded-md bg-white/10 shrink-0 ml-2">
+                      <span className="text-xs font-mono font-bold text-[#fd932f] px-2.5 py-1 rounded-full bg-white/10 shrink-0 ml-2">
                         {draftSettings.spatialGlassOpacity ?? 20}%
                       </span>
                     </div>
@@ -624,14 +624,14 @@ export const Settings: React.FC<SettingsProps> = ({
                   >
                     <div className="flex items-center justify-between">
                       <div>
-                        <div className="font-semibold text-white text-sm">
-                          Độ mờ Acrylic (Blur)
+                        <div className="font-bold text-white text-sm">
+                          Độ mờ (Blur)
                         </div>
                         <div className="text-xs text-[#9CA3AF] mt-1 leading-normal">
-                          Điều chỉnh độ nhòe phông nền (backdrop blur) của chất liệu Acrylic từ 0% đến 100% cho thanh điều hướng và menu hệ thống.
+                          Điều chỉnh độ nhòe mờ phông nền (backdrop blur) từ 0% đến 100% cho nút, tabs, thanh điều hướng nổi và ô tìm kiếm.
                         </div>
                       </div>
-                      <span className="text-xs font-mono font-semibold text-[#0067C0] dark:text-[#4CC2FF] px-2.5 py-1 rounded-md bg-white/10 shrink-0 ml-2">
+                      <span className="text-xs font-mono font-bold text-[#fd932f] px-2.5 py-1 rounded-full bg-white/10 shrink-0 ml-2">
                         {draftSettings.spatialGlassBlur ?? 10}%
                       </span>
                     </div>
@@ -680,7 +680,7 @@ export const Settings: React.FC<SettingsProps> = ({
             {activeCategory === 'interface' && (
               <section 
                 id="settings-section-interface"
-                className="p-5 sm:p-6 rounded-[8px] bg-white dark:bg-[#2b2b2b] border border-[#e5e5e5] dark:border-[#383838] shadow-xs space-y-4"
+                className="p-5 sm:p-6 rounded-[30px] bg-white/10 backdrop-blur-md shadow-xl space-y-4 border-none"
               >
                 <div className="space-y-4">
                   {/* 1. Chế độ ứng dụng (Ban ngày / Ban đêm) */}
@@ -691,7 +691,7 @@ export const Settings: React.FC<SettingsProps> = ({
                     <div>
                       <div className="font-bold text-white text-sm">Chế độ ứng dụng</div>
                     </div>
-                    <div className="settings-segmented-group grid grid-cols-2 gap-2 rounded-full bg-[#18181b]/80 border border-white/10 p-1.5  max-w-sm" role="group" aria-label="Chế độ ứng dụng">
+                    <div className="settings-segmented-group grid grid-cols-2 gap-2 rounded-full bg-[#18181b]/80 border border-white/10 p-1.5 backdrop-blur-md max-w-sm" role="group" aria-label="Chế độ ứng dụng">
                       {([
                         ['light', 'Ban ngày', Sun],
                         ['dark', 'Ban đêm', Moon],
@@ -735,7 +735,7 @@ export const Settings: React.FC<SettingsProps> = ({
                         </span>
                       )}
                     </div>
-                    <div className="settings-segmented-group grid grid-cols-3 gap-1.5 rounded-full bg-[#18181b]/80 border border-white/10 p-1.5 " role="group" aria-label="Thanh điều hướng">
+                    <div className="settings-segmented-group grid grid-cols-3 gap-1.5 rounded-full bg-[#18181b]/80 border border-white/10 p-1.5 backdrop-blur-md" role="group" aria-label="Thanh điều hướng">
                       {([
                         ['sidebar', 'Side View'],
                         ['topbar', 'Top View'],
@@ -851,7 +851,7 @@ export const Settings: React.FC<SettingsProps> = ({
                           <div className="text-xs text-[#9CA3AF] mt-1 leading-normal">Chọn vị trí hiển thị thanh bên trái hoặc phải.</div>
                         </div>
                       </div>
-                      <div className="settings-segmented-group grid grid-cols-2 gap-1.5 rounded-full bg-[#18181b]/80 border border-white/10 p-1.5 ">
+                      <div className="settings-segmented-group grid grid-cols-2 gap-1.5 rounded-full bg-[#18181b]/80 border border-white/10 p-1.5 backdrop-blur-md">
                         {[
                           ['left', 'Trái'],
                           ['right', 'Phải'],
@@ -938,7 +938,7 @@ export const Settings: React.FC<SettingsProps> = ({
                 {/* 4.1 Section Trợ năng */}
                 <section 
                   id="settings-section-accessibility"
-                  className="p-5 sm:p-6 rounded-[8px] bg-white dark:bg-[#2b2b2b] border border-[#e5e5e5] dark:border-[#383838] shadow-xs space-y-4"
+                  className="p-5 sm:p-6 rounded-[30px] bg-white/10 backdrop-blur-md shadow-xl space-y-4 border-none"
                 >
                   <div className="space-y-3">
                     {/* Tỉ lệ khung hình */}
@@ -957,7 +957,7 @@ export const Settings: React.FC<SettingsProps> = ({
                       <div className="text-xs text-[#9CA3AF] leading-relaxed">
                         Chuyển đổi tỉ lệ khung hình khi xem giữa 4:3 hoặc 16:9.
                       </div>
-                      <div className="settings-segmented-group grid grid-cols-2 gap-1.5 rounded-full bg-[#18181b]/80 border border-white/10 p-1.5  pt-1">
+                      <div className="settings-segmented-group grid grid-cols-2 gap-1.5 rounded-full bg-[#18181b]/80 border border-white/10 p-1.5 backdrop-blur-md pt-1">
                         {[
                           { value: '16:9', label: '16:9 (chuẩn rộng)' },
                           { value: '4:3', label: '4.3 (chuẩn vuông)' },
@@ -1015,7 +1015,7 @@ export const Settings: React.FC<SettingsProps> = ({
                 {/* Section: Chuyển động (Reduce all animation & Sub-options) */}
                 <section 
                   id="settings-section-motion"
-                  className="p-5 sm:p-6 rounded-[8px] bg-white dark:bg-[#2b2b2b] border border-[#e5e5e5] dark:border-[#383838] shadow-xs space-y-4"
+                  className="p-5 sm:p-6 rounded-[30px] bg-white/10 backdrop-blur-md shadow-xl space-y-4 border-none"
                 >
                   <div className="px-3.5 sm:px-4 pt-0.5 pb-1">
                     <div className="font-bold text-white text-[15px] sm:text-[16px] tracking-tight">
@@ -1180,7 +1180,7 @@ export const Settings: React.FC<SettingsProps> = ({
                 {/* Section 2: Nội dung Tìm kiếm */}
                 <section 
                   id="settings-section-search"
-                  className="p-5 sm:p-6 rounded-[8px] bg-white dark:bg-[#2b2b2b] border border-[#e5e5e5] dark:border-[#383838] shadow-xs space-y-4"
+                  className="p-5 sm:p-6 rounded-[30px] bg-white/10 backdrop-blur-md shadow-xl space-y-4 border-none"
                 >
                   <div className="px-3.5 sm:px-4 pt-0.5 pb-1">
                     <div className="font-bold text-white text-[15px] sm:text-[16px] tracking-tight">
@@ -1363,7 +1363,7 @@ export const Settings: React.FC<SettingsProps> = ({
                 {/* Section 2: Bàn phím */}
                 <section 
                   id="settings-section-keyboard"
-                  className="p-5 sm:p-6 rounded-[8px] bg-white dark:bg-[#2b2b2b] border border-[#e5e5e5] dark:border-[#383838] shadow-xs space-y-4"
+                  className="p-5 sm:p-6 rounded-[30px] bg-white/10 backdrop-blur-md shadow-xl space-y-4 border-none"
                 >
                   <div className="px-3.5 sm:px-4 pt-0.5 pb-1">
                     <div className="font-bold text-white text-[15px] sm:text-[16px] tracking-tight">
@@ -1473,7 +1473,7 @@ export const Settings: React.FC<SettingsProps> = ({
                 {/* Section 3: Tổ hợp phím */}
                 <section 
                   id="settings-section-keybinds"
-                  className="p-5 sm:p-6 rounded-[8px] bg-white dark:bg-[#2b2b2b] border border-[#e5e5e5] dark:border-[#383838] shadow-xs space-y-4"
+                  className="p-5 sm:p-6 rounded-[30px] bg-white/10 backdrop-blur-md shadow-xl space-y-4 border-none"
                 >
                   <div className="flex items-center justify-between px-3.5 sm:px-4 pt-0.5 pb-1">
                     <div className="font-bold text-white text-[15px] sm:text-[16px] tracking-tight">
@@ -1644,7 +1644,7 @@ export const Settings: React.FC<SettingsProps> = ({
             {activeCategory === 'experimental' && (
               <section 
                 id="settings-section-experimental"
-                className="p-5 sm:p-6 rounded-[8px] bg-white dark:bg-[#2b2b2b] border border-[#e5e5e5] dark:border-[#383838] shadow-xs space-y-4"
+                className="p-5 sm:p-6 rounded-[30px] bg-white/10 backdrop-blur-md shadow-xl space-y-4 border-none"
               >
                 <div className="space-y-3">
                   {/* Native keyboard */}
@@ -1770,7 +1770,7 @@ export const Settings: React.FC<SettingsProps> = ({
             initial={{ opacity: 0, y: 16, scale: 0.95 }}
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: 16, scale: 0.95 }}
-            className="fixed bottom-24 left-1/2 -translate-x-1/2 z-50 flex items-center gap-2.5 px-5 py-2.5 rounded-full bg-[#1E1D24] border border-[#fd932f]/60 text-white text-xs sm:text-sm font-semibold shadow-2xl "
+            className="fixed bottom-24 left-1/2 -translate-x-1/2 z-50 flex items-center gap-2.5 px-5 py-2.5 rounded-full bg-[#1E1D24] border border-[#fd932f]/60 text-white text-xs sm:text-sm font-semibold shadow-2xl backdrop-blur-md"
           >
             <div className="w-5 h-5 rounded-full bg-[#fd932f] flex items-center justify-center shrink-0">
               <SfCheckmark className="w-3 h-3" />

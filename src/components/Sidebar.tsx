@@ -1,32 +1,36 @@
-import React, { useState, useRef, useMemo } from 'react';
+import React, { useState, useRef } from 'react';
+import { motion, AnimatePresence } from 'motion/react';
 import { 
-  Home,
-  Search,
-  Tv,
-  LayoutGrid,
-  Megaphone,
-  Heart,
-  Palette,
-  Sliders,
-  BookOpen,
-  FlaskConical,
-  Menu,
+  Home, 
+  Tv, 
+  Megaphone, 
+  Heart, 
+  Box, 
+  BookOpen, 
+  Info, 
+  Settings, 
+  ChevronDown, 
+  ChevronRight, 
+  ChevronLeft,
   X,
-  ChevronDown,
-  ChevronRight,
-  Image as ImageIcon,
-  Monitor,
-  Paintbrush,
-  Type,
-  RectangleHorizontal
+  Radio,
+  Palette,
+  Film,
+  Layers,
+  FlaskConical
 } from 'lucide-react';
 import { useClock } from '../hooks/useClock';
 import { useFavorites } from '../hooks/useFavorites';
 import { useSettings } from '../hooks/useSettings';
-import { useRevealEffect } from '../hooks/useRevealEffect';
 import { CHANNELS_DATA } from '../data/channels';
 import { Channel } from '../types';
 import { DiscordWelcomeModal } from './DiscordWelcomeModal';
+
+const LOGO_SRC = 'https://static.wikia.nocookie.net/ep-deo/images/4/4b/Vplay_no_wordmark.png/revision/latest/scale-to-width-down/1000?cb=20260829062616';
+const HOME_ICON_SRC = 'https://static.wikia.nocookie.net/ep-deo/images/e/ee/Icons8-home-64.png/revision/latest?cb=20260925115253';
+const WATCH_ICON_SRC = 'https://static.wikia.nocookie.net/ep-deo/images/d/df/Cool_tv.png/revision/latest?cb=20260927105318';
+const NEWS_ICON_SRC = 'https://static.wikia.nocookie.net/ep-deo/images/f/f2/Icons8-megaphone-64.png/revision/latest?cb=20260925115252';
+const SETTINGS_ICON_SRC = 'https://static.wikia.nocookie.net/ftv/images/9/97/Settungs.png/revision/latest?cb=20260411085024&path-prefix=vi';
 
 interface SidebarProps {
   currentRoute: string;
@@ -53,15 +57,15 @@ export const Sidebar: React.FC<SidebarProps> = ({
   const { settings } = useSettings();
   const { timeString, dateString } = useClock();
   const { favoriteChannelIds } = useFavorites();
-  const revealProps = useRevealEffect();
 
-  const [searchQuery, setSearchQuery] = useState('');
   const [isLiveTvExpanded, setIsLiveTvExpanded] = useState(false);
   const [isFavoritesExpanded, setIsFavoritesExpanded] = useState(false);
+  const [isHelpExpanded, setIsHelpExpanded] = useState(false);
+  const [logoError, setLogoError] = useState(false);
   const [isDiscordModalOpen, setIsDiscordModalOpen] = useState(false);
   const [isHovered, setIsHovered] = useState(false);
 
-  // Touch swipe to close mobile drawer
+  // Touch swipe to close mobile drawer when swiping left
   const drawerTouchStartX = useRef<number | null>(null);
   const drawerTouchStartY = useRef<number | null>(null);
 
@@ -77,6 +81,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
     const deltaX = e.changedTouches[0].clientX - drawerTouchStartX.current;
     const deltaY = e.changedTouches[0].clientY - drawerTouchStartY.current;
 
+    // Swiped left by at least 35px, predominantly horizontal
     if (deltaX < -35 && Math.abs(deltaX) > Math.abs(deltaY) * 1.1) {
       onCloseMobile?.();
     }
@@ -84,521 +89,641 @@ export const Sidebar: React.FC<SidebarProps> = ({
     drawerTouchStartY.current = null;
   };
 
-  const favoriteChannels = useMemo(() => {
-    return CHANNELS_DATA.filter((ch) => favoriteChannelIds.includes(ch.id));
-  }, [favoriteChannelIds]);
+  const favoriteChannels = CHANNELS_DATA.filter((ch) => favoriteChannelIds.includes(ch.id));
+
+  const [settingsSpinCount, setSettingsSpinCount] = useState(0);
+  const [isSettingsSpinning, setIsSettingsSpinning] = useState(false);
+
+  const handleSettingsNavClick = () => {
+    setSettingsSpinCount((c) => c + 1);
+    setIsSettingsSpinning(true);
+    handleNavClick('/settings');
+  };
 
   const shouldAnimateSidebar = !settings.reduceAllMotion && settings.animateSidebar;
-  const effectiveCollapsed = settings.autoHideSidebar ? !isHovered : isCollapsed;
+
+  // Determine actual collapsed state based on settings
+  const effectiveCollapsed = settings.autoHideSidebar 
+    ? !isHovered 
+    : isCollapsed;
+
+  const isActive = (route: string) => {
+    if (route === '/' && currentRoute === '/') return true;
+    if (route !== '/' && currentRoute.startsWith(route)) return true;
+    return false;
+  };
 
   const handleNavClick = (route: string, state?: any) => {
     navigate(route, state);
     if (onCloseMobile) onCloseMobile();
   };
 
-  const handleSearchSubmit = (e?: React.FormEvent) => {
-    if (e) e.preventDefault();
-    if (searchQuery.trim()) {
-      navigate(`/channels?search=${encodeURIComponent(searchQuery.trim())}`);
-    } else {
-      onOpenSearch();
-    }
+  const handleSpotlightClick = () => {
+    onOpenSearch();
     if (onCloseMobile) onCloseMobile();
   };
 
-  const isSettingsActive = currentRoute.startsWith('/settings');
-
-  // Navigation Items matching the Windows 10 Settings Style
-  const navItems = useMemo(() => {
-    const list = [
-      {
-        id: 'live-tv',
-        label: 'Truyền hình',
-        secondary: 'Taskbar / Live TV',
-        route: '/live-tv',
-        icon: Tv,
-        hasSubmenu: true,
-      },
-      {
-        id: 'channels',
-        label: 'Kênh phát sóng',
-        secondary: 'Channels',
-        route: '/channels',
-        icon: LayoutGrid,
-      },
-      {
-        id: 'news',
-        label: 'Tin tức',
-        secondary: 'News',
-        route: '/news',
-        icon: Megaphone,
-      },
-      {
-        id: 'favorites',
-        label: 'Yêu thích',
-        secondary: 'Favorites',
-        route: '/favorites',
-        icon: Heart,
-        hasFavoritesSubmenu: true,
-      },
-      {
-        id: 'personalization',
-        label: 'Cá nhân hóa',
-        secondary: 'Personalization',
-        route: '/settings?tab=spatial-glass',
-        icon: Palette,
-      },
-      {
-        id: 'settings',
-        label: 'Cài đặt hệ thống',
-        secondary: 'Settings',
-        route: '/settings',
-        icon: Sliders,
-      },
-      {
-        id: 'help',
-        label: 'Trợ giúp',
-        secondary: 'Help',
-        route: '/about',
-        icon: BookOpen,
-      },
-    ];
-
-    if (settings.developerMode) {
-      list.push({
-        id: 'test',
-        label: 'Thử nghiệm (Test)',
-        secondary: 'Developer Mode',
-        route: '/test',
-        icon: FlaskConical,
-      });
-    }
-
-    return list;
-  }, [settings.developerMode]);
-
-  // When searching, filter navigation items
-  const filteredNavItems = useMemo(() => {
-    if (!searchQuery.trim()) return navItems;
-    const q = searchQuery.toLowerCase();
-    return navItems.filter(
-      (item) => item.label.toLowerCase().includes(q) || item.secondary.toLowerCase().includes(q)
-    );
-  }, [navItems, searchQuery]);
-
-  // Settings sub-items when user is in Settings page (matching Windows 10 Personalization list)
-  const settingsPersonalizationItems = [
-    { id: 'background', label: 'Background', icon: ImageIcon, tabId: 'spatial-glass' },
-    { id: 'colors', label: 'Colors', icon: Palette, tabId: 'interface' },
-    { id: 'lock-screen', label: 'Lock screen', icon: Monitor, tabId: 'interface' },
-    { id: 'themes', label: 'Themes', icon: Paintbrush, tabId: 'spatial-glass' },
-    { id: 'fonts', label: 'Fonts', icon: Type, tabId: 'accessibility' },
-    { id: 'start', label: 'Start', icon: LayoutGrid, tabId: 'tools' },
-    { id: 'taskbar', label: 'Taskbar', icon: RectangleHorizontal, tabId: 'interface' },
-  ];
-
-  const isCurrentActive = (route: string) => {
-    if (route === '/' && currentRoute === '/') return true;
-    if (route !== '/' && currentRoute.startsWith(route)) return true;
-    return false;
-  };
-
-  // Render Full Windows 10 Settings Style Sidebar Content
+  // Shared Sidebar Inner Content (used for both desktop expanded & mobile drawer)
   const renderSidebarBody = (isMobile: boolean = false) => (
-    <div className="flex flex-col h-full select-none text-[13.5px] font-sans">
-      {/* Top Header: "Settings" Title + Hamburger Toggle */}
-      <div className="px-4 pt-3.5 pb-2 flex items-center justify-between shrink-0">
-        <div className="flex items-center gap-2.5">
-          {/* Hamburger Menu Icon */}
-          <button
-            type="button"
-            id={isMobile ? 'btn-mobile-sidebar-toggle' : 'btn-desktop-sidebar-toggle'}
-            onClick={isMobile ? onCloseMobile : onToggleCollapse}
-            title={isMobile ? 'Đóng menu' : 'Thu gọn menu'}
-            className="fluent-reveal-item w-8 h-8 flex items-center justify-center text-white/90 hover:text-white hover:bg-white/10 active:bg-white/15 transition-colors cursor-default"
-            {...revealProps}
+    <div className="flex flex-col h-full select-none">
+      {/* Top Header: Clock + Monochrome Logo + Close/Collapse Button */}
+      <div className="px-5 pt-5 pb-3 flex items-center justify-between shrink-0">
+        <div className="flex items-center gap-3.5 pl-1.5">
+          {/* Brand Logo (Dark mode logo vs Light mode logo) */}
+          <div 
+            onClick={() => handleNavClick('/')} 
+            className="cursor-default flex items-center justify-center p-0 hover:opacity-85 transition-opacity"
+            title="VNRT Online"
           >
-            {isMobile ? <X className="w-4 h-4 stroke-[1.75]" /> : <Menu className="w-4 h-4 stroke-[1.75]" />}
+            {!logoError ? (
+              <img 
+                src={LOGO_SRC}
+                alt="VNRT Online Logo" 
+                referrerPolicy="no-referrer"
+                className="h-8 max-w-[125px] w-auto object-contain shrink-0"
+                onError={() => setLogoError(true)}
+              />
+            ) : (
+              <span className="text-white dark:text-white light:text-[#111827] font-black text-2xl tracking-tighter">V</span>
+            )}
+          </div>
+
+          {/* Real-time Clock display */}
+          <div className="flex flex-col">
+            <div className="text-white text-base font-bold tracking-tight font-mono leading-tight">
+              {timeString || '20:16:35'}
+            </div>
+            <div className="text-[#A1A1AA] text-[11px] font-medium leading-none mt-0.5">
+              {dateString || 'Th 5, 27/08/2026'}
+            </div>
+          </div>
+        </div>
+
+        {/* Action Button: Close on Mobile / Collapse on Desktop */}
+        {isMobile ? (
+          <button 
+            id="btn-mobile-sidebar-close"
+            onClick={onCloseMobile}
+            className="w-8 h-8 rounded-full flex items-center justify-center text-[#A1A1AA] hover:text-white transition-all cursor-default"
+            title="Đóng menu"
+          >
+            <X className="w-4.5 h-4.5" />
           </button>
-
-          {/* Section Title: "Settings" in Segoe UI font */}
-          <span className="text-white text-[15px] font-semibold tracking-wide">
-            {isSettingsActive ? 'Settings' : 'Vplay'}
-          </span>
-        </div>
-
-        {/* Small Clock Info */}
-        <div className="text-right hidden sm:block">
-          <span className="text-[11px] font-mono text-neutral-400 font-medium block leading-none">
-            {timeString}
-          </span>
-        </div>
+        ) : (
+          <button 
+            id="btn-sidebar-collapse"
+            onClick={onToggleCollapse}
+            className="w-8 h-8 rounded-full flex items-center justify-center text-[#A1A1AA] hover:text-white transition-all cursor-default"
+            title="Thu gọn menu"
+          >
+            <ChevronLeft className="w-4.5 h-4.5" />
+          </button>
+        )}
       </div>
 
-      {/* 1. Home Item (Directly below Settings header, exactly like Windows 10 Settings) */}
-      <div className="px-0 pt-0.5 shrink-0">
+      {/* Spotlight Search Box with generous breathing room */}
+      <div className="px-4 pt-2 pb-5 shrink-0">
         <button
-          type="button"
-          id={isMobile ? 'mobile-nav-home' : 'sidebar-nav-home'}
-          onClick={() => handleNavClick('/')}
-          title="Home"
-          className={`fluent-reveal-item sidebar-nav-item w-full h-10 flex items-center gap-3.5 px-4 transition-colors cursor-default relative text-left rounded-none ${
-            currentRoute === '/'
-              ? 'bg-white/[0.14] text-white font-normal'
-              : 'text-[#cccccc] hover:bg-white/[0.06] hover:text-white'
-          }`}
-          {...revealProps}
+          id={isMobile ? 'btn-mobile-spotlight-search' : 'btn-spotlight-search'}
+          onClick={handleSpotlightClick}
+          className="w-full h-[46px] flex items-center justify-center px-4 rounded-full spotlight-bubble-box spotlight-input-container text-sm text-[#C4C4CC] hover:text-white transition-all group cursor-default"
         >
-          {/* Active Accent Strip on far left edge */}
-          {currentRoute === '/' && (
-            <span className="absolute left-0 top-0 bottom-0 w-1 bg-[#0078d7]" />
-          )}
-          <Home className="w-4 h-4 stroke-[1.5] shrink-0 text-white" />
-          <span className="truncate text-[13.5px]">Home</span>
+          <div className="flex items-center justify-center gap-2.5 min-w-0">
+            <div className="w-[18px] h-[18px] min-w-[18px] min-h-[18px] max-w-[18px] max-h-[18px] flex items-center justify-center shrink-0">
+              <img
+                src="https://static.wikia.nocookie.net/ep-deo/images/2/21/Searchhh.png/revision/latest?cb=20260717131751"
+                alt="Search"
+                referrerPolicy="no-referrer"
+                className="w-full h-full aspect-square object-contain brightness-0 invert opacity-90 group-hover:opacity-100 transition-opacity"
+                onError={(e) => {
+                  (e.target as HTMLElement).style.display = 'none';
+                }}
+              />
+            </div>
+            <span className="text-sm text-[#C4C4CC] group-hover:text-white font-medium truncate">Spotlight Search</span>
+          </div>
         </button>
       </div>
 
-      {/* 2. Windows 10 Style Search Input Box: "Find a setting" with 🔍 on the right */}
-      <div className="px-4 py-2.5 shrink-0">
-        <form onSubmit={handleSearchSubmit} className="relative w-full">
-          <div className="fluent-reveal-item w-full h-8 bg-black border border-[#3d3d3d] focus-within:border-[#0078d7] flex items-center px-2.5 gap-2 transition-colors rounded-none">
-            <input
-              type="text"
-              value={searchQuery}
-              onChange={(e) => setSearchQuery(e.target.value)}
-              placeholder="Find a setting"
-              className="w-full bg-transparent text-[13px] text-white placeholder-[#888888] outline-none border-none py-1 pr-6"
-            />
-            <button
-              type="button"
-              onClick={() => {
-                if (searchQuery.trim()) {
-                  handleSearchSubmit();
-                } else {
-                  onOpenSearch();
-                }
+      {/* Scrollable Navigation Menu (Scrollbar hidden) */}
+      <div className="flex-1 overflow-y-auto pb-6 text-sm font-medium sidebar-visible-scroller no-scrollbar px-4 pt-1 space-y-2.5">
+        {/* 1. Home */}
+        <button
+          id={isMobile ? 'mobile-nav-item-home' : 'nav-item-home'}
+          onClick={() => handleNavClick('/')}
+          title="Home"
+          className={`w-full flex items-center gap-3.5 px-4 py-3 rounded-[14px] transition-all duration-200 cursor-default ${
+            isActive('/') && currentRoute === '/'
+              ? 'bg-[#fd932f] text-white font-bold shadow-md shadow-[#fd932f]/20'
+              : 'text-[#D1D5DB] hover:text-white hover:bg-white/10'
+          }`}
+        >
+          <img
+            src={HOME_ICON_SRC}
+            alt="Home"
+            referrerPolicy="no-referrer"
+            className={`w-5 h-5 object-contain shrink-0 ${
+              isActive('/') && currentRoute === '/' ? 'brightness-0 invert' : 'sidebar-nav-home-icon'
+            }`}
+            onError={(e) => {
+              (e.target as HTMLElement).style.display = 'none';
+            }}
+          />
+          <span className="truncate">Home</span>
+        </button>
+
+        {/* 2. Truyền hình with Accordion */}
+        <div className="w-full">
+          <button
+            id={isMobile ? 'mobile-nav-item-live-tv' : 'nav-item-live-tv'}
+            onClick={() => handleNavClick('/live-tv')}
+            title="Truyền hình"
+            className={`w-full flex items-center justify-between px-4 py-3 rounded-[14px] transition-all cursor-default ${
+              isActive('/live-tv')
+                ? 'bg-[#fd932f] text-white font-bold shadow-md shadow-[#fd932f]/20'
+                : 'text-[#D1D5DB] hover:text-white hover:bg-white/10'
+            }`}
+          >
+            <div className="flex items-center gap-3.5 truncate">
+              <img
+                src={WATCH_ICON_SRC}
+                alt="Truyền hình"
+                referrerPolicy="no-referrer"
+                className={`w-[22px] h-[22px] object-contain shrink-0 ${
+                  isActive('/live-tv') ? 'brightness-0 invert' : 'sidebar-nav-tv-icon'
+                }`}
+                onError={(e) => {
+                  (e.target as HTMLElement).style.display = 'none';
+                }}
+              />
+              <span className="truncate">Truyền hình</span>
+            </div>
+            <div
+              onClick={(e) => {
+                e.stopPropagation();
+                setIsLiveTvExpanded(!isLiveTvExpanded);
               }}
-              title="Tìm kiếm (⌘K)"
-              className="absolute right-2 text-[#888888] hover:text-white transition-colors p-1"
+              className="p-1 hover:text-white"
             >
-              <Search className="w-3.5 h-3.5 stroke-[1.75]" />
-            </button>
-          </div>
-        </form>
-      </div>
+              {isLiveTvExpanded ? (
+                <ChevronDown className="w-4 h-4 opacity-70" />
+              ) : (
+                <ChevronRight className="w-4 h-4 opacity-70" />
+              )}
+            </div>
+          </button>
 
-      {/* 3. Category Heading: "Personalization" (bold white text) */}
-      <div className="px-4 pt-2.5 pb-1.5 shrink-0">
-        <h2 className="text-white text-[13.5px] font-semibold tracking-normal uppercase text-opacity-95 select-none">
-          {isSettingsActive ? 'Personalization' : 'Điều hướng & Nội dung'}
-        </h2>
-      </div>
-
-      {/* 4. Navigation Menu List */}
-      <div className="flex-1 overflow-y-auto pb-4 no-scrollbar space-y-0.5 reveal-group font-normal">
-        {/* If user is in Settings page, show the Personalization sub-items from Windows 10 */}
-        {isSettingsActive && (
-          <div className="space-y-0.5 pb-2 mb-2 border-b border-white/10">
-            {settingsPersonalizationItems.map((subItem) => {
-              const SubIcon = subItem.icon;
-              const isSelected = subItem.id === 'taskbar' || (subItem.id === 'themes' && currentRoute.includes('spatial-glass'));
-              return (
+          {/* Expanded Channels list */}
+          {isLiveTvExpanded && (
+            <div className="mt-2 ml-4 pl-3 border-l border-[#3E3E48] space-y-1">
+              {CHANNELS_DATA.slice(0, 5).map((ch) => (
                 <button
-                  key={subItem.id}
-                  type="button"
+                  key={ch.id}
                   onClick={() => {
-                    handleNavClick(`/settings?tab=${subItem.tabId}`);
+                    handleNavClick(`/live-tv?channel=${ch.slug}`);
+                    if (onSelectChannel) onSelectChannel(ch);
                   }}
-                  className={`fluent-reveal-item sidebar-nav-item w-full h-10 flex items-center gap-3.5 px-4 transition-colors cursor-default relative text-left rounded-none ${
-                    isSelected
-                      ? 'bg-white/[0.14] text-white'
-                      : 'text-[#cccccc] hover:bg-white/[0.06] hover:text-white'
-                  }`}
-                  {...revealProps}
+                  className="w-full flex items-center justify-between px-3 py-2 rounded-[12px] text-xs text-[#A1A1AA] hover:text-white hover:bg-white/10 transition-colors cursor-default"
                 >
-                  {isSelected && (
-                    <span className="absolute left-0 top-0 bottom-0 w-1 bg-[#0078d7]" />
-                  )}
-                  <SubIcon className="w-4 h-4 stroke-[1.5] shrink-0 text-white" />
-                  <span className="truncate text-[13.5px]">{subItem.label}</span>
+                  <span className="truncate">{`${String(ch.channelNumber || 1).padStart(3, '0')} | ${ch.shortName || ch.name}`}</span>
+                  <span className="px-1.5 py-0.2 text-[9px] bg-[#E6005A]/20 text-[#FF4D8B] border border-[#E6005A]/40 rounded-full font-bold">
+                    HD
+                  </span>
                 </button>
-              );
-            })}
-          </div>
+              ))}
+              <button
+                onClick={() => handleNavClick('/live-tv')}
+                className="w-full text-left px-3 py-1.5 text-[11px] text-[#E6005A] hover:underline font-medium cursor-default"
+              >
+                + Xem tất cả kênh
+              </button>
+            </div>
+          )}
+        </div>
+
+        {/* Tab Test (khi Developer Mode bật - đặt dưới tab Truyền hình) */}
+        {settings.developerMode && (
+          <button
+            id={isMobile ? 'mobile-nav-item-test' : 'nav-item-test'}
+            onClick={() => handleNavClick('/test')}
+            title="Test"
+            className={`w-full flex items-center gap-3.5 px-4 py-3 rounded-[14px] transition-all cursor-default ${
+              isActive('/test')
+                ? 'bg-[#fd932f] text-white font-bold shadow-md shadow-[#fd932f]/20'
+                : 'text-[#D1D5DB] hover:text-white hover:bg-white/10'
+            }`}
+          >
+            <FlaskConical className="w-5 h-5 shrink-0" />
+            <span className="truncate">Test</span>
+          </button>
         )}
 
-        {/* Primary Navigation Items */}
-        {filteredNavItems.map((item) => {
-          const Icon = item.icon;
-          const active = isCurrentActive(item.route) && (item.route !== '/' || currentRoute === '/');
+        {/* 3. News */}
+        <button
+          id={isMobile ? 'mobile-nav-item-news' : 'nav-item-news'}
+          onClick={() => handleNavClick('/news')}
+          title="News"
+          className={`w-full flex items-center gap-3.5 px-4 py-3 rounded-[14px] transition-all cursor-default ${
+            isActive('/news')
+              ? 'bg-[#fd932f] text-white font-bold shadow-md shadow-[#fd932f]/20'
+              : 'text-[#D1D5DB] hover:text-white hover:bg-white/10'
+          }`}
+        >
+          <img
+            src={NEWS_ICON_SRC}
+            alt="News"
+            referrerPolicy="no-referrer"
+            className={`w-5 h-5 object-contain shrink-0 ${
+              isActive('/news') ? 'brightness-0 invert' : 'sidebar-nav-news-icon'
+            }`}
+            onError={(e) => {
+              (e.target as HTMLElement).style.display = 'none';
+            }}
+          />
+          <span className="truncate">News</span>
+        </button>
 
-          return (
-            <div key={item.id} className="w-full">
-              <button
-                type="button"
-                id={isMobile ? `mobile-nav-${item.id}` : `sidebar-nav-${item.id}`}
-                onClick={() => handleNavClick(item.route)}
-                title={item.label}
-                className={`fluent-reveal-item sidebar-nav-item w-full h-10 flex items-center justify-between px-4 transition-colors cursor-default relative text-left rounded-none ${
-                  active
-                    ? 'bg-white/[0.14] text-white'
-                    : 'text-[#cccccc] hover:bg-white/[0.06] hover:text-white'
-                }`}
-                {...revealProps}
-              >
-                {/* Active Accent Strip on the far left edge */}
-                {active && (
-                  <span className="absolute left-0 top-0 bottom-0 w-1 bg-[#0078d7]" />
-                )}
+        {/* Divider */}
+        <div className="py-1 w-full">
+          <hr className="border-[#34343C]" />
+        </div>
 
-                <div className="flex items-center gap-3.5 truncate">
-                  <Icon className="w-4 h-4 stroke-[1.5] shrink-0 text-white" />
-                  <span className="truncate text-[13.5px]">{item.label}</span>
-                </div>
-
-                {/* Submenu toggles for Live TV or Favorites */}
-                {item.hasSubmenu && (
-                  <div
-                    onClick={(e) => {
-                      e.stopPropagation();
-                      setIsLiveTvExpanded(!isLiveTvExpanded);
-                    }}
-                    className="p-1 hover:bg-white/10 rounded-[2px] transition-colors"
-                  >
-                    {isLiveTvExpanded ? (
-                      <ChevronDown className="w-3.5 h-3.5 text-neutral-400" />
-                    ) : (
-                      <ChevronRight className="w-3.5 h-3.5 text-neutral-400" />
-                    )}
-                  </div>
-                )}
-
-                {item.hasFavoritesSubmenu && favoriteChannels.length > 0 && (
-                  <div
-                    onClick={(e) => {
-                      e.stopPropagation();
-                      setIsFavoritesExpanded(!isFavoritesExpanded);
-                    }}
-                    className="p-1 hover:bg-white/10 rounded-[2px] transition-colors"
-                  >
-                    {isFavoritesExpanded ? (
-                      <ChevronDown className="w-3.5 h-3.5 text-neutral-400" />
-                    ) : (
-                      <ChevronRight className="w-3.5 h-3.5 text-neutral-400" />
-                    )}
-                  </div>
-                )}
-              </button>
-
-              {/* Live TV Channels Quick Submenu */}
-              {item.hasSubmenu && isLiveTvExpanded && (
-                <div className="ml-5 pl-3 border-l border-white/10 space-y-0.5 py-1">
-                  {CHANNELS_DATA.slice(0, 5).map((ch) => (
-                    <button
-                      key={ch.id}
-                      type="button"
-                      onClick={() => {
-                        handleNavClick(`/live-tv?channel=${ch.slug}`);
-                        if (onSelectChannel) onSelectChannel(ch);
-                      }}
-                      className="fluent-reveal-item w-full h-8 flex items-center justify-between px-2.5 rounded-none text-xs text-[#a1a1aa] hover:text-white hover:bg-white/10 transition-colors cursor-default"
-                      {...revealProps}
-                    >
-                      <span className="truncate">{`${String(ch.channelNumber || 1).padStart(3, '0')} | ${ch.shortName || ch.name}`}</span>
-                      <span className="px-1.5 py-0.2 text-[9px] bg-white/10 text-neutral-200 rounded-none font-semibold">
-                        HD
-                      </span>
-                    </button>
-                  ))}
-                  <button
-                    type="button"
-                    onClick={() => handleNavClick('/live-tv')}
-                    className="fluent-reveal-item w-full text-left px-2.5 py-1 text-[11px] text-[#60cdff] hover:underline font-normal cursor-default rounded-none"
-                    {...revealProps}
-                  >
-                    + Xem tất cả kênh
-                  </button>
-                </div>
+        {/* 5. Favorites Accordion */}
+        <div className="w-full">
+          <button
+            id={isMobile ? 'mobile-nav-item-favorites' : 'nav-item-favorites'}
+            onClick={() => handleNavClick('/favorites')}
+            title="Favorites"
+            className={`w-full flex items-center justify-between px-4 py-3 rounded-[14px] transition-all cursor-default ${
+              isActive('/favorites')
+                ? 'bg-[#fd932f] text-white font-bold shadow-md shadow-[#fd932f]/20'
+                : 'text-[#D1D5DB] hover:text-white hover:bg-white/10'
+            }`}
+          >
+            <div className="flex items-center gap-3.5 truncate">
+              <Heart className="w-5 h-5 shrink-0" />
+              <span className="truncate">Favorites</span>
+            </div>
+            <div
+              onClick={(e) => {
+                e.stopPropagation();
+                setIsFavoritesExpanded(!isFavoritesExpanded);
+              }}
+              className="p-1 hover:text-white"
+            >
+              {isFavoritesExpanded ? (
+                <ChevronDown className="w-4 h-4 opacity-70" />
+              ) : (
+                <ChevronRight className="w-4 h-4 opacity-70" />
               )}
+            </div>
+          </button>
 
-              {/* Favorites Quick Submenu */}
-              {item.hasFavoritesSubmenu && isFavoritesExpanded && (
-                <div className="ml-5 pl-3 border-l border-white/10 space-y-0.5 py-1">
-                  {favoriteChannels.map((ch) => (
-                    <button
-                      key={ch.id}
-                      type="button"
-                      onClick={() => {
-                        handleNavClick(`/live-tv?channel=${ch.slug}`);
-                        if (onSelectChannel) onSelectChannel(ch);
-                      }}
-                      className="fluent-reveal-item w-full h-8 flex items-center justify-between px-2.5 rounded-none text-xs text-[#a1a1aa] hover:text-white hover:bg-white/10 transition-colors cursor-default"
-                      {...revealProps}
-                    >
-                      <span className="truncate">{`${String(ch.channelNumber || 1).padStart(3, '0')} | ${ch.shortName || ch.name}`}</span>
-                      <span className="px-1.5 py-0.2 text-[9px] bg-[#0078d7]/20 text-[#60cdff] rounded-none font-semibold">
-                        Phát
-                      </span>
-                    </button>
-                  ))}
+          {isFavoritesExpanded && (
+            <div className="mt-2 ml-4 pl-3 border-l border-[#3E3E48] space-y-1">
+              {favoriteChannels.length > 0 ? (
+                favoriteChannels.map((ch) => (
+                  <button
+                    key={ch.id}
+                    onClick={() => {
+                      handleNavClick(`/live-tv?channel=${ch.slug}`);
+                      if (onSelectChannel) onSelectChannel(ch);
+                    }}
+                    className="w-full flex items-center justify-between px-3 py-2 rounded-[12px] text-xs text-[#A1A1AA] hover:text-white hover:bg-white/10 transition-colors group cursor-default"
+                  >
+                    <span className="truncate">{`${String(ch.channelNumber || 1).padStart(3, '0')} | ${ch.shortName || ch.name}`}</span>
+                    <span className="px-2 py-0.5 text-[9px] bg-[#3E3E48] text-[#E0E0E6] group-hover:bg-[#E6005A] group-hover:text-white rounded-full font-semibold transition-colors">
+                      Phát
+                    </span>
+                  </button>
+                ))
+              ) : (
+                <div className="px-3 py-1.5 text-[11px] text-[#8E8E93] italic">
+                  Chưa có kênh yêu thích
                 </div>
               )}
             </div>
-          );
-        })}
+          )}
+        </div>
 
-        {/* Discord Community Button */}
+        {/* 6. Help (Book Icon) */}
+        <div className="w-full">
+          <button
+            id={isMobile ? 'mobile-nav-item-help' : 'nav-item-help'}
+            onClick={() => setIsHelpExpanded(!isHelpExpanded)}
+            title="Help"
+            className="w-full flex items-center justify-between px-4 py-3 rounded-[14px] text-[#D1D5DB] hover:text-white hover:bg-white/10 transition-all cursor-default"
+          >
+            <div className="flex items-center gap-3.5 truncate">
+              <BookOpen className="w-5 h-5 shrink-0" />
+              <span className="truncate">Help</span>
+            </div>
+            {isHelpExpanded ? (
+              <ChevronDown className="w-4 h-4 opacity-70" />
+            ) : (
+              <ChevronRight className="w-4 h-4 opacity-70" />
+            )}
+          </button>
+
+          {isHelpExpanded && (
+            <div className="mt-2 ml-4 pl-3 border-l border-[#3E3E48] space-y-1.5 text-xs text-[#A1A1AA] p-2">
+              <p>• Phím tắt: ⌘K tìm kiếm, Space tạm dừng</p>
+              <p>• Báo lỗi phát sóng trực tiếp qua Discord</p>
+            </div>
+          )}
+        </div>
+
+        {/* 8. Join now */}
         <button
           type="button"
-          id={isMobile ? 'mobile-nav-discord' : 'sidebar-nav-discord'}
+          id={isMobile ? 'mobile-nav-item-discord' : 'nav-item-discord'}
           onClick={() => setIsDiscordModalOpen(true)}
-          title="Cộng đồng Discord"
-          className="fluent-reveal-item sidebar-nav-item w-full h-10 flex items-center gap-3.5 px-4 text-[#cccccc] hover:bg-white/[0.06] hover:text-white transition-colors cursor-default text-left rounded-none"
-          {...revealProps}
+          title="Join now"
+          className="w-full flex items-center justify-between px-4 py-3 rounded-[14px] text-[#D1D5DB] hover:text-white hover:bg-white/10 border border-transparent transition-all group cursor-default text-left"
         >
-          <svg className="w-4 h-4 fill-current shrink-0 text-white" viewBox="0 0 24 24">
-            <path d="M20.317 4.37a19.791 19.791 0 0 0-4.885-1.515.074.074 0 0 0-.079.037c-.21.375-.444.864-.608 1.25a18.27 18.27 0 0 0-5.487 0 12.64 12.64 0 0 0-.617-1.25.077.077 0 0 0-.079-.037A19.736 19.736 0 0 0 3.677 4.37a.07.07 0 0 0-.032.027C.533 9.046-.32 13.58.099 18.057a.082.082 0 0 0 .031.057 19.9 19.9 0 0 0 5.993 3.03.078.078 0 0 0 .084-.028c.462-.63.874-1.295 1.226-1.994.021-.041.001-.09-.041-.106a13.107 13.107 0 0 1-1.872-.892.077.077 0 0 1-.008-.128 10.2 10.2 0 0 0 .372-.292.074.074 0 0 1 .078.01c.12.098.246.198.373.292a.077.077 0 0 1-.006.127 12.299 12.299 0 0 1-1.873.893.077.077 0 0 0-.041.107c.36.698.772 1.362 1.225 1.993a.076.076 0 0 0 .084.028 19.839 19.839 0 0 0 6.002-3.03.078.078 0 0 0 .032-.054c.5-5.177-.838-9.674-3.549-13.66a.061.061 0 0 0-.031-.028zM8.02 15.33c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.956-2.419 2.157-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.956 2.418-2.157 2.418zm7.975 0c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.955-2.419 2.157-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.946 2.418-2.157 2.418z"/>
-          </svg>
-          <span className="truncate text-[13.5px]">Cộng đồng Discord</span>
+          <div className="flex items-center gap-3.5 truncate">
+            <svg className="w-5 h-5 fill-current text-[#18181B] dark:text-white shrink-0" viewBox="0 0 24 24">
+              <path d="M20.317 4.37a19.791 19.791 0 0 0-4.885-1.515.074.074 0 0 0-.079.037c-.21.375-.444.864-.608 1.25a18.27 18.27 0 0 0-5.487 0 12.64 12.64 0 0 0-.617-1.25.077.077 0 0 0-.079-.037A19.736 19.736 0 0 0 3.677 4.37a.07.07 0 0 0-.032.027C.533 9.046-.32 13.58.099 18.057a.082.082 0 0 0 .031.057 19.9 19.9 0 0 0 5.993 3.03.078.078 0 0 0 .084-.028c.462-.63.874-1.295 1.226-1.994.021-.041.001-.09-.041-.106a13.107 13.107 0 0 1-1.872-.892.077.077 0 0 1-.008-.128 10.2 10.2 0 0 0 .372-.292.074.074 0 0 1 .077-.01c3.929 1.793 8.18 1.793 12.061 0a.074.074 0 0 1 .078.01c.12.098.246.198.373.292a.077.077 0 0 1-.006.127 12.299 12.299 0 0 1-1.873.893.077.077 0 0 0-.041.107c.36.698.772 1.362 1.225 1.993a.076.076 0 0 0 .084.028 19.839 19.839 0 0 0 6.002-3.03.078.078 0 0 0 .032-.054c.5-5.177-.838-9.674-3.549-13.66a.061.061 0 0 0-.031-.028zM8.02 15.33c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.956-2.419 2.157-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.956 2.418-2.157 2.418zm7.975 0c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.955-2.419 2.157-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.946 2.418-2.157 2.418z"/>
+            </svg>
+            <span className="truncate">Join now</span>
+          </div>
         </button>
-      </div>
 
-      {/* Bottom Footer Note */}
-      <div className="px-4 py-3 shrink-0 border-t border-white/10 text-[11px] text-[#888888] flex items-center justify-between">
-        <span className="truncate">Windows 10 Fluent Style</span>
-        <span className="font-mono text-[10px] text-neutral-500">v26.10</span>
+        {/* 10. Settings */}
+        <button
+          id={isMobile ? 'mobile-nav-item-settings' : 'nav-item-settings'}
+          onClick={handleSettingsNavClick}
+          title="Cài đặt"
+          className={`group w-full flex items-center gap-3.5 px-4 py-3 rounded-[14px] transition-all cursor-default ${
+            isActive('/settings')
+              ? 'bg-[#fd932f] text-white font-bold shadow-md shadow-[#fd932f]/20'
+              : 'text-[#D1D5DB] hover:text-white hover:bg-white/10'
+          }`}
+        >
+          <img 
+            key={settingsSpinCount}
+            src={SETTINGS_ICON_SRC}
+            alt="Cài đặt"
+            referrerPolicy="no-referrer"
+            onAnimationEnd={() => setIsSettingsSpinning(false)}
+            className={`w-5 h-5 shrink-0 object-contain ${
+              isActive('/settings')
+                ? 'brightness-0 invert'
+                : 'brightness-0 dark:brightness-0 dark:invert'
+            } settings-icon-hoverable ${
+              isSettingsSpinning ? 'settings-icon-spin' : ''
+            }`}
+          />
+          <span className="truncate">Cài đặt</span>
+        </button>
       </div>
     </div>
   );
 
   return (
     <>
-      {/* 1. Desktop Persistent Sidebar */}
+      {/* 1. Desktop Persistent Sidebar (Only when dockToSidebar is true or desktop) */}
       {settings.dockToSidebar && (
         <aside 
           id="waves-desktop-sidebar"
           onMouseEnter={() => setIsHovered(true)}
           onMouseLeave={() => setIsHovered(false)}
-          className={`hidden md:flex flex-col h-screen bg-[#1f1f1f] text-white border-r border-[#2d2d2d] select-none shrink-0 fixed top-0 z-40 overflow-hidden shadow-2xl ${
+          className={`hidden md:flex flex-col h-screen bg-[#180a1c]/80 backdrop-blur-md border-r border-white/10 select-none shrink-0 fixed top-0 z-40 overflow-hidden ${
             settings.sidebarPosition === 'right' ? 'right-0 border-l border-r-0' : 'left-0'
           } ${
-            shouldAnimateSidebar ? 'transition-all duration-200 ease-in-out' : 'transition-none'
+            shouldAnimateSidebar ? 'transition-all duration-300 ease-in-out' : 'transition-none'
           } ${
-            effectiveCollapsed ? 'w-[48px]' : 'w-[260px]'
+            effectiveCollapsed ? 'w-[80px]' : 'w-[290px]'
           }`}
-          style={{
-            backdropFilter: 'blur(20px)',
-            WebkitBackdropFilter: 'blur(20px)',
-          }}
         >
           {!effectiveCollapsed ? (
             renderSidebarBody(false)
           ) : (
-            /* Collapsed Windows 10 Sidebar Icon Bar */
-            <div className="flex flex-col h-full select-none items-center py-2.5 space-y-1">
-              {/* Hamburger Button to Expand */}
-              <button 
-                id="btn-sidebar-expand-toggle"
-                type="button"
-                onClick={onToggleCollapse} 
-                className="fluent-reveal-item w-10 h-10 rounded-none flex items-center justify-center text-white/90 hover:bg-white/10 hover:text-white transition-colors mb-1.5"
-                title="Mở rộng menu"
-                {...revealProps}
-              >
-                <Menu className="w-4 h-4 stroke-[1.75]" />
-              </button>
+            <div className="flex flex-col h-full select-none">
+              {/* Collapsed Top Header: Logo + Expand Button */}
+              {/* Header: Clickable Logo to Expand Sidebar */}
+              <div className="pt-5 pb-3 flex flex-col items-center shrink-0 px-2">
+                <button 
+                  id="btn-sidebar-expand-logo"
+                  type="button"
+                  onClick={onToggleCollapse} 
+                  className="cursor-default flex items-center justify-center p-1 rounded-2xl hover:scale-110 active:scale-95 transition-transform duration-200 outline-none"
+                  title="Mở rộng thanh bên"
+                >
+                  {!logoError ? (
+                    <img 
+                      src={LOGO_SRC} 
+                      alt="VNRT Online Logo - Mở rộng menu" 
+                      referrerPolicy="no-referrer"
+                      className="w-8 h-8 object-contain shrink-0 drop-shadow-sm hover:drop-shadow-[0_0_8px_rgba(230,0,90,0.5)] transition-all"
+                      onError={() => setLogoError(true)}
+                    />
+                  ) : (
+                    <span className="text-white dark:text-white light:text-[#111827] font-black text-xl tracking-tighter">V</span>
+                  )}
+                </button>
+              </div>
 
-              {/* Home Icon */}
-              <button
-                type="button"
-                onClick={() => handleNavClick('/')}
-                title="Home"
-                className={`fluent-reveal-item sidebar-nav-item w-12 h-10 rounded-none flex items-center justify-center transition-colors relative ${
-                  currentRoute === '/'
-                    ? 'bg-white/[0.14] text-white'
-                    : 'text-[#cccccc] hover:bg-white/[0.06] hover:text-white'
-                }`}
-                {...revealProps}
-              >
-                {currentRoute === '/' && (
-                  <span className="absolute left-0 top-0 bottom-0 w-1 bg-[#0078d7]" />
-                )}
-                <Home className="w-4 h-4 stroke-[1.5] text-white" />
-              </button>
+              {/* Collapsed Spotlight Search Button */}
+              <div className="px-3 pt-2 pb-5 flex justify-center shrink-0">
+                <button
+                  id="btn-spotlight-search-mini"
+                  onClick={handleSpotlightClick}
+                  title="Spotlight Search (⌘K)"
+                  className="w-11 h-11 rounded-full spotlight-bubble-box flex items-center justify-center text-[#A1A1AA] hover:text-white transition-all cursor-default shadow-md hover:ring-1 hover:ring-white/40 shrink-0"
+                >
+                  <div className="w-[18px] h-[18px] min-w-[18px] min-h-[18px] max-w-[18px] max-h-[18px] flex items-center justify-center shrink-0">
+                    <img
+                      src="https://static.wikia.nocookie.net/ep-deo/images/2/21/Searchhh.png/revision/latest?cb=20260717131751"
+                      alt="Search"
+                      referrerPolicy="no-referrer"
+                      className="w-full h-full aspect-square object-contain brightness-0 invert opacity-80"
+                    />
+                  </div>
+                </button>
+              </div>
 
-              {/* Search Icon */}
-              <button
-                type="button"
-                onClick={onOpenSearch}
-                title="Tìm kiếm"
-                className="fluent-reveal-item sidebar-nav-item w-12 h-10 rounded-none flex items-center justify-center text-[#cccccc] hover:bg-white/[0.06] hover:text-white transition-colors"
-                {...revealProps}
-              >
-                <Search className="w-4 h-4 stroke-[1.5] text-white" />
-              </button>
-
-              <div className="w-6 h-[1px] bg-white/10 my-1" />
-
-              {/* Primary Navigation Icons */}
-              {navItems.map((item) => {
-                const Icon = item.icon;
-                const active = isCurrentActive(item.route) && (item.route !== '/' || currentRoute === '/');
-
-                return (
-                  <button
-                    key={item.id}
-                    type="button"
-                    onClick={() => handleNavClick(item.route)}
-                    title={item.label}
-                    className={`fluent-reveal-item sidebar-nav-item w-12 h-10 rounded-none flex items-center justify-center transition-colors relative ${
-                      active
-                        ? 'bg-white/[0.14] text-white'
-                        : 'text-[#cccccc] hover:bg-white/[0.06] hover:text-white'
+              {/* Collapsed Scrollable Navigation Menu (Scrollbar hidden) */}
+              <div className="flex-1 overflow-y-auto pb-6 text-sm font-medium sidebar-visible-scroller no-scrollbar px-2 pt-1 space-y-2.5 flex flex-col items-center w-full">
+                {/* 1. Home */}
+                <button
+                  onClick={() => handleNavClick('/')}
+                  title="Home"
+                  className={`w-11 h-11 rounded-[14px] flex items-center justify-center p-0 shrink-0 transition-all cursor-default ${
+                    isActive('/') && currentRoute === '/' ? 'bg-[#fd932f] text-white font-bold shadow-md shadow-[#fd932f]/20' : 'text-[#D1D5DB] hover:text-white hover:bg-white/10'
+                  }`}
+                >
+                  <img
+                    src={HOME_ICON_SRC}
+                    alt="Home"
+                    referrerPolicy="no-referrer"
+                    className={`w-5 h-5 object-contain shrink-0 ${
+                      isActive('/') && currentRoute === '/' ? 'brightness-0 invert' : 'sidebar-nav-home-icon'
                     }`}
-                    {...revealProps}
+                    onError={(e) => {
+                      (e.target as HTMLElement).style.display = 'none';
+                    }}
+                  />
+                </button>
+
+                {/* 2. Truyền hình */}
+                <button
+                  onClick={() => handleNavClick('/live-tv')}
+                  title="Truyền hình"
+                  className={`w-11 h-11 rounded-[14px] flex items-center justify-center p-0 shrink-0 transition-all cursor-default ${
+                    isActive('/live-tv') ? 'bg-[#fd932f] text-white font-bold shadow-md shadow-[#fd932f]/20' : 'text-[#D1D5DB] hover:text-white hover:bg-white/10'
+                  }`}
+                >
+                  <img
+                    src={WATCH_ICON_SRC}
+                    alt="Truyền hình"
+                    referrerPolicy="no-referrer"
+                    className={`w-[22px] h-[22px] object-contain shrink-0 ${
+                      isActive('/live-tv') ? 'brightness-0 invert' : 'sidebar-nav-tv-icon'
+                    }`}
+                    onError={(e) => {
+                      (e.target as HTMLElement).style.display = 'none';
+                    }}
+                  />
+                </button>
+
+                {/* Tab Test (khi Developer Mode bật) */}
+                {settings.developerMode && (
+                  <button
+                    onClick={() => handleNavClick('/test')}
+                    title="Test"
+                    className={`w-11 h-11 rounded-[14px] flex items-center justify-center p-0 shrink-0 transition-all cursor-default ${
+                      isActive('/test') ? 'bg-[#fd932f] text-white font-bold shadow-md shadow-[#fd932f]/20' : 'text-[#D1D5DB] hover:text-white hover:bg-white/10'
+                    }`}
                   >
-                    {active && (
-                      <span className="absolute left-0 top-0 bottom-0 w-1 bg-[#0078d7]" />
-                    )}
-                    <Icon className="w-4 h-4 stroke-[1.5] text-white" />
+                    <FlaskConical className="w-5 h-5 shrink-0" />
                   </button>
-                );
-              })}
+                )}
+
+                {/* 3. News */}
+                <button
+                  onClick={() => handleNavClick('/news')}
+                  title="News"
+                  className={`w-11 h-11 rounded-[14px] flex items-center justify-center p-0 shrink-0 transition-all cursor-default ${
+                    isActive('/news') ? 'bg-[#fd932f] text-white font-bold shadow-md shadow-[#fd932f]/20' : 'text-[#D1D5DB] hover:text-white hover:bg-white/10'
+                  }`}
+                >
+                  <img
+                    src={NEWS_ICON_SRC}
+                    alt="News"
+                    referrerPolicy="no-referrer"
+                    className={`w-5 h-5 object-contain shrink-0 ${
+                      isActive('/news') ? 'brightness-0 invert' : 'sidebar-nav-news-icon'
+                    }`}
+                    onError={(e) => {
+                      (e.target as HTMLElement).style.display = 'none';
+                    }}
+                  />
+                </button>
+
+                {/* Divider 1 */}
+                <div className="py-1 w-full flex justify-center shrink-0">
+                  <hr className="w-8 border-[#34343C]" />
+                </div>
+
+                {/* 4. Favorites */}
+                <button
+                  onClick={() => handleNavClick('/favorites')}
+                  title="Favorites"
+                  className={`w-11 h-11 rounded-[14px] flex items-center justify-center p-0 shrink-0 transition-all cursor-default ${
+                    isActive('/favorites') ? 'bg-[#fd932f] text-white font-bold shadow-md shadow-[#fd932f]/20' : 'text-[#D1D5DB] hover:text-white hover:bg-white/10'
+                  }`}
+                >
+                  <Heart className="w-5 h-5 shrink-0" />
+                </button>
+
+                {/* 5. Help */}
+                <button
+                  onClick={() => handleNavClick('/about')}
+                  title="Help"
+                  className="w-11 h-11 rounded-[14px] flex items-center justify-center p-0 shrink-0 text-[#D1D5DB] hover:text-white hover:bg-white/10 transition-all cursor-default"
+                >
+                  <BookOpen className="w-5 h-5 shrink-0" />
+                </button>
+
+                {/* 7. Discord Community */}
+                <button
+                  onClick={() => setIsDiscordModalOpen(true)}
+                  title="Join now"
+                  className="w-11 h-11 rounded-[14px] flex items-center justify-center p-0 shrink-0 text-[#D1D5DB] hover:text-white hover:bg-white/10 transition-all cursor-default"
+                >
+                  <svg className="w-5 h-5 fill-current text-[#18181B] dark:text-white shrink-0" viewBox="0 0 24 24">
+                    <path d="M20.317 4.37a19.791 19.791 0 0 0-4.885-1.515.074.074 0 0 0-.079.037c-.21.375-.444.864-.608 1.25a18.27 18.27 0 0 0-5.487 0 12.64 12.64 0 0 0-.617-1.25.077.077 0 0 0-.079-.037A19.736 19.736 0 0 0 3.677 4.37a.07.07 0 0 0-.032.027C.533 9.046-.32 13.58.099 18.057a.082.082 0 0 0 .031.057 19.9 19.9 0 0 0 5.993 3.03.078.078 0 0 0 .084-.028c.462-.63.874-1.295 1.226-1.994.021-.041.001-.09-.041-.106a13.107 13.107 0 0 1-1.872-.892.077.077 0 0 1-.008-.128 10.2 10.2 0 0 0 .372-.292.074.074 0 0 1 .077-.01c3.929 1.793 8.18 1.793 12.061 0a.074.074 0 0 1 .078.01c.12.098.246.198.373.292a.077.077 0 0 1-.006.127 12.299 12.299 0 0 1-1.873.893.077.077 0 0 0-.041.107c.36.698.772 1.362 1.225 1.993a.076.076 0 0 0 .084.028 19.839 19.839 0 0 0 6.002-3.03.078.078 0 0 0 .032-.054c.5-5.177-.838-9.674-3.549-13.66a.061.061 0 0 0-.031-.028zM8.02 15.33c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.956-2.419 2.157-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.956 2.418-2.157 2.418zm7.975 0c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.955-2.419 2.157-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.946 2.418-2.157 2.418z"/>
+                  </svg>
+                </button>
+
+                {/* Divider 2 */}
+                <div className="py-1 w-full flex justify-center shrink-0">
+                  <hr className="w-8 border-[#34343C]" />
+                </div>
+
+                {/* 9. Settings */}
+                <button
+                  onClick={handleSettingsNavClick}
+                  title="Cài đặt"
+                  className={`group w-11 h-11 rounded-[14px] flex items-center justify-center p-0 shrink-0 transition-all cursor-default ${
+                    isActive('/settings') ? 'bg-[#fd932f] text-white font-bold shadow-md shadow-[#fd932f]/20' : 'text-[#D1D5DB] hover:text-white hover:bg-white/10'
+                  }`}
+                >
+                  <img 
+                    key={settingsSpinCount}
+                    src={SETTINGS_ICON_SRC}
+                    alt="Cài đặt"
+                    referrerPolicy="no-referrer"
+                    onAnimationEnd={() => setIsSettingsSpinning(false)}
+                    className={`w-5 h-5 object-contain ${
+                      isActive('/settings')
+                        ? 'brightness-0 invert'
+                        : 'brightness-0 dark:brightness-0 dark:invert'
+                    } settings-icon-hoverable ${
+                      isSettingsSpinning ? 'settings-icon-spin' : ''
+                    }`}
+                  />
+                </button>
+              </div>
             </div>
           )}
         </aside>
       )}
 
-      {/* 2. Mobile Drawer Navigation */}
-      {isMobileOpen && (
-        <div 
-          className="fixed inset-0 z-50 md:hidden flex"
-          role="dialog"
-          aria-modal="true"
-        >
-          {/* Backdrop */}
-          <div 
-            onClick={onCloseMobile}
-            className="fixed inset-0 bg-black/60 backdrop-blur-xs transition-opacity"
-            aria-hidden="true"
-          />
+      {/* 2. Mobile Responsive Drawer Sidebar with Smooth Slide-in & Identical Layout/Style */}
+      <AnimatePresence>
+        {isMobileOpen && (
+          <div className="fixed inset-0 z-50 md:hidden flex">
+            {/* Backdrop with smooth ease fade */}
+            <motion.div 
+              id="waves-mobile-sidebar-backdrop"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: shouldAnimateSidebar ? 0.35 : 0, ease: [0.16, 1, 0.3, 1] }}
+              className="fixed inset-0 bg-black/80 backdrop-blur-sm"
+              onClick={onCloseMobile}
+            />
 
-          {/* Slide-out Sidebar Drawer */}
-          <div 
-            onTouchStart={handleDrawerTouchStart}
-            onTouchEnd={handleDrawerTouchEnd}
-            className="relative w-[280px] max-w-[85vw] h-full bg-[#1f1f1f] text-white border-r border-[#2d2d2d] shadow-2xl flex flex-col z-10"
-            style={{
-              backdropFilter: 'blur(20px)',
-              WebkitBackdropFilter: 'blur(20px)',
-            }}
-          >
-            {renderSidebarBody(true)}
+            {/* Mobile Drawer with smooth deceleration ease */}
+            <motion.div
+              id="waves-mobile-sidebar"
+              onTouchStart={handleDrawerTouchStart}
+              onTouchEnd={handleDrawerTouchEnd}
+              initial={{ x: shouldAnimateSidebar ? '-100%' : 0 }}
+              animate={{ x: 0 }}
+              exit={{ x: shouldAnimateSidebar ? '-100%' : 0 }}
+              transition={{ duration: shouldAnimateSidebar ? 0.38 : 0, ease: [0.16, 1, 0.3, 1] }}
+              className="relative w-[290px] sm:w-[320px] max-w-[85vw] h-full bg-[#180a1c]/80 backdrop-blur-md border-r border-white/10 flex flex-col shadow-2xl z-10 overflow-hidden"
+            >
+              {renderSidebarBody(true)}
+            </motion.div>
           </div>
-        </div>
-      )}
+        )}
+      </AnimatePresence>
 
-      {/* Discord Welcome Modal */}
+      {/* Discord Welcome Modal Dialog */}
       <DiscordWelcomeModal
         isOpen={isDiscordModalOpen}
         onClose={() => setIsDiscordModalOpen(false)}

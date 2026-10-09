@@ -232,13 +232,13 @@ export const ImmersiveSearch: React.FC<ImmersiveSearchProps> = ({
       <div className="max-w-6xl mx-auto space-y-7 sm:space-y-9">
         {/* Top Search Bar Row */}
         <div className="flex items-center justify-center gap-3 w-full">
-          {/* AutoSuggestBox Search Input Bar */}
+          {/* Capsule Pill Search Input Bar - Centered with 15% opacity & thinner hover border */}
           <div 
             id="immersive-search-capsule"
             onClick={() => {
               inputRef.current?.focus();
             }}
-            className="relative w-full max-w-md sm:max-w-lg h-[44px] md:h-[48px] flex items-center px-3.5 md:px-4 rounded-[6px] overflow-hidden cursor-text select-none bg-white dark:bg-[#2c2c2c] border border-[#e5e5e5] dark:border-[#3e3e3e] focus-within:border-b-2 focus-within:border-b-[#0067c0] transition-colors shadow-xs"
+            className="relative w-full max-w-md sm:max-w-lg h-[48px] md:h-[52px] flex items-center px-4 md:px-5 rounded-full overflow-hidden cursor-text select-none bg-white/15 backdrop-blur-md border border-transparent hover:border-white/40 focus-within:border-white/65 transition-all shadow-lg"
           >
             <div className="flex items-center gap-3 w-full">
               <Search className="w-5 h-5 text-[#9CA3AF] shrink-0" />
@@ -409,7 +409,7 @@ export const ImmersiveSearch: React.FC<ImmersiveSearchProps> = ({
                               referrerPolicy="no-referrer"
                               className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
                             />
-                            <span className="absolute bottom-1 left-1 px-1.5 py-0.5 text-[9px] font-semibold rounded-[2px] bg-black/75 text-white">
+                            <span className="absolute bottom-1 left-1 px-1.5 py-0.5 text-[9px] font-bold rounded bg-black/70 text-white backdrop-blur-xs">
                               {news.category}
                             </span>
                           </div>

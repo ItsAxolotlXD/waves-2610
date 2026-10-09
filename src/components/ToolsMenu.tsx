@@ -2,6 +2,7 @@ import React, { useState, useRef, useEffect } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import { 
   BookOpen, 
+  Info, 
   Sparkles, 
   Search, 
   Type, 
@@ -14,13 +15,11 @@ import {
   Minus, 
   Plus, 
   Check,
-  Volume2,
-  Wrench
+  Volume2
 } from 'lucide-react';
 import { Channel, NewsArticle } from '../types';
 import { useFavorites } from '../hooks/useFavorites';
 import { useSettings } from '../hooks/useSettings';
-import { useRevealEffect } from '../hooks/useRevealEffect';
 import { NEWS_DATA } from '../data/news';
 import { parseM3UPlaylist, downloadPlaylistFile } from '../utils/m3uParser';
 import { exportArticleToDocx } from '../utils/docxExport';
@@ -81,21 +80,25 @@ export const ToolsMenu: React.FC<ToolsMenuProps> = ({
     }
   };
 
+  const [spinCount, setSpinCount] = useState(0);
+  const [isClickSpinning, setIsClickSpinning] = useState(false);
   const [copiedToast, setCopiedToast] = useState<string | null>(null);
   const [exportingDocx, setExportingDocx] = useState(false);
   const closeTimeoutRef = useRef<NodeJS.Timeout | null>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
 
-  const revealProps = useRevealEffect();
-
   const isRelevant = true; // Always available on all pages
 
   const handleTriggerClick = () => {
+    setSpinCount((prev) => prev + 1);
+    setIsClickSpinning(true);
     setIsOpen((prev) => !prev);
   };
 
   useEffect(() => {
     const handleToggleTools = () => {
+      setSpinCount((prev) => prev + 1);
+      setIsClickSpinning(true);
       setIsOpen((prev) => !prev);
     };
     window.addEventListener('vplay:toggle-tools', handleToggleTools);
@@ -105,9 +108,38 @@ export const ToolsMenu: React.FC<ToolsMenuProps> = ({
   const { isChannelFavorite, toggleFavoriteChannel } = useFavorites();
   const isFav = currentChannel ? isChannelFavorite(currentChannel.id) : false;
 
-  const { settings } = useSettings();
+  const [hoveredItemId, setHoveredItemId] = useState<string | null>(null);
+
+  const { settings, draftSettings } = useSettings();
+  const currentOpacity = typeof draftSettings?.spatialGlassOpacity === 'number'
+    ? draftSettings.spatialGlassOpacity
+    : (settings.spatialGlassOpacity ?? 20);
+  const isSpatialGlassActive = (draftSettings?.spatialGlass ?? settings.spatialGlass) !== false;
+  const isLight = settings.theme === 'light';
+  const isDarkContent = isLight || (isSpatialGlassActive && currentOpacity > 40);
+
+  const renderHoverPill = (id: string) => {
+    if (hoveredItemId !== id) return null;
+    return (
+      <motion.div
+        layoutId="tools-menu-hover-pill"
+        transition={{
+          type: 'spring',
+          stiffness: 480,
+          damping: 30,
+          mass: 0.55
+        }}
+        className={`absolute inset-0 rounded-full pointer-events-none ${
+          isDarkContent
+            ? 'bg-black/[0.13] shadow-[0_2px_8px_rgba(0,0,0,0.06)]'
+            : 'bg-white/[0.22] shadow-[0_2px_12px_rgba(255,255,255,0.12)]'
+        }`}
+      />
+    );
+  };
 
   // Determine current active section & whether Tools is relevant for this page
+  const isHome = currentRoute === '/' || currentRoute === '/home';
   const isNews = currentRoute.startsWith('/news');
   const isLiveTV = currentRoute.startsWith('/live-tv') || currentRoute.startsWith('/channels') || currentRoute.startsWith('/test');
   const isOther = !isNews && !isLiveTV;
@@ -146,7 +178,7 @@ export const ToolsMenu: React.FC<ToolsMenuProps> = ({
     if (!isRelevant || !showTrigger) return;
     closeTimeoutRef.current = setTimeout(() => {
       setIsOpen(false);
-    }, 200);
+    }, 150);
   };
 
   const showToast = (msg: string) => {
@@ -243,422 +275,416 @@ export const ToolsMenu: React.FC<ToolsMenuProps> = ({
         onChange={handleFileInputChange}
       />
 
-      {/* Tools Trigger Button with Tools icon (Fluent button style) */}
+      {/* Tools Trigger Button with Tools icon (rendered when showTrigger is true) */}
       {showTrigger && (
         <button
           id="btn-top-tools-menu"
           type="button"
           disabled={!isRelevant}
           onClick={handleTriggerClick}
-          className={`fluent-reveal-item w-9 h-9 rounded-md flex items-center justify-center transition-colors cursor-default relative text-neutral-800 dark:text-neutral-200 hover:bg-black/5 dark:hover:bg-white/10 active:bg-black/10 dark:active:bg-white/5 ${
-            isOpen ? 'bg-black/10 dark:bg-white/10' : ''
-          }`}
+          className="w-10 h-10 rounded-full flex items-center justify-center text-[#18181B] dark:text-white transition-all drop-shadow-sm cursor-default relative group hover:bg-white/10"
           title={isRelevant ? "Công cụ & Tiện ích VNRT Online (Tools)" : "Không có công cụ khả dụng"}
           aria-label="Menu công cụ VNRT Online"
           aria-expanded={isOpen}
-          {...revealProps}
         >
           <img
+            key={spinCount}
             src="https://static.wikia.nocookie.net/ep-deo/images/3/3c/Tools_menu.png/revision/latest?cb=20260905055712"
             alt="Tools"
             referrerPolicy="no-referrer"
             onError={(e) => {
               (e.target as HTMLImageElement).src = '/icons/copilot.png';
             }}
-            className="w-5 h-5 object-contain"
+            onAnimationEnd={() => setIsClickSpinning(false)}
+            className={`w-6 h-6 object-contain topbar-tools-icon transition-transform duration-700 ease-in-out ${
+              isClickSpinning ? 'spin-click' : ''
+            }`}
           />
         </button>
       )}
 
-      {/* Fluent Menu Flyout (Context Menu) - Zero Blur, Crisp Windows 11 Fluent 2 Design */}
+      {/* Floating Popup Menu with Slide Down Bounce Animation */}
       <AnimatePresence>
         {isOpen && isRelevant && (
           <motion.div
             id="vplay-tools-dropdown-card"
-            initial={{ opacity: 0, y: placement === 'bottom' ? 6 : -6, scale: 0.98 }}
+            initial={{ opacity: 0, y: placement === 'bottom' ? 12 : -12, scale: 0.95 }}
             animate={{ opacity: 1, y: 0, scale: 1 }}
-            exit={{ opacity: 0, y: placement === 'bottom' ? 4 : -4, scale: 0.98 }}
-            transition={{ duration: 0.12, ease: 'easeOut' }}
+            exit={{ opacity: 0, y: placement === 'bottom' ? 8 : -8, scale: 0.95 }}
+            transition={{
+              type: "spring",
+              stiffness: 420,
+              damping: 24,
+              mass: 0.7
+            }}
+            style={{
+              backgroundColor: isSpatialGlassActive
+                ? 'var(--spatial-glass-bg, rgba(255, 255, 255, 0.20))'
+                : (isLight ? 'rgba(255, 255, 255, 0.92)' : 'rgba(30, 30, 36, 0.92)'),
+              backdropFilter: isSpatialGlassActive ? 'blur(var(--spatial-glass-blur, 20px))' : 'none',
+              WebkitBackdropFilter: isSpatialGlassActive ? 'blur(var(--spatial-glass-blur, 20px))' : 'none',
+            }}
             className={`${
               showTrigger
-                ? (placement === 'bottom' ? 'absolute right-0 bottom-full mb-2 origin-bottom-right' : 'absolute right-0 mt-1.5 origin-top-right')
-                : 'relative origin-bottom-right'
-            } w-[276px] max-w-[calc(100vw-24px)] rounded-[8px] p-1.5 z-50 select-none cursor-default overflow-hidden bg-[#ffffff] dark:bg-[#2c2c2c] text-[#1b1b1b] dark:text-[#f3f3f3] border border-[#e5e5e5] dark:border-[#383838] shadow-[0_8px_18px_rgba(0,0,0,0.14),0_0_2px_rgba(0,0,0,0.10)] dark:shadow-[0_8px_24px_rgba(0,0,0,0.40),0_0_2px_rgba(0,0,0,0.26)] ${className || ''}`}
+                ? (placement === 'bottom' ? 'absolute right-0 bottom-full mb-3 origin-bottom-right' : 'absolute right-0 mt-2 origin-top-right')
+                : 'relative origin-bottom-right shadow-2xl'
+            } w-72 max-w-[calc(100vw-32px)] rounded-[30px] p-3 z-50 select-none cursor-default overflow-hidden border ${
+              isDarkContent ? 'border-black/15 text-[#111827]' : 'border-white/10 text-white'
+            } ${className || ''}`}
           >
-            {/* Context Menu Header */}
-            <div className="px-2.5 py-1.5 flex items-center justify-between border-b border-black/[0.08] dark:border-white/[0.08] mb-1">
-              <div className="flex items-center gap-2">
-                <Wrench className="w-3.5 h-3.5 text-[#0067c0] dark:text-[#60cdff]" />
-                <span className="font-semibold text-xs tracking-tight text-[#1b1b1b] dark:text-[#f3f3f3]">
-                  Công cụ & Tiện ích
-                </span>
-              </div>
-              <span className="text-[10px] font-medium px-1.5 py-0.5 rounded-[3px] bg-black/5 dark:bg-white/10 text-neutral-600 dark:text-neutral-400">
-                {isNews ? 'Tin tức' : isLiveTV ? 'Truyền hình' : 'Hệ thống'}
-              </span>
-            </div>
-
             {/* Menu Items for HOME & OTHER PAGES */}
-            {isOther && (
-              <div className="space-y-0.5">
-                <button
-                  id="tool-home-help"
-                  type="button"
-                  onClick={() => {
-                    setIsOpen(false);
-                    onOpenHelp();
-                  }}
-                  className="fluent-reveal-item w-full h-[34px] px-2.5 rounded-[4px] flex items-center justify-between text-[13px] font-normal transition-colors text-left cursor-default text-[#1b1b1b] dark:text-[#f3f3f3] hover:bg-black/5 dark:hover:bg-white/[0.08] active:bg-black/10 dark:active:bg-white/[0.05]"
-                  {...revealProps}
-                >
-                  <div className="flex items-center gap-2.5 truncate">
-                    <BookOpen className="w-4 h-4 text-[#555555] dark:text-[#cccccc] shrink-0" />
-                    <span className="truncate">Trợ giúp & Phím tắt</span>
-                  </div>
-                  <span className="text-[10px] font-mono text-neutral-400 dark:text-neutral-500">F1</span>
-                </button>
-
-                <button
-                  id="tool-home-discord"
-                  type="button"
-                  onClick={() => {
-                    setIsOpen(false);
-                    onOpenDiscord();
-                  }}
-                  className="fluent-reveal-item w-full h-[34px] px-2.5 rounded-[4px] flex items-center justify-between text-[13px] font-normal transition-colors text-left cursor-default text-[#1b1b1b] dark:text-[#f3f3f3] hover:bg-black/5 dark:hover:bg-white/[0.08] active:bg-black/10 dark:active:bg-white/[0.05]"
-                  {...revealProps}
-                >
-                  <div className="flex items-center gap-2.5 truncate">
-                    <svg className="w-4 h-4 fill-current text-[#5865F2] shrink-0" viewBox="0 0 24 24">
-                      <path d="M20.317 4.37a19.791 19.791 0 0 0-4.885-1.515.074.074 0 0 0-.079.037c-.21.375-.444.864-.608 1.25a18.27 18.27 0 0 0-5.487 0 12.64 12.64 0 0 0-.617-1.25.077.077 0 0 0-.079-.037A19.736 19.736 0 0 0 3.677 4.37a.07.07 0 0 0-.032.027C.533 9.046-.32 13.58.099 18.057a.082.082 0 0 0 .031.057 19.9 19.9 0 0 0 5.993 3.03.078.078 0 0 0 .084-.028c.462-.63.874-1.295 1.226-1.994.021-.041.001-.09-.041-.106a13.107 13.107 0 0 1-1.872-.892.077.077 0 0 1-.008-.128 10.2 10.2 0 0 0 .372-.292.074.074 0 0 1 .077-.01c3.929 1.793 8.18 1.793 12.061 0a.074.074 0 0 1 .078.01c.12.098.246.198.373.292a.077.077 0 0 1-.006.127 12.299 12.299 0 0 1-1.873.893.077.077 0 0 0-.041.107c.36.698.772 1.362 1.225 1.993a.076.076 0 0 0 .084.028 19.839 19.839 0 0 0 6.002-3.03.078.078 0 0 0 .032-.054c.5-5.177-.838-9.674-3.549-13.66a.061.061 0 0 0-.031-.028zM8.02 15.33c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.956-2.419 2.157-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.956 2.418-2.157 2.418zm7.975 0c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.955-2.419 2.157-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.946 2.418-2.157 2.418z"/>
-                    </svg>
-                    <span className="truncate">Cộng đồng Discord</span>
-                  </div>
-                  <span className="text-[10px] px-1.5 py-0.5 rounded-[2px] bg-[#5865F2]/10 text-[#5865F2] font-medium">Join</span>
-                </button>
-
-                <div className="my-1 mx-1 h-[1px] bg-black/[0.08] dark:bg-white/[0.08]" />
-
-                <button
-                  id="tool-home-add-stream"
-                  type="button"
-                  onClick={() => {
-                    setIsOpen(false);
-                    onOpenAddStream();
-                  }}
-                  className="fluent-reveal-item w-full h-[34px] px-2.5 rounded-[4px] flex items-center justify-between text-[13px] font-normal transition-colors text-left cursor-default text-[#1b1b1b] dark:text-[#f3f3f3] hover:bg-black/5 dark:hover:bg-white/[0.08] active:bg-black/10 dark:active:bg-white/[0.05]"
-                  {...revealProps}
-                >
-                  <div className="flex items-center gap-2.5 truncate">
-                    <PlusCircle className="w-4 h-4 text-[#0067c0] dark:text-[#60cdff] shrink-0" />
-                    <span className="truncate">Thêm luồng mới</span>
-                  </div>
-                  <span className="text-[10px] font-mono text-neutral-400 dark:text-neutral-500">+URL</span>
-                </button>
-
-                <button
-                  id="tool-home-import-m3u"
-                  type="button"
-                  onClick={() => {
-                    fileInputRef.current?.click();
-                  }}
-                  className="fluent-reveal-item w-full h-[34px] px-2.5 rounded-[4px] flex items-center justify-between text-[13px] font-normal transition-colors text-left cursor-default text-[#1b1b1b] dark:text-[#f3f3f3] hover:bg-black/5 dark:hover:bg-white/[0.08] active:bg-black/10 dark:active:bg-white/[0.05]"
-                  {...revealProps}
-                >
-                  <div className="flex items-center gap-2.5 truncate">
-                    <UploadCloud className="w-4 h-4 text-[#555555] dark:text-[#cccccc] shrink-0" />
-                    <span className="truncate">Nhập danh sách phát</span>
-                  </div>
-                  <span className="text-[10px] font-mono text-neutral-400 dark:text-neutral-500">.m3u</span>
-                </button>
-
-                <button
-                  id="tool-home-export-m3u"
-                  type="button"
-                  onClick={handleExportM3U8}
-                  className="fluent-reveal-item w-full h-[34px] px-2.5 rounded-[4px] flex items-center justify-between text-[13px] font-normal transition-colors text-left cursor-default text-[#1b1b1b] dark:text-[#f3f3f3] hover:bg-black/5 dark:hover:bg-white/[0.08] active:bg-black/10 dark:active:bg-white/[0.05]"
-                  {...revealProps}
-                >
-                  <div className="flex items-center gap-2.5 truncate">
-                    <DownloadCloud className="w-4 h-4 text-[#555555] dark:text-[#cccccc] shrink-0" />
-                    <span className="truncate">Xuất danh sách phát</span>
-                  </div>
-                  <span className="text-[10px] font-mono text-neutral-400 dark:text-neutral-500">.m3u8</span>
-                </button>
-
-                <div className="my-1 mx-1 h-[1px] bg-black/[0.08] dark:bg-white/[0.08]" />
-
-                <button
-                  id="tool-home-text-to-speech"
-                  type="button"
-                  onClick={() => {
-                    setIsOpen(false);
-                    onOpenTextToSpeech?.(NEWS_DATA[0]);
-                  }}
-                  className="fluent-reveal-item w-full h-[34px] px-2.5 rounded-[4px] flex items-center justify-between text-[13px] font-normal transition-colors text-left cursor-default text-[#1b1b1b] dark:text-[#f3f3f3] hover:bg-black/5 dark:hover:bg-white/[0.08] active:bg-black/10 dark:active:bg-white/[0.05]"
-                  {...revealProps}
-                >
-                  <div className="flex items-center gap-2.5 truncate">
-                    <Volume2 className="w-4 h-4 text-[#555555] dark:text-[#cccccc] shrink-0" />
-                    <span className="truncate">Đọc văn bản</span>
-                  </div>
-                  <span className="text-[10px] font-mono text-neutral-400 dark:text-neutral-500">TTS</span>
-                </button>
-              </div>
-            )}
-
-            {/* Menu Items for NEWS */}
-            {isNews && (
-              <div className="space-y-0.5">
-                {/* 1. Summarize News */}
-                <button
-                  id="tool-news-summarize"
-                  type="button"
-                  disabled={isCurrentArticleLocked}
-                  onClick={() => {
-                    if (isCurrentArticleLocked) return;
-                    setIsOpen(false);
-                    onOpenSummarize(currentNewsArticle);
-                  }}
-                  className={`fluent-reveal-item w-full h-[34px] px-2.5 rounded-[4px] flex items-center justify-between text-[13px] font-normal transition-colors text-left cursor-default ${
-                    isCurrentArticleLocked 
-                      ? 'opacity-40 cursor-not-allowed' 
-                      : 'text-[#1b1b1b] dark:text-[#f3f3f3] hover:bg-black/5 dark:hover:bg-white/[0.08] active:bg-black/10 dark:active:bg-white/[0.05]'
-                  }`}
-                  title={isCurrentArticleLocked ? 'Bài viết đang bị khóa, hãy mở khóa để tóm tắt' : 'Tóm tắt nội dung bài viết bằng AI'}
-                  {...revealProps}
-                >
-                  <div className="flex items-center gap-2.5 truncate">
-                    <Sparkles className="w-4 h-4 text-[#0067c0] dark:text-[#60cdff] shrink-0" />
-                    <span className="truncate">
-                      {isCurrentArticleLocked ? 'Tóm tắt bài viết (Khóa)' : 'Tóm tắt nội dung'}
-                    </span>
-                  </div>
-                  <span className="text-[10px] font-bold px-1.5 py-0.5 rounded-[3px] bg-[#0067c0]/15 text-[#0067c0] dark:text-[#60cdff]">
-                    AI
-                  </span>
-                </button>
-
-                {/* 2. Text to speech */}
-                <button
-                  id="tool-news-text-to-speech"
-                  type="button"
-                  disabled={isCurrentArticleLocked}
-                  onClick={() => {
-                    if (isCurrentArticleLocked) return;
-                    setIsOpen(false);
-                    onOpenTextToSpeech?.(currentNewsArticle);
-                  }}
-                  className={`fluent-reveal-item w-full h-[34px] px-2.5 rounded-[4px] flex items-center justify-between text-[13px] font-normal transition-colors text-left cursor-default ${
-                    isCurrentArticleLocked 
-                      ? 'opacity-40 cursor-not-allowed' 
-                      : 'text-[#1b1b1b] dark:text-[#f3f3f3] hover:bg-black/5 dark:hover:bg-white/[0.08] active:bg-black/10 dark:active:bg-white/[0.05]'
-                  }`}
-                  title={isCurrentArticleLocked ? 'Bài viết đang bị khóa, hãy mở khóa để nghe đọc' : 'Đọc bài viết bằng giọng AI'}
-                  {...revealProps}
-                >
-                  <div className="flex items-center gap-2.5 truncate">
-                    <Volume2 className="w-4 h-4 text-[#555555] dark:text-[#cccccc] shrink-0" />
-                    <span className="truncate">
-                      {isCurrentArticleLocked ? 'Đọc bài viết (Khóa)' : 'Đọc bài viết'}
-                    </span>
-                  </div>
-                  <span className="text-[10px] font-mono text-neutral-400 dark:text-neutral-500">
-                    TTS
-                  </span>
-                </button>
-
-                {/* 3. Find words */}
-                <button
-                  id="tool-news-find-words"
-                  type="button"
-                  onClick={() => {
-                    setIsOpen(false);
-                    onOpenFindWords();
-                  }}
-                  className="fluent-reveal-item w-full h-[34px] px-2.5 rounded-[4px] flex items-center justify-between text-[13px] font-normal transition-colors text-left cursor-default text-[#1b1b1b] dark:text-[#f3f3f3] hover:bg-black/5 dark:hover:bg-white/[0.08] active:bg-black/10 dark:active:bg-white/[0.05]"
-                  {...revealProps}
-                >
-                  <div className="flex items-center gap-2.5 truncate">
-                    <Search className="w-4 h-4 text-[#555555] dark:text-[#cccccc] shrink-0" />
-                    <span className="truncate">Tìm từ trong bài</span>
-                  </div>
-                  <span className="text-[10px] font-mono text-neutral-400 dark:text-neutral-500">⌘F</span>
-                </button>
-
-                <div className="my-1 mx-1 h-[1px] bg-black/[0.08] dark:bg-white/[0.08]" />
-
-                {/* 4. Font size with Fluent Number Stepper */}
-                <div 
-                  id="tool-news-font-size"
-                  className="fluent-reveal-item w-full h-[34px] px-2.5 rounded-[4px] flex items-center justify-between text-[13px] font-normal text-[#1b1b1b] dark:text-[#f3f3f3] cursor-default"
-                  {...revealProps}
-                >
-                  <div className="flex items-center gap-2.5">
-                    <Type className="w-4 h-4 text-[#555555] dark:text-[#cccccc] shrink-0" />
-                    <span>Cỡ chữ đọc</span>
-                  </div>
-                  <div className="flex items-center rounded-[4px] border border-black/15 dark:border-white/15 bg-black/5 dark:bg-white/5 h-6">
-                    <button
-                      type="button"
-                      onClick={() => onChangeFontSize(Math.max(14, fontSize - 2))}
-                      className="w-6 h-full flex items-center justify-center hover:bg-black/10 dark:hover:bg-white/10 rounded-l-[3px] text-xs transition-colors cursor-default"
-                      title="Giảm cỡ chữ"
-                    >
-                      <Minus className="w-3 h-3 text-[#1b1b1b] dark:text-[#f3f3f3]" />
-                    </button>
-                    <span className="px-1.5 text-[11px] font-mono font-medium text-center min-w-[32px] text-[#1b1b1b] dark:text-[#f3f3f3]">
-                      {fontSize}px
-                    </span>
-                    <button
-                      type="button"
-                      onClick={() => onChangeFontSize(Math.min(24, fontSize + 2))}
-                      className="w-6 h-full flex items-center justify-center hover:bg-black/10 dark:hover:bg-white/10 rounded-r-[3px] text-xs transition-colors cursor-default"
-                      title="Tăng cỡ chữ"
-                    >
-                      <Plus className="w-3 h-3 text-[#1b1b1b] dark:text-[#f3f3f3]" />
-                    </button>
-                  </div>
+          {isOther && (
+            <div className="space-y-1" onMouseLeave={() => setHoveredItemId(null)}>
+              <button
+                id="tool-home-help"
+                type="button"
+                onMouseEnter={() => setHoveredItemId('tool-home-help')}
+                onClick={() => {
+                  setIsOpen(false);
+                  onOpenHelp();
+                }}
+                className="relative w-full flex items-center gap-3 px-3.5 py-2.5 rounded-full text-sm font-medium transition-colors text-left cursor-default group"
+              >
+                {renderHoverPill('tool-home-help')}
+                <div className="relative z-10 w-5 h-5 flex items-center justify-center text-[#18181B] dark:text-white shrink-0">
+                  <BookOpen className="w-[18px] h-[18px]" />
                 </div>
+                <span className="relative z-10 text-[#1F2937] dark:text-[#E5E7EB]">Help</span>
+              </button>
 
-                {/* 5. Export as .docx */}
-                <button
-                  id="tool-news-export-docx"
-                  type="button"
-                  onClick={handleExportDocx}
-                  disabled={exportingDocx || isCurrentArticleLocked}
-                  className={`fluent-reveal-item w-full h-[34px] px-2.5 rounded-[4px] flex items-center justify-between text-[13px] font-normal transition-colors text-left cursor-default ${
-                    isCurrentArticleLocked
-                      ? 'opacity-40 cursor-not-allowed'
-                      : 'text-[#1b1b1b] dark:text-[#f3f3f3] hover:bg-black/5 dark:hover:bg-white/[0.08] active:bg-black/10 dark:active:bg-white/[0.05]'
-                  }`}
-                  title={isCurrentArticleLocked ? 'Bài viết đang bị khóa, hãy mở khóa để xuất .docx' : 'Xuất bài viết thành file .docx'}
-                  {...revealProps}
-                >
-                  <div className="flex items-center gap-2.5 truncate">
-                    <FileDown className="w-4 h-4 text-[#555555] dark:text-[#cccccc] shrink-0" />
-                    <span className="truncate">
-                      {isCurrentArticleLocked 
-                        ? 'Xuất .docx (Khóa)' 
-                        : exportingDocx 
-                          ? 'Đang xuất .docx...' 
-                          : 'Xuất file Word'}
-                    </span>
+              <button
+                id="tool-home-discord"
+                type="button"
+                onMouseEnter={() => setHoveredItemId('tool-home-discord')}
+                onClick={() => {
+                  setIsOpen(false);
+                  onOpenDiscord();
+                }}
+                className="relative w-full flex items-center gap-3 px-3.5 py-2.5 rounded-full text-sm font-medium transition-colors text-left cursor-default group"
+              >
+                {renderHoverPill('tool-home-discord')}
+                <div className="relative z-10 w-5 h-5 flex items-center justify-center text-[#18181B] dark:text-white shrink-0">
+                  <svg className="w-[18px] h-[18px] fill-current" viewBox="0 0 24 24">
+                    <path d="M20.317 4.37a19.791 19.791 0 0 0-4.885-1.515.074.074 0 0 0-.079.037c-.21.375-.444.864-.608 1.25a18.27 18.27 0 0 0-5.487 0 12.64 12.64 0 0 0-.617-1.25.077.077 0 0 0-.079-.037A19.736 19.736 0 0 0 3.677 4.37a.07.07 0 0 0-.032.027C.533 9.046-.32 13.58.099 18.057a.082.082 0 0 0 .031.057 19.9 19.9 0 0 0 5.993 3.03.078.078 0 0 0 .084-.028c.462-.63.874-1.295 1.226-1.994.021-.041.001-.09-.041-.106a13.107 13.107 0 0 1-1.872-.892.077.077 0 0 1-.008-.128 10.2 10.2 0 0 0 .372-.292.074.074 0 0 1 .077-.01c3.929 1.793 8.18 1.793 12.061 0a.074.074 0 0 1 .078.01c.12.098.246.198.373.292a.077.077 0 0 1-.006.127 12.299 12.299 0 0 1-1.873.893.077.077 0 0 0-.041.107c.36.698.772 1.362 1.225 1.993a.076.076 0 0 0 .084.028 19.839 19.839 0 0 0 6.002-3.03.078.078 0 0 0 .032-.054c.5-5.177-.838-9.674-3.549-13.66a.061.061 0 0 0-.031-.028zM8.02 15.33c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.956-2.419 2.157-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.956 2.418-2.157 2.418zm7.975 0c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.955-2.419 2.157-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.946 2.418-2.157 2.418z"/>
+                  </svg>
+                </div>
+                <span className="relative z-10 text-[#1F2937] dark:text-[#E5E7EB]">Join now</span>
+              </button>
+
+              <button
+                id="tool-home-add-stream"
+                type="button"
+                onMouseEnter={() => setHoveredItemId('tool-home-add-stream')}
+                onClick={() => {
+                  setIsOpen(false);
+                  onOpenAddStream();
+                }}
+                className="relative w-full flex items-center gap-3 px-3.5 py-2.5 rounded-full text-sm font-medium transition-colors text-left cursor-default group"
+              >
+                {renderHoverPill('tool-home-add-stream')}
+                <div className="relative z-10 w-5 h-5 flex items-center justify-center text-[#18181B] dark:text-white shrink-0">
+                  <PlusCircle className="w-[18px] h-[18px]" />
+                </div>
+                <span className="relative z-10 text-[#1F2937] dark:text-[#E5E7EB]">Thêm luồng mới</span>
+              </button>
+
+              <button
+                id="tool-home-import-m3u"
+                type="button"
+                onMouseEnter={() => setHoveredItemId('tool-home-import-m3u')}
+                onClick={() => {
+                  fileInputRef.current?.click();
+                }}
+                className="relative w-full flex items-center gap-3 px-3.5 py-2.5 rounded-full text-sm font-medium transition-colors text-left cursor-default group"
+              >
+                {renderHoverPill('tool-home-import-m3u')}
+                <div className="relative z-10 w-5 h-5 flex items-center justify-center text-[#18181B] dark:text-white shrink-0">
+                  <UploadCloud className="w-[18px] h-[18px]" />
+                </div>
+                <span className="relative z-10 text-[#1F2937] dark:text-[#E5E7EB]">Nhập file m3u/m3u8</span>
+              </button>
+
+              <button
+                id="tool-home-export-m3u"
+                type="button"
+                onMouseEnter={() => setHoveredItemId('tool-home-export-m3u')}
+                onClick={handleExportM3U8}
+                className="relative w-full flex items-center gap-3 px-3.5 py-2.5 rounded-full text-sm font-medium transition-colors text-left cursor-default group"
+              >
+                {renderHoverPill('tool-home-export-m3u')}
+                <div className="relative z-10 w-5 h-5 flex items-center justify-center text-[#18181B] dark:text-white shrink-0">
+                  <DownloadCloud className="w-[18px] h-[18px]" />
+                </div>
+                <span className="relative z-10 text-[#1F2937] dark:text-[#E5E7EB]">Xuất file m3u/m3u8</span>
+              </button>
+
+              <button
+                id="tool-home-text-to-speech"
+                type="button"
+                onMouseEnter={() => setHoveredItemId('tool-home-text-to-speech')}
+                onClick={() => {
+                  setIsOpen(false);
+                  onOpenTextToSpeech?.(NEWS_DATA[0]);
+                }}
+                className="relative w-full flex items-center gap-3 px-3.5 py-2.5 rounded-full text-sm font-medium transition-colors text-left cursor-default group"
+              >
+                {renderHoverPill('tool-home-text-to-speech')}
+                <div className="relative z-10 w-5 h-5 flex items-center justify-center text-[#18181B] dark:text-white shrink-0">
+                  <Volume2 className="w-[18px] h-[18px]" />
+                </div>
+                <span className="relative z-10 text-[#1F2937] dark:text-[#E5E7EB]">Text to speech</span>
+              </button>
+            </div>
+          )}
+
+          {/* Menu Items for NEWS */}
+          {isNews && (
+            <div className="space-y-1" onMouseLeave={() => setHoveredItemId(null)}>
+              {/* 1. Summarize News */}
+              <button
+                id="tool-news-summarize"
+                type="button"
+                onMouseEnter={() => setHoveredItemId('tool-news-summarize')}
+                disabled={isCurrentArticleLocked}
+                onClick={() => {
+                  if (isCurrentArticleLocked) return;
+                  setIsClickSpinning(true);
+                  setIsOpen(false);
+                  onOpenSummarize(currentNewsArticle);
+                }}
+                className={`relative w-full flex items-center gap-3 px-3.5 py-2.5 rounded-full text-sm font-medium transition-colors text-left cursor-default group ${
+                  isCurrentArticleLocked 
+                    ? 'opacity-40 cursor-not-allowed hover:bg-transparent' 
+                    : ''
+                }`}
+                title={isCurrentArticleLocked ? 'Bài viết đang bị khóa, hãy mở khóa để tóm tắt' : 'Tóm tắt bài viết'}
+              >
+                {!isCurrentArticleLocked && renderHoverPill('tool-news-summarize')}
+                <div className="relative z-10 w-5 h-5 flex items-center justify-center text-[#18181B] dark:text-white shrink-0">
+                  <Sparkles className="w-[18px] h-[18px]" />
+                </div>
+                <span className="relative z-10 text-[#1F2937] dark:text-[#E5E7EB]">
+                  {isCurrentArticleLocked ? 'Summarize (Khóa)' : 'Summarize News'}
+                </span>
+              </button>
+
+              {/* 2. Text to speech */}
+              <button
+                id="tool-news-text-to-speech"
+                type="button"
+                onMouseEnter={() => setHoveredItemId('tool-news-text-to-speech')}
+                disabled={isCurrentArticleLocked}
+                onClick={() => {
+                  if (isCurrentArticleLocked) return;
+                  setIsOpen(false);
+                  onOpenTextToSpeech?.(currentNewsArticle);
+                }}
+                className={`relative w-full flex items-center gap-3 px-3.5 py-2.5 rounded-full text-sm font-medium transition-colors text-left cursor-default group ${
+                  isCurrentArticleLocked 
+                    ? 'opacity-40 cursor-not-allowed hover:bg-transparent' 
+                    : ''
+                }`}
+                title={isCurrentArticleLocked ? 'Bài viết đang bị khóa, hãy mở khóa để nghe đọc' : 'Đọc bài viết (Text to speech)'}
+              >
+                {!isCurrentArticleLocked && renderHoverPill('tool-news-text-to-speech')}
+                <div className="relative z-10 w-5 h-5 flex items-center justify-center text-[#18181B] dark:text-white shrink-0">
+                  <Volume2 className="w-[18px] h-[18px]" />
+                </div>
+                <span className="relative z-10 text-[#1F2937] dark:text-[#E5E7EB]">
+                  {isCurrentArticleLocked ? 'Text to speech (Khóa)' : 'Text to speech'}
+                </span>
+              </button>
+
+              {/* 3. Find words */}
+              <button
+                id="tool-news-find-words"
+                type="button"
+                onMouseEnter={() => setHoveredItemId('tool-news-find-words')}
+                onClick={() => {
+                  setIsOpen(false);
+                  onOpenFindWords();
+                }}
+                className="relative w-full flex items-center gap-3 px-3.5 py-2.5 rounded-full text-sm font-medium transition-colors text-left cursor-default group"
+              >
+                {renderHoverPill('tool-news-find-words')}
+                <div className="relative z-10 w-5 h-5 flex items-center justify-center text-[#18181B] dark:text-white shrink-0">
+                  <Search className="w-[18px] h-[18px]" />
+                </div>
+                <span className="relative z-10 text-[#1F2937] dark:text-[#E5E7EB]">Find words</span>
+              </button>
+
+              {/* 3. Font size */}
+              <div 
+                id="tool-news-font-size"
+                onMouseEnter={() => setHoveredItemId('tool-news-font-size')}
+                className="relative flex items-center justify-between px-3.5 py-2 rounded-full text-sm font-medium transition-colors cursor-default"
+              >
+                {renderHoverPill('tool-news-font-size')}
+                <div className="relative z-10 flex items-center gap-3">
+                  <div className="w-5 h-5 flex items-center justify-center text-[#18181B] dark:text-white shrink-0">
+                    <Type className="w-[18px] h-[18px]" />
                   </div>
-                  <span className="text-[10px] font-mono text-neutral-400 dark:text-neutral-500">.docx</span>
-                </button>
+                  <span className="text-[#1F2937] dark:text-[#E5E7EB]">Font size</span>
+                </div>
+                <div className="relative z-10 tools-font-box flex items-center gap-1.5 bg-[#F1F3F5] dark:bg-[#141318] p-1 rounded-full">
+                  <button
+                    type="button"
+                    onClick={() => onChangeFontSize(Math.max(14, fontSize - 2))}
+                    className="tools-font-btn w-6 h-6 rounded-full flex items-center justify-center bg-white dark:bg-[#26262E] hover:bg-neutral-100 dark:hover:bg-[#34343E] text-xs font-bold cursor-default text-[#18181B] dark:text-white shadow-xs"
+                    title="Giảm cỡ chữ"
+                  >
+                    <Minus className="w-3 h-3" />
+                  </button>
+                  <span className="tools-font-text px-1.5 text-[11px] font-mono font-bold text-[#18181B] dark:text-white">
+                    {fontSize}px
+                  </span>
+                  <button
+                    type="button"
+                    onClick={() => onChangeFontSize(Math.min(24, fontSize + 2))}
+                    className="tools-font-btn w-6 h-6 rounded-full flex items-center justify-center bg-white dark:bg-[#26262E] hover:bg-neutral-100 dark:hover:bg-[#34343E] text-xs font-bold cursor-default text-[#18181B] dark:text-white shadow-xs"
+                    title="Tăng cỡ chữ"
+                  >
+                    <Plus className="w-3 h-3" />
+                  </button>
+                </div>
               </div>
-            )}
 
-            {/* Menu Items for LIVE TV */}
-            {isLiveTV && (
-              <div className="space-y-0.5">
-                {/* 1. Thêm vào / Loại bỏ yêu thích */}
-                {currentChannel && (
-                  <button
-                    id="tool-tv-toggle-favorite"
-                    type="button"
-                    onClick={() => {
-                      toggleFavoriteChannel(currentChannel.id);
-                      showToast(isFav ? `Đã bỏ thích ${currentChannel.name}` : `Đã thêm ${currentChannel.name} vào yêu thích`);
-                    }}
-                    className="fluent-reveal-item w-full h-[34px] px-2.5 rounded-[4px] flex items-center justify-between text-[13px] font-normal transition-colors text-left cursor-default text-[#1b1b1b] dark:text-[#f3f3f3] hover:bg-black/5 dark:hover:bg-white/[0.08] active:bg-black/10 dark:active:bg-white/[0.05]"
-                    {...revealProps}
-                  >
-                    <div className="flex items-center gap-2.5 truncate">
-                      <Heart className={`w-4 h-4 ${isFav ? 'text-[#e81123] fill-current' : 'text-[#555555] dark:text-[#cccccc]'}`} />
-                      <span className="truncate">
-                        {isFav ? 'Bỏ khỏi yêu thích' : 'Thêm vào yêu thích'}
-                      </span>
-                    </div>
-                    {isFav && <span className="text-[10px] text-[#e81123] font-medium">★</span>}
-                  </button>
-                )}
+              {/* 4. Export as .docx */}
+              <button
+                id="tool-news-export-docx"
+                type="button"
+                onMouseEnter={() => setHoveredItemId('tool-news-export-docx')}
+                onClick={handleExportDocx}
+                disabled={exportingDocx || isCurrentArticleLocked}
+                className={`relative w-full flex items-center gap-3 px-3.5 py-2.5 rounded-full text-sm font-medium transition-colors text-left cursor-default group ${
+                  isCurrentArticleLocked
+                    ? 'opacity-40 cursor-not-allowed hover:bg-transparent'
+                    : ''
+                }`}
+                title={isCurrentArticleLocked ? 'Bài viết đang bị khóa, hãy mở khóa để xuất .docx' : 'Xuất bài viết thành file .docx'}
+              >
+                {!isCurrentArticleLocked && renderHoverPill('tool-news-export-docx')}
+                <div className="relative z-10 w-5 h-5 flex items-center justify-center text-[#18181B] dark:text-white shrink-0">
+                  <FileDown className="w-[18px] h-[18px]" />
+                </div>
+                <span className="relative z-10 text-[#1F2937] dark:text-[#E5E7EB]">
+                  {isCurrentArticleLocked 
+                    ? 'Export as .docx (Khóa)' 
+                    : exportingDocx 
+                      ? 'Exporting .docx...' 
+                      : 'Export as .docx'}
+                </span>
+              </button>
+            </div>
+          )}
 
-                {/* 2. Mở luồng gốc */}
-                {currentChannel && (
-                  <button
-                    id="tool-tv-open-stream"
-                    type="button"
-                    onClick={() => {
-                      window.open(currentChannel.streamUrl, '_blank', 'noopener,noreferrer');
-                      setIsOpen(false);
-                    }}
-                    className="fluent-reveal-item w-full h-[34px] px-2.5 rounded-[4px] flex items-center justify-between text-[13px] font-normal transition-colors text-left cursor-default text-[#1b1b1b] dark:text-[#f3f3f3] hover:bg-black/5 dark:hover:bg-white/[0.08] active:bg-black/10 dark:active:bg-white/[0.05]"
-                    {...revealProps}
-                  >
-                    <div className="flex items-center gap-2.5 truncate">
-                      <ExternalLink className="w-4 h-4 text-[#555555] dark:text-[#cccccc] shrink-0" />
-                      <span className="truncate">Mở luồng phát gốc</span>
-                    </div>
-                    <span className="text-[10px] font-mono text-neutral-400 dark:text-neutral-500">M3U8</span>
-                  </button>
-                )}
-
-                <div className="my-1 mx-1 h-[1px] bg-black/[0.08] dark:bg-white/[0.08]" />
-
-                {/* 3. Thêm luồng mới */}
+          {/* Menu Items for LIVE TV */}
+          {isLiveTV && (
+            <div className="space-y-1" onMouseLeave={() => setHoveredItemId(null)}>
+              {/* 1. Thêm vào / Loại bỏ yêu thích */}
+              {currentChannel && (
                 <button
-                  id="tool-tv-add-stream"
+                  id="tool-tv-toggle-favorite"
                   type="button"
+                  onMouseEnter={() => setHoveredItemId('tool-tv-toggle-favorite')}
                   onClick={() => {
+                    toggleFavoriteChannel(currentChannel.id);
+                    showToast(isFav ? `Đã bỏ thích ${currentChannel.name}` : `Đã thêm ${currentChannel.name} vào yêu thích`);
+                  }}
+                  className="relative w-full flex items-center gap-3 px-3.5 py-2.5 rounded-full text-sm font-medium transition-colors text-left cursor-default group"
+                >
+                  {renderHoverPill('tool-tv-toggle-favorite')}
+                  <div className="relative z-10 w-5 h-5 flex items-center justify-center text-[#18181B] dark:text-white shrink-0">
+                    <Heart className={`w-[18px] h-[18px] ${isFav ? 'fill-current' : ''}`} />
+                  </div>
+                  <span className="relative z-10 text-[#1F2937] dark:text-[#E5E7EB]">
+                    {isFav ? 'Loại bỏ khỏi yêu thích' : 'Thêm vào yêu thích'}
+                  </span>
+                </button>
+              )}
+
+              {/* 2. Mở luồng gốc */}
+              {currentChannel && (
+                <button
+                  id="tool-tv-open-stream"
+                  type="button"
+                  onMouseEnter={() => setHoveredItemId('tool-tv-open-stream')}
+                  onClick={() => {
+                    window.open(currentChannel.streamUrl, '_blank', 'noopener,noreferrer');
                     setIsOpen(false);
-                    onOpenAddStream();
                   }}
-                  className="fluent-reveal-item w-full h-[34px] px-2.5 rounded-[4px] flex items-center justify-between text-[13px] font-normal transition-colors text-left cursor-default text-[#1b1b1b] dark:text-[#f3f3f3] hover:bg-black/5 dark:hover:bg-white/[0.08] active:bg-black/10 dark:active:bg-white/[0.05]"
-                  {...revealProps}
+                  className="relative w-full flex items-center gap-3 px-3.5 py-2.5 rounded-full text-sm font-medium transition-colors text-left cursor-default group"
                 >
-                  <div className="flex items-center gap-2.5 truncate">
-                    <PlusCircle className="w-4 h-4 text-[#0067c0] dark:text-[#60cdff] shrink-0" />
-                    <span className="truncate">Thêm kênh mới</span>
+                  {renderHoverPill('tool-tv-open-stream')}
+                  <div className="relative z-10 w-5 h-5 flex items-center justify-center text-[#18181B] dark:text-white shrink-0">
+                    <ExternalLink className="w-[18px] h-[18px]" />
                   </div>
-                  <span className="text-[10px] font-mono text-neutral-400 dark:text-neutral-500">+URL</span>
+                  <span className="relative z-10 text-[#1F2937] dark:text-[#E5E7EB]">Mở luồng gốc</span>
                 </button>
+              )}
 
-                {/* 4. Nhập file m3u/m3u8 */}
-                <button
-                  id="tool-tv-import-m3u"
-                  type="button"
-                  onClick={() => {
-                    fileInputRef.current?.click();
-                  }}
-                  className="fluent-reveal-item w-full h-[34px] px-2.5 rounded-[4px] flex items-center justify-between text-[13px] font-normal transition-colors text-left cursor-default text-[#1b1b1b] dark:text-[#f3f3f3] hover:bg-black/5 dark:hover:bg-white/[0.08] active:bg-black/10 dark:active:bg-white/[0.05]"
-                  {...revealProps}
-                >
-                  <div className="flex items-center gap-2.5 truncate">
-                    <UploadCloud className="w-4 h-4 text-[#555555] dark:text-[#cccccc] shrink-0" />
-                    <span className="truncate">Nhập danh sách (.m3u)</span>
-                  </div>
-                  <span className="text-[10px] font-mono text-neutral-400 dark:text-neutral-500">Import</span>
-                </button>
+              {/* 3. Thêm luồng mới */}
+              <button
+                id="tool-tv-add-stream"
+                type="button"
+                onMouseEnter={() => setHoveredItemId('tool-tv-add-stream')}
+                onClick={() => {
+                  setIsOpen(false);
+                  onOpenAddStream();
+                }}
+                className="relative w-full flex items-center gap-3 px-3.5 py-2.5 rounded-full text-sm font-medium transition-colors text-left cursor-default group"
+              >
+                {renderHoverPill('tool-tv-add-stream')}
+                <div className="relative z-10 w-5 h-5 flex items-center justify-center text-[#18181B] dark:text-white shrink-0">
+                  <PlusCircle className="w-[18px] h-[18px]" />
+                </div>
+                <span className="relative z-10 text-[#1F2937] dark:text-[#E5E7EB]">Thêm luồng mới</span>
+              </button>
 
-                {/* 5. Xuất file m3u/m3u8 */}
-                <button
-                  id="tool-tv-export-m3u"
-                  type="button"
-                  onClick={handleExportM3U8}
-                  className="fluent-reveal-item w-full h-[34px] px-2.5 rounded-[4px] flex items-center justify-between text-[13px] font-normal transition-colors text-left cursor-default text-[#1b1b1b] dark:text-[#f3f3f3] hover:bg-black/5 dark:hover:bg-white/[0.08] active:bg-black/10 dark:active:bg-white/[0.05]"
-                  {...revealProps}
-                >
-                  <div className="flex items-center gap-2.5 truncate">
-                    <DownloadCloud className="w-4 h-4 text-[#555555] dark:text-[#cccccc] shrink-0" />
-                    <span className="truncate">Xuất danh sách (.m3u)</span>
-                  </div>
-                  <span className="text-[10px] font-mono text-neutral-400 dark:text-neutral-500">Export</span>
-                </button>
-              </div>
-            )}
+              {/* 4. Nhập file m3u/m3u8 */}
+              <button
+                id="tool-tv-import-m3u"
+                type="button"
+                onMouseEnter={() => setHoveredItemId('tool-tv-import-m3u')}
+                onClick={() => {
+                  fileInputRef.current?.click();
+                }}
+                className="relative w-full flex items-center gap-3 px-3.5 py-2.5 rounded-full text-sm font-medium transition-colors text-left cursor-default group"
+              >
+                {renderHoverPill('tool-tv-import-m3u')}
+                <div className="relative z-10 w-5 h-5 flex items-center justify-center text-[#18181B] dark:text-white shrink-0">
+                  <UploadCloud className="w-[18px] h-[18px]" />
+                </div>
+                <span className="relative z-10 text-[#1F2937] dark:text-[#E5E7EB]">Nhập file m3u/m3u8</span>
+              </button>
 
-            {/* Quick feedback toast inside flyout */}
-            {copiedToast && (
-              <div className="mt-1.5 p-1.5 rounded-[4px] bg-[#0067c0]/15 border border-[#0067c0]/30 text-center text-xs font-medium text-[#0067c0] dark:text-[#60cdff] flex items-center justify-center gap-1.5">
-                <Check className="w-3.5 h-3.5 shrink-0" />
-                <span className="truncate">{copiedToast}</span>
-              </div>
-            )}
-          </motion.div>
-        )}
-      </AnimatePresence>
-    </div>
-  );
+              {/* 5. Xuất file m3u/m3u8 */}
+              <button
+                id="tool-tv-export-m3u"
+                type="button"
+                onMouseEnter={() => setHoveredItemId('tool-tv-export-m3u')}
+                onClick={handleExportM3U8}
+                className="relative w-full flex items-center gap-3 px-3.5 py-2.5 rounded-full text-sm font-medium transition-colors text-left cursor-default group"
+              >
+                {renderHoverPill('tool-tv-export-m3u')}
+                <div className="relative z-10 w-5 h-5 flex items-center justify-center text-[#18181B] dark:text-white shrink-0">
+                  <DownloadCloud className="w-[18px] h-[18px]" />
+                </div>
+                <span className="relative z-10 text-[#1F2937] dark:text-[#E5E7EB]">Xuất file m3u/m3u8</span>
+              </button>
+            </div>
+          )}
+
+          {/* Quick feedback toast inside dropdown if active */}
+          {copiedToast && (
+            <div className="tools-toast-badge mt-2 p-2 rounded-full bg-black/10 dark:bg-white/10 text-center text-xs font-semibold text-[#18181B] dark:text-white flex items-center justify-center gap-1.5">
+              <Check className="w-3.5 h-3.5" />
+              <span>{copiedToast}</span>
+            </div>
+          )}
+        </motion.div>
+      )}
+    </AnimatePresence>
+  </div>
+);
 };

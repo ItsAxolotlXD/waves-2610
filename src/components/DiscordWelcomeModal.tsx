@@ -28,72 +28,69 @@ export const DiscordWelcomeModal: React.FC<DiscordWelcomeModalProps> = ({
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            transition={{ duration: 0.25, ease: 'easeOut' }}
+            transition={{ duration: 0.35, ease: [0.16, 1, 0.3, 1] }}
             onClick={onClose}
-            className="fixed inset-0 bg-black/50"
+            className="fixed inset-0 bg-black/10 backdrop-blur-md"
           />
 
-          {/* 2. Dialog Modal Box - Fluent Design ContentDialog */}
+          {/* 2. Dialog Modal Box */}
           <motion.div
             id="discord-welcome-dialog"
-            initial={{ opacity: 0, scale: 0.98, y: 8 }}
+            initial={{ opacity: 0, scale: 1.10 }}
             animate={{ 
               opacity: 1, 
               scale: 1,
-              y: 0,
               transition: {
-                duration: 0.22,
-                ease: [0.1, 0.9, 0.2, 1]
+                duration: 0.40,
+                ease: [0.16, 1, 0.3, 1]
               }
             }}
             exit={{ 
               opacity: 0, 
-              scale: 0.98,
-              y: 6,
+              scale: 1.08,
               transition: {
-                duration: 0.16,
-                ease: 'easeIn'
+                duration: 0.26,
+                ease: [0.25, 0.1, 0.25, 1]
               }
             }}
-            className="fluent-modal-dialog relative z-10 w-full max-w-[450px] bg-white dark:bg-[#202020] rounded-xl overflow-hidden shadow-[0_20px_50px_rgba(0,0,0,0.25),0_0_0_1px_rgba(0,0,0,0.08)] dark:shadow-[0_20px_50px_rgba(0,0,0,0.6),0_0_0_1px_rgba(255,255,255,0.08)] select-none border border-black/[0.08] dark:border-white/[0.08] text-[#1F1F1F] dark:text-[#F3F4F6]"
+            className="spatial-glass-modal relative z-10 w-full max-w-[450px] bg-white/70 rounded-[28px] sm:rounded-[32px] p-6 sm:p-7 shadow-2xl select-none border border-white/50 text-black"
           >
-            {/* Header & Body Content Area */}
-            <div className="p-6 pb-5">
-              <h2
-                id="discord-welcome-title"
-                className="text-[20px] font-semibold text-[#1F1F1F] dark:text-[#FFFFFF] tracking-tight leading-snug font-sans"
-              >
-                Chào mừng bạn đến với Waves!
-              </h2>
+            {/* Title */}
+            <h1
+              id="discord-welcome-title"
+              className="text-xl sm:text-[23px] font-bold text-black tracking-tight mb-2.5 font-sans leading-tight"
+            >
+              Chào mừng bạn!
+            </h1>
 
-              <p
-                id="discord-welcome-subtitle"
-                className="text-[14px] text-[#555555] dark:text-[#CCCCCC] leading-relaxed mt-2.5 font-normal"
-              >
-                “Nhịp sóng lưu dấu thời đại” – nơi kết nối cộng đồng từ khắp mọi miền Bắc – Trung – Nam, cùng gặp gỡ, sẻ chia và lưu giữ những khoảnh khắc, ký ức và dấu ấn truyền thông Việt Nam.
-              </p>
-            </div>
+            {/* Subtitle */}
+            <p
+              id="discord-welcome-subtitle"
+              className="text-xs sm:text-sm text-neutral-800 leading-relaxed mb-5 font-normal"
+            >
+              “Nhịp sóng lưu dấu thời đại” – nơi kết nối những tâm hồn từ khắp mọi miền Bắc – Trung – Nam, cùng gặp gỡ, sẻ chia và trò chuyện qua những câu chuyện của thời đại. Không chỉ là nơi hội tụ của những tiếng nói và góc nhìn đa dạng, đây còn là không gian lưu giữ những ký ức, khoảnh khắc và dấu ấn truyền thông – những mảnh ghép nhỏ góp phần tạo nên bức tranh lớn của một thời đã qua.
+            </p>
 
-            {/* Subtle Divider */}
-            <div className="h-[1px] w-full bg-[#E5E5E5] dark:bg-[#2F2F2F]" />
-
-            {/* Bottom Actions Footer */}
-            <div className="fluent-modal-footer bg-[#F3F3F3] dark:bg-[#272727] px-6 py-3.5 flex items-center justify-end gap-2.5">
+            {/* Action Buttons */}
+            <div className="flex flex-col gap-2.5">
+              {/* Button colored: Join Waves on Discord */}
               <button
                 type="button"
                 id="btn-discord-join"
                 onClick={handleJoin}
-                className="fluent-btn-primary px-5 py-1.5 h-8 sm:h-9 rounded-[4px] bg-[#5865F2] hover:bg-[#4752C4] active:bg-[#3C45A5] text-white text-[14px] font-medium shadow-sm transition-colors border border-[#4752C4] border-b-2 border-b-[#3C45A5] flex items-center justify-center cursor-default"
+                className="w-full h-11 sm:h-12 px-5 rounded-full font-bold text-white bg-[#5865F2] hover:bg-[#4752C4] active:scale-[0.98] transition-all text-sm sm:text-base cursor-default flex items-center justify-center shadow-md tracking-tight text-center"
               >
-                Join Discord
+                Join Waves on Discord
               </button>
+
+              {/* Button: Close */}
               <button
                 type="button"
                 id="btn-discord-close"
                 onClick={onClose}
-                className="fluent-btn-secondary px-5 py-1.5 h-8 sm:h-9 rounded-[4px] bg-white dark:bg-[#2D2D2D] hover:bg-[#F9F9F9] dark:hover:bg-[#383838] active:bg-[#EEEEEE] dark:active:bg-[#222222] text-[#1F1F1F] dark:text-[#FFFFFF] border border-[#d1d1d1] dark:border-[#3E3E3E] border-b-[#b5b5b5] dark:border-b-[#4F4F4F] text-[14px] font-normal shadow-[0_1px_2px_rgba(0,0,0,0.04)] transition-colors flex items-center justify-center cursor-default"
+                className="w-full h-11 sm:h-12 px-5 rounded-full font-bold text-white bg-[#fd932f] hover:bg-[#e68428] active:scale-[0.98] transition-all text-sm sm:text-base cursor-default flex items-center justify-center shadow-md tracking-tight text-center"
               >
-                Để sau
+                Close
               </button>
             </div>
           </motion.div>

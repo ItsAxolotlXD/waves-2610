@@ -61,37 +61,44 @@ export const OnAirSlider: React.FC<OnAirSliderProps> = ({
           <span>Đề xuất cho bạn</span>
         </h2>
 
-        <div className="flex items-center gap-1.5">
-          <button
+        <div className="flex items-center gap-2">
+          <motion.button
             id="slider-prev-btn"
+            whileTap={{ scale: 0.88 }}
+            whileHover={{ scale: 1.1 }}
             onClick={() => scroll('left')}
-            className="w-7 h-7 rounded-[4px] flex items-center justify-center text-[#6b7280] dark:text-[#a1a1aa] hover:text-black dark:hover:text-white bg-black/5 dark:bg-white/10 hover:bg-black/10 dark:hover:bg-white/15 transition-colors cursor-default"
+            className="w-8 h-8 rounded-full flex items-center justify-center text-[#A1A1AA] hover:text-white bg-white/5 hover:bg-white/10 transition-all cursor-default"
             aria-label="Cuộn sang trái"
           >
             <ChevronLeft className="w-4 h-4" />
-          </button>
-          <button
+          </motion.button>
+          <motion.button
             id="slider-next-btn"
+            whileTap={{ scale: 0.88 }}
+            whileHover={{ scale: 1.1 }}
             onClick={() => scroll('right')}
-            className="w-7 h-7 rounded-[4px] flex items-center justify-center text-[#6b7280] dark:text-[#a1a1aa] hover:text-black dark:hover:text-white bg-black/5 dark:bg-white/10 hover:bg-black/10 dark:hover:bg-white/15 transition-colors cursor-default"
+            className="w-8 h-8 rounded-full flex items-center justify-center text-[#A1A1AA] hover:text-white bg-white/5 hover:bg-white/10 transition-all cursor-default"
             aria-label="Cuộn sang phải"
           >
             <ChevronRight className="w-4 h-4" />
-          </button>
+          </motion.button>
         </div>
       </div>
 
       {/* Horizontal Cards Scroll với hiệu ứng lướt mượt mà */}
       <div
         ref={scrollContainerRef}
-        className="flex gap-2.5 sm:gap-3 overflow-x-auto pb-3 pt-1 no-scrollbar scroll-smooth"
+        className="flex gap-2.5 sm:gap-3.5 overflow-x-auto pb-3 pt-1 no-scrollbar scroll-smooth"
       >
         {channels.map((ch, idx) => (
-          <div
+          <motion.div
             key={ch.id}
             id={`recommended-channel-${ch.id}`}
             role="button"
             tabIndex={0}
+            whileHover={{ scale: 1.05, y: -2 }}
+            whileTap={{ scale: 0.95 }}
+            transition={{ type: 'spring', stiffness: 400, damping: 25 }}
             onClick={() => {
               onSelectChannel(ch);
               navigate(`/live-tv?channel=${ch.slug}`);
@@ -102,7 +109,7 @@ export const OnAirSlider: React.FC<OnAirSliderProps> = ({
                 navigate(`/live-tv?channel=${ch.slug}`);
               }
             }}
-            className="min-w-[84px] sm:min-w-[96px] md:min-w-[108px] h-[46px] sm:h-[50px] md:h-[54px] shrink-0 rounded-[6px] sm:rounded-[8px] p-2 flex items-center justify-center cursor-default group select-none bg-white dark:bg-[#2b2b2b] border border-[#e5e5e5] dark:border-[#383838] hover:border-[#cccccc] dark:hover:border-[#505050] hover:bg-[#fafafa] dark:hover:bg-[#323232] transition-colors shadow-xs"
+            className="min-w-[84px] sm:min-w-[96px] md:min-w-[108px] h-[46px] sm:h-[52px] md:h-[58px] shrink-0 rounded-xl sm:rounded-2xl p-2 flex items-center justify-center cursor-default group select-none bg-[#353535] hover:bg-[#3d3d3d] transition-colors shadow-sm"
             title={ch.name}
             aria-label={ch.name}
           >
@@ -121,7 +128,7 @@ export const OnAirSlider: React.FC<OnAirSliderProps> = ({
                 }}
               />
             </div>
-          </div>
+          </motion.div>
         ))}
       </div>
     </section>

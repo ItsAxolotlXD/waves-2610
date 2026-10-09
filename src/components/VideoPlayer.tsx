@@ -302,7 +302,7 @@ export const VideoPlayer: React.FC<VideoPlayerProps> = ({
             animate={{ opacity: 1, scale: 1, y: 0 }}
             exit={{ opacity: 0, scale: 0.9, y: -10 }}
             transition={{ duration: 0.18 }}
-            className="absolute top-14 sm:top-18 left-1/2 -translate-x-1/2 z-30 pointer-events-none px-3.5 py-1.5 rounded-full bg-black/80 border border-white/20 text-white font-mono text-xs sm:text-sm font-semibold shadow-2xl flex items-center gap-2"
+            className="absolute top-14 sm:top-18 left-1/2 -translate-x-1/2 z-30 pointer-events-none px-3.5 py-1.5 rounded-full bg-black/80 backdrop-blur-md border border-white/20 text-white font-mono text-xs sm:text-sm font-semibold shadow-2xl flex items-center gap-2"
           >
             <Ratio className="w-4 h-4 text-[#fd932f]" />
             <span>{aspectRatioToast}</span>
@@ -432,7 +432,7 @@ export const VideoPlayer: React.FC<VideoPlayerProps> = ({
 
       {/* Buffering & Loading Spinner */}
       {(isLoading || isBuffering) && !error && (
-        <div className="absolute inset-0 flex items-center justify-center bg-black/40-[2px] z-10 pointer-events-none p-4">
+        <div className="absolute inset-0 flex items-center justify-center bg-black/40 backdrop-blur-[2px] z-10 pointer-events-none p-4">
           {settings.triangleExperiment ? (
             <TriangleLoader size={66} glow={false} />
           ) : (

@@ -39,87 +39,78 @@ export const WelcomeModal: React.FC<WelcomeModalProps> = ({
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            transition={{ duration: 0.25, ease: 'easeOut' }}
+            transition={{ duration: 0.35, ease: [0.16, 1, 0.3, 1] }}
             onClick={onClose}
-            className="fixed inset-0 bg-black/50"
+            className="fixed inset-0 bg-black/10 backdrop-blur-md"
           />
 
-          {/* 2. Dialog Modal Box - Fluent Design ContentDialog */}
+          {/* 2. Dialog Modal Box */}
           <motion.div
             id="welcome-modal-dialog"
-            initial={{ opacity: 0, scale: 0.98, y: 8 }}
+            initial={{ opacity: 0, scale: 1.10 }}
             animate={{ 
               opacity: 1, 
               scale: 1,
-              y: 0,
               transition: {
-                duration: 0.22,
-                ease: [0.1, 0.9, 0.2, 1]
+                duration: 0.40,
+                ease: [0.16, 1, 0.3, 1]
               }
             }}
             exit={{ 
               opacity: 0, 
-              scale: 0.98,
-              y: 6,
+              scale: 1.08,
               transition: {
-                duration: 0.16,
-                ease: 'easeIn'
+                duration: 0.26,
+                ease: [0.25, 0.1, 0.25, 1]
               }
             }}
-            className="fluent-modal-dialog relative z-10 w-full max-w-[440px] bg-white dark:bg-[#202020] rounded-xl overflow-hidden shadow-[0_20px_50px_rgba(0,0,0,0.25),0_0_0_1px_rgba(0,0,0,0.08)] dark:shadow-[0_20px_50px_rgba(0,0,0,0.6),0_0_0_1px_rgba(255,255,255,0.08)] border border-black/[0.08] dark:border-white/[0.08] text-[#1F1F1F] dark:text-[#F3F4F6]"
+            className="spatial-glass-modal relative z-10 w-full max-w-[450px] bg-white/70 rounded-[28px] sm:rounded-[32px] p-6 sm:p-7 shadow-2xl border border-white/50 text-black"
           >
-            {/* Header & Body Content Area */}
-            <div className="p-6 pb-5">
-              <h2
-                id="welcome-modal-title"
-                className="text-[20px] font-semibold text-[#1F1F1F] dark:text-[#FFFFFF] tracking-tight leading-snug font-sans"
-              >
-                Cập nhật thành công
-              </h2>
+            {/* Title */}
+            <h1
+              id="welcome-modal-title"
+              className="text-xl sm:text-[22px] font-bold text-black tracking-tight mb-2 font-sans leading-tight"
+            >
+              Cập nhật thành công
+            </h1>
 
-              <p
-                id="welcome-modal-description"
-                className="text-[14px] text-[#555555] dark:text-[#CCCCCC] leading-normal mt-2.5 font-normal"
-              >
-                Phiên bản VNRT Online của bạn đã được cập nhật thành công với giao diện Microsoft Fluent Design hiện đại, mượt mà và trực quan.
-              </p>
+            {/* Description */}
+            <p
+              id="welcome-modal-description"
+              className="text-xs sm:text-sm text-neutral-800 leading-relaxed mb-4 font-normal"
+            >
+              Phiên bản VNRT Online của bạn đã được cập nhật thành công lên phiên bản mới nhất. Dưới đây là một số thông tin về phiên bản này
+            </p>
 
-              {/* Version Specs in Fluent Card */}
-              <div className="mt-4 p-3.5 rounded-lg bg-[#F9F9F9] dark:bg-[#2B2B2B] border border-black/[0.06] dark:border-white/[0.08] space-y-2 select-text text-[13px]">
-                <div className="flex items-center justify-between">
-                  <span className="text-[#666666] dark:text-[#AAAAAA]">Software Update</span>
-                  <span className="font-semibold text-[#1F1F1F] dark:text-[#FFFFFF]">26.10.0</span>
-                </div>
-                <div className="flex items-center justify-between">
-                  <span className="text-[#666666] dark:text-[#AAAAAA]">Software Build</span>
-                  <span className="font-semibold text-[#1F1F1F] dark:text-[#FFFFFF]">26v1009</span>
-                </div>
-                <div className="pt-2 mt-1 border-t border-black/[0.06] dark:border-white/[0.08] flex items-center justify-between">
-                  <span className="text-[#666666] dark:text-[#AAAAAA]">Design System</span>
-                  <span className="font-semibold text-[#0067C0] dark:text-[#4CC2FF]">
-                    Microsoft Fluent Design
+            {/* Bảng Giới thiệu phiên bản (Từ settings) */}
+            <div className="p-4 sm:p-5 rounded-[20px] bg-black/5 border border-black/10 space-y-3.5 select-text mb-5">
+              <div className="flex items-center justify-between text-sm sm:text-[15px]">
+                <span className="font-medium text-black">Software Update</span>
+                <span className="font-semibold text-neutral-800">26.10.0</span>
+              </div>
+              <div className="flex items-center justify-between text-sm sm:text-[15px]">
+                <span className="font-medium text-black">Software Build</span>
+                <span className="font-semibold text-neutral-800">26v1009</span>
+              </div>
+              {/* Dòng chữ to dưới Software Build: Compatible with Spatial Glass */}
+              <div id="settings-compatible-spatial-glass" className="pt-3 mt-1 border-t border-black/10 flex items-center">
+                <p className="text-base sm:text-lg font-bold tracking-tight text-black">
+                  Compatible with{' '}
+                  <span className="bg-gradient-to-r from-[#FF8A00] via-[#FF0A54] to-[#E6005A] bg-clip-text text-transparent font-bold drop-shadow-[0_0_12px_rgba(230,0,90,0.35)]">
+                    Spatial Glass.
                   </span>
-                </div>
+                </p>
               </div>
             </div>
 
-            {/* Subtle Divider */}
-            <div className="h-[1px] w-full bg-[#E5E5E5] dark:bg-[#2F2F2F]" />
-
-            {/* Bottom Actions Footer */}
-            <div className="fluent-modal-footer bg-[#F3F3F3] dark:bg-[#272727] px-6 py-3.5 flex items-center justify-end gap-2.5">
+            {/* Action Buttons */}
+            <div className="flex flex-col gap-2.5">
+              {/* Button colored: Close */}
               <button
                 type="button"
                 id="btn-welcome-close"
                 onClick={onClose}
-                className="fluent-btn-primary px-5 py-1.5 h-8 sm:h-9 rounded-[4px] bg-[#0067c0] hover:bg-[#1875c7] active:bg-[#005fb8] text-white text-[14px] font-medium shadow-sm transition-colors border border-[#005A9E] border-b-2 border-b-[#004578] flex items-center justify-center cursor-default"
-              >
-                Đồng ý
-              </button>
-              <button
-                type="button"
-                onClick={onClose}
-                className="fluent-btn-secondary px-5 py-1.5 h-8 sm:h-9 rounded-[4px] bg-white dark:bg-[#2D2D2D] hover:bg-[#F9F9F9] dark:hover:bg-[#383838] active:bg-[#EEEEEE] dark:active:bg-[#222222] text-[#1F1F1F] dark:text-[#FFFFFF] border border-[#d1d1d1] dark:border-[#3E3E3E] border-b-[#b5b5b5] dark:border-b-[#4F4F4F] text-[14px] font-normal shadow-[0_1px_2px_rgba(0,0,0,0.04)] transition-colors flex items-center justify-center cursor-default"
+                className="w-full py-2.5 sm:py-3 px-5 rounded-full font-bold text-white bg-[#fd932f] hover:bg-[#e68428] active:scale-[0.98] transition-all text-sm sm:text-base cursor-default flex items-center justify-center shadow-md tracking-tight text-center"
               >
                 Đóng
               </button>

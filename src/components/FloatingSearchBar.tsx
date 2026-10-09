@@ -294,10 +294,16 @@ export const FloatingSearchBar: React.FC<FloatingSearchBarProps> = ({
         damping: 32,
         mass: 0.35
       }}
-      style={{}}
-      className={`group relative flex items-center overflow-hidden w-[336px] sm:w-[396px] max-w-[calc(100vw-20px)] h-[48px] sm:h-[50px] px-3.5 sm:px-4 rounded-lg cursor-text shadow-[0_8px_20px_rgba(0,0,0,0.18)] dark:shadow-[0_8px_24px_rgba(0,0,0,0.36)] pointer-events-auto bg-white dark:bg-[#2c2c2c] border border-[#e5e5e5] dark:border-[#3e3e3e] text-[#1b1b1b] dark:text-[#f3f3f3] ${
+      style={{
+        backgroundColor: 'var(--spatial-glass-bg, rgba(255, 255, 255, 0.20))',
+        backdropFilter: 'blur(var(--spatial-glass-blur, 20px))',
+        WebkitBackdropFilter: 'blur(var(--spatial-glass-blur, 20px))',
+      }}
+      className={`group relative flex items-center overflow-hidden w-[336px] sm:w-[396px] max-w-[calc(100vw-20px)] h-[52px] sm:h-[56px] px-3.5 sm:px-4 rounded-full cursor-text shadow-[0_8px_32px_rgba(0,0,0,0.35)] pointer-events-auto ${
+        isDarkContent ? 'border border-black/15 text-black' : 'border border-white/10 text-white'
+      } ${
         isFocused || isListening
-          ? 'border-b-2 border-b-[#0067c0] dark:border-b-[#0067c0]'
+          ? (isDarkContent ? 'ring-2 ring-black/20 shadow-[0_10px_36px_rgba(0,0,0,0.35)]' : 'ring-2 ring-white/25 shadow-[0_10px_36px_rgba(0,0,0,0.45)]')
           : ''
       }`}
     >
@@ -363,7 +369,11 @@ export const FloatingSearchBar: React.FC<FloatingSearchBarProps> = ({
 
         {/* In-Article Match Counter & Navigation */}
         {isArticlePage && searchQuery.trim() && (
-          <div className="flex items-center gap-0.5 rounded-[4px] pl-2 pr-0.5 py-0.5 shrink-0 mr-1 select-none bg-black/5 dark:bg-white/10 border border-black/10 dark:border-white/10 text-neutral-800 dark:text-neutral-200">
+          <div className={`flex items-center gap-0.5 rounded-full pl-2 pr-0.5 py-0.5 shrink-0 mr-1 select-none ${
+            isDarkContent
+              ? 'bg-black/10 backdrop-blur-sm border border-black/15 text-black'
+              : 'bg-black/35 backdrop-blur-sm border border-white/15 text-white'
+          }`}>
             <span className={`text-[11px] font-mono whitespace-nowrap ${isDarkContent ? 'text-black/90' : 'text-white/90'}`}>
               {matchCount > 0 ? `${currentMatchIndex}/${matchCount}` : '0/0'}
             </span>
@@ -493,16 +503,35 @@ export const FloatingSearchBar: React.FC<FloatingSearchBarProps> = ({
   }
 
   return (
-    <div
-      id="floating-search-bar-container"
-      style={{
-        bottom: isKeyboardOpen ? `${keyboardHeight + 12}px` : undefined,
-        transition: 'bottom 0.42s cubic-bezier(0.22, 1, 0.36, 1)',
-      }}
-      className={`fixed ${isKeyboardOpen ? '' : 'bottom-3 sm:bottom-5'} left-1/2 -translate-x-1/2 z-40 flex flex-col items-center pointer-events-none select-none w-auto max-w-[100vw] px-2`}
-    >
-      {pillContent}
-    </div>
+    <>
+      {/* 1. Progressive Blur Layer at the bottom */}
+      <div 
+        id="bottom-progressive-blur-dock" 
+        className="bottom-progressive-blur"
+        aria-hidden="true"
+      >
+        <div className="progressive-blur-layer layer-1" />
+        <div className="progressive-blur-layer layer-2" />
+        <div className="progressive-blur-layer layer-3" />
+        <div className="progressive-blur-layer layer-4" />
+        <div className="progressive-blur-layer layer-5" />
+        <div className="progressive-blur-layer layer-6" />
+        <div className="progressive-blur-gradient" />
+      </div>
+
+      {/* 2. Floating Search Bar Container with Search Pill (smoothly pushes above native keyboard like Image 2) */}
+      <div
+        id="floating-search-bar-container"
+        style={{
+          fontFamily: "'Inter', 'Integer', system-ui, -apple-system, sans-serif",
+          bottom: isKeyboardOpen ? `${keyboardHeight + 12}px` : undefined,
+          transition: 'bottom 0.42s cubic-bezier(0.22, 1, 0.36, 1)',
+        }}
+        className={`fixed ${isKeyboardOpen ? '' : 'bottom-3 sm:bottom-5'} left-1/2 -translate-x-1/2 z-40 flex flex-col items-center pointer-events-none select-none w-auto max-w-[100vw] px-2 font-['Inter','Integer',sans-serif]`}
+      >
+        {pillContent}
+      </div>
+    </>
   );
 };
 
